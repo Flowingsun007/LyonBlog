@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context-4.0.xsd
+    http://www.springframework.org/schema/aop
+    http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
+    http://www.springframework.org/schema/tx
+    http://www.springframework.org/schema/tx/spring-tx-4.0.xsd">
+
+    <!--开启切面编程自动代理-->
+    <aop:aspectj-autoproxy proxy-target-class="true"/>
+    <!--扫描注解生成bean-->
+    <context:annotation-config/>
+    <!--包扫描-->
+    <context:component-scan base-package="com.flowingsun"/>
+    <context:property-placeholder location="classpath:jdbc.properties"/>
+
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+        <property name="mapperLocations" value="classpath:com/flowingsun/**/**.xml"/>
+    </bean>
+
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage" value="com.flowingsun.*.dao"/>
+        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
+    </bean>
+
+    <!--声明事务管理，采用注解方式-->
+    <tx:annotation-driven transaction-manager="transactionManager"/>
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+
+    <!--数据库设置-->
+    <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" destroy-method="close" init-method="init">
+        <property name="url" value="${jdbc_url}"/>
+        <property name="username" value="${jdbc_username}"/>
+        <property name="password" value="${jdbc_password}"/>
+        <!-- 初始化连接大小 -->
+        <property name="initialSize" value="1"/>
+        <!-- 连接池最大使用连接数量 -->
+        <property name="maxActive" value="20"/>
+        <!-- 连接池最小空闲 -->
+        <property name="minIdle" value="3"/>
+        <!-- 获取连接最大等待时间 -->
+        <property name="maxWait" value="60000"/>
+        <!-- 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒 -->
+        <property name="timeBetweenEvictionRunsMillis" value="60000"/>
+        <!-- 配置一个连接在池中最小生存的时间，单位是毫秒 -->
+        <property name="minEvictableIdleTimeMillis" value="300000"/>
+        <property name="validationQuery" value="${validationQuery}"/>
+        <property name="testWhileIdle" value="true"/>
+        <property name="testOnBorrow" value="false"/>
+        <property name="testOnReturn" value="false"/>
+        <!-- 打开PSCache，并且指定每个连接上PSCache的大小 -->
+        <property name="poolPreparedStatements" value="true" />
+        <property name="maxPoolPreparedStatementPerConnectionSize" value="30" />
+        <!-- 打开removeAbandoned功能 -->
+        <property name="removeAbandoned" value="true"/>
+        <!-- 1800秒，也就是30分钟 -->
+        <property name="removeAbandonedTimeout" value="1800"/>
+        <!-- 关闭abanded连接时输出错误日志 -->
+        <property name="logAbandoned" value="true"/>
+        <!-- 监控数据库,配置监控统计拦截的filters-->
+        <property name="filters" value="stat" />
+        <!--<property name="filters" value="mergeStat"/>-->
+    </bean>
+
+    <!--&lt;!&ndash;流程引擎配置项&ndash;&gt;-->
+    <!--<bean  id="processEngineConfiguration" class="org.activiti.spring.SpringProcessEngineConfiguration">-->
+        <!--&lt;!&ndash;数据源 和系统同一个&ndash;&gt;-->
+        <!--<property name="dataSource" ref="dataSource"/>-->
+        <!--<property name="transactionManager" ref="transactionManager" />-->
+        <!--&lt;!&ndash;更新数据库表 如果没有 则创建&ndash;&gt;-->
+        <!--<property name="databaseSchemaUpdate" value="true" />-->
+        <!--&lt;!&ndash; 是否启动jobExecutor &ndash;&gt;-->
+        <!--<property name="jobExecutorActivate" value="false" />-->
+        <!--<property name="activityFontName" value="宋体"/>-->
+        <!--<property name="labelFontName" value="宋体"/>-->
+        <!--&lt;!&ndash;自动部署流程&ndash;&gt;-->
+        <!--<property name="deploymentResources">-->
+            <!--<list>-->
+                <!--<value>classpath*:workflow/*.bpmn</value>-->
+            <!--</list>-->
+        <!--</property>-->
+    <!--</bean>-->
+
+    <!--&lt;!&ndash;流程引擎&ndash;&gt;-->
+    <!--<bean id="processEngine" class="org.activiti.spring.ProcessEngineFactoryBean">-->
+        <!--<property name="processEngineConfiguration" ref="processEngineConfiguration" />-->
+    <!--</bean>-->
+
+    <!--&lt;!&ndash; 工作流数据存储服务 &ndash;&gt;-->
+    <!--<bean id="repositoryService" factory-bean="processEngine" factory-method="getRepositoryService" />-->
+    <!--&lt;!&ndash; 工作流运行时服务 &ndash;&gt;-->
+    <!--<bean id="runtimeService" factory-bean="processEngine" factory-method="getRuntimeService" />-->
+    <!--&lt;!&ndash;  工作流任务服务&ndash;&gt;-->
+    <!--<bean id="taskService" factory-bean="processEngine" factory-method="getTaskService" />-->
+    <!--&lt;!&ndash;  工作流历史数据服务&ndash;&gt;-->
+    <!--<bean id="historyService" factory-bean="processEngine" factory-method="getHistoryService" />-->
+    <!--&lt;!&ndash;  工作流管理服务&ndash;&gt;-->
+    <!--<bean id="managementService" factory-bean="processEngine" factory-method="getManagementService" />-->
+    <!--&lt;!&ndash; 工作流身份识别服务 &ndash;&gt;-->
+    <!--<bean id="IdentityService" factory-bean="processEngine" factory-method="getIdentityService" />-->
+
+    <!--&lt;!&ndash;<import resource="spring-job.xml"/>&ndash;&gt;-->
+    <import resource="spring-shiro.xml"/>
+
+    <bean id="redisDAO" class="com.flowingsun.common.dao.RedisDAO">
+        <constructor-arg index="0" value="localhost">
+        </constructor-arg>
+        <constructor-arg index="1" value="6379">
+        </constructor-arg>
+    </bean>
+
+
+</beans>

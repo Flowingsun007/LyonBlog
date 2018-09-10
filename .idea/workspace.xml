@@ -1,0 +1,1557 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AnalysisUIOptions">
+    <option name="GROUP_BY_SEVERITY" value="true" />
+  </component>
+  <component name="ArtifactsWorkspaceSettings">
+    <artifacts-to-build>
+      <artifact name="LyonBlog:war" />
+    </artifacts-to-build>
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="05c41573-5dbf-46bc-a219-886ee90b0cda" name="Default" comment="" />
+    <ignored path="$PROJECT_DIR$/out/" />
+    <ignored path="$PROJECT_DIR$/target/" />
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="TRACKING_ENABLED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="DatabaseView">
+    <option name="SHOW_INTERMEDIATE" value="true" />
+    <option name="GROUP_DATA_SOURCES" value="true" />
+    <option name="GROUP_SCHEMA" value="true" />
+    <option name="GROUP_CONTENTS" value="false" />
+    <option name="SORT_POSITIONED" value="false" />
+    <option name="SHOW_EMPTY_GROUPS" value="false" />
+    <option name="AUTO_SCROLL_FROM_SOURCE" value="false" />
+    <option name="HIDDEN_KINDS">
+      <set />
+    </option>
+    <expand />
+    <select />
+  </component>
+  <component name="FavoritesManager">
+    <favorites_list name="LyonBlog" />
+  </component>
+  <component name="FileEditorManager">
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file leaf-file-name="ArticleController.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/flowingsun/article/controller/ArticleController.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="2370">
+              <caret line="158" column="47" lean-forward="false" selection-start-line="158" selection-start-column="47" selection-end-line="158" selection-end-column="47" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="BehaviorController.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/flowingsun/behavior/controller/BehaviorController.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="431">
+              <caret line="65" column="51" lean-forward="false" selection-start-line="65" selection-start-column="51" selection-end-line="65" selection-end-column="51" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="BehaviorServiceImpl.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/flowingsun/behavior/service/BehaviorServiceImpl.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="86">
+              <caret line="134" column="51" lean-forward="false" selection-start-line="134" selection-start-column="51" selection-end-line="134" selection-end-column="51" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ArticleServiceImpl.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/flowingsun/article/service/ArticleServiceImpl.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-4831">
+              <caret line="676" column="48" lean-forward="false" selection-start-line="676" selection-start-column="48" selection-end-line="676" selection-end-column="48" />
+              <folding>
+                <element signature="e#11572#11593#0" expanded="true" />
+                <element signature="e#11660#11681#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="AdminController.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/flowingsun/admin/controller/AdminController.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="168">
+              <caret line="20" column="3" lean-forward="false" selection-start-line="20" selection-start-column="3" selection-end-line="20" selection-end-column="3" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="AdminBlogQuery.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/flowingsun/admin/entity/AdminBlogQuery.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-635">
+              <caret line="7" column="13" lean-forward="false" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ArticleService.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/flowingsun/article/service/ArticleService.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-560">
+              <caret line="10" column="17" lean-forward="false" selection-start-line="10" selection-start-column="17" selection-end-line="10" selection-end-column="17" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="spring-beans.schema" />
+        <option value="Jsp File" />
+        <option value="HTML File" />
+        <option value="Interface" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>SALES</find>
+      <find>myCarousel</find>
+      <find>.carousel-item &gt; img</find>
+      <find>request</find>
+      <find>shared a video</find>
+      <find>beautiful</find>
+      <find>textarea</find>
+      <find>multipartFile</find>
+      <find>beautifulGirl</find>
+      <find>saveUserImage</find>
+      <find>timelinePicControlBtn</find>
+      <find>commented on your post</find>
+      <find>redis</find>
+      <find>测试</find>
+      <find>密码</find>
+      <find>uploadForm</find>
+      <find>uploadBlogFile</find>
+      <find>添加</find>
+      <find>添加图片</find>
+      <find>ajaxSubmit</find>
+      <find>uploadSubmit</find>
+      <find>uploadButton</find>
+      <find>uploadImage</find>
+      <find>redisDAO</find>
+      <find>Multipart</find>
+      <find>imageUpload</find>
+      <find>filePath</find>
+      <find>getArticleInfo</find>
+      <find>UPLOAD_IMAGE_PATH</find>
+      <find>addArticleTagQuick</find>
+    </findStrings>
+    <dirStrings>
+      <dir>/Library/Java/JavaVirtualMachines/jdk1.8.0_171.jdk/Contents/Home/jre/lib/rt.jar</dir>
+    </dirStrings>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GradleLocalSettings">
+    <option name="externalProjectsViewState">
+      <projects_view />
+    </option>
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/src/main/java/com/flowingsun/behavior/entity/Thank.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/flowingsun/behavior/entity/CommentLike.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/flowingsun/behavior/entity/Discussion.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/flowingsun/article/entity/Article.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/flowingsun/behavior/dao/CommentMapper.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/flowingsun/behavior/dao/ThankMapper.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/flowingsun/behavior/dao/CommentMapper.xml" />
+        <option value="$PROJECT_DIR$/src/main/java/com/flowingsun/behavior/dao/ThankMapper.xml" />
+        <option value="$PROJECT_DIR$/src/main/java/com/flowingsun/behavior/entity/BehaviorStatus.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/flowingsun/article/dao/ArticleMapper.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/flowingsun/article/service/ArticleService.java" />
+        <option value="$PROJECT_DIR$/src/main/webapp/static/css/templateBlog.css" />
+        <option value="$PROJECT_DIR$/pom.xml" />
+        <option value="$PROJECT_DIR$/src/main/resources/spring-cfg.xml" />
+        <option value="$PROJECT_DIR$/src/main/java/com/flowingsun/common/security/CustomCredentialsMatcher.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/flowingsun/user/service/UserService.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/flowingsun/user/dao/UserMapper.xml" />
+        <option value="$PROJECT_DIR$/src/main/java/com/flowingsun/user/entity/Permission.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/flowingsun/user/entity/Role.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/flowingsun/user/entity/RolePermisson.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/flowingsun/user/entity/User.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/flowingsun/user/entity/UserRole.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/flowingsun/article/entity/Category.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/flowingsun/article/entity/ArticleTag.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/flowingsun/common/utils/SerializeUtils.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/flowingsun/common/dao/RedisDAO.java" />
+        <option value="$PROJECT_DIR$/src/main/resources/spring-mvc.xml" />
+        <option value="$PROJECT_DIR$/src/main/java/com/flowingsun/common/interceptor/SessionInterceptor.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/flowingsun/common/security/MyRealm.java" />
+        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/admin/writeBlog.vm" />
+        <option value="$PROJECT_DIR$/src/main/java/com/flowingsun/article/dao/ArticleMapper.xml" />
+        <option value="$PROJECT_DIR$/src/main/webapp/static/css/writeBlog.css" />
+        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/admin/editBlog.vm" />
+        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/article/categoryArticle.vm" />
+        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/article/singleArticle.vm" />
+        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/article/tagArticle.vm" />
+        <option value="$PROJECT_DIR$/src/main/java/com/flowingsun/user/vo/TimelineImageQuery.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/flowingsun/behavior/dao/PictureMapper.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/flowingsun/behavior/dao/PictureMapper.xml" />
+        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/index.vm" />
+        <option value="$PROJECT_DIR$/src/main/webapp/static/css/blogHome.css" />
+        <option value="$PROJECT_DIR$/src/main/java/com/flowingsun/user/controller/UserController.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/flowingsun/behavior/service/BehaviorService.java" />
+        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/user/manageCenter.vm" />
+        <option value="$PROJECT_DIR$/src/main/java/com/flowingsun/common/utils/InfoCountUtils.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/flowingsun/user/service/UserServiceImpl.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/flowingsun/behavior/controller/BehaviorController.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/flowingsun/article/controller/ArticleController.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/flowingsun/admin/controller/AdminController.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/flowingsun/behavior/service/BehaviorServiceImpl.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/flowingsun/article/service/ArticleServiceImpl.java" />
+      </list>
+    </option>
+  </component>
+  <component name="JsBuildToolGruntFileManager" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsBuildToolPackageJson" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsGulpfileManager">
+    <detection-done>true</detection-done>
+    <sorting>DEFINITION_ORDER</sorting>
+  </component>
+  <component name="LogFilters">
+    <option name="FILTER_ERRORS" value="false" />
+    <option name="FILTER_WARNINGS" value="false" />
+    <option name="FILTER_INFO" value="true" />
+    <option name="FILTER_DEBUG" value="true" />
+    <option name="CUSTOM_FILTER" />
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="localRepository" value="$USER_HOME$/CodingKit/MavenBox" />
+        <option name="mavenHome" value="/usr/local/codingKids/apache-maven-3.5.0" />
+        <option name="userSettingsFile" value="/usr/local/codingKids/apache-maven-3.5.0/conf/settings.xml" />
+      </MavenGeneralSettings>
+    </option>
+    <option name="importingSettings">
+      <MavenImportingSettings>
+        <option name="importAutomatically" value="true" />
+      </MavenImportingSettings>
+    </option>
+  </component>
+  <component name="MavenProjectNavigator">
+    <treeState>
+      <expand>
+        <path>
+          <item name="" type="16c1761:MavenProjectsStructure$RootNode" />
+          <item name="LyonBlog" type="9519ce18:MavenProjectsStructure$ProjectNode" />
+        </path>
+      </expand>
+      <select />
+    </treeState>
+  </component>
+  <component name="ProjectFrameBounds">
+    <option name="x" value="149" />
+    <option name="y" value="29" />
+    <option name="width" value="1320" />
+    <option name="height" value="797" />
+  </component>
+  <component name="ProjectInspectionProfilesVisibleTreeState">
+    <entry key="Project Default">
+      <profile-state>
+        <expanded-state>
+          <State>
+            <id />
+          </State>
+          <State>
+            <id>Data flow issuesJava</id>
+          </State>
+          <State>
+            <id>Data flow issuesJavaScript</id>
+          </State>
+          <State>
+            <id>Java</id>
+          </State>
+          <State>
+            <id>JavaScript</id>
+          </State>
+        </expanded-state>
+        <selected-state>
+          <State>
+            <id>AOP</id>
+          </State>
+        </selected-state>
+      </profile-state>
+    </entry>
+  </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectView">
+    <navigator currentView="ProjectPane" proportions="" version="1">
+      <flattenPackages />
+      <showMembers />
+      <showModules />
+      <showLibraryContents />
+      <hideEmptyPackages />
+      <abbreviatePackageNames />
+      <autoscrollToSource />
+      <autoscrollFromSource />
+      <sortByType />
+      <manualOrder />
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="PackagesPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="LyonBlog" type="58d84e3e:PackageViewProjectNode" />
+              <item name="LyonBlog" type="616d4139:PackageViewModuleNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="LyonBlog" type="b2602c69:ProjectViewProjectNode" />
+              <item name="LyonBlog" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="LyonBlog" type="b2602c69:ProjectViewProjectNode" />
+              <item name="LyonBlog" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="LyonBlog" type="b2602c69:ProjectViewProjectNode" />
+              <item name="LyonBlog" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="LyonBlog" type="b2602c69:ProjectViewProjectNode" />
+              <item name="LyonBlog" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="LyonBlog" type="b2602c69:ProjectViewProjectNode" />
+              <item name="LyonBlog" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="com" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="LyonBlog" type="b2602c69:ProjectViewProjectNode" />
+              <item name="LyonBlog" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="com" type="462c0819:PsiDirectoryNode" />
+              <item name="flowingsun" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="LyonBlog" type="b2602c69:ProjectViewProjectNode" />
+              <item name="LyonBlog" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="com" type="462c0819:PsiDirectoryNode" />
+              <item name="flowingsun" type="462c0819:PsiDirectoryNode" />
+              <item name="admin" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="LyonBlog" type="b2602c69:ProjectViewProjectNode" />
+              <item name="LyonBlog" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="com" type="462c0819:PsiDirectoryNode" />
+              <item name="flowingsun" type="462c0819:PsiDirectoryNode" />
+              <item name="admin" type="462c0819:PsiDirectoryNode" />
+              <item name="controller" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="LyonBlog" type="b2602c69:ProjectViewProjectNode" />
+              <item name="LyonBlog" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="com" type="462c0819:PsiDirectoryNode" />
+              <item name="flowingsun" type="462c0819:PsiDirectoryNode" />
+              <item name="article" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="LyonBlog" type="b2602c69:ProjectViewProjectNode" />
+              <item name="LyonBlog" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="com" type="462c0819:PsiDirectoryNode" />
+              <item name="flowingsun" type="462c0819:PsiDirectoryNode" />
+              <item name="article" type="462c0819:PsiDirectoryNode" />
+              <item name="controller" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="LyonBlog" type="b2602c69:ProjectViewProjectNode" />
+              <item name="LyonBlog" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="com" type="462c0819:PsiDirectoryNode" />
+              <item name="flowingsun" type="462c0819:PsiDirectoryNode" />
+              <item name="article" type="462c0819:PsiDirectoryNode" />
+              <item name="vo" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="LyonBlog" type="b2602c69:ProjectViewProjectNode" />
+              <item name="LyonBlog" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="com" type="462c0819:PsiDirectoryNode" />
+              <item name="flowingsun" type="462c0819:PsiDirectoryNode" />
+              <item name="behavior" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="LyonBlog" type="b2602c69:ProjectViewProjectNode" />
+              <item name="LyonBlog" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="com" type="462c0819:PsiDirectoryNode" />
+              <item name="flowingsun" type="462c0819:PsiDirectoryNode" />
+              <item name="behavior" type="462c0819:PsiDirectoryNode" />
+              <item name="controller" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="LyonBlog" type="b2602c69:ProjectViewProjectNode" />
+              <item name="LyonBlog" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="com" type="462c0819:PsiDirectoryNode" />
+              <item name="flowingsun" type="462c0819:PsiDirectoryNode" />
+              <item name="behavior" type="462c0819:PsiDirectoryNode" />
+              <item name="service" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="LyonBlog" type="b2602c69:ProjectViewProjectNode" />
+              <item name="LyonBlog" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="com" type="462c0819:PsiDirectoryNode" />
+              <item name="flowingsun" type="462c0819:PsiDirectoryNode" />
+              <item name="user" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="LyonBlog" type="b2602c69:ProjectViewProjectNode" />
+              <item name="LyonBlog" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="com" type="462c0819:PsiDirectoryNode" />
+              <item name="flowingsun" type="462c0819:PsiDirectoryNode" />
+              <item name="user" type="462c0819:PsiDirectoryNode" />
+              <item name="controller" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="LyonBlog" type="b2602c69:ProjectViewProjectNode" />
+              <item name="LyonBlog" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="webapp" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="LyonBlog" type="b2602c69:ProjectViewProjectNode" />
+              <item name="LyonBlog" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="webapp" type="462c0819:PsiDirectoryNode" />
+              <item name="WEB-INF" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="LyonBlog" type="b2602c69:ProjectViewProjectNode" />
+              <item name="LyonBlog" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="webapp" type="462c0819:PsiDirectoryNode" />
+              <item name="WEB-INF" type="462c0819:PsiDirectoryNode" />
+              <item name="views" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="LyonBlog" type="b2602c69:ProjectViewProjectNode" />
+              <item name="LyonBlog" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="webapp" type="462c0819:PsiDirectoryNode" />
+              <item name="WEB-INF" type="462c0819:PsiDirectoryNode" />
+              <item name="views" type="462c0819:PsiDirectoryNode" />
+              <item name="admin" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="LyonBlog" type="b2602c69:ProjectViewProjectNode" />
+              <item name="LyonBlog" type="462c0819:PsiDirectoryNode" />
+              <item name="target" type="462c0819:PsiDirectoryNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+      <pane id="Scratches" />
+      <pane id="Scope" />
+      <pane id="AndroidView" />
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+    <property name="project.structure.last.edited" value="SDKs" />
+    <property name="project.structure.proportion" value="0.15" />
+    <property name="project.structure.side.proportion" value="0.3222004" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="DefaultHtmlFileTemplate" value="HTML File" />
+    <property name="SearchEverywhereHistoryKey" value="&#9;FILE&#9;file:///Users/zhaoluyang/JavaProject/LyonBlog/src/main/webapp/WEB-INF/views/index.vm" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/main/webapp" />
+      <recent name="$PROJECT_DIR$/src/main/webapp/WEB-INF" />
+      <recent name="$PROJECT_DIR$/src/main/webapp/static/userFile/movie" />
+      <recent name="$PROJECT_DIR$/src/main/webapp/static/userFile" />
+      <recent name="$PROJECT_DIR$/src/main/webapp/static" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/main/webapp/static/uploadBlogFile/image" />
+      <recent name="$PROJECT_DIR$/src/main/webapp/static/userFile/images" />
+      <recent name="$PROJECT_DIR$/src/main/webapp" />
+      <recent name="$PROJECT_DIR$/src/main/webapp/static/image" />
+      <recent name="$PROJECT_DIR$/src/main/webapp/static/image/userHead" />
+    </key>
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="RunManager" selected="Tomcat Server.Tomcat9">
+    <configuration default="true" type="Applet" factoryName="Applet">
+      <option name="HTML_USED" value="false" />
+      <option name="WIDTH" value="400" />
+      <option name="HEIGHT" value="300" />
+      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
+      <module />
+    </configuration>
+    <configuration default="true" type="Application" factoryName="Application">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="ENABLE_SWING_INSPECTOR" value="false" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <module name="" />
+      <envs />
+    </configuration>
+    <configuration default="true" type="JUnit" factoryName="JUnit">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <module name="" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="METHOD_NAME" />
+      <option name="TEST_OBJECT" value="class" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="%MODULE_WORKING_DIR%" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <envs />
+      <patterns />
+    </configuration>
+    <configuration name="generator" type="MavenRunConfiguration" factoryName="Maven">
+      <MavenSettings>
+        <option name="myGeneralSettings" />
+        <option name="myRunnerSettings" />
+        <option name="myRunnerParameters">
+          <MavenRunnerParameters>
+            <option name="profiles">
+              <set />
+            </option>
+            <option name="goals">
+              <list>
+                <option value="mybatis-generator:generate" />
+                <option value="-e" />
+              </list>
+            </option>
+            <option name="profilesMap">
+              <map />
+            </option>
+            <option name="resolveToWorkspace" value="false" />
+            <option name="workingDirPath" value="$PROJECT_DIR$" />
+          </MavenRunnerParameters>
+        </option>
+      </MavenSettings>
+    </configuration>
+    <configuration default="true" type="Remote" factoryName="Remote">
+      <option name="USE_SOCKET_TRANSPORT" value="true" />
+      <option name="SERVER_MODE" value="false" />
+      <option name="SHMEM_ADDRESS" value="javadebug" />
+      <option name="HOST" value="localhost" />
+      <option name="PORT" value="5005" />
+    </configuration>
+    <configuration default="true" type="TestNG" factoryName="TestNG">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <module name="" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="SUITE_NAME" />
+      <option name="PACKAGE_NAME" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="METHOD_NAME" />
+      <option name="GROUP_NAME" />
+      <option name="TEST_OBJECT" value="CLASS" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="%MODULE_WORKING_DIR%" />
+      <option name="OUTPUT_DIRECTORY" />
+      <option name="ANNOTATION_TYPE" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <option name="USE_DEFAULT_REPORTERS" value="false" />
+      <option name="PROPERTIES_FILE" />
+      <envs />
+      <properties />
+      <listeners />
+    </configuration>
+    <configuration name="Tomcat9" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local" APPLICATION_SERVER_NAME="Tomcat 9.0.8" ALTERNATIVE_JRE_ENABLED="false">
+      <option name="OPEN_IN_BROWSER" value="false" />
+      <option name="UPDATE_ON_FRAME_DEACTIVATION" value="true" />
+      <option name="UPDATE_CLASSES_ON_FRAME_DEACTIVATION" value="true" />
+      <option name="SHOW_DIALOG_ON_UPDATE" value="false" />
+      <deployment>
+        <artifact name="LyonBlog:war exploded">
+          <settings>
+            <option name="CONTEXT_PATH" value="/" />
+          </settings>
+        </artifact>
+      </deployment>
+      <server-settings>
+        <option name="BASE_DIRECTORY_NAME" value="Unnamed_LyonBlog" />
+      </server-settings>
+      <predefined_log_file id="Tomcat" enabled="true" />
+      <predefined_log_file id="Tomcat Catalina" enabled="true" />
+      <predefined_log_file id="Tomcat Manager" enabled="false" />
+      <predefined_log_file id="Tomcat Host Manager" enabled="false" />
+      <predefined_log_file id="Tomcat Localhost Access" enabled="false" />
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <RunnerSettings RunnerId="Debug">
+        <option name="DEBUG_PORT" value="51206" />
+      </RunnerSettings>
+      <RunnerSettings RunnerId="JRebel Debug">
+        <option name="DEBUG_PORT" value="55071" />
+      </RunnerSettings>
+      <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Cover">
+        <option name="USE_ENV_VARIABLES" value="true" />
+        <STARTUP>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </STARTUP>
+        <SHUTDOWN>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </SHUTDOWN>
+      </ConfigurationWrapper>
+      <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Debug">
+        <option name="USE_ENV_VARIABLES" value="true" />
+        <STARTUP>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </STARTUP>
+        <SHUTDOWN>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </SHUTDOWN>
+      </ConfigurationWrapper>
+      <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="JRebel Debug">
+        <option name="USE_ENV_VARIABLES" value="true" />
+        <STARTUP>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </STARTUP>
+        <SHUTDOWN>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </SHUTDOWN>
+      </ConfigurationWrapper>
+      <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="JRebel Executor">
+        <option name="USE_ENV_VARIABLES" value="true" />
+        <STARTUP>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </STARTUP>
+        <SHUTDOWN>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </SHUTDOWN>
+      </ConfigurationWrapper>
+      <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Run">
+        <option name="USE_ENV_VARIABLES" value="true" />
+        <STARTUP>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </STARTUP>
+        <SHUTDOWN>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </SHUTDOWN>
+      </ConfigurationWrapper>
+      <method>
+        <option name="BuildArtifacts" enabled="true">
+          <artifact name="LyonBlog:war exploded" />
+        </option>
+        <option name="BuildArtifacts" enabled="true">
+          <artifact name="LyonBlog:war" />
+        </option>
+      </method>
+    </configuration>
+    <configuration default="true" type="#org.jetbrains.idea.devkit.run.PluginConfigurationType" factoryName="Plugin">
+      <module name="" />
+      <option name="VM_PARAMETERS" value="-Xmx512m -Xms256m -XX:MaxPermSize=250m -ea" />
+      <option name="PROGRAM_PARAMETERS" />
+      <predefined_log_file id="idea.log" enabled="true" />
+    </configuration>
+    <list size="2">
+      <item index="0" class="java.lang.String" itemvalue="Maven.generator" />
+      <item index="1" class="java.lang.String" itemvalue="Tomcat Server.Tomcat9" />
+    </list>
+  </component>
+  <component name="ShelveChangesManager" show_recycled="false">
+    <option name="remove_strategy" value="false" />
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="05c41573-5dbf-46bc-a219-886ee90b0cda" name="Default" comment="" />
+      <created>1525656577934</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1525656577934</updated>
+      <workItem from="1525656579679" duration="2272000" />
+      <workItem from="1525697463941" duration="2201000" />
+      <workItem from="1525700692987" duration="297000" />
+      <workItem from="1525701041741" duration="11123000" />
+      <workItem from="1525734656531" duration="8115000" />
+      <workItem from="1525743665698" duration="1338000" />
+      <workItem from="1525764476596" duration="397000" />
+      <workItem from="1525764894516" duration="1135000" />
+      <workItem from="1525766125813" duration="23037000" />
+      <workItem from="1525792148998" duration="858000" />
+      <workItem from="1525821154949" duration="8241000" />
+      <workItem from="1525851001848" duration="11958000" />
+      <workItem from="1525869324561" duration="4741000" />
+      <workItem from="1525874133421" duration="390000" />
+      <workItem from="1525874824388" duration="5180000" />
+      <workItem from="1525880101243" duration="4150000" />
+      <workItem from="1525907447555" duration="2062000" />
+      <workItem from="1525910013244" duration="8311000" />
+      <workItem from="1525919014976" duration="42056000" />
+      <workItem from="1525967471824" duration="2738000" />
+      <workItem from="1525998367197" duration="4423000" />
+      <workItem from="1526023704752" duration="8820000" />
+      <workItem from="1526035128928" duration="15172000" />
+      <workItem from="1526084976660" duration="10142000" />
+      <workItem from="1526115655833" duration="22583000" />
+      <workItem from="1526172353623" duration="2967000" />
+      <workItem from="1526175585331" duration="927000" />
+      <workItem from="1526202656280" duration="10962000" />
+      <workItem from="1526222537912" duration="872000" />
+      <workItem from="1526223471182" duration="161000" />
+      <workItem from="1526223752209" duration="3604000" />
+      <workItem from="1526258104909" duration="3803000" />
+      <workItem from="1526282871529" duration="1181000" />
+      <workItem from="1526284268661" duration="4594000" />
+      <workItem from="1526294995165" duration="751000" />
+      <workItem from="1526296086005" duration="1121000" />
+      <workItem from="1526297708386" duration="2188000" />
+      <workItem from="1526300139200" duration="4062000" />
+      <workItem from="1526304546805" duration="1034000" />
+      <workItem from="1526307038986" duration="138000" />
+      <workItem from="1526308174192" duration="102000" />
+      <workItem from="1526308305166" duration="6813000" />
+      <workItem from="1526344420548" duration="2021000" />
+      <workItem from="1526346690453" duration="2560000" />
+      <workItem from="1526369782230" duration="397000" />
+      <workItem from="1526370201193" duration="11849000" />
+      <workItem from="1526388257849" duration="579000" />
+      <workItem from="1526388932623" duration="2435000" />
+      <workItem from="1526391602872" duration="7607000" />
+      <workItem from="1526426350550" duration="900000" />
+      <workItem from="1526427856622" duration="6591000" />
+      <workItem from="1526458890316" duration="8638000" />
+      <workItem from="1526477592659" duration="4554000" />
+      <workItem from="1526482673863" duration="2724000" />
+      <workItem from="1526485451156" duration="1404000" />
+      <workItem from="1526515948969" duration="6199000" />
+      <workItem from="1526542204762" duration="5016000" />
+      <workItem from="1526547546632" duration="161000" />
+      <workItem from="1526547730851" duration="4187000" />
+      <workItem from="1526554722193" duration="7421000" />
+      <workItem from="1526567491897" duration="1912000" />
+      <workItem from="1526606939998" duration="118000" />
+      <workItem from="1526607535988" duration="290000" />
+      <workItem from="1526630251707" duration="130000" />
+      <workItem from="1526631050399" duration="363000" />
+      <workItem from="1526631622074" duration="190000" />
+      <workItem from="1526632298074" duration="54000" />
+      <workItem from="1526632875205" duration="6920000" />
+      <workItem from="1526691072314" duration="2901000" />
+      <workItem from="1526715108218" duration="731000" />
+      <workItem from="1526715921258" duration="2410000" />
+      <workItem from="1526720372612" duration="6440000" />
+      <workItem from="1526729888940" duration="15335000" />
+      <workItem from="1526745320890" duration="375000" />
+      <workItem from="1526775286500" duration="10907000" />
+      <workItem from="1526801776226" duration="21988000" />
+      <workItem from="1526864148922" duration="25006000" />
+      <workItem from="1526948400902" duration="54000" />
+      <workItem from="1526948515613" duration="2473000" />
+      <workItem from="1526952054681" duration="291000" />
+      <workItem from="1526952398035" duration="84000" />
+      <workItem from="1526952517642" duration="423000" />
+      <workItem from="1526952957286" duration="613000" />
+      <workItem from="1526975836503" duration="7685000" />
+      <workItem from="1526984025315" duration="6323000" />
+      <workItem from="1526991201959" duration="3636000" />
+      <workItem from="1526994952680" duration="8557000" />
+      <workItem from="1527031932921" duration="6030000" />
+      <workItem from="1527063641482" duration="14340000" />
+      <workItem from="1527081178617" duration="8207000" />
+      <workItem from="1527119232517" duration="39000" />
+      <workItem from="1527119303194" duration="126000" />
+      <workItem from="1527119458496" duration="6290000" />
+      <workItem from="1527149507278" duration="12611000" />
+      <workItem from="1527164481939" duration="5061000" />
+      <workItem from="1527171337075" duration="1745000" />
+      <workItem from="1527173397156" duration="2789000" />
+      <workItem from="1527205792567" duration="4601000" />
+      <workItem from="1527210468983" duration="1637000" />
+      <workItem from="1527214394630" duration="12794000" />
+      <workItem from="1527227802573" duration="6005000" />
+      <workItem from="1527238093152" duration="3580000" />
+      <workItem from="1527243376561" duration="4365000" />
+      <workItem from="1527253193802" duration="625000" />
+      <workItem from="1527253826198" duration="5400000" />
+      <workItem from="1527259648641" duration="1007000" />
+      <workItem from="1527292048017" duration="1490000" />
+      <workItem from="1527293847896" duration="283000" />
+      <workItem from="1527294188091" duration="1527000" />
+      <workItem from="1527295752902" duration="3445000" />
+      <workItem from="1527320719491" duration="4754000" />
+      <workItem from="1527325495178" duration="3000" />
+      <workItem from="1527325551264" duration="953000" />
+      <workItem from="1527326600241" duration="644000" />
+      <workItem from="1527327279007" duration="3452000" />
+      <workItem from="1527331792264" duration="418000" />
+      <workItem from="1527332246985" duration="12115000" />
+      <workItem from="1527346788685" duration="872000" />
+      <workItem from="1527381390433" duration="4539000" />
+      <workItem from="1527385990896" duration="365000" />
+      <workItem from="1527410534413" duration="684000" />
+      <workItem from="1527411253723" duration="1457000" />
+      <workItem from="1527412767665" duration="721000" />
+      <workItem from="1527413530672" duration="140000" />
+      <workItem from="1527421592791" duration="658000" />
+      <workItem from="1527423894021" duration="920000" />
+      <workItem from="1527426729043" duration="460000" />
+      <workItem from="1527427225548" duration="1491000" />
+      <workItem from="1527428727211" duration="3221000" />
+      <workItem from="1527432384974" duration="2261000" />
+      <workItem from="1527467897440" duration="2553000" />
+      <workItem from="1527470515419" duration="5626000" />
+      <workItem from="1527496417197" duration="3431000" />
+      <workItem from="1527555639854" duration="4324000" />
+      <workItem from="1527598300287" duration="11214000" />
+      <workItem from="1527640475874" duration="4300000" />
+      <workItem from="1527645051038" duration="427000" />
+      <workItem from="1527667211425" duration="11618000" />
+      <workItem from="1527685834688" duration="5158000" />
+      <workItem from="1527722212121" duration="958000" />
+      <workItem from="1527727252391" duration="406000" />
+      <workItem from="1527728767714" duration="170000" />
+      <workItem from="1527729028543" duration="596000" />
+      <workItem from="1527729788891" duration="407000" />
+      <workItem from="1527754949378" duration="679000" />
+      <workItem from="1527761720226" duration="4344000" />
+      <workItem from="1527766535169" duration="436000" />
+      <workItem from="1527767257033" duration="225000" />
+      <workItem from="1527770355270" duration="10663000" />
+      <workItem from="1527810922898" duration="5588000" />
+      <workItem from="1527850526423" duration="18439000" />
+      <workItem from="1527896402449" duration="27600000" />
+      <workItem from="1527927354679" duration="9913000" />
+      <workItem from="1527938952291" duration="3706000" />
+      <workItem from="1527946706368" duration="6656000" />
+      <workItem from="1527984785423" duration="9857000" />
+      <workItem from="1528008625869" duration="2564000" />
+      <workItem from="1528023328892" duration="13961000" />
+      <workItem from="1528069063263" duration="36164000" />
+      <workItem from="1528115146257" duration="2197000" />
+      <workItem from="1528117708481" duration="360000" />
+      <workItem from="1528118116330" duration="8065000" />
+      <workItem from="1528126434118" duration="3434000" />
+      <workItem from="1528129914491" duration="128000" />
+      <workItem from="1528159217104" duration="3008000" />
+      <workItem from="1528183922914" duration="7357000" />
+      <workItem from="1528204055274" duration="9479000" />
+      <workItem from="1528241662959" duration="4192000" />
+      <workItem from="1528246237488" duration="2597000" />
+      <workItem from="1528270575425" duration="21541000" />
+      <workItem from="1528335361999" duration="240000" />
+      <workItem from="1528356228028" duration="1709000" />
+      <workItem from="1528369880264" duration="1040000" />
+      <workItem from="1528374452220" duration="1162000" />
+      <workItem from="1528377570140" duration="1451000" />
+      <workItem from="1528416460540" duration="3515000" />
+      <workItem from="1528444338431" duration="1971000" />
+      <workItem from="1528446588774" duration="610000" />
+      <workItem from="1528449879412" duration="365000" />
+      <workItem from="1528464655242" duration="2521000" />
+      <workItem from="1528500850814" duration="6722000" />
+      <workItem from="1528529771765" duration="21219000" />
+      <workItem from="1528586995459" duration="7820000" />
+      <workItem from="1528615843959" duration="2311000" />
+      <workItem from="1528619289358" duration="4038000" />
+      <workItem from="1528623423184" duration="16575000" />
+      <workItem from="1528674388867" duration="1926000" />
+      <workItem from="1528676640234" duration="4102000" />
+      <workItem from="1528703116414" duration="2796000" />
+      <workItem from="1528731228792" duration="636000" />
+      <workItem from="1528760020489" duration="598000" />
+      <workItem from="1528793198704" duration="439000" />
+      <workItem from="1528795322888" duration="3604000" />
+      <workItem from="1528802185839" duration="134000" />
+      <workItem from="1528802348745" duration="4062000" />
+      <workItem from="1528852555056" duration="1525000" />
+      <workItem from="1528863674735" duration="743000" />
+      <workItem from="1528872667304" duration="1782000" />
+      <workItem from="1528889352348" duration="1932000" />
+      <workItem from="1528891840060" duration="408000" />
+      <workItem from="1528897003358" duration="1534000" />
+      <workItem from="1528931679086" duration="13000" />
+      <workItem from="1529060323157" duration="1660000" />
+      <workItem from="1529102977849" duration="232000" />
+      <workItem from="1529104762249" duration="24715000" />
+      <workItem from="1529142998006" duration="14812000" />
+      <workItem from="1529158712331" duration="1713000" />
+      <workItem from="1529162250004" duration="751000" />
+      <workItem from="1529188826956" duration="2849000" />
+      <workItem from="1529301386552" duration="3596000" />
+      <workItem from="1529330218553" duration="884000" />
+      <workItem from="1529374720452" duration="2293000" />
+      <workItem from="1529380007387" duration="7215000" />
+      <workItem from="1529394866043" duration="845000" />
+      <workItem from="1529398052416" duration="552000" />
+      <workItem from="1529398703851" duration="7455000" />
+      <workItem from="1529420832745" duration="2063000" />
+      <workItem from="1529453890771" duration="5606000" />
+      <workItem from="1529470070209" duration="715000" />
+      <workItem from="1529470836428" duration="5324000" />
+      <workItem from="1529495807732" duration="4709000" />
+      <workItem from="1529501500313" duration="5518000" />
+      <workItem from="1529508763288" duration="134000" />
+      <workItem from="1529538622741" duration="2792000" />
+      <workItem from="1529541467933" duration="861000" />
+      <workItem from="1529544068230" duration="1829000" />
+      <workItem from="1529592559213" duration="441000" />
+      <workItem from="1529633054680" duration="698000" />
+      <workItem from="1529881697309" duration="1380000" />
+      <workItem from="1529992428373" duration="468000" />
+      <workItem from="1530087957853" duration="10000" />
+      <workItem from="1530791227886" duration="644000" />
+      <workItem from="1531131108187" duration="219000" />
+      <workItem from="1531483244443" duration="326000" />
+      <workItem from="1531609223124" duration="20072000" />
+      <workItem from="1531643971782" duration="1242000" />
+      <workItem from="1531659978879" duration="9055000" />
+      <workItem from="1531669414388" duration="638000" />
+      <workItem from="1531696403177" duration="3890000" />
+      <workItem from="1531740613614" duration="11334000" />
+      <workItem from="1531788840238" duration="358000" />
+      <workItem from="1531796176192" duration="779000" />
+      <workItem from="1531813863361" duration="1113000" />
+      <workItem from="1531834188483" duration="5347000" />
+      <workItem from="1531868782915" duration="495000" />
+      <workItem from="1531905786606" duration="340000" />
+      <workItem from="1531914702231" duration="1507000" />
+      <workItem from="1531953368131" duration="651000" />
+      <workItem from="1532960077179" duration="145000" />
+      <workItem from="1534114700869" duration="2355000" />
+      <workItem from="1534572213931" duration="1171000" />
+      <workItem from="1534686561076" duration="1553000" />
+      <workItem from="1534719052813" duration="1683000" />
+      <workItem from="1535763742846" duration="2244000" />
+      <workItem from="1535938792325" duration="617000" />
+      <workItem from="1536044051396" duration="73000" />
+      <workItem from="1536563113005" duration="3891000" />
+      <workItem from="1536568176967" duration="2549000" />
+      <workItem from="1536574059894" duration="12305000" />
+    </task>
+    <task id="LOCAL-00001" summary="标签区边框修改">
+      <created>1531624311177</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1531624311177</updated>
+    </task>
+    <task id="LOCAL-00002" summary="modified-manageCenter-1.0">
+      <created>1531633409448</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1531633409448</updated>
+    </task>
+    <task id="LOCAL-00003" summary="modified-manageCenter-1.1">
+      <created>1531633714401</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1531633714401</updated>
+    </task>
+    <task id="LOCAL-00004" summary="modified-manageCenter-imageTimeline-2.0-180715">
+      <created>1531669478479</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1531669478479</updated>
+    </task>
+    <task id="LOCAL-00005" summary="【modified-manageCenter-imageTimeline-V3.0-180716】&#10;已完成照片墙的基本功能">
+      <created>1531753972721</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1531753972721</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
+    <servers />
+  </component>
+  <component name="TimeTrackingManager">
+    <option name="totallyTimeSpent" value="1145157000" />
+  </component>
+  <component name="TodoView">
+    <todo-panel id="selected-file">
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+    <todo-panel id="all">
+      <are-packages-shown value="true" />
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="149" y="29" width="1320" height="797" extended-state="0" />
+    <layout>
+      <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3138138" sideWeight="0.496997" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.37891737" sideWeight="0.69553804" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Java Enterprise" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32582584" sideWeight="0.496997" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.18387097" sideWeight="0.22118644" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3228228" sideWeight="0.496997" order="15" side_tool="false" content_ui="tabs" />
+      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3286052" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.75641024" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Spring" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32732734" sideWeight="0.496997" order="11" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.17236467" sideWeight="0.496997" order="12" side_tool="false" content_ui="tabs" />
+      <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.29890454" sideWeight="0.66591424" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Web" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.26756987" sideWeight="0.3340858" order="4" side_tool="true" content_ui="tabs" />
+      <window_info id="Inspection Results" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25213677" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="true" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3294025" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3478261" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33695653" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.256006" sideWeight="0.4275766" order="6" side_tool="true" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.8048433" sideWeight="0.77881354" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="JRebel Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="13" side_tool="true" content_ui="tabs" />
+      <window_info id="JRebel Executor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32962447" sideWeight="0.5" order="14" side_tool="false" content_ui="tabs" />
+      <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Thumbnails" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32850242" sideWeight="0.5" order="16" side_tool="false" content_ui="tabs" />
+      <window_info id="JRebel" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="true" content_ui="tabs" />
+      <window_info id="BPMNPalette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+    </layout>
+    <layout-to-restore>
+      <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.18387097" sideWeight="0.22118644" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3228228" sideWeight="0.496997" order="15" side_tool="false" content_ui="tabs" />
+      <window_info id="JRebel Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="13" side_tool="true" content_ui="tabs" />
+      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3286052" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="JRebel Executor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32962447" sideWeight="0.5" order="14" side_tool="false" content_ui="tabs" />
+      <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3294025" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33695653" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.12696493" sideWeight="0.77881354" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3138138" sideWeight="0.496997" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.38014185" sideWeight="0.69553804" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Java Enterprise" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32582584" sideWeight="0.496997" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32624114" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Thumbnails" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32850242" sideWeight="0.5" order="16" side_tool="false" content_ui="tabs" />
+      <window_info id="Spring" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32732734" sideWeight="0.496997" order="11" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32732734" sideWeight="0.496997" order="12" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.23462088" sideWeight="0.66591424" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Web" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.26756987" sideWeight="0.3340858" order="4" side_tool="true" content_ui="tabs" />
+      <window_info id="JRebel" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="true" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3478261" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="BPMNPalette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.256006" sideWeight="0.4275766" order="6" side_tool="true" content_ui="tabs" />
+      <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+    </layout-to-restore>
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="VcsContentAnnotationSettings">
+    <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="标签区边框修改" />
+    <MESSAGE value="modified-manageCenter-1.0" />
+    <MESSAGE value="modified-manageCenter-1.1" />
+    <MESSAGE value="modified-manageCenter-imageTimeline-2.0-180715" />
+    <MESSAGE value="【modified-manageCenter-imageTimeline-V3.0-180716】&#10;已完成照片墙的基本功能" />
+    <option name="LAST_COMMIT_MESSAGE" value="【modified-manageCenter-imageTimeline-V3.0-180716】&#10;已完成照片墙的基本功能" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/flowingsun/common/dao/RedisDAO.java</url>
+          <line>124</line>
+          <properties />
+          <option name="timeStamp" value="773" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/flowingsun/common/dao/RedisDAO.java</url>
+          <line>125</line>
+          <properties />
+          <option name="timeStamp" value="774" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/flowingsun/common/dao/RedisDAO.java</url>
+          <line>120</line>
+          <properties />
+          <option name="timeStamp" value="775" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/flowingsun/common/dao/RedisDAO.java</url>
+          <line>121</line>
+          <properties />
+          <option name="timeStamp" value="776" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/flowingsun/common/dao/RedisDAO.java</url>
+          <line>122</line>
+          <properties />
+          <option name="timeStamp" value="777" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/flowingsun/common/dao/RedisDAO.java</url>
+          <line>123</line>
+          <properties />
+          <option name="timeStamp" value="778" />
+        </line-breakpoint>
+      </breakpoints>
+      <option name="time" value="864" />
+    </breakpoint-manager>
+    <watches-manager />
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/flowingsun/user/service/UserServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/flowingsun/article/service/ArticleServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2175">
+          <caret line="145" column="121" lean-forward="false" selection-start-line="145" selection-start-column="121" selection-end-line="145" selection-end-column="121" />
+          <folding>
+            <element signature="e#11572#11593#0" expanded="true" />
+            <element signature="e#11660#11681#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/flowingsun/admin/controller/AdminController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="20" column="13" lean-forward="false" selection-start-line="20" selection-start-column="13" selection-end-line="20" selection-end-column="13" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/flowingsun/article/service/ArticleService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="10" column="17" lean-forward="false" selection-start-line="10" selection-start-column="17" selection-end-line="10" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/flowingsun/user/service/UserServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3330">
+          <caret line="246" column="21" lean-forward="false" selection-start-line="246" selection-start-column="0" selection-end-line="247" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/flowingsun/article/controller/ArticleController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="35" column="22" lean-forward="false" selection-start-line="35" selection-start-column="22" selection-end-line="35" selection-end-column="22" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/flowingsun/article/service/ArticleService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="10" column="17" lean-forward="false" selection-start-line="10" selection-start-column="17" selection-end-line="10" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/flowingsun/article/service/ArticleServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1965">
+          <caret line="145" column="121" lean-forward="false" selection-start-line="145" selection-start-column="121" selection-end-line="145" selection-end-column="121" />
+          <folding>
+            <element signature="e#11572#11593#0" expanded="true" />
+            <element signature="e#11660#11681#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/user/manageCenter.vm">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3870">
+          <caret line="258" column="22" lean-forward="false" selection-start-line="241" selection-start-column="5" selection-end-line="265" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/flowingsun/user/service/UserServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="15">
+          <caret line="246" column="21" lean-forward="false" selection-start-line="246" selection-start-column="0" selection-end-line="247" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.8.0_171.jdk/Contents/Home/src.zip!/java/io/File.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="423">
+          <caret line="1617" column="19" lean-forward="false" selection-start-line="1617" selection-start-column="19" selection-end-line="1617" selection-end-column="19" />
+          <folding>
+            <element signature="e#68391#68392#0" expanded="false" />
+            <element signature="e#68441#68442#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/admin/writeBlog.vm">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-3913">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <marker date="1529540134272" expanded="true" signature="2242:2280" ph="..." />
+            <marker date="1529540134272" expanded="true" signature="2343:2356" ph="..." />
+            <marker date="1529540134272" expanded="true" signature="2424:2438" ph="..." />
+            <marker date="1529540134272" expanded="true" signature="2440:2447" ph="×" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/flowingsun/user/controller/UserController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="45">
+          <caret line="47" column="50" lean-forward="false" selection-start-line="47" selection-start-column="50" selection-end-line="47" selection-end-column="50" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/flowingsun/behavior/service/BehaviorService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="21" column="22" lean-forward="false" selection-start-line="21" selection-start-column="11" selection-end-line="21" selection-end-column="22" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/flowingsun/admin/entity/AdminBlogQuery.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-635">
+          <caret line="7" column="13" lean-forward="false" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/flowingsun/article/service/ArticleService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-560">
+          <caret line="10" column="17" lean-forward="false" selection-start-line="10" selection-start-column="17" selection-end-line="10" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/flowingsun/admin/controller/AdminController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="168">
+          <caret line="20" column="3" lean-forward="false" selection-start-line="20" selection-start-column="3" selection-end-line="20" selection-end-column="3" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/flowingsun/article/controller/ArticleController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2370">
+          <caret line="158" column="47" lean-forward="false" selection-start-line="158" selection-start-column="47" selection-end-line="158" selection-end-column="47" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/flowingsun/article/vo/PageNotice.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="6" column="13" lean-forward="false" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/flowingsun/article/vo/TagArticleQuery.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="4" column="13" lean-forward="false" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/flowingsun/behavior/controller/BehaviorController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="431">
+          <caret line="65" column="51" lean-forward="false" selection-start-line="65" selection-start-column="51" selection-end-line="65" selection-end-column="51" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/flowingsun/behavior/service/BehaviorServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="86">
+          <caret line="134" column="51" lean-forward="false" selection-start-line="134" selection-start-column="51" selection-end-line="134" selection-end-column="51" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/flowingsun/article/vo/CategoryArticleQuery.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="4" column="13" lean-forward="false" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/flowingsun/article/service/ArticleServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-4831">
+          <caret line="676" column="48" lean-forward="false" selection-start-line="676" selection-start-column="48" selection-end-line="676" selection-end-column="48" />
+          <folding>
+            <element signature="e#11572#11593#0" expanded="true" />
+            <element signature="e#11660#11681#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+  </component>
+  <component name="masterDetails">
+    <states>
+      <state key="ArtifactsStructureConfigurable.UI">
+        <settings>
+          <artifact-editor />
+          <last-edited>LyonBlog:war exploded</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.3222004" />
+                <option value="0.5" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="FacetStructureConfigurable.UI">
+        <settings>
+          <last-edited>Spring</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.3222004" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="GlobalLibrariesConfigurable.UI">
+        <settings>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.3222004" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="JdkListConfigurable.UI">
+        <settings>
+          <last-edited>1.8</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.3222004" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ModuleStructureConfigurable.UI">
+        <settings>
+          <last-edited>LyonBlog</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.3222004" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ProjectJDKs.UI">
+        <settings>
+          <last-edited>1.8</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ProjectLibrariesConfigurable.UI">
+        <settings>
+          <last-edited>Maven: javax.activation:activation:1.1</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.3222004" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+    </states>
+  </component>
+</project>

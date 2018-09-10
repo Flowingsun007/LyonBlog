@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.flowingsun.user.dao.RoleMapper" >
+  <resultMap id="BaseResultMap" type="com.flowingsun.user.entity.Role" >
+    <id column="roleid" property="roleid" jdbcType="TINYINT" />
+    <result column="role" property="role" jdbcType="VARCHAR" />
+    <result column="description" property="description" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    roleid, role, description
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Byte" >
+    select 
+    <include refid="Base_Column_List" />
+    from role
+    where roleid = #{roleid,jdbcType=TINYINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Byte" >
+    delete from role
+    where roleid = #{roleid,jdbcType=TINYINT}
+  </delete>
+  <insert id="insert" parameterType="com.flowingsun.user.entity.Role" >
+    insert into role (roleid, role, description
+      )
+    values (#{roleid,jdbcType=TINYINT}, #{role,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.flowingsun.user.entity.Role" >
+    insert into role
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="roleid != null" >
+        roleid,
+      </if>
+      <if test="role != null" >
+        role,
+      </if>
+      <if test="description != null" >
+        description,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="roleid != null" >
+        #{roleid,jdbcType=TINYINT},
+      </if>
+      <if test="role != null" >
+        #{role,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        #{description,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.flowingsun.user.entity.Role" >
+    update role
+    <set >
+      <if test="role != null" >
+        role = #{role,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where roleid = #{roleid,jdbcType=TINYINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.flowingsun.user.entity.Role" >
+    update role
+    set role = #{role,jdbcType=VARCHAR},
+      description = #{description,jdbcType=VARCHAR}
+    where roleid = #{roleid,jdbcType=TINYINT}
+  </update>
+</mapper>
