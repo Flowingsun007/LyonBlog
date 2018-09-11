@@ -161,7 +161,8 @@ public class BehaviorServiceImpl implements BehaviorService {
             Date date = new Date();
             Timestamp dateTime = new Timestamp(date.getTime());
             User user = redisDAO.getRedisUser(userId);
-            if(user==null){//缓存未命中，从数据库读user
+            //缓存未命中，从数据库读user
+            if(user==null){
                 user = userMapper.selectByPrimaryKey(userId);
             }
             try {

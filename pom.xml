@@ -18,7 +18,7 @@
     <maven.compiler.source>1.7</maven.compiler.source>
     <maven.compiler.target>1.7</maven.compiler.target>
     <!--以上为项目初始化自动生成-->
-    <spring.version>4.1.4.RELEASE</spring.version>
+    <spring.version>4.3.4.RELEASE</spring.version>
     <mybatis.version>3.2.8</mybatis.version>
     <slf4j.version>1.7.7</slf4j.version>
     <log4j.version>1.2.17</log4j.version>
@@ -49,10 +49,22 @@
       <version>${spring.version}</version>
     </dependency>
     <!-- 为了方便进行单元测试，添加spring-test包 -->
+    <!--<dependency>-->
+      <!--<groupId>org.springframework</groupId>-->
+      <!--<artifactId>spring-test</artifactId>-->
+      <!--<version>${spring.version}</version>-->
+    <!--</dependency>-->
+    <!-- spring-session-redis依赖 -->
     <dependency>
-      <groupId>org.springframework</groupId>
-      <artifactId>spring-test</artifactId>
-      <version>${spring.version}</version>
+    <groupId>org.springframework.session</groupId>
+    <artifactId>spring-session-data-redis</artifactId>
+    <version>1.3.1.RELEASE</version>
+    <type>pom</type>
+    </dependency>
+    <dependency>
+    <groupId>biz.paluch.redis</groupId>
+    <artifactId>lettuce</artifactId>
+    <version>3.5.0.Final</version>
     </dependency>
     <!--添加spring-web包 -->
     <dependency>
@@ -122,42 +134,37 @@
       <artifactId>druid</artifactId>
       <version>1.0.11</version>
     </dependency>
-    <!-- 日志文件管理包 -->
+    <!-- 日志管理包 -->
     <!-- log start -->
     <dependency>
       <groupId>log4j</groupId>
       <artifactId>log4j</artifactId>
       <version>${log4j.version}</version>
     </dependency>
-
-
-    <!-- 格式化对象，方便输出日志 -->
+    <!-- fastjson转化器 -->
+    <!--项目原始版:1.1.41最新版1.2.49-->
     <dependency>
       <groupId>com.alibaba</groupId>
       <artifactId>fastjson</artifactId>
-      <version>1.1.41</version>
+      <version>1.2.49</version>
     </dependency>
-
-
     <dependency>
       <groupId>org.slf4j</groupId>
       <artifactId>slf4j-api</artifactId>
       <version>${slf4j.version}</version>
     </dependency>
-
     <dependency>
       <groupId>org.slf4j</groupId>
       <artifactId>slf4j-log4j12</artifactId>
       <version>${slf4j.version}</version>
     </dependency>
-    <!-- 映入JSON -->
+     <!--jackson映入JSON，和fastjson类似-->
     <dependency>
       <groupId>org.codehaus.jackson</groupId>
       <artifactId>jackson-mapper-asl</artifactId>
       <version>1.9.13</version>
     </dependency>
-
-    <!-- 上传组件包 -->
+    <!-- IO/上传组件包 -->
     <dependency>
       <groupId>commons-fileupload</groupId>
       <artifactId>commons-fileupload</artifactId>
@@ -173,6 +180,7 @@
       <artifactId>commons-codec</artifactId>
       <version>1.9</version>
     </dependency>
+    <!-- 模板引擎velocity依赖 -->
     <dependency>
       <groupId>org.apache.velocity</groupId>
       <artifactId>velocity</artifactId>
@@ -183,6 +191,7 @@
       <artifactId>velocity-tools</artifactId>
       <version>2.0</version>
     </dependency>
+    <!-- mybatis.generator自动生成SQL -->
     <dependency>
       <groupId>org.mybatis.generator</groupId>
       <artifactId>mybatis-generator-core</artifactId>
@@ -216,7 +225,7 @@
       <artifactId>shiro-spring</artifactId>
       <version>1.2.2</version>
     </dependency>
-    <!-- redis客户端jedis -->
+     <!--redis客户端jedis-->
     <dependency>
       <groupId>redis.clients</groupId>
       <artifactId>jedis</artifactId>

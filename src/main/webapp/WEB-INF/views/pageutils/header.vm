@@ -71,7 +71,7 @@
                     //ajax提交表单
                     $.ajax({
                         type:"POST",
-                        contentType: "application/json",
+                        contentType: "application/json;charset=UTF-8",
                         url:"/login/check",
                         data:JSON.stringify({"telephone":usertoken,"userpass":userpass}),
                         success:function (result) {

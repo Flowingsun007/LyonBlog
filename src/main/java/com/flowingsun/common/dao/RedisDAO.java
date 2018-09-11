@@ -34,9 +34,16 @@ public class RedisDAO {
         jedisPool = new JedisPool(REDIS_IP,REDIS_PORT);
     }
 
+
+    /**
+     *@Param [userId]
+     *@Return com.flowingsun.user.entity.User
+     *@Description getRedisUser
+     * 根据传入的userId来做redis中的key，value则是序列化成字节数组的User对象
+     * 其中将User对象序列化成自己数组没有用原生的Serilizable接口自己转化，
+     * 而是用的protostuff来序列化，具体方法见：setRedisUser()；
+     */
     public User getRedisUser(Long userId){
-        //根据传入的userId来做redis中的key，value则是序列化成字节数组的User对象
-        //其中将User对象序列化成自己数组没有用原生的Serilizable接口自己转化，而是用的protostuff来序列化，具体方法见：setRedisUser()；
         User userInfo = null;
         try{
             Jedis jedis = jedisPool.getResource();
@@ -60,10 +67,15 @@ public class RedisDAO {
         return userInfo;
     }
 
+    /**
+     *@Param [user]
+     *@Return java.lang.String
+     *@Description setRedisUser
+     * 通过setRedisUser()方法来将从数据库查询出来的User对象序列化存储到redis上
+     * 序列化的方式是用protostuff的ProtobufIOUtil中的toByteArray方法，将User对象序列化成字节数组
+     * 返回String类的结果，"OK"表示序列化存储成功。返回null则表示失败。
+     */
     public String setRedisUser(User user){
-        //通过setRedisUser()方法来将从数据库查询出来的User对象序列化存储到redis上
-        //序列化的方式是用protostuff的ProtobufIOUtil中的toByteArray方法，将User对象序列化成字节数组
-        //返回String类的结果，"OK"表示序列化存储成功。返回null则表示失败。
         String result="setUser_fail";
         try{
             Jedis jedis = jedisPool.getResource();
@@ -84,9 +96,15 @@ public class RedisDAO {
         return result;
     }
 
+    /**
+     *@Param [userId]
+     *@Return com.flowingsun.user.entity.User
+     *@Description getRedisRole
+     * 根据传入的userId来做redis中的key，value则是序列化成字节数组的User对象
+     * 其中将User对象序列化成自己数组没有用原生的Serilizable接口自己转化，
+     * 而是用的protostuff来序列化，具体方法见：setRedisUser()；
+     */
     public User getRedisRole(Long userId){
-        //根据传入的userId来做redis中的key，value则是序列化成字节数组的User对象
-        //其中将User对象序列化成自己数组没有用原生的Serilizable接口自己转化，而是用的protostuff来序列化，具体方法见：setRedisUser()；
         User roleInfo = schema.newMessage();
         try{
             Jedis jedis = jedisPool.getResource();
@@ -109,10 +127,15 @@ public class RedisDAO {
         return roleInfo;
     }
 
+    /**
+     *@Param [userRole]
+     *@Return java.lang.String
+     *@Description setRedisRole
+     * 通过setRedisUser()方法来将从数据库查询出来的User对象序列化存储到redis上
+     * 序列化的方式是用protostuff的ProtobufIOUtil中的toByteArray方法，将User对象序列化成字节数组
+     * 返回String类的结果，"OK"表示序列化存储成功。返回null则表示失败。
+     */
     public String setRedisRole(User userRole){
-        //通过setRedisUser()方法来将从数据库查询出来的User对象序列化存储到redis上
-        //序列化的方式是用protostuff的ProtobufIOUtil中的toByteArray方法，将User对象序列化成字节数组
-        //返回String类的结果，"OK"表示序列化存储成功。返回null则表示失败。
         String result="set_userRole_fail";
         try{
             Jedis jedis = jedisPool.getResource();
@@ -169,12 +192,7 @@ public class RedisDAO {
             return result;
         }
     }
-    /**
-     * 获取list
-     * @param <T>
-     * @param key
-     * @return list
-     */
+
     public <T> List<T> getList(String key){
         List<T> list = null;
         try {

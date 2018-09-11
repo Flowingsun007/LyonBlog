@@ -18,6 +18,7 @@
     <bean class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">
         <property name="securityManager" ref="securityManager"/>
     </bean>
+    <!--开启注解扫描-->
     <mvc:annotation-driven>
         <mvc:message-converters>
             <!--Http请求默认字符集ISO-8859-1 ，Spring中也是此字符集，需要手动配置以解决中文乱码问题-->
@@ -48,14 +49,13 @@
     </context:component-scan>
     <context:component-scan base-package="com.flowingsun.common.utils.email.service"></context:component-scan>
 
-    <!--开启注解扫描-->
-    <mvc:annotation-driven/>
     <!--处理静态资源-->
     <mvc:default-servlet-handler/>
 
     <mvc:interceptors>
         <bean class="com.flowingsun.common.interceptor.SessionInterceptor"/>
     </mvc:interceptors>
+
 
     <!-- velocity视图解析器-->
     <bean id="velocityConfigurer" class="org.springframework.web.servlet.view.velocity.VelocityConfigurer">
