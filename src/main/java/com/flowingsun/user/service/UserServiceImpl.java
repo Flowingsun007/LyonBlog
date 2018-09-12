@@ -119,7 +119,6 @@ public class UserServiceImpl implements UserService {
          //token.setRememberMe(true);
          Subject subject = SecurityUtils.getSubject();
          try {
-             //
              subject.login(token);
              SecurityUtils.getSubject().getSession().setTimeout(1800000);
              //取用户给文章点赞评论信息存入session...

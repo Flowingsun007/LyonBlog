@@ -78,6 +78,7 @@ public class MyRealm extends AuthorizingRealm {
         if(user!=null){
             AuthenticationInfo info = new SimpleAuthenticationInfo(user.getTelephone(), user.getUserpass(), getName());
             SecurityUtils.getSubject().getSession().setAttribute("userId",user.getId());
+            user.setRoleList(null);
             String result = redisDAO.setRedisUser(user);
             if(result!=null){
                 System.out.println("\n----------------------------------用户信息：存入redis----------------------------------\n"+result);

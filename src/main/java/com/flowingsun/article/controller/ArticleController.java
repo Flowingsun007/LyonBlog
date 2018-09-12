@@ -63,7 +63,7 @@ public class ArticleController {
         Long userId = (Long)SecurityUtils.getSubject().getSession().getAttribute("userId");
         List<ArticleTag> allTags = articleService.selectAllTag();
         model.addAttribute("allTags",allTags);
-        if(userId!=null){
+        if(userId!=null&&categoryArticleQuery.getTotal()!=0){
             CategoryArticleQuery result = behaviorService.getUserCategoryArticleBehavior(categoryArticleQuery,userId);
             model.addAttribute("pageQueryBean",result);
         }else{

@@ -14,6 +14,7 @@ import org.slf4j.LoggerFactory;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 
+import java.util.Arrays;
 import java.util.List;
 
 
@@ -84,8 +85,11 @@ public class RedisDAO {
                 String key = "userId:"+user.getId();
                 byte[] userInfo = ProtobufIOUtil.toByteArray(user, schema,
                         LinkedBuffer.allocate(LinkedBuffer.DEFAULT_BUFFER_SIZE));
+                String s = new String(userInfo);
+                System.out.println(s);
                 int timeout = 60 * 60;
-                return jedis.setex(key.getBytes(), timeout, userInfo);
+                result = jedis.setex(key.getBytes(), timeout, userInfo);
+                return result;
             }finally {
                 jedis.close();
             }
