@@ -72,13 +72,11 @@ public class BehaviorServiceImpl implements BehaviorService {
         try {
             Long userId = (Long)SecurityUtils.getSubject().getSession().getAttribute("userId");
             if (userId != null) {
-                //User user = redisDAO.getRedisUser(userId);
                 commentBean.setUserid(userId);
-                if (SUCCESS == commentMapper.insertSelective(commentBean)) {
+                if (commentMapper.insertSelective(commentBean).equals(SUCCESS))
                     return "setComment_success";
-                }else{
+                else
                     return "setComment_fail_插入数据库失败";
-                }
             }else {
                 return "setComment_fail_未登录";
             }
@@ -102,20 +100,14 @@ public class BehaviorServiceImpl implements BehaviorService {
         try {
             Long userId = (Long)SecurityUtils.getSubject().getSession().getAttribute("userId");
             if(userId!=null){
-                User user = redisDAO.getRedisUser(userId);
-                //缓存未命中，从数据库读user}
-                if(user==null){user = userMapper.selectByPrimaryKey(userId);}
-                if (user != null) {
-                    thankBean.setUserid(userId.intValue());
-                    if (0 == thankMapper.selectThankNumByThankbean(thankBean)) {
-                        Date date = new Date();
-                        thankBean.setThankdate(new Timestamp(date.getTime()));
-                        if (SUCCESS == thankMapper.insertThank(thankBean)) {
-                            return "setThank_success";
-                        }
-                    } else {
-                        return "setThank_fail_重复点赞";
+                thankBean.setUserid(userId.intValue());
+                if (thankMapper.selectThankNumByThankbean(thankBean).equals(0)) {
+                    thankBean.setThankdate(new Timestamp(new Date().getTime()));
+                    if (SUCCESS == thankMapper.insertThank(thankBean)) {
+                        return "setThank_success";
                     }
+                } else {
+                    return "setThank_fail_重复点赞";
                 }
             }
             return "setThank_fail_未登录";
@@ -142,14 +134,14 @@ public class BehaviorServiceImpl implements BehaviorService {
     /**
      *@Author Lyon[flowingsun007@163.com]
      *@Date 18/06/4 19:24
-     *@Description 利用springframework中的MultipartHttpServletRequest、MultipartFile等，
+     *@Description imageUpload
+     * 利用MultipartHttpServletRequest、MultipartFile等，
      * 用来上传文件到服务器存储，同时将文件的路径，用saveUserImage()保存至数据库。
      * @Param request session
      * @Return 传回String类型的消息-resultInfo,用于前端显示。
      */
     @Override
     public String imageUpload (MultipartHttpServletRequest request,String description){
-        //MultipartHttpServletRequest request = (MultipartHttpServletRequest) httpRequest;
         Long userId = (Long)SecurityUtils.getSubject().getSession().getAttribute("userId");
         if (userId == null) {
             return "用户未登录！";
@@ -211,34 +203,8 @@ public class BehaviorServiceImpl implements BehaviorService {
                             multipartFile.transferTo(nginxFile);
                             nginxFile.setReadable(true, false);
                         }
-
-//                    String contextPath = "/static/userFile/images/";
-//                    String path = request.getSession().getServletContext().getRealPath("/static/userFile/images/");
-//                    File dir = new File(path);
-//                    if (!dir.exists()) {
-//                        dir.mkdirs();
-//                    }
-//                    String fName = user.getId().toString() + "-" + user.getUsername() + "-" + originalFilename;
-//                    String fileContextPath = "/static/userFile/images/" + fName ;
-//                    String fileAbsolutePath = path + fileContextPath;
-//                    File dest = new File(fileAbsolutePath);
                         if (!(dest.exists())) {
-                            /*
-                             * MultipartFile提供了void transferTo(File dest)方法,
-                             * 将获取到的文件以File形式传输至指定路径.
-                             */
                             multipartFile.transferTo(dest);
-
-                            /*
-                             * 如果需对文件进行其他操作, MultipartFile也提供了
-                             * InputStream getInputStream()方法获取文件的输入流
-                             *
-                             * 例如下面的语句即为通过
-                             * org.apache.commons.io.FileUtils提供的
-                             * void copyInputStreamToFile(InputStream source, File destination)
-                             * 方法, 获取输入流后将其保存至指定路径
-                             */
-                            //FileUtils.copyInputStreamToFile(multipartFile.getInputStream(), dest);
                         }
                         //MultipartFile也提供了其他一些方法, 用来获取文件的部分属性
                         //获取文件contentType
@@ -284,20 +250,22 @@ public class BehaviorServiceImpl implements BehaviorService {
 
     }
 
+    /**
+     *@Author Lyon[flowingsun007@163.com]
+     *@Date 18/07/15 22:55
+     *@Param [pictureQuery]
+     *@Return com.flowingsun.behavior.vo.PictureQuery
+     *@Description getUserImages
+     * 查询用户Timeline上传的图片,默认查询时间为近一年的,根据pictureQuery来查询
+     * (默认查询从第一页开始，每页20条数据)
+     */
     @Override
     public PictureQuery getUserImages (PictureQuery pictureQuery){
-        /**
-         *@Author Lyon[flowingsun007@163.com]
-         *@Date 18/07/15 22:55
-         *@Param [pictureQuery]
-         *@Return com.flowingsun.behavior.vo.PictureQuery
-         *@Description 查询用户Timeline上传的图片,默认查询时间为近一年的,根据pictureQuery来查询
-         * (默认查询从第一页开始，每页20条数据)
-         */
         Long userId = (Long)SecurityUtils.getSubject().getSession().getAttribute("userId");
         if (userId != null) {
             User user = redisDAO.getRedisUser(userId);
-            if(user==null){user = userMapper.selectByPrimaryKey(userId);}//缓存未命中，从数据库读user}
+            //缓存未命中，从数据库读user}
+            if(user==null){user = userMapper.selectByPrimaryKey(userId);}
             pictureQuery.setUserid(user.getId());
             pictureQuery.setUsername(user.getUsername());
             //设置照片查询时间段,默认为最近一年
@@ -317,15 +285,16 @@ public class BehaviorServiceImpl implements BehaviorService {
         return pictureQuery;
     }
 
+    /**
+     *@Author Lyon[flowingsun007@163.com]
+     *@Date 18/07/15 21:31
+     *@Param [article, userId]
+     *@Return com.flowingsun.article.entity.Article
+     *@Description getUserArticleBehavior
+     * 用于判断给定的用户id在某篇文章下的用户行为,譬如点赞、评论等
+     */
     @Override
     public Article getUserArticleBehavior(Article article, Long userId) {
-        /**
-         *@Author Lyon[flowingsun007@163.com]
-         *@Date 18/07/15 21:31
-         *@Param [article, userId]
-         *@Return com.flowingsun.article.entity.Article
-         *@Description 用于判断给定的用户id在某篇文章下的用户行为,譬如点赞、评论等
-         */
         BehaviorStatus behaviorBean = new BehaviorStatus();
         Integer articleId = article.getId();
         byte flag=1;
@@ -340,18 +309,20 @@ public class BehaviorServiceImpl implements BehaviorService {
         return article;
     }
 
+    /**
+     *@Author Lyon[flowingsun007@163.com]
+     *@Date 18/07/15 21:32
+     *@Param [categoryArticleQuery, userId]
+     *@Return com.flowingsun.article.vo.CategoryArticleQuery
+     *@Description getUserCategoryArticleBehavior
+     * 此方法用于加载分类浏览文章中特定用户id下的浏览点赞评论等行为信息,具体通过遍历每篇文章调用getUserArticleBehavior()查询。
+     */
     @Override
     public CategoryArticleQuery getUserCategoryArticleBehavior(CategoryArticleQuery categoryArticleQuery,  Long userId) {
-        /**
-         *@Author Lyon[flowingsun007@163.com]
-         *@Date 18/07/15 21:32
-         *@Param [categoryArticleQuery, userId]
-         *@Return com.flowingsun.article.vo.CategoryArticleQuery
-         *@Description 此函数用于加载分类浏览文章中特定用户id下的浏览点赞评论等行为信息,具体通过遍历每篇文章调用getUserArticleBehavior()查询。
-         */
         List<Article> articleList = (List<Article>) categoryArticleQuery.getDataList();
         List<Article> articles = new ArrayList<>();
-        for(Article item:articleList){
+        for(int i=0; i<articleList.size(); i++){
+            Article item = articleList.get(i);
             Article article = getUserArticleBehavior(item,userId);
             articles.add(article);
         }

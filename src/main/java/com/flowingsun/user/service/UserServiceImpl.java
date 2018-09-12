@@ -94,6 +94,10 @@ public class UserServiceImpl implements UserService {
      *@Author Lyon[flowingsun007@163.com]
      *@Date 18/05/9 17:39
      *@Description 用户登录
+     * 登录支持用户手机号+密码 或者用户邮箱+密码 两种形式
+     * 登录信息后以token = username + password,然后以Shrio中的subject.login(token)来校验
+     * 主要登录验证的规则以及角色及权限校验在common/inteceptor/MyRealm类中
+     * 和common/security/CustomCredentialsMatcher类中定义
      */
      @Override
      public String UserLogin(User user,HttpServletRequest request){
@@ -115,6 +119,7 @@ public class UserServiceImpl implements UserService {
          //token.setRememberMe(true);
          Subject subject = SecurityUtils.getSubject();
          try {
+             //
              subject.login(token);
              SecurityUtils.getSubject().getSession().setTimeout(1800000);
              //取用户给文章点赞评论信息存入session...
@@ -126,19 +131,6 @@ public class UserServiceImpl implements UserService {
              return "login_fail";
          }
      }
-//原始版本的【用户登录】：
-//    @Override
-//    public String UserLogin(User user,HttpServletRequest request) throws UnsupportedEncodingException, NoSuchAlgorithmException {
-//        String inputpass = user.getUserpass();
-//        User userInfo = userMapper.selectByUserToken(user);
-//        if(userInfo!=null){
-//            if (MD5Utils.checkPassword(inputpass,userInfo.getUserpass())){
-//                request.getSession().setAttribute("userInfo",userInfo);
-//                return "login_succ";
-//            }
-//        }
-//        return "login_fail";
-//    }
 
     /**
      *@Author Lyon[flowingsun007@163.com]
@@ -165,7 +157,6 @@ public class UserServiceImpl implements UserService {
             user =userMapper.selectByUserToken(userInput);
         }catch (Exception e){
             e.printStackTrace();
-            throw e;
         }
         return user;
     }
@@ -180,7 +171,8 @@ public class UserServiceImpl implements UserService {
     /**
      *@Author Lyon[flowingsun007@163.com]
      *@Date 18/06/6 20:22
-     *@Description 【用户注册激活】—— 用户点击邮件里的链接，跳转到此处，然后验证激活信息；激活成功则更改用户状态，设置权限。
+     *@Description userActivate
+     * 【用户注册激活】—— 用户点击邮件里的链接，跳转到此处，然后验证激活信息；激活成功则更改用户状态，设置权限。
      * P.S.在注册时通过（request.getSession().getServletContext().setAttribute(user.getTelephone(),randomCode);）将用户手机号，随机码放入了ServletContext
      */
     @Override
@@ -230,20 +222,19 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public boolean setDefaultUserRole(String userphone){
-        Integer roleId = REGULAR_USER_ROLE_ID;//普通注册用户，默认值为4。
+        //普通注册用户，默认值为4。
+        Integer roleId = REGULAR_USER_ROLE_ID;
         try{
             Long userId = userMapper.selectUseridByUserphone(userphone);
-            Integer userstatus = 1;
-            if(1==userMapper.updateUserStatusByUserphone(userstatus,userphone)){
-                if(1==userRoleMapper.insertByUseridRoleid(userId,roleId)){
-                    return SUCCESS;
-                }
+            int userstatus = 1;
+            if(1==userMapper.updateUserStatusByUserphone(userstatus,userphone)&&(1==userRoleMapper.insertByUseridRoleid(userId,roleId))){
+                return SUCCESS;
+            }else{
+                return FAIL;
             }
-            return FAIL;
         }catch (Exception e){
-            e.printStackTrace();
             return FAIL;
         }
     }

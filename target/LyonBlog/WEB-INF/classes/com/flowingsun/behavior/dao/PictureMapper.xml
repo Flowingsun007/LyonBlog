@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.flowingsun.behavior.dao.PictureMapper" >
+  <resultMap id="BaseResultMap" type="com.flowingsun.behavior.entity.Picture" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="userId" property="userid" jdbcType="BIGINT" />
+    <result column="createDate" property="createdate" jdbcType="TIMESTAMP" />
+    <result column="filePath" property="filepath" jdbcType="VARCHAR" />
+    <result column="details" property="details" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="BaseGroupResultMap" type="com.flowingsun.behavior.vo.PictureQuery" >
+    <id property="createDate" column="groupDate"/>
+    <collection property="pictureList" ofType="com.flowingsun.behavior.entity.Picture">
+      <id property="id" column="id"/>
+      <result column="createDate" property="createdate" jdbcType="TIMESTAMP" />
+      <result column="filePath" property="filepath" jdbcType="VARCHAR" />
+      <result column="details" property="details" jdbcType="VARCHAR" />
+    </collection>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, userId, createDate, filePath, details
+  </sql>
+  <select id="selectCountByQueryDateRange"  resultType="int" parameterType="com.flowingsun.behavior.vo.PictureQuery" >
+    SELECT COUNT(0) FROM picture WHERE userId = #{userid}
+    AND createDate BETWEEN  #{startDate} AND  #{endDate}
+  </select>
+  <select id="selectByQueryDateRange"  resultMap="BaseGroupResultMap" parameterType="com.flowingsun.behavior.vo.PictureQuery" >
+    SELECT
+    id,createDate,filePath,details,DATE_FORMAT(createDate,"%Y-%m-%d") AS groupDate
+    FROM picture
+    WHERE userId = #{userid}
+    AND createDate BETWEEN  #{startDate} AND  #{endDate}
+    ORDER BY createDate DESC
+    LIMIT #{startRow},#{pageSize};
+  </select>
+  <select id="selectByImageCreateDate" resultMap="BaseResultMap" parameterType="com.flowingsun.behavior.vo.PictureQuery" >
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM picture
+    WHERE userId = #{userid}
+    AND DATE_FORMAT(createDate,"%Y-%m-%d") = #{createDate}
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from picture
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from picture
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.flowingsun.behavior.entity.Picture" >
+    INSERT IGNORE INTO picture (userId, createDate,filePath, details)
+    VALUES (#{userid,jdbcType=BIGINT}, #{createdate,jdbcType=TIMESTAMP},
+      #{filepath,jdbcType=VARCHAR}, #{details,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.flowingsun.behavior.entity.Picture" >
+    insert into picture
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="userid != null" >
+        userId,
+      </if>
+      <if test="createdate != null" >
+        createDate,
+      </if>
+      <if test="filepath != null" >
+        filePath,
+      </if>
+      <if test="details != null" >
+        details,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="userid != null" >
+        #{userid,jdbcType=BIGINT},
+      </if>
+      <if test="createdate != null" >
+        #{createdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="filepath != null" >
+        #{filepath,jdbcType=VARCHAR},
+      </if>
+      <if test="details != null" >
+        #{details,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.flowingsun.behavior.entity.Picture" >
+    update picture
+    <set >
+      <if test="userid != null" >
+        userId = #{userid,jdbcType=BIGINT},
+      </if>
+      <if test="createdate != null" >
+        createDate = #{createdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="filepath != null" >
+        filePath = #{filepath,jdbcType=VARCHAR},
+      </if>
+      <if test="details != null" >
+        details = #{details,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.flowingsun.behavior.entity.Picture" >
+    update picture
+    set userId = #{userid,jdbcType=BIGINT},
+      createDate = #{createdate,jdbcType=TIMESTAMP},
+      filePath = #{filepath,jdbcType=VARCHAR},
+      details = #{details,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

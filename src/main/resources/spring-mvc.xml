@@ -47,7 +47,8 @@
     <context:component-scan base-package="com.flowingsun.*.controller">
         <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Service"/>
     </context:component-scan>
-    <context:component-scan base-package="com.flowingsun.common.utils.email.service"></context:component-scan>
+    <context:component-scan base-package="com.flowingsun.common.utils.email.service">
+    </context:component-scan>
 
     <!--处理静态资源-->
     <mvc:default-servlet-handler/>

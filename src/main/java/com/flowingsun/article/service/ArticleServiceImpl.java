@@ -20,6 +20,10 @@ import java.util.*;
 @Service("articleService")
 public class ArticleServiceImpl implements ArticleService {
 
+    private static final Integer SUCCESS=1;
+
+    private static final Integer FAIL=0;
+
     @Autowired
     private ArticleMapper articleMapper;
 
@@ -28,10 +32,6 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Autowired
     private RedisDAO redisDAO;
-
-    private static final Integer SUCCESS=1;
-    private static final Integer FAIL=0;
-
 
     /**
      *@Param [mId]
@@ -56,12 +56,12 @@ public class ArticleServiceImpl implements ArticleService {
     /**
      *@Param [cId, queryBean]
      *@Return com.flowingsun.article.vo.CategoryArticleQuery
-     *@Description 主要用于前台查看分类文章，主要根据cid查询除主体外文章的全部信息、分类信息、标签信息
+     *@Description getCategoryArticles
+     * 主要用于前台查看分类文章，主要根据cid查询除主体外文章的全部信息、分类信息、标签信息
      * CategoryArticleQuery 继承于PageQueryBean
      */
     @Override
     public CategoryArticleQuery getCategoryArticles(Integer cId, CategoryArticleQuery queryBean) {
-        //文章总数
         Integer total = articleMapper.selectCategoryArticlesCount(cId);
         if(total!=null&&total>0){
             queryBean.setTotal(total);
@@ -91,9 +91,8 @@ public class ArticleServiceImpl implements ArticleService {
      */
     @Override
     public TagArticleQuery getTagArticles(TagArticleQuery queryBean) {
-        //文章总数
         Integer tagId = queryBean.getTagid();
-                Integer total = articleMapper.selectTagCountByTagId(tagId);
+        Integer total = articleMapper.selectTagCountByTagId(tagId);
         if(total!=null&&total>0){
             queryBean.setTotal(total);
             Integer pageSize = queryBean.getPageSize();
@@ -185,7 +184,6 @@ public class ArticleServiceImpl implements ArticleService {
     @Override
     @Transactional
     public String deleteOneArticle(Integer articleId) {
-
         try{
             List<ArticleTag> tags = articleMapper.selectArticleTagsByPrimarykey(articleId);
             if(tags!=null){
@@ -375,20 +373,12 @@ public class ArticleServiceImpl implements ArticleService {
      */
     @Override
     public String createArticle(Article article){
-        /**
-         *@Author Lyon[flowingsun007@163.com]
-         *@Date 18/09/10 22:05
-         *@Param [article]
-         *@Return java.lang.String
-         *@Description createArticle
-         */
+        //此处默认的用户id为2，即目前只有管理员可以写文章
         article.setUserid(2);
-        Date date = new Date();
-        Timestamp dateTime = new Timestamp(date.getTime());
+        Timestamp dateTime = new Timestamp(new Date().getTime());
         article.setCreateDate(dateTime);
         article.setEditDate(dateTime);
         String[] taglist = article.getArticleTags().split(",");
-
         if(articleMapper.insertNewArticle(article)!=0){
             //！=0表示文章插入成功，插入成功后文章主键id可通过getter直接获取。
             int articleId = article.getId();
@@ -442,17 +432,16 @@ public class ArticleServiceImpl implements ArticleService {
      *      若失败，则提示失败信息，保留当前页面。
      */
     @Override
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public String editArticle(Article article) {
-
         try{
             Integer articleId = article.getId();
-            Date date = new Date();
-            Timestamp dateTime = new Timestamp(date.getTime());
+            Timestamp dateTime = new Timestamp(new Date().getTime());
             article.setEditDate(dateTime);
             List<ArticleTag> tags = articleMapper.selectArticleTagsByPrimarykey(articleId);
             //清除该文章之前创建的所有标签
-            for(ArticleTag tag: tags){
+            for(int i=0; i<tags.size(); i++){
+                ArticleTag tag = tags.get(i);
                 if(1==articleMapper.deleteTagRelation(articleId, tag.getTagId())&&0==articleMapper.selectTagCountByTagId(tag.getTagId())){
                     articleMapper.deleteTagByTagId(tag.getTagId());
                 }
@@ -464,8 +453,12 @@ public class ArticleServiceImpl implements ArticleService {
                 articletag.setTagName(tag);
                 articletag.setCreateDate(dateTime);
                 int tagId=0;
-                if (articleMapper.insertNewTag(articletag)==0){ tagId = articleMapper.selectTagIdByTagName(tag); }
-                else{ tagId = articletag.getTagId(); }
+                if (articleMapper.insertNewTag(articletag)==0){
+                    tagId = articleMapper.selectTagIdByTagName(tag);
+                }
+                else{
+                    tagId = articletag.getTagId();
+                }
                 //将标签、文章id、标签id、时间四个键值插入article_tag_ralation表中
                 articletag.setArticleId(articleId);
                 articletag.setTagName(tag);
@@ -492,7 +485,7 @@ public class ArticleServiceImpl implements ArticleService {
      * 更改文章分类
      */
     @Override
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public String changeArticleCategory(Category articles) {
         String[] idStrList = articles.getArticleIdStr().split(",");
         Integer[] idIntList = new Integer[idStrList.length];
@@ -528,7 +521,8 @@ public class ArticleServiceImpl implements ArticleService {
             List<String> oldTags = articleMapper.selectTagsNameByPrimarykey(articleId);
             //由于有的文章没有标签故此条select语句会抛出异常？？？？？？？？！！！！！！！！但是奇怪的是并不会抛异常，mybatis封装的oldTags即使是空
             //也不会抛异常，而且随后到来的for()循环遍历也不用异常捕捉，oldTags为空会自动跳过......
-            for(String oldTag : oldTags){
+            for(int i=0; i<oldTags.size(); i++){
+                String oldTag = oldTags.get(i);
                 if(newTags.contains(oldTag)){
                     newTags.remove(oldTag);
                 }else{
@@ -538,15 +532,17 @@ public class ArticleServiceImpl implements ArticleService {
                     }
                 }
             }
-            for(String newTag : newTags){
+
+            for(int j=0; j<newTags.size(); j++){
+                String newTag = newTags.get(j);
                 Integer tagId=0;
                 if(checkTagExist(newTag)==true){
                     tagId = articleMapper.selectTagIdByTagName(newTag);
                 }else{
                     tagId = createOneTag(newTag);
                 }
-                if(tagId!=0){
-                    if(0==addArticleTagQuick(articleId, tagId, newTag)){return "reset_tag_fail";}
+                if(tagId!=0&&(0==addArticleTagQuick(articleId, tagId, newTag))){
+                    return "reset_tag_fail";
                 }else {return "reset_tag_fail";}
             }
             return "reset_tag_succ";
@@ -617,22 +613,24 @@ public class ArticleServiceImpl implements ArticleService {
                 List<String> oldTags = articleMapper.selectTagsNameByPrimarykey(articleId);
                 //由于有的文章没有标签故此条select语句会抛出异常？？？？？？？？！！！！！！！！但是奇怪的是并不会抛异常，mybatis封装的oldTags即使是空
                 //也不会抛异常，而且随后到来的for()循环遍历也不用异常捕捉，oldTags为空会自动跳过......
-                for(String oldTag : oldTags){
+                for(int i=0; i<oldTags.size(); i++){
+                    String oldTag = oldTags.get(i);
                     if(newTags.contains(oldTag)){
                         newTags.remove(oldTag);
                     }else{//else表示需要删除此条标签关系
                         if(0==deleteArticleOneTag(articleId, oldTag)){ return "batchReset_tags_fail"; }
                     }
                 }
-                for(String newTag : newTags){
+                for(int j=0; j<newTags.size(); j++){
+                    String newTag = newTags.get(j);
                     Integer tagId=0;
                     if(checkTagExist(newTag)==true){
                         tagId = articleMapper.selectTagIdByTagName(newTag);
                     }else{
                         tagId = createOneTag(newTag);
                     }
-                    if(tagId!=0){
-                        if(0==addArticleTagQuick(articleId, tagId, newTag)){return "batchReset_tags_fail";}
+                    if(tagId!=0&&(0==addArticleTagQuick(articleId, tagId, newTag))){
+                        return "batchReset_tags_fail";
                     }else {return "batchReset_tags_fail";}
                 }
             }
@@ -661,7 +659,9 @@ public class ArticleServiceImpl implements ArticleService {
         Integer tagId = articleMapper.selectTagIdByTagName(tagName);
         if (checkTagRelationExist(articleId, tagId) == false) {
             tagRelationId = createOneTagRelation(articleId, tagId, tagName);
-        } else { tagRelationId = 1; }
+        } else {
+            tagRelationId = 1;
+        }
         return tagRelationId;
     }
 
@@ -681,7 +681,9 @@ public class ArticleServiceImpl implements ArticleService {
         int tagRelationId = 0;
         if (checkTagRelationExist(articleId, tagId) == false) {
             tagRelationId = createOneTagRelation(articleId, tagId, tagName);
-        } else { tagRelationId = 1; }
+        } else {
+            tagRelationId = 1;
+        }
         return tagRelationId;
     }
 
@@ -757,14 +759,14 @@ public class ArticleServiceImpl implements ArticleService {
                 if(checkTagExist(tag)==true){
                     tagId = articleMapper.selectTagIdByTagName(tag);
                     for(Integer articleId : idIntList){
-                        if(checkTagRelationExist(articleId,tagId)==false && 0==createOneTagRelation(articleId,tagId,tag)){
+                        if(checkTagRelationExist(articleId,tagId)==false && 0==createOneTagRelation(articleId,tagId,tag))
                             return "batch_addTag_fail";
-                        }
                     }
                 }else{
                     tagId = createOneTag(tag);
                     for(Integer articleId : idIntList){
-                        if(0==createOneTagRelation(articleId,tagId,tag)){ return "batch_addTag_fail"; }
+                        if(0==createOneTagRelation(articleId,tagId,tag))
+                            return "batch_addTag_fail";
                     }
                 }
             }
@@ -813,7 +815,8 @@ public class ArticleServiceImpl implements ArticleService {
      *@Date 18/05/28 09:28
      *@Param [tagBean]
      *@Return java.lang.String
-     *@Description 批量删除标签，接收的参数主要有2组：
+     *@Description batchDeleteArticleTag
+     * 批量删除标签，接收的参数主要有2个：
      * 1.需要删除的标签（1~多个） 2.需要批量删除的文章id(1~多个)
      */
     @Override
@@ -827,7 +830,8 @@ public class ArticleServiceImpl implements ArticleService {
             //若checkTagExist(tag)==true,表示数据库中有此tag,对所选文章逐个删除。
             if(checkTagExist(tag)==true){
                 for(Integer articleId : idIntList){
-                    if(0==deleteArticleOneTag(articleId, tag)){return "batch_deleteTag_fail";}
+                    if(0==deleteArticleOneTag(articleId, tag))
+                        return "batch_deleteTag_fail";
                 }
             }
         }

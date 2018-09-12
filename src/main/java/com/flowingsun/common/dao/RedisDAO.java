@@ -76,7 +76,7 @@ public class RedisDAO {
      * 返回String类的结果，"OK"表示序列化存储成功。返回null则表示失败。
      */
     public String setRedisUser(User user){
-        String result="setUser_fail";
+        String result=null;
         try{
             Jedis jedis = jedisPool.getResource();
             try{
@@ -85,8 +85,7 @@ public class RedisDAO {
                 byte[] userInfo = ProtobufIOUtil.toByteArray(user, schema,
                         LinkedBuffer.allocate(LinkedBuffer.DEFAULT_BUFFER_SIZE));
                 int timeout = 60 * 60;
-                result = jedis.setex(key.getBytes(), timeout, userInfo);
-                return result;
+                return jedis.setex(key.getBytes(), timeout, userInfo);
             }finally {
                 jedis.close();
             }

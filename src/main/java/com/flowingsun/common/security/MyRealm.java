@@ -26,25 +26,25 @@ public class MyRealm extends AuthorizingRealm {
     private RedisDAO redisDAO;
 
 
-
     /**
-     * 授权
-     * @param principalCollection
-     * @return
+     *@Author Lyon[flowingsun007@163.com]
+     *@Date 18/09/12 09:59
+     *@Param [principalCollection]
+     *@Return org.apache.shiro.authz.AuthorizationInfo
+     *@Description doGetAuthorizationInfo
+     * 用户角色及权限认证
+     * 根据用户的userId查询其所有的角色role即权限permission,最后将信息装入authorizationInfo返回
      */
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
-        //User user = (User)SecurityUtils.getSubject().getSession().getAttribute("userInfo");
         Long userId = (Long)SecurityUtils.getSubject().getSession().getAttribute("userId");
         User user = userService.getUserByUserId(userId);
         SimpleAuthorizationInfo authorizationInfo = new SimpleAuthorizationInfo();
         if(user.getRoleList()!=null){
             for(Role role :user.getRoleList()){
                 authorizationInfo.addRole(role.getRole());
-                System.out.println("\n----------------------------------permission----------------------------------\n");
                 for(Permission permission :role.getPermissionList()){
                     authorizationInfo.addStringPermission(permission.getPermission());
-                    System.out.println("用户权限："+permission.getPermission());
                 }
             }
         }
@@ -52,13 +52,17 @@ public class MyRealm extends AuthorizingRealm {
     }
 
 
-    /**
-     * 认证 登录
-     * @param authenticationToken
-     * @return
-     * @throws AuthenticationException
-     */
 
+    /**
+     *@Author Lyon[flowingsun007@163.com]
+     *@Date 18/09/12 09:54
+     *@Param [authenticationToken]
+     *@Return org.apache.shiro.authc.AuthenticationInfo
+     *@Description doGetAuthenticationInfo
+     * 用户登录认证
+     * 根据用户输入的手机号/邮箱号实例化一个userInfo对象，根据此对象查数据库
+     * 查询到user结果则登录成功,尝试将用户信息放入redis中缓存,否则返回null。
+     */
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken) throws AuthenticationException {
         System.out.println("\n----------------------------------用户登录认证----------------------------------\n");
@@ -71,17 +75,16 @@ public class MyRealm extends AuthorizingRealm {
             userInfo.setUseremail(username);
         }
         User user = userService.findUserByUserToken(userInfo);
-        if(user==null){
-            System.out.println("\n----------------------------------用户信息：null----------------------------------\n");
-            return null;
-        }else {
+        if(user!=null){
             AuthenticationInfo info = new SimpleAuthenticationInfo(user.getTelephone(), user.getUserpass(), getName());
-            //SecurityUtils.getSubject().getSession().setAttribute("userInfo",user);
             SecurityUtils.getSubject().getSession().setAttribute("userId",user.getId());
-            user.setRoleList(null);
-            String redisUser = redisDAO.setRedisUser(user);
-            System.out.println("\n----------------------------------用户信息：存入redis----------------------------------\n"+redisUser);
+            String result = redisDAO.setRedisUser(user);
+            if(result!=null){
+                System.out.println("\n----------------------------------用户信息：存入redis----------------------------------\n"+result);
+            }
             return info;
+        }else{
+            return null;
         }
 
     }

@@ -1,0 +1,255 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="/static/bootstrap/favicon.ico">
+
+    <title>阳光流淌的个人博客</title>
+    <!--slim版本的貌似不支持Ajax-->
+    <script src="/static/jquery/jquery-3.2.1.slim.min.js"  crossorigin="anonymous"></script>
+    <script src="/static/jquery/jquery-2.2.3.min.js" ></script>
+    <!-- Bootstrap core CSS -->
+    <link href="/static/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom styles for this template -->
+    <link href="/static/css/blogHome.css" rel="stylesheet">
+    <!--登录注册框样式-->
+    <!-- Meta-Tags -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+    <link href="/static/css/loginStyle.css" rel="stylesheet" type="text/css" media="all">
+
+</head>
+<body>
+
+<script type="application/javascript">
+    $(function () {
+        var re1 = /^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/;
+        $("#navLogin").click(function(){
+            var css = $('#loginDiv').css('display');
+            if(css=='block'){
+                $('#loginDiv').css('display','none');
+                $(this).text("登录注册");
+            }else{
+                $('#loginDiv').css('display','block');
+                $(this).text("关闭×");
+            }
+        })
+
+        $("#userLogin").click(function () {
+            var usertoken = $("#usertoken").val();
+            var userpass = $('#userpass').val();
+            var loginAlert = ""
+            if(usertoken=="" || $.trim(usertoken).length==0 ||userpass=="" || $.trim(userpass).length == 0){
+                loginAlert = "账号/密码不能为空";
+                $("#loginAlert").text(loginAlert);
+                $("#loginAlert").css('display','block');
+                return false;
+            }else{
+                if(/^\d+$/.test(usertoken)==true){
+                    if(!(/^\d{11,12}$/.test(usertoken))){
+                        loginAlert += "请输入11~12位的手机号！"
+                    }
+                }else if(!(re1.test(usertoken))){
+                    loginAlert += "请输入正确格式的邮箱地址！";
+                }
+                if(!(/^[0-9a-zA-Z.]{8,16}$/.test(userpass))){
+                    loginAlert += "密码必须是8~16位！"
+                }
+            }
+            if(loginAlert!=""){
+                $("#loginAlert").text(loginAlert);
+                $("#loginAlert").css('display','block');
+                return false;
+            }else{
+                if(/^\d+$/.test(usertoken)==true){
+                    //ajax提交表单
+                    $.ajax({
+                        type:"POST",
+                        contentType: "application/json",
+                        url:"/login/check",
+                        data:JSON.stringify({"telephone":usertoken,"userpass":userpass}),
+                        success:function (result) {
+                            if(result=="login_succ"){
+                                alert("登录成功😊！");
+                            } else if(result=="login_fail"){
+                                alert("登录失败😊！");
+                            }
+                        }
+                    });
+                }else{
+                    //ajax提交表单
+                    $.ajax({
+                        type:"POST",
+                        contentType: "application/json",
+                        url:"/login/check",
+                        data:JSON.stringify({"useremail":usertoken,"userpass":userpass}),
+                        success:function (result) {
+                            if(result=="login_succ"){
+                                alert("登录成功😊！");
+                            } else if(result=="login_fail"){
+                                alert("登录失败😊！");
+                            }
+                        }
+                    });
+                }
+            }
+        });
+
+        $("#userRegister").click(function () {
+            var username = $("#username").val();
+            var password = $('#password').val();
+            var useremail = $('#useremail').val();
+            var telephone = $('#telephone').val();
+            var registerAlert = "";
+            if(username==""||$.trim(username).length==0||password==""||$.trim(password).length==0||useremail==""||$.trim(useremail).length==0||telephone==""||$.trim(telephone).length==0){
+                registerAlert = "用户名/邮箱/密码/手机号为必填项，均不能为空！";
+                $("#registerAlert").text(registerAlert);
+                $("#registerAlert").css('display','block');
+                return false;
+            }else{
+                if(/^\d+$/.test(telephone)==true){
+                    if(!(/^\d{11,12}$/.test(telephone))){
+                        registerAlert += "您输入的手机号位数有误(请输入11~12位)!";
+                    }
+                }else{
+                    registerAlert += "您输入手机号格式有误(必须全为数字)!)"
+                }
+                if(!(re1.test(useremail))){
+                    registerAlert += "请输入正确格式的邮箱地址！";
+                }
+                if(!(/^[0-9a-zA-Z.]{8,16}$/.test(password))){
+                    registerAlert += "密码必须是8~16位！"
+                }
+            }
+            if(registerAlert!=""){
+                $("#registerAlert").text(registerAlert);
+                $("#registerAlert").css('display','block');
+                return false;
+            }else{
+                alert("恭喜你，提交的注册信息格式正确！");
+                //ajax提交表单
+                $.ajax({
+                    type:"POST",
+                    contentType: "application/json",
+                    url:"/register/check",
+                    data:JSON.stringify({"username":username,"userpass":password,"useremail":useremail,"telephone":telephone}),
+                    success:function (data) {
+                        if(data=="register_succ"){
+                            alert("注册成功😊！");
+                        } else if(data=="register_fail"){
+                            alert("注册失败😊！");
+                        }
+                    }
+                });
+            }
+        });
+
+    });
+</script>
+
+<header>
+    <nav id="navBlog" class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+        <a class="navbar-brand" href="#">Lyon's Blog</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        JavaWeb
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <a class="dropdown-item" href="#">Java基础</a>
+                        <a class="dropdown-item" href="#">web框架</a>
+                        <a class="dropdown-item" href="#">项目实战</a>
+                        <a class="dropdown-item" href="#">深入研究</a>
+                    </div>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Python和Data
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <a class="dropdown-item" href="#">Python应用</a>
+                        <a class="dropdown-item" href="#">数据分析实战</a>
+                        <a class="dropdown-item" href="#">机器学习算法</a>
+                    </div>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        数据库服务器
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <a class="dropdown-item" href="#">关系型数据库</a>
+                        <a class="dropdown-item" href="#">Nosql</a>
+                        <a class="dropdown-item" href="#">Nigix</a>
+                        <a class="dropdown-item" href="#">Linux</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link disabled" href="#">诗和远方</a>
+                </li>
+            </ul>
+            <form class="form-inline mt-2 mt-md-0" id="navSearch">
+                <input class="form-control mr-sm-2" type="text" placeholder="🔍搜" aria-label="Search">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" id="navLogin" href="#">登录注册</a>
+                    </li>
+                </ul>
+            </form>
+        </div>
+    </nav>
+</header>
+
+
+<div id="loginDiv" class="Logincontainer w3layouts agileits" style="position:absolute;z-index: 99;left:25%;width:55%;height:auto;display:block;margin-top:80px;padding:20px 10px 30px 35px;display: none;">
+
+    <div class="login w3layouts agileits">
+        <h2>登 录</h2>
+        <div id="loginArea" class="send-button w3layouts agileits">
+            <input type="text"     id="usertoken" placeholder="手机号/邮箱" style="padding: 10px;">
+            <input type="password" id="userpass" placeholder="密码" style="padding: 10px;">
+            <p id="loginAlert" style="display: none;color:#ff0000;float: right">囧！账号/密码错误！</p>
+            <input type="submit"   id="userLogin" value="登 录" style="margin-top:50px;">
+            <input type="checkbox" id="brand1" value="" style="margin-left: 15px;">
+            <label for="brand1"><span></span>记住我</label>
+        </div>
+        <div class="social-icons w3layouts agileits">
+            <p style="margin-bottom: 5px;">- 其他方式登录 -</p>
+            <ul>
+                <li class="qq"><a href="#">
+                    <span class="icons w3layouts agileits"></span>
+                    <span class="text w3layouts agileits">QQ</span></a>
+                </li>
+                <li class="weixin w3ls"><a href="#">
+                    <span class="icons w3layouts"></span>
+                    <span class="text w3layouts agileits">微信</span></a>
+                </li>
+                <li class="weibo aits"><a href="#">
+                    <span class="icons agileits"></span>
+                    <span class="text w3layouts agileits">微博</span></a>
+                </li>
+            </ul>
+        </div>
+
+    </div>
+    <div class="register w3layouts agileits">
+        <h2>注 册</h2>
+        <div id="registerArea" class="send-button w3layouts agileits" style="margin-top: 20px;">
+            <input type="text" id="username" placeholder="用户名" style="padding: 10px;">
+            <input type="text" id="useremail" placeholder="邮箱" style="padding: 10px;">
+            <input type="password" id="password" placeholder="密码" style="padding: 10px;">
+            <input type="text" id="telephone" placeholder="手机号码" style="padding: 10px;">
+            <p id="registerAlert" style="display: none;color:#ff0000;float: left">囧！注册信息有误！</p>
+            <input id="userRegister" type="submit" value="免费注册" style="padding: 10px;margin-top: 30px;">
+        </div>
+    </div>
+
+</div>

@@ -17,6 +17,7 @@ import java.security.NoSuchAlgorithmException;
  *@Author Lyon[flowingsun007@163.com]
  *@Date 18/05/29 20:53
  *@Description 自定义密码验证
+ * 主要用于登录验证
  */
 public class CustomCredentialsMatcher extends SimpleCredentialsMatcher {
 
@@ -36,6 +37,8 @@ public class CustomCredentialsMatcher extends SimpleCredentialsMatcher {
             }
             String password = String.valueOf(usertoken.getPassword());
             User user = userService.findUserByUserToken(userInfo);
+            //saltPass = 原密码password + 手机号 + salt盐
+            //saltPass经过MD5加密后才是存在数据库中的密码串(userpass)
             String saltPass = password+user.getTelephone()+user.getSalt();
             Object tokenCredentials = MD5Utils.encryptPassword(saltPass);
             Object accountCredentials =getCredentials(info);

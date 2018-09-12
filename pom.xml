@@ -142,7 +142,6 @@
       <version>${log4j.version}</version>
     </dependency>
     <!-- fastjson转化器 -->
-    <!--项目原始版:1.1.41最新版1.2.49-->
     <dependency>
       <groupId>com.alibaba</groupId>
       <artifactId>fastjson</artifactId>

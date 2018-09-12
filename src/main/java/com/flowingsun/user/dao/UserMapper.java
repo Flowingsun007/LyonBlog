@@ -19,7 +19,7 @@ public interface UserMapper {
 
     int updateByPrimaryKeySelective(User record);
 
-    Integer updateUserStatusByUserphone(@Param("userstatus") Integer userstatus, @Param("userphone") String userphone);
+    Integer updateUserStatusByUserphone(@Param("userstatus") int userstatus, @Param("userphone") String userphone);
 
     Integer deleteByUserphone(String userphone);
 
