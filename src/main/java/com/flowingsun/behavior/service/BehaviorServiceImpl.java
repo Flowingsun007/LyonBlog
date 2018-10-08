@@ -190,7 +190,9 @@ public class BehaviorServiceImpl implements BehaviorService {
                         if (!dir.exists()) {
                             dir.mkdirs();
                         }
-                        String newfileName =  userId.toString() + "-" + user.getUsername() + "-" + originalFilename;
+                        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                        String dateString = sdf.format(date);
+                        String newfileName =  userId.toString() + "_" + user.getUsername() + "_" + dateString + "_" +originalFilename;
                         //保存文件
                         String fileContextPath = contextPath + newfileName;
                         File dest = new File(path,newfileName);
@@ -204,7 +206,12 @@ public class BehaviorServiceImpl implements BehaviorService {
                             nginxFile.setReadable(true, false);
                         }
                         if (!(dest.exists())) {
-                            multipartFile.transferTo(dest);
+                            try{
+                                //此处若文件已存在,则会抛出IllegalStateException
+                                multipartFile.transferTo(dest);
+                            }catch (IllegalStateException i){
+                                System.out.println("IllegalStateException:文件已存在:"+dest.getName());
+                            }
                         }
                         //MultipartFile也提供了其他一些方法, 用来获取文件的部分属性
                         //获取文件contentType
@@ -228,18 +235,19 @@ public class BehaviorServiceImpl implements BehaviorService {
                             //将文件路径存入数据库
                             picture.setDetails(description);
                             picture.setFilepath(fileContextPath);
-                            if (saveUserImage(picture) == false) {
+                            if(!saveUserImage(picture))
                                 resultInfo += "图片已存服务器，存DB失败;";
-                            } else {
+                            else
                                 resultInfo += "图片已存服务器，存DB成功;";
-                            }
                         }
                     }
                 }
             } catch (IllegalStateException f) {
                 resultInfo += "IllegalStateException:上传状态错误，可能是从非法页面提交上传";
+                f.printStackTrace();
             } catch (UnauthenticatedException g) {
                 resultInfo += "UnauthenticatedException:用户无上传图片权限";
+                g.printStackTrace();
             } catch (Exception e) {
                 resultInfo += "Exception:e";
                 e.printStackTrace();

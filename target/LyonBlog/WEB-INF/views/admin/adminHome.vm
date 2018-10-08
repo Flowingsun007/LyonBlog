@@ -567,11 +567,11 @@
 
 
                     <div id="categarySearch"  style="width:400px;text-align:center;margin:10px auto;border-color: #faebcc;display: block;box-sizing:border-box;">
-                        <div class="panel-heading" style="font-size:18px;color: #9932CC;padding:20px;">按 分 类 查 找</div>
-                        <div class="panel-body" style="color: black;background-color:#F8F8FF;border:0px  transparent;padding:10px;">
+                        <div class="panel-heading" style="font-size:18px;color: #ef1e32;padding:20px;">按 分 类 查 找</div>
+                        <div class="panel-body" style="color: black;background-color:#eeecf1;border:0px  transparent;padding:10px;border-radius: 15px;">
 
                             <table class="addTable" style="border:0;width:380px;">
-                                    <tr>
+                                    <tr style="height: 40px;">
                                         <td style="border-style:none;font-size:16px;">主分类</td>
                                         <td style="width:300px;border-style:none">
                                             <select class="form-control" id="articleMid" name="articleMid">
@@ -616,7 +616,7 @@
                                     </tr>
                                     <tr class="submitTR">
                                         <td style="border-style:none;" colspan="2" align="center">
-                                            <button  id="submitcatsQuery" class="btn btn-success" style="width:80px;font-size:18px;padding:0px;">确 定</button>
+                                            <button  id="submitcatsQuery" class="btn btn-info" style="width:80px;font-size:18px;padding:0px;margin-top: 10px;background-color: #17a2b8;">确 定</button>
                                         </td>
                                     </tr>
 

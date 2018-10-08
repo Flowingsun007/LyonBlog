@@ -152,7 +152,12 @@
 
     });
 </script>
-
+<style>
+    .dropdown-item:focus, .dropdown-item:hover {
+        color: #f8f9fa;
+        text-decoration: none;
+        background-color: #095bb3;
+</style>
 <header>
     <nav id="navBlog" class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
         <a class="navbar-brand" href="#">Lyon's Blog</a>

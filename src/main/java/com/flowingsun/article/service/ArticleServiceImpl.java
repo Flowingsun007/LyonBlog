@@ -167,6 +167,13 @@ public class ArticleServiceImpl implements ArticleService {
         return allTags;
     }
 
+    @Override
+    public void updateAllTag() {
+        List<ArticleTag> allTags = articleMapper.selectAllTag();
+        if(allTags!=null&&allTags.size()>0)
+            redisDAO.setList("allTags",allTags);
+    }
+
     /**
      *@Author Lyon[flowingsun007@163.com]
      *@Date 18/05/19 15:39
@@ -196,11 +203,16 @@ public class ArticleServiceImpl implements ArticleService {
                     }
                 }
             }
-            if(1==articleMapper.deleteByPrimaryKey(articleId)){ return "delete_success"; }
+            if(1==articleMapper.deleteByPrimaryKey(articleId)){
+                updateAllTag();
+                return "delete_success";
+            }
         }catch (Exception e){
             e.printStackTrace();
         }
         return "delete_fail";
+
+
     }
 
     /**
@@ -227,6 +239,7 @@ public class ArticleServiceImpl implements ArticleService {
                 String result = deleteOneArticle(articleId);
                 System.out.println("\n-----------------------------DeleteResult:-----------------------------------\n"+result);
             }
+            updateAllTag();
             return "delete_batch_succ";
         }catch (Exception e){
             e.printStackTrace();
@@ -405,7 +418,10 @@ public class ArticleServiceImpl implements ArticleService {
                         status = 1;
                 }
             }
-            if(status==0){ return "article_write_succ"; }
+            if(status==0){
+                updateAllTag();
+                return "article_write_succ";
+            }
             return "article_write_fail";
         }
         return "article_write_fail";
@@ -469,7 +485,10 @@ public class ArticleServiceImpl implements ArticleService {
                 }
             }
             //插入更新后的文章
-            if(1==articleMapper.updateByPrimaryKeySelective(article)){ return "edit_blog_success"; }
+            if(1==articleMapper.updateByPrimaryKeySelective(article)){
+                updateAllTag();
+                return "edit_blog_success";
+            }
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -545,6 +564,7 @@ public class ArticleServiceImpl implements ArticleService {
                     return "reset_tag_fail";
                 }else {return "reset_tag_fail";}
             }
+            updateAllTag();
             return "reset_tag_succ";
         }catch (Exception e){
             e.printStackTrace();
@@ -634,6 +654,7 @@ public class ArticleServiceImpl implements ArticleService {
                     }else {return "batchReset_tags_fail";}
                 }
             }
+            updateAllTag();
             return "batchReset_tags_succ";
         }catch (Exception e){
             e.printStackTrace();
@@ -662,6 +683,7 @@ public class ArticleServiceImpl implements ArticleService {
         } else {
             tagRelationId = 1;
         }
+        updateAllTag();
         return tagRelationId;
     }
 
@@ -684,6 +706,7 @@ public class ArticleServiceImpl implements ArticleService {
         } else {
             tagRelationId = 1;
         }
+        updateAllTag();
         return tagRelationId;
     }
 
@@ -719,6 +742,7 @@ public class ArticleServiceImpl implements ArticleService {
                 tagRelationId = 1;
             }
         }
+        updateAllTag();
         return tagRelationId;
     }
 
@@ -770,6 +794,7 @@ public class ArticleServiceImpl implements ArticleService {
                     }
                 }
             }
+            updateAllTag();
             return "batch_addTag_succ";
         }catch (Exception e){
             e.printStackTrace();
@@ -787,6 +812,7 @@ public class ArticleServiceImpl implements ArticleService {
                 if(deleteArticleOneTag(articleId,tag)==FAIL){
                     return "delete_allTag_fail";}
             }
+            updateAllTag();
             return "delete_allTag_succ";
         }catch (Exception e){
             e.printStackTrace();
@@ -803,6 +829,7 @@ public class ArticleServiceImpl implements ArticleService {
                     return FAIL;
                 }
             }
+            updateAllTag();
             return SUCCESS;
         }catch (Exception e){
             e.printStackTrace();
@@ -835,6 +862,7 @@ public class ArticleServiceImpl implements ArticleService {
                 }
             }
         }
+        updateAllTag();
         return "batch_deleteTag_succ";
     }
 
@@ -857,6 +885,7 @@ public class ArticleServiceImpl implements ArticleService {
                     return "batch_deleteAllTag_fail";
                 }
             }
+            updateAllTag();
             return "batch_deleteAllTag_succ";
         }catch (Exception e){
             e.printStackTrace();
@@ -915,6 +944,7 @@ public class ArticleServiceImpl implements ArticleService {
                     }
                 }else {return FAIL;}
             }
+            updateAllTag();
             return SUCCESS;
         }catch (Exception e){
             e.printStackTrace();
@@ -939,7 +969,12 @@ public class ArticleServiceImpl implements ArticleService {
      */
     @Override
     public Integer deleteOneTag(Integer tagId) {
-        return articleMapper.deleteTagByTagId(tagId);
+        Integer flag = 0;
+        flag = articleMapper.deleteTagByTagId(tagId);
+        if(1==flag){
+            updateAllTag();
+        }
+        return flag;
     }
 
     /**
@@ -950,6 +985,7 @@ public class ArticleServiceImpl implements ArticleService {
     @Override
     public Integer createOneTag(ArticleTag tagBean) {
         if(1==articleMapper.insertNewTag(tagBean)){
+            updateAllTag();
             return tagBean.getTagId();
         }
         return FAIL;
@@ -968,6 +1004,7 @@ public class ArticleServiceImpl implements ArticleService {
         tagBean.setCreateDate(dateTime);
         tagBean.setTagName(tagName);
         if(1==articleMapper.insertNewTag(tagBean)){
+            updateAllTag();
             return tagBean.getTagId();
         }
         return FAIL;

@@ -33,6 +33,8 @@ public interface ArticleService {
 
     List<ArticleTag> selectAllTag();
 
+    void updateAllTag();
+
     String editArticle(Article article);
 
     String changeArticleCategory(Category articles);
