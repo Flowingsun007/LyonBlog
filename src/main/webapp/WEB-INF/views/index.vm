@@ -127,6 +127,7 @@
                 $("#loginAlert").css('display','block');
                 return false;
             }else{
+                $("#loginAlert").css('display','none');
                 if(/^\d+$/.test(usertoken)==true){
                     //ajax提交表单
                     $.ajax({
@@ -204,6 +205,7 @@
                 $("#registerAlert").css('display','block');
                 return false;
             }else{
+                $("#registerAlert").css('display','none');
                 swal({
                     title: "恭喜，注册信息格式正确！😊！",
                     text: "正在为您注册中...",

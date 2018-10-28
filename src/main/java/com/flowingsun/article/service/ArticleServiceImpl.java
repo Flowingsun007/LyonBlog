@@ -348,7 +348,9 @@ public class ArticleServiceImpl implements ArticleService {
                 List<ArticleTag> articleTags = articleMapper.selectArticleTagsByPrimarykey(id);
                 article.setArticleTagList(articleTags);
                 //查询文章所有评论已经评论下面的所有讨论，汇总放入bean中
-                List<Comment> commentList = commentMapper.selectAllCommentByArticleid(id);
+                //其中评论区默认按评论点赞次数降序排序：selectCommentByCommentLikeCountDesc
+                //按时间排序可以用：List<Comment> commentList = commentMapper.selectAllCommentByArticleid(id);
+                List<Comment> commentList = commentMapper.selectCommentByCommentLikeCountDesc(id);
                 article.setArticleCommentList(commentList);
             }
         }catch (Exception e){

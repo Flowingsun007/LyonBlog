@@ -57,7 +57,12 @@
             contentType:"application/json",
             success:function (data) {
                 if(data!=null){
-                    $("#navLoginButton").html(data.username);
+                    if(data.userstatus==1){
+                        $("#navLoginButton").html(data.username);
+                    }else{
+                        var str = data.username + ":未激活";
+                        $("#navLoginButton").html(str);
+                    }
                     var logoutHtml = '<div class="dropdown-menu" id="navLogout" aria-labelledby="navbarDropdownMenuLink">'+ '<a class="dropdown-item" id="behaviorCenter" href="/user/manageCenter">个人中心</a><a class="dropdown-item" id="logoutButton" href="#">'+'退出登录</a></div>';
                     var userHeadImg = '<ul class="navbar-nav mr-sm-0" id="navUserHead">'+ '<li class="nav-item" id="navLogin">'+
                             '<a class="nav-link" href="#"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">'
@@ -211,6 +216,7 @@
                 $("#registerAlert").css('display','block');
                 return false;
             }else{
+                $("#registerAlert").css('display','none');
                 swal({
                     title: "恭喜，注册信息格式正确！😊！",
                     text: "正在为您注册中...",

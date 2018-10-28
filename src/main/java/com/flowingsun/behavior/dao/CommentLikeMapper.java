@@ -14,4 +14,6 @@ public interface CommentLikeMapper {
     int updateByPrimaryKeySelective(CommentLike record);
 
     int updateByPrimaryKey(CommentLike record);
+
+    int selectLikeCountByCommentLikeBean(CommentLike bean);
 }

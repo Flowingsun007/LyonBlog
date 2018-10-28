@@ -67,7 +67,11 @@ public class UserServiceImpl implements UserService {
         user.setUserpass(md5pass);
         user.setSalt(salt);
         String result = "register_fail";
-        if(0==userMapper.insertByUserRegister(user)){return result;}
+        if(0==userMapper.insertByUserRegister(user)){
+            //用户插入失败，可能是手机/邮箱已存在
+            logger.log(INFO,"用户插入失败，可能是手机/邮箱已存在"+user.toString());
+            return result;
+        }
         else{
             Random random = new Random(Long.parseLong(user.getTelephone()));
             Integer randomCode = random.nextInt();

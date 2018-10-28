@@ -1,6 +1,7 @@
 package com.flowingsun.behavior.controller;
 
 import com.flowingsun.behavior.entity.Comment;
+import com.flowingsun.behavior.entity.CommentLike;
 import com.flowingsun.behavior.entity.Thank;
 import com.flowingsun.behavior.service.BehaviorService;
 import com.flowingsun.common.dao.RedisDAO;
@@ -43,6 +44,13 @@ public class BehaviorController {
     @ResponseBody
     public String thankToArticle(@RequestBody Thank thankBean, HttpServletRequest request){
         return behaviorService.setThank(thankBean,request);
+    }
+
+
+    @RequestMapping("/commentLike")
+    @ResponseBody
+    public String setCommentLike(@RequestBody CommentLike commentLikeBean, HttpServletRequest request){
+        return behaviorService.setCommentLike(commentLikeBean,request);
     }
 
     /*

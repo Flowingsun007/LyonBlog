@@ -200,8 +200,8 @@
 
 <script type="application/javascript">
     swal({
-    title: "亲，抱歉，您没有没有必要的权限！！！",
-    text: "如果需要，可以联系Lyon",
+    title: "亲，抱歉，您没有相应的访问权限！！！",
+    text: "如果需要，可以联系管理员",
     showConfirmButton: true
     });
 </script>

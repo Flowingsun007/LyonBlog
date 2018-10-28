@@ -32,6 +32,17 @@
     LEFT JOIN discussion ON comment.id = discussion.main_commentId
     WHERE comment.articleId= #{articleId,jdbcType=INTEGER};
   </select>
+  <select id="selectCommentByCommentLikeCountDesc" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    SELECT comment.id AS commentid,comment.articleId,comment.userId,
+    blog_user.username AS userName,comment,commentDate,
+    (SELECT count(0) FROM comment_like WHERE articleId=#{articleId,jdbcType=INTEGER} AND comment_like.commentId=comment.id) AS commentLikeNum,
+    discussion.id AS discussId,discussion.userId AS discussUserid,discussion.discussion,discussion.discussDate
+    FROM comment
+    INNER JOIN blog_user ON blog_user.id = userId
+    LEFT JOIN discussion ON comment.id = discussion.main_commentId
+    WHERE comment.articleId= #{articleId,jdbcType=INTEGER}
+    ORDER BY commentLikeNum DESC;
+  </select>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />

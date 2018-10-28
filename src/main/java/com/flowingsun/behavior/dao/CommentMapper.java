@@ -21,4 +21,6 @@ public interface CommentMapper {
     int updateByPrimaryKey(Comment record);
 
     List<Comment> selectAllCommentByArticleid(Integer articleId);
+
+    List<Comment> selectCommentByCommentLikeCountDesc(Integer id);
 }

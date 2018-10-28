@@ -3,13 +3,11 @@ package com.flowingsun.behavior.service;
 
 import com.flowingsun.article.entity.Article;
 import com.flowingsun.article.vo.CategoryArticleQuery;
+import com.flowingsun.behavior.dao.CommentLikeMapper;
 import com.flowingsun.behavior.dao.CommentMapper;
 import com.flowingsun.behavior.dao.PictureMapper;
 import com.flowingsun.behavior.dao.ThankMapper;
-import com.flowingsun.behavior.entity.BehaviorStatus;
-import com.flowingsun.behavior.entity.Comment;
-import com.flowingsun.behavior.entity.Picture;
-import com.flowingsun.behavior.entity.Thank;
+import com.flowingsun.behavior.entity.*;
 import com.flowingsun.behavior.vo.PictureQuery;
 import com.flowingsun.common.dao.RedisDAO;
 import com.flowingsun.common.utils.InfoCountUtils;
@@ -55,6 +53,9 @@ public class BehaviorServiceImpl implements BehaviorService {
 
     @Autowired
     private CommentMapper commentMapper;
+
+    @Autowired
+    private CommentLikeMapper commentLikeMapper;
 
     @Autowired
     private UserMapper userMapper;
@@ -114,6 +115,30 @@ public class BehaviorServiceImpl implements BehaviorService {
         } catch (Exception e) {
             e.printStackTrace();
             return "setThank_fail_exception";
+        }
+    }
+
+    @Override
+    public String setCommentLike(CommentLike bean, HttpServletRequest request) {
+        try {
+            Long userId = (Long)SecurityUtils.getSubject().getSession().getAttribute("userId");
+            if (userId != null) {
+                bean.setUserid(userId);
+                if (commentLikeMapper.selectLikeCountByCommentLikeBean(bean)==FAIL) {
+                    bean.setLikedate(new Timestamp(new Date().getTime()));
+                    if (commentLikeMapper.insertSelective(bean)==SUCCESS)
+                        return "setCommentLike_success";
+                    else
+                        return "setCommentLike_fail_exception";
+                } else {
+                    return "setCommentLike_fail_重复点赞";
+                }
+            }else {
+                return "setCommentLike_fail_未登录";
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+            return "setCommentLike_fail_exception";
         }
     }
 

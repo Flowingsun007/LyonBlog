@@ -3,6 +3,7 @@ package com.flowingsun.behavior.service;
 import com.flowingsun.article.entity.Article;
 import com.flowingsun.article.vo.CategoryArticleQuery;
 import com.flowingsun.behavior.entity.Comment;
+import com.flowingsun.behavior.entity.CommentLike;
 import com.flowingsun.behavior.entity.Picture;
 import com.flowingsun.behavior.entity.Thank;
 import com.flowingsun.behavior.vo.PictureQuery;
@@ -16,6 +17,8 @@ public interface BehaviorService {
     String setComment(Comment commentBean, HttpServletRequest request);
 
     String setThank(Thank thankBean,HttpServletRequest request);
+
+    String setCommentLike(CommentLike commentLikeBean, HttpServletRequest request);
 
     boolean saveUserImage(Picture picture);
 
