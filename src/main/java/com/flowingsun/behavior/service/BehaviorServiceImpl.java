@@ -74,10 +74,13 @@ public class BehaviorServiceImpl implements BehaviorService {
             Long userId = (Long)SecurityUtils.getSubject().getSession().getAttribute("userId");
             if (userId != null) {
                 commentBean.setUserid(userId);
-                if (commentMapper.insertSelective(commentBean).equals(SUCCESS))
+                if (commentMapper.insertSelective(commentBean).equals(SUCCESS)){
+                    String s = String.valueOf(commentMapper.selectCommentCount());
+                    redisDAO.setString("commentCount",s);
                     return "setComment_success";
-                else
+                }else{
                     return "setComment_fail_插入数据库失败";
+                }
             }else {
                 return "setComment_fail_未登录";
             }
@@ -105,6 +108,8 @@ public class BehaviorServiceImpl implements BehaviorService {
                 if (thankMapper.selectThankNumByThankbean(thankBean).equals(0)) {
                     thankBean.setThankdate(new Timestamp(new Date().getTime()));
                     if (SUCCESS == thankMapper.insertThank(thankBean)) {
+                        String s = String.valueOf(thankMapper.selectThankCount());
+                        redisDAO.setString("thankCount",s);
                         return "setThank_success";
                     }
                 } else {
@@ -140,6 +145,11 @@ public class BehaviorServiceImpl implements BehaviorService {
             e.printStackTrace();
             return "setCommentLike_fail_exception";
         }
+    }
+
+    @Override
+    public String getMoneyDonatePage(HttpServletRequest request){
+        return "/user/donateMoney";
     }
 
     /**

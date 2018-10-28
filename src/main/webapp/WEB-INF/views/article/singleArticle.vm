@@ -357,7 +357,8 @@
         $("#submitShare").click(function () {
             var theNode = $(this);
             $(theNode).children("img").attr("src","/static/image/share2.png");
-            swal("分享成功😊！");
+            var sharelink = window.location.href;
+            swal(sharelink,"复制链接分享吧😊！");
             return false;
         });
 
@@ -571,6 +572,39 @@
                     <div class="blog-post">
                         <div>
                             <h2 class="blog-post-meta" style="font-family: STXingkai;font-size: xx-large"><a href="/article/single?articleId=$article.getId()" target="_blank" style="color: #000000;">$article.getArticleTitle()</a></h2>
+
+                            <div class="linkandshare-mainarticle">
+                                <a href="javascript:void(0)" onclick="submitThank()" style="margin-right:30px;color:#919191;" class="submitThank" id="submitThank">
+                                    #if($article.getBehaviorStatus().getThankStatus()==1)
+                                        <img class="icon" src="/static/image/thank2.png" alt="thank" width="15px;" height="15px;">
+                                    #else
+                                        <img class="icon" src="/static/image/thank1.png" alt="thank" width="15px;" height="15px;">
+                                    #end
+                                    <span id="thankNum">
+                                        #if(!$article.getArticleThank())
+                                0
+                                        #else
+                                            $article.getArticleThank()
+                                        #end</span>感谢</a>
+
+                            ##                        <img class="icon" src="/static/open-iconic/svg/comment-square.svg" alt="comment-square">
+                                <a href="javascript:void(0)" onclick="showCommentArea()" style="margin-right:40px;color:#919191;" id="commentIcon">
+                                    #if($article.getBehaviorStatus().getCommentStatus()==1)
+                                        <img class="icon" src="/static/image/comment2.png" alt="comment" width="15px;" height="15px;">
+                                    #else
+                                        <img class="icon" src="/static/image/comment1.png" alt="comment" width="15px;" height="15px;">
+                                    #end
+                                    <span>
+                                        #if(!$article.getArticleComment())
+                                            0
+                                        #else
+                                            $article.getArticleComment()
+                                        #end
+                                    </span>评论</a>
+                                <a href="" style="margin-right:40px;color:#919191;" id="submitSave"><img class="icon" src="/static/image/save1.png" alt="star" width="17px;" height="17px;" >收藏</a>
+                                <a href=""  style="color:#919191;" id="submitShare"><img class="icon" src="/static/image/share1.png" alt="share" width="15px;" height="15px;">分享</a>
+                            </div>
+
                             <div>
                                 <h4 class="font-italic" style="color:#9F79EE;font-size:15px">
                                     #set($tags = $article.getArticleTagList())
@@ -613,65 +647,27 @@
 ##                            <textarea style="display:none;" name="editormd-markdown-doc">$article.getArticleContent()</textarea>
 ##                        </div>
 
-
-
-                        </div><!-- /.blog-post -->
-
-
-                <nav class="blog-pagination">
-                    #set($Recommend = $article.getRegularRecommend())
-                    #if($Recommend.getPreviousArticleId()==0)
-                        <a class="btn btn-outline-dark">木有上一篇了😶</a>
-                        <a>$Recommend.getPreviousTitle()</a>
-                    #else
-                        <a class="btn btn-outline-success">上一篇</a>
-                        <a href="/article/single?articleId=$Recommend.getPreviousArticleId()">$Recommend.getPreviousTitle()</a>
-                    #end
-                    #if($Recommend.getNextArticleId()==0)
-                        <a class="btn btn-outline-info">木有下一篇了😶</a>
-                        <a>$Recommend.getNextTitle()</a>
-                    #else
-                        <a class="btn btn-outline-info">下一篇</a>
-                        <a href="/article/single?articleId=$Recommend.getNextArticleId()">$Recommend.getNextTitle()</a>
-                    #end
-                </nav>
-
-
-                    <div class="linkandshare-mainarticle">
-
-                        <a href="javascript:void(0)" onclick="submitThank()" style="margin-right:30px;color:#919191;" class="submitThank" id="submitThank">
-                            #if($article.getBehaviorStatus().getThankStatus()==1)
-                                <img class="icon" src="/static/image/thank2.png" alt="thank" width="15px;" height="15px;">
+                        <nav class="blog-pagination">
+                            #set($Recommend = $article.getRegularRecommend())
+                            #if($Recommend.getPreviousArticleId()==0)
+                                <a class="btn btn-outline-dark">木有上一篇了😶</a>
+                                <a>$Recommend.getPreviousTitle()</a>
                             #else
-                                <img class="icon" src="/static/image/thank1.png" alt="thank" width="15px;" height="15px;">
+                                <a class="btn btn-outline-success">上一篇</a>
+                                <a href="/article/single?articleId=$Recommend.getPreviousArticleId()">$Recommend.getPreviousTitle()</a>
                             #end
-                            <span id="thankNum">
-                            #if(!$article.getArticleThank())
-                                0
+                            #if($Recommend.getNextArticleId()==0)
+                                <a class="btn btn-outline-info">木有下一篇了😶</a>
+                                <a>$Recommend.getNextTitle()</a>
                             #else
-                                $article.getArticleThank()
-                            #end</span>感谢</a>
-
-
-##                        <img class="icon" src="/static/open-iconic/svg/comment-square.svg" alt="comment-square">
-                        <a href="javascript:void(0)" onclick="showCommentArea()" style="margin-right:40px;color:#919191;" id="commentIcon">
-                            #if($article.getBehaviorStatus().getCommentStatus()==1)
-                                <img class="icon" src="/static/image/comment2.png" alt="comment" width="15px;" height="15px;">
-                            #else
-                                <img class="icon" src="/static/image/comment1.png" alt="comment" width="15px;" height="15px;">
+                                <a class="btn btn-outline-info">下一篇</a>
+                                <a href="/article/single?articleId=$Recommend.getNextArticleId()">$Recommend.getNextTitle()</a>
                             #end
-                            <span>
-                            #if(!$article.getArticleComment())
-                                0
-                            #else
-                                $article.getArticleComment()
-                            #end
-                            </span>评论</a>
+                        </nav>
 
+                        <a href="/behavior/donateMoney" target="_blank" class="btn btn-outline-dark"><span class="badge badge-info">觉得有用? 给Lyon打个赏:)</span></a>
 
-                        <a href="" style="margin-right:40px;color:#919191;" id="submitSave"><img class="icon" src="/static/image/save1.png" alt="star" width="17px;" height="17px;" >收藏</a>
-                        <a href=""  style="color:#919191;" id="submitShare"><img class="icon" src="/static/image/share1.png" alt="share" width="15px;" height="15px;">分享</a>
-                    </div>
+                    </div><!-- /.blog-post -->
 
                 <div>
                     <div id="commentHeader">
@@ -746,6 +742,18 @@
                                 <span class="badge badge-success">$tag.getTagName()</span>
                             </a></li>
                         #end
+                    </ol>
+                </div>
+
+                <div class="p-3">
+                    <h3 style="font-size:35px;color:#9F79EE;font-weight: 300;">Info</h3>
+                    <ol class="list-unstyled">
+                        <li style="margin:5px;">浏览次数:<span>$blogInfo.getViewCount()</span></li>
+                        <li style="margin:5px;">访客人数:<span>$blogInfo.getVisitorCount()</span></li>
+                        <li style="margin:5px;">用户人数:<span>$blogInfo.getUserCount()</span></li>
+                        <li style="margin:5px;">文章数:<span>$blogInfo.getArticleCount()</span></li>
+                        <li style="margin:5px;">评论数:<span>$blogInfo.getCommentCount()</span></li>
+                        <li style="margin:5px;">感谢数:<span>$blogInfo.getThankCount()</span></li>
                     </ol>
                 </div>
 

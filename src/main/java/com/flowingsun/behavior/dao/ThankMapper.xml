@@ -10,8 +10,11 @@
   <sql id="Base_Column_List" >
     id, articleId, userId, thankDate
   </sql>
+  <select id="selectThankCount" resultType="int">
+    SELECT COUNT(0) FROM thank
+  </select>
   <select id="selectThankStatusByAidUid" resultType="INTEGER">
-    SELECT count(0) FROM thank WHERE articleId = #{articleId,jdbcType=INTEGER} AND userId = #{userId};
+    SELECT COUNT(0) FROM thank WHERE articleId = #{articleId,jdbcType=INTEGER} AND userId = #{userId};
   </select>
   <select id="selectThankNumByThankbean" resultType="INTEGER" parameterType="com.flowingsun.behavior.entity.Thank" >
     SELECT COUNT(0) FROM thank WHERE articleId = #{articleid,jdbcType=INTEGER} AND userId = #{userid,jdbcType=INTEGER}

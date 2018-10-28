@@ -10,6 +10,8 @@ public interface ThankMapper {
 
     int insertSelective(Thank record);
 
+    int selectThankCount();
+
     Thank selectByPrimaryKey(Integer id);
 
     Integer selectThankNumByThankbean(Thank thankBean);

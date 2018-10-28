@@ -6,10 +6,13 @@ import com.flowingsun.article.entity.*;
 import com.flowingsun.article.vo.CategoryArticleQuery;
 import com.flowingsun.article.vo.TagArticleQuery;
 import com.flowingsun.behavior.dao.CommentMapper;
+import com.flowingsun.behavior.dao.ThankMapper;
 import com.flowingsun.behavior.entity.Comment;
+import com.flowingsun.common.dao.BlogVisitorMapper;
 import com.flowingsun.common.dao.RedisDAO;
 import com.flowingsun.common.utils.InfoCountUtils;
 import com.flowingsun.common.utils.changeListFormatUtils;
+import com.flowingsun.user.dao.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,10 +28,19 @@ public class ArticleServiceImpl implements ArticleService {
     private static final Integer FAIL=0;
 
     @Autowired
+    private BlogVisitorMapper blogVisitorMapper;
+
+    @Autowired
     private ArticleMapper articleMapper;
 
     @Autowired
     private CommentMapper commentMapper;
+
+    @Autowired
+    private ThankMapper thankMapper;
+
+    @Autowired
+    private UserMapper userMapper;
 
     @Autowired
     private RedisDAO redisDAO;
@@ -167,6 +179,46 @@ public class ArticleServiceImpl implements ArticleService {
         return allTags;
     }
 
+    /**
+     *@Author Lyon[flowingsun007@163.com]
+     *@Date 18/10/28 15:33
+     *@Param []
+     *@Return java.util.List<Infomation>
+     *@Description 获取博客公共信息，如访客人数、文章总数、总评论数、总感谢数等
+     */
+    @Override
+    public BlogInfo selectInfomation() {
+        BlogInfo blogInfo = new BlogInfo();
+        System.out.println("\n----------------------正在尝试从redis获取博客公共信息...----------------------");
+        String s1 = redisDAO.getString("articleCount");
+        String s2 = redisDAO.getString("commentCount");
+        String s3 = redisDAO.getString("thankCount");
+        String s4 = redisDAO.getString("userCount");
+        String s5 = redisDAO.getString("visitorCount");
+        String s6 = redisDAO.getString("viewCount");
+        if(s1==null||s2==null||s3==null||s4==null||s5==null||s6==null){
+            s1 = String.valueOf(articleMapper.selectAllArticleCount());
+            s2 = String.valueOf(commentMapper.selectCommentCount());
+            s3 = String.valueOf(thankMapper.selectThankCount());
+            s4 = String.valueOf(userMapper.selectUserCount());
+            s5 = String.valueOf(blogVisitorMapper.selectVisitorCount());
+            s6 = String.valueOf(blogVisitorMapper.selectViewCount());
+            redisDAO.setString("articleCount",s1);
+            redisDAO.setString("commentCount",s2);
+            redisDAO.setString("thankCount",s3);
+            redisDAO.setString("userCount",s4);
+            redisDAO.setString("visitorCount",s5);
+            redisDAO.setString("viewCount",s6);
+        }
+        blogInfo.setArticleCount(s1);
+        blogInfo.setCommentCount(s2);
+        blogInfo.setThankCount(s3);
+        blogInfo.setUserCount(s4);
+        blogInfo.setVisitorCount(s5);
+        blogInfo.setViewCount(s6);
+        return blogInfo;
+    }
+
     @Override
     public void updateAllTag() {
         List<ArticleTag> allTags = articleMapper.selectAllTag();
@@ -205,6 +257,8 @@ public class ArticleServiceImpl implements ArticleService {
             }
             if(1==articleMapper.deleteByPrimaryKey(articleId)){
                 updateAllTag();
+                String s = String.valueOf(articleMapper.selectAllArticleCount());
+                redisDAO.setString("articleCount",s);
                 return "delete_success";
             }
         }catch (Exception e){
@@ -240,6 +294,8 @@ public class ArticleServiceImpl implements ArticleService {
                 System.out.println("\n-----------------------------DeleteResult:-----------------------------------\n"+result);
             }
             updateAllTag();
+            String s = String.valueOf(articleMapper.selectAllArticleCount());
+            redisDAO.setString("articleCount",s);
             return "delete_batch_succ";
         }catch (Exception e){
             e.printStackTrace();
@@ -422,6 +478,8 @@ public class ArticleServiceImpl implements ArticleService {
             }
             if(status==0){
                 updateAllTag();
+                String s = String.valueOf(articleMapper.selectAllArticleCount());
+                redisDAO.setString("articleCount",s);
                 return "article_write_succ";
             }
             return "article_write_fail";

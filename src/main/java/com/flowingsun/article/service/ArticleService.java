@@ -84,4 +84,6 @@ public interface ArticleService {
     String batchDeleteArticleAllTag(ArticleTag tagBean);
 
     RegularRecommend getRegularRecommendArticle(Integer articleId);
+
+    BlogInfo selectInfomation();
 }

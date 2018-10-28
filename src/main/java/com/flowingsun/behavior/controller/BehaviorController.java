@@ -1,5 +1,9 @@
 package com.flowingsun.behavior.controller;
 
+import com.flowingsun.article.entity.ArticleTag;
+import com.flowingsun.article.entity.BlogInfo;
+import com.flowingsun.article.entity.Category;
+import com.flowingsun.article.service.ArticleService;
 import com.flowingsun.behavior.entity.Comment;
 import com.flowingsun.behavior.entity.CommentLike;
 import com.flowingsun.behavior.entity.Thank;
@@ -24,6 +28,7 @@ import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.Iterator;
+import java.util.List;
 
 
 @Controller
@@ -32,6 +37,9 @@ public class BehaviorController {
 
     @Autowired
     private BehaviorService behaviorService;
+
+    @Autowired
+    private ArticleService articleService;
 
     @RequestMapping("/comment")
     @ResponseBody
@@ -51,6 +59,17 @@ public class BehaviorController {
     @ResponseBody
     public String setCommentLike(@RequestBody CommentLike commentLikeBean, HttpServletRequest request){
         return behaviorService.setCommentLike(commentLikeBean,request);
+    }
+
+    @RequestMapping("/donateMoney")
+    public String getMoneyDonatePage(HttpServletRequest request,Model model){
+        List<Category> categorys = articleService.getCategory();
+        List<ArticleTag> allTags = articleService.selectAllTag();
+        BlogInfo blogInfo = articleService.selectInfomation();
+        model.addAttribute("blogInfo",blogInfo);
+        model.addAttribute("allTags",allTags);
+        model.addAttribute("categorys",categorys);
+        return behaviorService.getMoneyDonatePage(request);
     }
 
     /*

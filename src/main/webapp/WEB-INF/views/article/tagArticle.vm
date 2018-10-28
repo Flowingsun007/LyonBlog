@@ -255,7 +255,8 @@
         $(".submitShare").click(function () {
             var theNode = $(this);
             $(theNode).children("img").attr("src","/static/image/share2.png");
-            swal("分享成功😊！");
+            var sharelink = window.location.href;
+            swal(sharelink,"复制链接分享吧😊！");
             return false;
         });
 
@@ -516,7 +517,19 @@
             </div>
 
             <div class="p-3">
-                <h2 style="font-size:35px;color:#9F79EE;font-weight: 300;">Other</h2>
+                <h3 style="font-size:35px;color:#9F79EE;font-weight: 300;">Info</h3>
+                <ol class="list-unstyled">
+                    <li style="margin:5px;">浏览次数:<span>$blogInfo.getViewCount()</span></li>
+                    <li style="margin:5px;">访客人数:<span>$blogInfo.getVisitorCount()</span></li>
+                    <li style="margin:5px;">用户人数:<span>$blogInfo.getUserCount()</span></li>
+                    <li style="margin:5px;">文章数:<span>$blogInfo.getArticleCount()</span></li>
+                    <li style="margin:5px;">评论数:<span>$blogInfo.getCommentCount()</span></li>
+                    <li style="margin:5px;">感谢数:<span>$blogInfo.getThankCount()</span></li>
+                </ol>
+            </div>
+
+            <div class="p-3">
+                <h3 style="font-size:35px;color:#9F79EE;font-weight: 300;">Other</h3>
                 <ol class="list-unstyled">
                     <li style="margin:5px;"><a href="https://www.zhihu.com/people/better-man007/activities">知乎-Lyon</a></li>
                     <li style="margin:5px;"><a href="#">微信公众号-阳光流淌007</a></li>

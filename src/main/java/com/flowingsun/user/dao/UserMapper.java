@@ -15,6 +15,8 @@ public interface UserMapper {
 
     User selectByUserToken(User user);
 
+    int selectUserCount();
+
     int updateByPrimaryKey(User record);
 
     int updateByPrimaryKeySelective(User record);

@@ -10,6 +10,8 @@ public interface CommentMapper {
 
     int insert(Comment record);
 
+    int selectCommentCount();
+
     Integer insertSelective(Comment commentBean);
 
     Comment selectByPrimaryKey(Integer id);

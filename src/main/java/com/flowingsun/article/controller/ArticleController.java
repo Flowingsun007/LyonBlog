@@ -1,10 +1,7 @@
 package com.flowingsun.article.controller;
 
 import com.alibaba.fastjson.JSONObject;
-import com.flowingsun.article.entity.Article;
-import com.flowingsun.article.entity.ArticleTag;
-import com.flowingsun.article.entity.Category;
-import com.flowingsun.article.entity.RegularRecommend;
+import com.flowingsun.article.entity.*;
 import com.flowingsun.article.service.ArticleService;
 import com.flowingsun.article.vo.CategoryArticleQuery;
 
@@ -62,12 +59,13 @@ public class ArticleController {
         model.addAttribute("categorys",categorys);
         Long userId = (Long)SecurityUtils.getSubject().getSession().getAttribute("userId");
         List<ArticleTag> allTags = articleService.selectAllTag();
+        BlogInfo blogInfo = articleService.selectInfomation();
         model.addAttribute("allTags",allTags);
+        model.addAttribute("blogInfo",blogInfo);
+        model.addAttribute("pageQueryBean",categoryArticleQuery);
         if(userId!=null&&categoryArticleQuery.getTotal()!=0){
             CategoryArticleQuery result = behaviorService.getUserCategoryArticleBehavior(categoryArticleQuery,userId);
             model.addAttribute("pageQueryBean",result);
-        }else{
-            model.addAttribute("pageQueryBean",categoryArticleQuery);
         }
         return "/article/categoryArticle";
     }
@@ -84,7 +82,9 @@ public class ArticleController {
         if(articleService.checkArticleExist(articleId)){
             Article article = articleService.getArticle(articleId);
             List<ArticleTag> allTags = articleService.selectAllTag();
+            BlogInfo blogInfo = articleService.selectInfomation();
             model.addAttribute("allTags",allTags);
+            model.addAttribute("blogInfo",blogInfo);
             if(article!=null){
                 RegularRecommend regularRecommend = articleService.getRegularRecommendArticle(articleId);
                 if(regularRecommend!=null){article.setRegularRecommend(regularRecommend);}
@@ -122,7 +122,9 @@ public class ArticleController {
         TagArticleQuery tagArticleQuery = articleService.getTagArticles(queryBean);
         List<Category> categorys = articleService.getCategory();
         List<ArticleTag> allTags = articleService.selectAllTag();
+        BlogInfo blogInfo = articleService.selectInfomation();
         model.addAttribute("allTags",allTags);
+        model.addAttribute("blogInfo",blogInfo);
         model.addAttribute("categorys",categorys);
         model.addAttribute("pageQueryBean",tagArticleQuery);
         return "/article/tagArticle";

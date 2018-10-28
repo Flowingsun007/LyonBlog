@@ -241,164 +241,7 @@
     });
 </script>
 
-<script type="text/javascript">
-    function submitThank(){
-        // a,b,c,d,e,f,g分别为文章标题，文章摘要，文章主分类id，文章二级分类id，文章HTML内容,文章markdown原文,文章标签(以tag1,tag2,...字符串形式返回))
-        var articleid = $article.getId();
-        var thankNum = parseInt($.trim($("#submitThank").children("span").text()))+1;
-        $.ajax({
-            type:"POST",
-            contentType: "application/json",
-            url:"/behavior/thank",
-            data:JSON.stringify({"articleid":articleid}),
-            success:function (data) {
-                if(data=="setThank_success"){
-                    $("#submitThank").children("img").attr("src","/static/image/thank2.png");
-                    $("#submitThank").children("span").text(thankNum);
-                    $("#commentNum").text(thankNum);
-                } else if(data=="setThank_fail_重复点赞"){
-                    swal({
-                        title: "您已点过感谢,请勿重复❤️！",
-                        text:  data,
-                        timer: 3000,
-                        showConfirmButton: false
-                    });
-                } else if(data=="setThank_fail_未登录"){
-                    swal({
-                        title: "亲，请先登录再点❤️哦！",
-                        text:  data,
-                        timer: 3000,
-                        showConfirmButton: false
-                    });
-                } else{
-                    swal("点❤失败😶！", data);
-                }
-            }
-        });
-        return false;
-    };
 
-    function createCommentArea(){
-        var theNode = $("#commentIcon");
-        var commentNum = parseInt($.trim($(theNode).children("span").text()))+1;
-        $(theNode).children("img").attr("src","/static/image/comment2.png");
-        $(theNode).children("span").text(commentNum);
-        var userName = $("#navLoginButton").text();
-        var usrComment = document.getElementById('maincomment').value;
-        var newdiv = document.createElement("div");
-        var commentlist = document.getElementById("commentList");
-        newdiv.className = 'box box-widget';
-        var date = new Date();
-        var time = date.toLocaleTimeString();
-        newdiv.innerHTML = '<div class="box-header with-border"> <div class="user-block"> <img class="direct-chat-img" src="/static/image/userHead/header.png" alt="User Image">'
-                + '<span class="username"><a href="#">'+userName+'</a></span><span class="description">'+time+'</span> </div><!-- /.user-block --> <div class="box-tools">'
-                + '<a href="javascript:void(0)" onclick="submitThank()" style="margin-right:15px;color:#919191;" class="submitThank"> <img class="icon" src="/static/image/thumb-up1.png" alt="thumb-up" style="width="15px;" height="15px;"">0 赞</a>'
-                + '<a href="" style="color:#919191;"><img class="icon" src="/static/image/discuss-1.png" alt="discuss" style="width="15px;" height="15px;"">讨论</a></div><!-- /.box-tools --> </div><!-- /.box-header -->'
-                + '<div class="box-body"> <p>'+usrComment+'</p></div>';
-        commentlist.appendChild(newdiv);
-        return true;
-    };
-
-    function showCommentArea() {
-        alert("此功能暂时没有开发哦亲！");
-    };
-</script>
-
-<script>
-    $(function(){
-        $("#commentsubmit").click(function(){
-            var comment = $("#maincomment").val();
-            var articleid = $article.getId();
-            if(comment==""){
-                swal({
-                    title: "请不要提交空评论！！！",
-                    showConfirmButton: true
-                });
-                return false;
-            }
-            $.ajax({
-                type:"POST",
-                contentType: "application/json",
-                url:"/behavior/comment",
-                data:JSON.stringify({"articleid":articleid,"comment":comment}),
-                success:function (data) {
-                    if(data=="setComment_success"){
-                        createCommentArea();
-                        //window.location.reload();
-                    } else if(data=="setComment_fail_插入数据库失败"){
-                        swal({
-                            title: "setComment_fail_插入数据库失败",
-                            text:  data,
-                            timer: 3000,
-                            showConfirmButton: false
-                        });
-                    } else if(data=="setComment_fail_未登录"){
-                        swal({
-                            title: "亲，请先登录再评论哦！",
-                            text:  data,
-                            timer: 3000,
-                            showConfirmButton: false
-                        });
-                    } else{
-                        swal("评论失败😶！", data);
-                    }
-                }
-            });
-            return false;
-        });
-
-        $("#submitSave").click(function () {
-            var theNode = $(this);
-            $(theNode).children("img").attr("src","/static/image/save2.png");
-            swal("收藏成功😊！");
-            return false;
-        });
-
-        $("#submitShare").click(function () {
-            var theNode = $(this);
-            $(theNode).children("img").attr("src","/static/image/share2.png");
-            var sharelink = window.location.href;
-            swal(sharelink,"复制链接分享吧😊！");
-            return false;
-        });
-
-        $("#commentList").on("click",".submitCommentLike",function(){
-            var theNode = $(this);
-            var articleid = $article.getId();
-            var commentid = $(this).next().text();
-            var mainuserid = $(this).next().next().text();
-            var likeNum = parseInt($.trim($(this).children("span").text()))+1;
-            $.ajax({
-                type:"POST",
-                contentType: "application/json",
-                url:"/behavior/commentLike",
-                data:JSON.stringify({"articleid":articleid,"commentid":commentid,"mainuserid":mainuserid}),
-                success:function (data) {
-                    if(data=="setCommentLike_success"){
-                        $(theNode).children("span").text(likeNum);
-                    } else if(data=="setCommentLike_fail_重复点赞"){
-                        swal({
-                            title: "您已点过赞哦,请勿重复点👍！",
-                            text:  data,
-                            timer: 3000,
-                            showConfirmButton: false
-                        });
-                    } else if(data=="setCommentLike_fail_未登录"){
-                        swal({
-                            title: "亲，请先登录再点👍️哦！",
-                            text:  data,
-                            timer: 3000,
-                            showConfirmButton: false
-                        });
-                    } else{
-                        swal("点👍失败😶！", data);
-                    }
-                }
-            });
-            return false;
-        });
-    });
-</script>
 
 
 <header>
@@ -558,164 +401,21 @@
         </div>
     </div>
 
-#if(!$article.getArticleTitle())
-    <h1 class="display-4 font-italic">Dear friend,It's a no man's land,Please calm down and take a cup of tea!</h1>
-    <h3 class="mb-0">
-        <a class="text-dark" href="#">亲，你来到了一片没有知识存在的荒原！</a>
-    </h3>
-#else
 
     <main role="main" class="container">
         <div class="row">
             <div class="col-md-9 blog-main">
-
                     <div class="blog-post">
-                        <div>
-                            <h2 class="blog-post-meta" style="font-family: STXingkai;font-size: xx-large"><a href="/article/single?articleId=$article.getId()" target="_blank" style="color: #000000;">$article.getArticleTitle()</a></h2>
-
-                            <div class="linkandshare-mainarticle">
-                                <a href="javascript:void(0)" onclick="submitThank()" style="margin-right:30px;color:#919191;" class="submitThank" id="submitThank">
-                                    #if($article.getBehaviorStatus().getThankStatus()==1)
-                                        <img class="icon" src="/static/image/thank2.png" alt="thank" width="15px;" height="15px;">
-                                    #else
-                                        <img class="icon" src="/static/image/thank1.png" alt="thank" width="15px;" height="15px;">
-                                    #end
-                                    <span id="thankNum">
-                                        #if(!$article.getArticleThank())
-                                0
-                                        #else
-                                            $article.getArticleThank()
-                                        #end</span>感谢</a>
-
-                            ##                        <img class="icon" src="/static/open-iconic/svg/comment-square.svg" alt="comment-square">
-                                <a href="javascript:void(0)" onclick="showCommentArea()" style="margin-right:40px;color:#919191;" id="commentIcon">
-                                    #if($article.getBehaviorStatus().getCommentStatus()==1)
-                                        <img class="icon" src="/static/image/comment2.png" alt="comment" width="15px;" height="15px;">
-                                    #else
-                                        <img class="icon" src="/static/image/comment1.png" alt="comment" width="15px;" height="15px;">
-                                    #end
-                                    <span>
-                                        #if(!$article.getArticleComment())
-                                            0
-                                        #else
-                                            $article.getArticleComment()
-                                        #end
-                                    </span>评论</a>
-                                <a href="" style="margin-right:40px;color:#919191;" id="submitSave"><img class="icon" src="/static/image/save1.png" alt="star" width="17px;" height="17px;" >收藏</a>
-                                <a href=""  style="color:#919191;" id="submitShare"><img class="icon" src="/static/image/share1.png" alt="share" width="15px;" height="15px;">分享</a>
-                            </div>
-
-                            <div>
-                                <h4 class="font-italic" style="color:#9F79EE;font-size:15px">
-                                    #set($tags = $article.getArticleTagList())
-                                    #foreach($tag in $!{tags})
-                                        <a class="anewTag" href="/article/tag?tagId=$tag.tagId" target="_blank">
-                                            <span class="badge badge-success">$tag.tagName</span>
-                                        </a>
-                                    #end
-                                    <span id="articleMainId" style="visibility: hidden">$article.getArticleMainId()</span>
-                                    <span id="articleSecondId" style="visibility: hidden">$article.getArticleSecondId()</span>
-                                </h4>
-                            </div>
-                            <div>
-                                <p>Lyon 创建于：<span> $!date.format('yyyy-MM-dd HH:mm',$!article.getCreateDate())</span></p>
-                                <p><span style="color:#66CDAA;">文章分类:</span>
-                                    <span>$article.getMainCategoryName()-></span>
-                                    <a  href="/article/category?cId=$article.getArticleSecondId()" target="_blank">$article.getSecondCategoryName()</a>
-                                </p>
-                            </div>
-
-                            <hr>
-                            <h5 class="pb-3 mb-4 font-italic border-bottom">
-                                $article.getArticleAbstract()
-                            </h5>
-                        </div>
-
-
-
-                        <div id="test-editormd-view" class="content editormd-preview-theme-dark">
-                            <textarea style="display:none;" name="test-editormd-markdown-doc">Hello Markdown,Editor.md!</textarea>
-                        </div>
-                        <div id="test-editormd-view2">
-                            <textarea id="append-test" style="display:none;" >$article.getArticleContent()</textarea>
-                        </div>
-
-##                        <div class="content editormd-preview-theme-dark" id="content">
-##                            $article.getArticleContent()
-##                        </div>
-##                        <div id="wordsView">
-##                            <textarea style="display:none;" name="editormd-markdown-doc">$article.getArticleContent()</textarea>
-##                        </div>
-
-                        <nav class="blog-pagination">
-                            #set($Recommend = $article.getRegularRecommend())
-                            #if($Recommend.getPreviousArticleId()==0)
-                                <a class="btn btn-outline-dark">木有上一篇了😶</a>
-                                <a>$Recommend.getPreviousTitle()</a>
-                            #else
-                                <a class="btn btn-outline-success">上一篇</a>
-                                <a href="/article/single?articleId=$Recommend.getPreviousArticleId()">$Recommend.getPreviousTitle()</a>
-                            #end
-                            #if($Recommend.getNextArticleId()==0)
-                                <a class="btn btn-outline-info">木有下一篇了😶</a>
-                                <a>$Recommend.getNextTitle()</a>
-                            #else
-                                <a class="btn btn-outline-info">下一篇</a>
-                                <a href="/article/single?articleId=$Recommend.getNextArticleId()">$Recommend.getNextTitle()</a>
-                            #end
-                        </nav>
-
-                        <a href="/behavior/donateMoney" target="_blank" class="btn btn-outline-dark"><span class="badge badge-info">觉得有用? 给Lyon打个赏:)</span></a>
-
+                        <h2 style="color:#4dee1c;font-size:30px">
+                            支付宝—收钱码
+                        </h2>
+                        <img src="/static/image/支付宝-收钱码.jpg" alt="支付宝-收钱码.jpg" title="支付宝-收钱码.jpg" >
+                        <h2  style="color:#ee15bd;font-size:30px">
+                            微信—赞赏码
+                        </h2>
+                        <img src="/static/image/微信-赞赏码.jpg" alt="微信-赞赏码.jpg" title="微信-赞赏码.jpg" >
                     </div><!-- /.blog-post -->
-
-                <div>
-                    <div id="commentHeader">
-                        <h3><span class="f-ff2">留言区</span></h3>
-                        <textarea style="height:100px;" class="form-control" placeholder="亲，在此写下您的评论！" id="maincomment"></textarea>
-                    </div>
-                    <button type="button" id="commentsubmit"  class="btn btn-default btn-xs " style="background-color:#7D9EC0;color:#FFFFFF;width=5px;height=5px;float:right;">
-                        <span class="glyphicon glyphicon-comment">评论
-                    </button>
-                </div>
-
-                <div id="commentList0">
-                    <div class="commentCounts" >
-                        共<span class="j-flag" id="commentNum">#if(!$article.getArticleComment())0#else$article.getArticleComment()#end</span>条评论
-                    </div>
-                </div>
-
-
-                <div id="commentList">
-                    #set($comments = $article.getArticleCommentList())
-                    #foreach($comment in $!{comments})
-                        #set($discussions = $comment.getDiscussionList())
-                        <div class="box box-widget">
-                            <div class="box-header with-border">
-                                <div class="user-block">
-                                    <img class="direct-chat-img" src="/static/image/userHead/header.png" alt="User Image">
-                                    <span class="username"><a href="#">$comment.getUserName()</a></span>
-                                    <span class="description">$!date.format('yy-MM-dd HH:mm',$comment.getCommentdate())</span>
-                                </div>
-                                <!-- /.user-block -->
-                                <div class="box-tools">
-                                    <a href="javascript:void(0)"  style="margin-right:15px;color:#919191;" class="submitCommentLike">
-                                        <img class="icon" src="/static/image/thumb-up2.png" alt="thumb-up" width="15px;" height="15px;"><span>$comment.getCommentLikeNum()</span>赞</a>
-                                    <span style="visibility: hidden">$comment.getId()</span>
-                                    <span style="visibility: hidden">$comment.getUserid()</span>
-                                    <a href="#" style="color:#919191;"><img class="icon" src="/static/image/discuss-2.png" alt="discuss" width="15px;" height="15px;">讨论</a>
-                                </div>
-                                <!-- /.box-tools -->
-                            </div>
-                            <!-- /.box-header -->
-                            <div class="box-body">
-                                <p>$comment.getComment()</p>
-                            </div>
-                        </div>
-
-                    #end
-                </div>
-                </div><!-- /.blog-main -->
+            </div><!-- /.blog-main -->
 
 
 
@@ -771,7 +471,6 @@
         </div><!-- /.row -->
     </main>
 
-#end
 
     <!-- FOOTER -->
     <footer class="container">

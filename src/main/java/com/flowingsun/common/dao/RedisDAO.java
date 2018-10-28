@@ -212,4 +212,36 @@ public class RedisDAO {
             return list;
         }
     }
+
+    public String setString(String key ,String value){
+        String result=null;
+        try {
+            Jedis jedis = jedisPool.getResource();
+            try{
+                result = jedis.set(key,value);
+            }finally {
+                jedis.close();
+                return result;
+            }
+        } catch (Exception e) {
+            logger.error("RedisDAO setString error : "+e);
+            return result;
+        }
+    }
+
+    public String getString(String key){
+        String result=null;
+        try {
+            Jedis jedis = jedisPool.getResource();
+            try{
+                result = jedis.get(key);
+            }finally {
+                jedis.close();
+                return result;
+            }
+        } catch (Exception e) {
+            logger.error("RedisDAO getString error : "+e);
+            return result;
+        }
+    }
 }

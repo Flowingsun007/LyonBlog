@@ -33,6 +33,9 @@
     permissionid, permission, p.description pd
   </sql>
 
+  <select id="selectUserCount" resultType="int">
+    SELECT COUNT(0) FROM blog_user
+  </select>
   <select id="selectUseridByUserphone" resultType="java.lang.Long">
     SELECT id FROM blog_user WHERE telephone = #{userphone,jdbcType=VARCHAR}
   </select>
