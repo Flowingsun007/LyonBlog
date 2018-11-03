@@ -7,7 +7,7 @@ public class Thank {
 
     private Integer articleid;
 
-    private Integer userid;
+    private Long userid;
 
     private Date thankdate;
 
@@ -37,11 +37,11 @@ public class Thank {
         this.articleid = articleid;
     }
 
-    public Integer getUserid() {
+    public Long getUserid() {
         return userid;
     }
 
-    public void setUserid(Integer userid) {
+    public void setUserid(Long userid) {
         this.userid = userid;
     }
 

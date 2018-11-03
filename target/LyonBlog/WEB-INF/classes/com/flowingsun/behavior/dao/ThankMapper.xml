@@ -4,7 +4,7 @@
   <resultMap id="BaseResultMap" type="com.flowingsun.behavior.entity.Thank" >
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="articleId" property="articleid" jdbcType="INTEGER" />
-    <result column="userId" property="userid" jdbcType="INTEGER" />
+    <result column="userId" property="userid" jdbcType="BIGINT" />
     <result column="thankDate" property="thankdate" jdbcType="TIMESTAMP" />
   </resultMap>
   <sql id="Base_Column_List" >
@@ -13,11 +13,14 @@
   <select id="selectThankCount" resultType="int">
     SELECT COUNT(0) FROM thank
   </select>
+  <select id="selectThankCountByUserid" resultType="int">
+    SELECT COUNT(0) FROM thank WHERE userId = #{userId,jdbcType=BIGINT}
+  </select>
   <select id="selectThankStatusByAidUid" resultType="INTEGER">
     SELECT COUNT(0) FROM thank WHERE articleId = #{articleId,jdbcType=INTEGER} AND userId = #{userId};
   </select>
   <select id="selectThankNumByThankbean" resultType="INTEGER" parameterType="com.flowingsun.behavior.entity.Thank" >
-    SELECT COUNT(0) FROM thank WHERE articleId = #{articleid,jdbcType=INTEGER} AND userId = #{userid,jdbcType=INTEGER}
+    SELECT COUNT(0) FROM thank WHERE articleId = #{articleid,jdbcType=INTEGER} AND userId = #{userid}
   </select>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
@@ -31,7 +34,7 @@
   </delete>
   <insert id="insertThank" parameterType="com.flowingsun.behavior.entity.Thank" >
     INSERT IGNORE INTO thank (articleId, userId,thankDate)
-    VALUES (#{articleid,jdbcType=INTEGER}, #{userid,jdbcType=INTEGER},#{thankdate,jdbcType=TIMESTAMP})
+    VALUES (#{articleid,jdbcType=INTEGER}, #{userid,jdbcType=BIGINT},#{thankdate,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="com.flowingsun.behavior.entity.Thank" >
     insert into thank
@@ -57,7 +60,7 @@
         #{articleid,jdbcType=INTEGER},
       </if>
       <if test="userid != null" >
-        #{userid,jdbcType=INTEGER},
+        #{userid,jdbcType=BIGINT},
       </if>
       <if test="thankdate != null" >
         #{thankdate,jdbcType=TIMESTAMP},
@@ -71,7 +74,7 @@
         articleId = #{articleid,jdbcType=INTEGER},
       </if>
       <if test="userid != null" >
-        userId = #{userid,jdbcType=INTEGER},
+        userId = #{userid,jdbcType=BIGINT},
       </if>
       <if test="thankdate != null" >
         thankDate = #{thankdate,jdbcType=TIMESTAMP},
@@ -82,7 +85,7 @@
   <update id="updateByPrimaryKey" parameterType="com.flowingsun.behavior.entity.Thank" >
     update thank
     set articleId = #{articleid,jdbcType=INTEGER},
-      userId = #{userid,jdbcType=INTEGER},
+      userId = #{userid,jdbcType=BIGINT},
       thankDate = #{thankdate,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>

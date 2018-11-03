@@ -4,30 +4,20 @@ import com.flowingsun.article.entity.ArticleTag;
 import com.flowingsun.article.entity.BlogInfo;
 import com.flowingsun.article.entity.Category;
 import com.flowingsun.article.service.ArticleService;
-import com.flowingsun.behavior.entity.Comment;
-import com.flowingsun.behavior.entity.CommentLike;
-import com.flowingsun.behavior.entity.Thank;
+import com.flowingsun.behavior.entity.*;
 import com.flowingsun.behavior.service.BehaviorService;
-import com.flowingsun.common.dao.RedisDAO;
-import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
-import org.springframework.web.multipart.MultipartRequest;
-import org.springframework.web.multipart.MultipartResolver;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-import java.util.Iterator;
 import java.util.List;
 
 
@@ -54,11 +44,23 @@ public class BehaviorController {
         return behaviorService.setThank(thankBean,request);
     }
 
+    @RequestMapping("/collect")
+    @ResponseBody
+    public String collectArticle(@RequestBody Collection collectionBean, HttpServletRequest request){
+        return behaviorService.setCollect(collectionBean,request);
+    }
+
 
     @RequestMapping("/commentLike")
     @ResponseBody
     public String setCommentLike(@RequestBody CommentLike commentLikeBean, HttpServletRequest request){
         return behaviorService.setCommentLike(commentLikeBean,request);
+    }
+
+    @RequestMapping("/commentDiscuss")
+    @ResponseBody
+    public String setCommentDiscussion(@RequestBody Discussion discussion, HttpServletRequest request){
+        return behaviorService.setCommentDiscussion(discussion,request);
     }
 
     @RequestMapping("/donateMoney")
@@ -70,6 +72,12 @@ public class BehaviorController {
         model.addAttribute("allTags",allTags);
         model.addAttribute("categorys",categorys);
         return behaviorService.getMoneyDonatePage(request);
+    }
+
+    @RequestMapping("/getColletions")
+    @ResponseBody
+    public String getUserArticleCollections(HttpServletRequest request){
+        return behaviorService.getUserArticleCollections(request);
     }
 
     /*

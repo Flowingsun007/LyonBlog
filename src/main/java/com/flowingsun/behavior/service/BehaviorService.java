@@ -2,15 +2,13 @@ package com.flowingsun.behavior.service;
 
 import com.flowingsun.article.entity.Article;
 import com.flowingsun.article.vo.CategoryArticleQuery;
-import com.flowingsun.behavior.entity.Comment;
-import com.flowingsun.behavior.entity.CommentLike;
-import com.flowingsun.behavior.entity.Picture;
-import com.flowingsun.behavior.entity.Thank;
+import com.flowingsun.behavior.entity.*;
 import com.flowingsun.behavior.vo.PictureQuery;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import javax.servlet.http.HttpServletRequest;
 import java.text.ParseException;
+import java.util.List;
 
 public interface BehaviorService {
 
@@ -31,4 +29,12 @@ public interface BehaviorService {
     CategoryArticleQuery getUserCategoryArticleBehavior(CategoryArticleQuery categoryArticleQuery, Long userId);
 
     String getMoneyDonatePage(HttpServletRequest request);
+
+    String setCommentDiscussion(Discussion discussion, HttpServletRequest request);
+
+    String setCollect(Collection collectBean, HttpServletRequest request);
+
+    BehaviorStatus getUserBehavior(Long userid);
+
+    String getUserArticleCollections(HttpServletRequest request);
 }

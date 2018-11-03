@@ -270,12 +270,47 @@
             return false;
         });
 
-        $(".submitSave").click(function () {
+        $("#blogList").on("click",".submitCollect",function(){
             var theNode = $(this);
-            $(theNode).children("img").attr("src","/static/image/save2.png");
-            swal("收藏成功😊！");
+            var articleid = $(this).next().next().text();
+            var collectionNum = parseInt($.trim($(this).children("span").text()))+1;
+            $.ajax({
+                type:"POST",
+                contentType: "application/json",
+                url:"/behavior/collect",
+                data:JSON.stringify({"articleid":articleid}),
+                success:function (data) {
+                    if(data=="collect_success"){
+                        $(theNode).children("img").attr("src","/static/image/save2.png");
+                        $(theNode).children("span").text(collectionNum);
+                    } else if(data=="collect_fail_重复收藏"){
+                        swal({
+                            title: "您已收藏,请勿重复提交️！",
+                            text:  data,
+                            timer: 3000,
+                            showConfirmButton: false
+                        });
+                    } else if(data=="collect_fail_未登录"){
+                        swal({
+                            title: "亲，请先登录再收藏哦！",
+                            text:  data,
+                            timer: 3000,
+                            showConfirmButton: false
+                        });
+                    } else{
+                        swal("收藏失败😶！", data);
+                    }
+                }
+            });
             return false;
         });
+
+        // $(".submitCollect").click(function () {
+        //     var theNode = $(this);
+        //     $(theNode).children("img").attr("src","/static/image/save2.png");
+        //     swal("收藏成功😊！");
+        //     return false;
+        // });
 
         $(".submitShare").click(function () {
             var theNode = $(this);
@@ -490,7 +525,7 @@
                                     #end
                                     </span>感谢</a>
                                 <span style="visibility: hidden">$article.getId()</span>
-                                <a href="" style="margin-right:40px;color:#919191;">
+                                <a href="javascript:void(0)"  style="margin-right:40px;color:#919191;">
                                     #if($article.getBehaviorStatus().getCommentStatus()==1)
                                         <img class="icon" src="/static/image/comment2.png" alt="comment" width="15px;" height="15px;">
                                     #else
@@ -501,8 +536,22 @@
                                     #else
                                         $article.getArticleComment()
                                     #end</span>评论</a>
-                                <a href="" style="margin-right:40px;color:#919191;" class="submitSave"><img class="icon" src="/static/image/save1.png" alt="star" width="17px;" height="17px;" >收藏</a>
+                                <a href="javascript:void(0)"  style="margin-right:40px;color:#919191;" class="submitCollect">
+                                    #if($article.getBehaviorStatus().getCollectStatus()==1)
+                                        <img class="icon" src="/static/image/save2.png" alt="star" width="17px;" height="17px;">
+                                    #else
+                                        <img class="icon" src="/static/image/save1.png" alt="star" width="17px;" height="17px;">
+                                    #end
+                                    <span>
+                                        #if(!$article.getArticleCollection())
+                                            0
+                                        #else
+                                            $article.getArticleCollection()
+                                        #end
+                                    </span>收藏
+                                </a>
                                 <a href=""  style="color:#919191;" class="submitShare"><img class="icon" src="/static/image/share1.png" alt="share" width="15px;" height="15px;">分享</a>
+                                <span style="visibility: hidden">$article.getId()</span>
                             </div>
 
                         </div><!-- /.blog-post -->

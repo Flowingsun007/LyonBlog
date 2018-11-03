@@ -3,6 +3,7 @@ package com.flowingsun.user.controller;
 import com.flowingsun.article.entity.Category;
 import com.flowingsun.article.service.ArticleService;
 import com.flowingsun.article.vo.PageNotice;
+import com.flowingsun.behavior.entity.BehaviorStatus;
 import com.flowingsun.behavior.service.BehaviorService;
 import com.flowingsun.behavior.vo.PictureQuery;
 import com.flowingsun.user.entity.User;
@@ -81,12 +82,15 @@ public class UserController {
             @RequestParam(value="pageNum",required=false,defaultValue = "1")Integer pageNum,
             @RequestParam(value="pageSize",required=false,defaultValue = "20")Integer pageSize
     ) throws ParseException {
+        Long userid = (Long)request.getSession().getAttribute("userId");
         PictureQuery pictureQuery = new PictureQuery();
         pictureQuery.setPageNum(pageNum);
         pictureQuery.setPageSize(pageSize);
         List<Category> categorys = articleService.getCategory();
         PictureQuery pictureQueryList = behaviorService.getUserImages(pictureQuery);
         String resultInfo = (String) request.getAttribute("resultInfo");
+        BehaviorStatus behaviorBean = behaviorService.getUserBehavior(userid);
+        model.addAttribute("behaviorBean",behaviorBean);
         model.addAttribute("resultInfo",resultInfo);
         model.addAttribute("categorys",categorys);
         model.addAttribute("pictureQueryList",pictureQueryList);

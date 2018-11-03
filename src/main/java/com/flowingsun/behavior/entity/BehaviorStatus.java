@@ -1,6 +1,8 @@
 package com.flowingsun.behavior.entity;
 
 
+import java.util.List;
+
 public class BehaviorStatus {
 
     private Long userid;
@@ -9,11 +11,27 @@ public class BehaviorStatus {
 
     private byte thankStatus;
 
+    private byte collectStatus;
+
     private byte commentStatus;
 
     private byte commentLikeStatus;
 
     private byte commentDiscussStatus;
+
+    private int viewCount;
+
+    private int thankCount;
+
+    private int collectionCount;
+
+    private int commentCount;
+
+    private int commentLikeCount;
+
+    private int commentDiscussCount;
+
+    private List<Collection> collectionList;
 
     public byte getCommentDiscussStatus() {
         return commentDiscussStatus;
@@ -47,6 +65,14 @@ public class BehaviorStatus {
         this.thankStatus = thankStatus;
     }
 
+    public byte getCollectStatus() {
+        return collectStatus;
+    }
+
+    public void setCollectStatus(byte collectStatus) {
+        this.collectStatus = collectStatus;
+    }
+
     public byte getCommentStatus() {
         return commentStatus;
     }
@@ -61,6 +87,62 @@ public class BehaviorStatus {
 
     public void setCommentLikeStatus(byte commentLikeStatus) {
         this.commentLikeStatus = commentLikeStatus;
+    }
+
+    public int getViewCount() {
+        return viewCount;
+    }
+
+    public void setViewCount(int viewCount) {
+        this.viewCount = viewCount;
+    }
+
+    public int getThankCount() {
+        return thankCount;
+    }
+
+    public void setThankCount(int thankCount) {
+        this.thankCount = thankCount;
+    }
+
+    public int getCollectionCount() {
+        return collectionCount;
+    }
+
+    public void setCollectionCount(int collectionCount) {
+        this.collectionCount = collectionCount;
+    }
+
+    public int getCommentCount() {
+        return commentCount;
+    }
+
+    public void setCommentCount(int commentCount) {
+        this.commentCount = commentCount;
+    }
+
+    public int getCommentLikeCount() {
+        return commentLikeCount;
+    }
+
+    public void setCommentLikeCount(int commentLikeCount) {
+        this.commentLikeCount = commentLikeCount;
+    }
+
+    public int getCommentDiscussCount() {
+        return commentDiscussCount;
+    }
+
+    public void setCommentDiscussCount(int commentDiscussCount) {
+        this.commentDiscussCount = commentDiscussCount;
+    }
+
+    public List<Collection> getCollectionList() {
+        return collectionList;
+    }
+
+    public void setCollectionList(List<Collection> collectionList) {
+        this.collectionList = collectionList;
     }
 
 }

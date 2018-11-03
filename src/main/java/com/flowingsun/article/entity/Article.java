@@ -31,6 +31,8 @@ public class Article {
 
     private Integer articleThank;
 
+    private Integer articleCollection;
+
     private String articleContent;
 
     private String articleContentCopy;
@@ -185,6 +187,14 @@ public class Article {
         this.articleThank = articleThank;
     }
 
+    public Integer getArticleCollection() {
+        return articleCollection;
+    }
+
+    public void setArticleCollection(Integer articleCollection) {
+        this.articleCollection = articleCollection;
+    }
+
     public String getArticleContent() {
         return articleContent;
     }
@@ -232,14 +242,14 @@ public class Article {
                 ", secondCategoryName='" + secondCategoryName + '\'' +
                 ", articleComment=" + articleComment +
                 ", articleThank=" + articleThank +
-                ", articleContent='" + articleContent + '\'' +
-                ", articleContentCopy='" + articleContentCopy + '\'' +
+                ", articleCollection=" + articleCollection +
                 ", characterCount=" + characterCount +
                 ", articleTags='" + articleTags + '\'' +
                 ", articleTagBean=" + articleTagBean +
                 ", articleTagList=" + articleTagList +
                 ", articleCommentList=" + articleCommentList +
                 ", regularRecommend=" + regularRecommend +
+                ", behaviorStatus=" + behaviorStatus +
                 '}';
     }
 }

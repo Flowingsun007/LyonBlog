@@ -1,13 +1,12 @@
 package com.flowingsun.behavior.service;
 
 
+import com.alibaba.fastjson.JSON;
 import com.flowingsun.article.entity.Article;
 import com.flowingsun.article.vo.CategoryArticleQuery;
-import com.flowingsun.behavior.dao.CommentLikeMapper;
-import com.flowingsun.behavior.dao.CommentMapper;
-import com.flowingsun.behavior.dao.PictureMapper;
-import com.flowingsun.behavior.dao.ThankMapper;
+import com.flowingsun.behavior.dao.*;
 import com.flowingsun.behavior.entity.*;
+import com.flowingsun.behavior.entity.Collection;
 import com.flowingsun.behavior.vo.PictureQuery;
 import com.flowingsun.common.dao.RedisDAO;
 import com.flowingsun.common.utils.InfoCountUtils;
@@ -16,20 +15,14 @@ import com.flowingsun.user.entity.User;
 import org.apache.log4j.Logger;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authz.UnauthenticatedException;
-import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
-import org.springframework.web.multipart.MultipartRequest;
-import org.springframework.web.multipart.MultipartResolver;
-import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.sql.Timestamp;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -49,6 +42,9 @@ public class BehaviorServiceImpl implements BehaviorService {
     private ThankMapper thankMapper;
 
     @Autowired
+    private CollectionMapper collectionMapper;
+
+    @Autowired
     private PictureMapper pictureMapper;
 
     @Autowired
@@ -56,6 +52,9 @@ public class BehaviorServiceImpl implements BehaviorService {
 
     @Autowired
     private CommentLikeMapper commentLikeMapper;
+
+    @Autowired
+    private DiscussionMapper discussionMapper;
 
     @Autowired
     private UserMapper userMapper;
@@ -104,7 +103,7 @@ public class BehaviorServiceImpl implements BehaviorService {
         try {
             Long userId = (Long)SecurityUtils.getSubject().getSession().getAttribute("userId");
             if(userId!=null){
-                thankBean.setUserid(userId.intValue());
+                thankBean.setUserid(userId);
                 if (thankMapper.selectThankNumByThankbean(thankBean).equals(0)) {
                     thankBean.setThankdate(new Timestamp(new Date().getTime()));
                     if (SUCCESS == thankMapper.insertThank(thankBean)) {
@@ -122,6 +121,49 @@ public class BehaviorServiceImpl implements BehaviorService {
             return "setThank_fail_exception";
         }
     }
+
+    @Override
+    public String setCollect(Collection collectionBean, HttpServletRequest request) {
+        try {
+            Long userId = (Long)SecurityUtils.getSubject().getSession().getAttribute("userId");
+            if(userId!=null){
+                collectionBean.setUserid(userId);
+                if (collectionMapper.selectCollectionCountByCollectionbean(collectionBean).equals(0)) {
+                    collectionBean.setCollectdate(new Timestamp(new Date().getTime()));
+                    if (SUCCESS == collectionMapper.insertCollection(collectionBean)) {
+                        String s = String.valueOf(collectionMapper.selectCollectionCount());
+                        redisDAO.setString("collectionCount",s);
+                        return "collect_success";
+                    }
+                } else {
+                    return "collect_fail_重复收藏";
+                }
+            }
+            return "collect_fail_未登录";
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "collect_fail_exception";
+        }
+    }
+
+    @Override
+    public BehaviorStatus getUserBehavior(Long userid) {
+        BehaviorStatus behaviorBean = new BehaviorStatus();
+        behaviorBean.setCollectionCount(collectionMapper.selectCollectionCountByUserid(userid));
+        behaviorBean.setCommentCount(commentMapper.selectCommentCountByUserid(userid));
+        behaviorBean.setThankCount(thankMapper.selectThankCountByUserid(userid));
+        behaviorBean.setCollectionList(collectionMapper.selectCollectionsByUserid(userid));
+        return behaviorBean;
+    }
+
+    @Override
+    public String getUserArticleCollections(HttpServletRequest request) {
+        Long userId = (Long)SecurityUtils.getSubject().getSession().getAttribute("userId");
+        List<Collection> collections = collectionMapper.selectCollectionsByUserid(userId);
+        String result = JSON.toJSONString(collections);
+        return result;
+    }
+
 
     @Override
     public String setCommentLike(CommentLike bean, HttpServletRequest request) {
@@ -144,6 +186,26 @@ public class BehaviorServiceImpl implements BehaviorService {
         }catch(Exception e){
             e.printStackTrace();
             return "setCommentLike_fail_exception";
+        }
+    }
+
+    @Override
+    public String setCommentDiscussion(Discussion discussion, HttpServletRequest request) {
+        try {
+            Long userId = (Long)SecurityUtils.getSubject().getSession().getAttribute("userId");
+            discussion.setDiscussdate(new Timestamp(new Date().getTime()));
+            if (userId != null) {
+                discussion.setUserid(userId);
+                if (discussionMapper.insertSelective(discussion)==SUCCESS)
+                    return "setCommentDiscussion_success";
+                else
+                    return "setCommentDiscussion_fail_exception";
+            }else {
+                return "setCommentDiscussion_fail_未登录";
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+            return "setCommentDiscussion_fail_exception";
         }
     }
 
@@ -346,6 +408,9 @@ public class BehaviorServiceImpl implements BehaviorService {
         }
         if(commentMapper.selectCommentStatusByAidUid(userId,articleId)>=1){
             behaviorBean.setCommentStatus(flag);
+        }
+        if(collectionMapper.selectCollectionStatusByAidUid(userId,articleId)>=1){
+            behaviorBean.setCollectStatus(flag);
         }
         article.setBehaviorStatus(behaviorBean);
         //List<Comment> cmtList = article.getArticleCommentList();

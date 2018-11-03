@@ -278,6 +278,43 @@
         return false;
     };
 
+    function submitCollect(){
+        // a,b,c,d,e,f,g分别为文章标题，文章摘要，文章主分类id，文章二级分类id，文章HTML内容,文章markdown原文,文章标签(以tag1,tag2,...字符串形式返回))
+        var articleid = $article.getId();
+        var collectNum = parseInt($.trim($("#submitCollect").children("span").text()))+1;
+        $.ajax({
+            type:"POST",
+            contentType: "application/json",
+            url:"/behavior/collect",
+            data:JSON.stringify({"articleid":articleid}),
+            success:function (data) {
+                if(data=="collect_success"){
+                    $("#submitCollect").children("img").attr("src","/static/image/save2.png");
+                    $("#submitCollect").children("span").text(collectNum);
+                    $("#collectNum").text(collectNum);
+                    swal("收藏成功😊！");
+                } else if(data=="collect_fail_重复收藏"){
+                    swal({
+                        title: "您已收藏过,请勿重复提交！",
+                        text:  data,
+                        timer: 3000,
+                        showConfirmButton: false
+                    });
+                } else if(data=="collect_fail_未登录"){
+                    swal({
+                        title: "亲，请先登录再收藏️哦！",
+                        text:  data,
+                        timer: 3000,
+                        showConfirmButton: false
+                    });
+                } else{
+                    swal("收藏失败😶！", data);
+                }
+            }
+        });
+        return false;
+    };
+
     function createCommentArea(){
         var theNode = $("#commentIcon");
         var commentNum = parseInt($.trim($(theNode).children("span").text()))+1;
@@ -302,6 +339,7 @@
     function showCommentArea() {
         alert("此功能暂时没有开发哦亲！");
     };
+
 </script>
 
 <script>
@@ -347,12 +385,12 @@
             return false;
         });
 
-        $("#submitSave").click(function () {
-            var theNode = $(this);
-            $(theNode).children("img").attr("src","/static/image/save2.png");
-            swal("收藏成功😊！");
-            return false;
-        });
+        // $("#submitCollect").click(function () {
+        //     var theNode = $(this);
+        //     $(theNode).children("img").attr("src","/static/image/save2.png");
+        //     swal("收藏成功😊！");
+        //     return false;
+        // });
 
         $("#submitShare").click(function () {
             var theNode = $(this);
@@ -361,6 +399,7 @@
             swal(sharelink,"复制链接分享吧😊！");
             return false;
         });
+
 
         $("#commentList").on("click",".submitCommentLike",function(){
             var theNode = $(this);
@@ -394,6 +433,63 @@
                         swal("点👍失败😶！", data);
                     }
                 }
+            });
+            return false;
+        });
+
+        $("#commentList").on("click",".showDiscussionArea",function(){
+            var discussionArea = $(this).parents(".box-widget").children(".box-comments");
+            var css = discussionArea.css('display');
+            if(css=='none'){
+                $(discussionArea).css('display','block');
+            }else{
+                $(discussionArea).css('display','none');
+            }
+        });
+
+        $("#commentList").on("click","#discussionSubmit",function(){
+            var comment = $("#maincomment").val();
+            var discussion = $(this).parents(".input-group").children("input").val();
+            var mainCommentid = $(this).next().text();
+            var mainUserid = $(this).next().next().text();
+            var articleid = $article.getId();
+             if(discussion==""){
+                 swal({
+                     title: "提交内容为空😶！",
+                     showConfirmButton: true
+                 });
+                 return false;
+             }
+             $.ajax({
+                 type:"POST",
+                 contentType: "application/json",
+                 url:"/behavior/commentDiscuss",
+                 data:JSON.stringify({"articleid":articleid,"discussion":discussion,"mainUserid":mainUserid,"mainCommentid":mainCommentid}),
+                 success:function (data) {
+                     if(data=="setCommentDiscussion_success"){
+                         window.location.reload();
+                         swal({
+                             title: "讨论成功😊！",
+                             showConfirmButton: false
+                         });
+                     } else if(data=="setCommentDiscussion_fail_插入数据库失败"){
+                         swal({
+                             title: "setCommentDiscussion_fail_插入数据库失败",
+                             text:  data,
+                             timer: 3000,
+                             showConfirmButton: false
+                         });
+                     } else if(data=="setCommentDiscussion_fail_未登录"){
+                         swal({
+                             title: "亲，请先登录再参与讨论哦！",
+                             text:  data,
+                             timer: 3000,
+                             showConfirmButton: false
+                         });
+                     } else{
+                         swal("讨论失败😶！", data);
+                     }
+                 }
             });
             return false;
         });
@@ -582,10 +678,11 @@
                                     #end
                                     <span id="thankNum">
                                         #if(!$article.getArticleThank())
-                                0
+                                            0
                                         #else
                                             $article.getArticleThank()
-                                        #end</span>感谢</a>
+                                        #end</span>感谢
+                                </a>
 
                             ##                        <img class="icon" src="/static/open-iconic/svg/comment-square.svg" alt="comment-square">
                                 <a href="javascript:void(0)" onclick="showCommentArea()" style="margin-right:40px;color:#919191;" id="commentIcon">
@@ -601,7 +698,19 @@
                                             $article.getArticleComment()
                                         #end
                                     </span>评论</a>
-                                <a href="" style="margin-right:40px;color:#919191;" id="submitSave"><img class="icon" src="/static/image/save1.png" alt="star" width="17px;" height="17px;" >收藏</a>
+                                <a href="javascript:void(0)" onclick="submitCollect()" style="margin-right:40px;color:#919191;" id="submitCollect">
+                                    #if($article.getBehaviorStatus().getCollectStatus()==1)
+                                        <img class="icon" src="/static/image/save2.png" alt="star" width="17px;" height="17px;" >
+                                    #else
+                                        <img class="icon" src="/static/image/save1.png" alt="star" width="17px;" height="17px;" >
+                                    #end
+                                    <span id="collectNum">
+                                        #if(!$article.getArticleCollection())
+                                            0
+                                        #else
+                                            $article.getArticleCollection()
+                                        #end</span>收藏
+                                </a>
                                 <a href=""  style="color:#919191;" id="submitShare"><img class="icon" src="/static/image/share1.png" alt="share" width="15px;" height="15px;">分享</a>
                             </div>
 
@@ -653,14 +762,14 @@
                                 <a class="btn btn-outline-dark">木有上一篇了😶</a>
                                 <a>$Recommend.getPreviousTitle()</a>
                             #else
-                                <a class="btn btn-outline-success">上一篇</a>
+                                <a href="/article/single?articleId=$Recommend.getPreviousArticleId()" class="btn btn-outline-success">上一篇</a>
                                 <a href="/article/single?articleId=$Recommend.getPreviousArticleId()">$Recommend.getPreviousTitle()</a>
                             #end
                             #if($Recommend.getNextArticleId()==0)
                                 <a class="btn btn-outline-info">木有下一篇了😶</a>
                                 <a>$Recommend.getNextTitle()</a>
                             #else
-                                <a class="btn btn-outline-info">下一篇</a>
+                                <a href="/article/single?articleId=$Recommend.getNextArticleId()" javasclass="btn btn-outline-info">下一篇</a>
                                 <a href="/article/single?articleId=$Recommend.getNextArticleId()">$Recommend.getNextTitle()</a>
                             #end
                         </nav>
@@ -703,7 +812,7 @@
                                         <img class="icon" src="/static/image/thumb-up2.png" alt="thumb-up" width="15px;" height="15px;"><span>$comment.getCommentLikeNum()</span>赞</a>
                                     <span style="visibility: hidden">$comment.getId()</span>
                                     <span style="visibility: hidden">$comment.getUserid()</span>
-                                    <a href="#" style="color:#919191;"><img class="icon" src="/static/image/discuss-2.png" alt="discuss" width="15px;" height="15px;">讨论</a>
+                                    <a href="javascript:void(0)" style="color:#919191;" class="showDiscussionArea"><img class="icon" src="/static/image/discuss-2.png" alt="discuss" width="15px;" height="15px;">讨论</a>
                                 </div>
                                 <!-- /.box-tools -->
                             </div>
@@ -711,9 +820,92 @@
                             <div class="box-body">
                                 <p>$comment.getComment()</p>
                             </div>
-                        </div>
 
+                            <!-- 评论——用户讨论模块 -->
+                            <!-- /.box-body -->
+                            <div class="box-footer box-comments" style="display: none">
+                                <div class="col-lg-12">
+
+                                    <!-- DIRECT CHAT -->
+                                    <div class="box box-warning direct-chat direct-chat-info">
+                                        <div class="box-header with-border">
+                                            <h3 class="box-title">讨论</h3>
+
+                                            <div class="box-tools pull-right">
+                                                <span data-toggle="tooltip" title="3 New Messages" class="badge bg-yellow">3</span>
+                                                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                                                </button>
+                                                <button type="button" class="btn btn-box-tool" data-toggle="tooltip" title="Contacts" data-widget="chat-pane-toggle">
+                                                    <i class="fa fa-comments"></i></button>
+                                                <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <!-- /.box-header -->
+                                        <div class="box-body" style="height: 100px;">
+                                            <!-- Conversations are loaded here -->
+                                            <div class="direct-chat-messages" id="direct-chat-messages">
+
+
+                                                <!-- Message. Default to the left -->
+                                                <div class="direct-chat-msg">
+                                                    <div class="direct-chat-info clearfix">
+                                                        <span class="direct-chat-name pull-left">Lyon</span>
+                                                        <span class="direct-chat-timestamp pull-right">00:00</span>
+                                                    </div>
+                                                    <!-- /.direct-chat-info -->
+                                                    <img class="direct-chat-img" src="/static/image/userHead/header.png" alt="message user image"><!-- /.direct-chat-img -->
+                                                    <div class="direct-chat-text">
+                                                        亲，快来参与讨论吧~
+                                                    </div>
+                                                    <!-- /.direct-chat-text -->
+                                                </div>
+                                                <!-- /.direct-chat-msg -->
+                                                #foreach($discussion in $!{discussions})
+                                                    #if($discussion)
+                                                        <!-- Message to the right -->
+                                                        <div class="direct-chat-msg right">
+                                                            <div class="direct-chat-info clearfix">
+                                                                <span class="direct-chat-name pull-right">$discussion.getUserName()</span>
+                                                                <span class="direct-chat-timestamp pull-left">$!date.format('yyyy-MM-dd HH:mm',$discussion.getDiscussdate())</span>
+                                                            </div>
+                                                            <!-- /.direct-chat-info -->
+                                                            <img class="direct-chat-img" src="/static/image/userHead/header.png" alt="message user image"><!-- /.direct-chat-img -->
+                                                            <div class="direct-chat-text">
+                                                                $discussion.getDiscussion()
+                                                            </div>
+                                                            <!-- /.direct-chat-text -->
+                                                        </div>
+                                                        <!-- /.direct-chat-msg -->
+                                                    #end
+                                                #end
+                                            </div>
+                                            <!--/.direct-chat-messages-->
+                                        </div>
+                                        <!-- /.box-body -->
+                                        <div class="box-footer">
+                                            <form action="#" method="post">
+                                                <div class="input-group">
+                                                    <input type="text" name="message" placeholder="Type Message ..." class="form-control">
+                                                    <span class="input-group-btn">
+                                                        <button type="button" class="btn btn-warning btn-flat" id="discussionSubmit">说一句</button>
+                                                        <span style="visibility: hidden">$comment.getId()</span>
+                                                        <span style="visibility: hidden">$comment.getUserid()</span>
+                                                    </span>
+                                                </div>
+                                            </form>
+                                        </div>
+                                        <!-- /.box-footer-->
+                                    </div>
+                                    <!--/.direct-chat -->
+                                </div>
+                            </div>
+                            <!-- 评论——用户讨论模块 -->
+
+                        </div>
                     #end
+
+
                 </div>
                 </div><!-- /.blog-main -->
 

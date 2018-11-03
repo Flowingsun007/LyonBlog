@@ -29,6 +29,8 @@ public class ArticleInfo {
 
     private Integer articleThank;
 
+    private Integer articleCollection;
+
     private int tagId;
 
     private String tagName;
@@ -129,6 +131,14 @@ public class ArticleInfo {
 
     public void setArticleThank(Integer articleThank) {
         this.articleThank = articleThank;
+    }
+
+    public Integer getArticleCollection() {
+        return articleCollection;
+    }
+
+    public void setArticleCollection(Integer articleCollection) {
+        this.articleCollection = articleCollection;
     }
 
     public int getTagId() {

@@ -9,9 +9,13 @@ public class Discussion {
 
     private Long mainUserid;
 
+    private String mainUsername;
+
     private Integer mainCommentid;
 
     private Long userid;
+
+    private String userName;
 
     private String discussion;
 
@@ -51,6 +55,14 @@ public class Discussion {
         this.mainUserid = mainUserid;
     }
 
+    public String getMainUsername() {
+        return mainUsername;
+    }
+
+    public void setMainUsername(String mainUsername) {
+        this.mainUsername = mainUsername;
+    }
+
     public Integer getMainCommentid() {
         return mainCommentid;
     }
@@ -65,6 +77,14 @@ public class Discussion {
 
     public void setUserid(Long userid) {
         this.userid = userid;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
     public String getDiscussion() {

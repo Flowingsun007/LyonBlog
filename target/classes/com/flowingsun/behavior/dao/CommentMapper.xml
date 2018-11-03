@@ -12,6 +12,7 @@
     <collection property="discussionList" ofType="com.flowingsun.behavior.entity.Discussion">
       <result column="discussId" property="id" jdbcType="INTEGER" />
       <result column="discussUserid" property="userid" jdbcType="BIGINT" />
+      <result column="discussUsername" property="userName" jdbcType="VARCHAR" />
       <result column="discussion" property="discussion" jdbcType="VARCHAR" />
       <result column="discussDate" property="discussdate" jdbcType="TIMESTAMP" />
     </collection>
@@ -22,6 +23,9 @@
   <select id="selectCommentCount" resultType="int">
     SELECT count(0) FROM comment
   </select>
+  <select id="selectCommentCountByUserid" resultType="int">
+    SELECT COUNT(0) FROM comment WHERE userId = #{userId,jdbcType=BIGINT}
+  </select>
   <select id="selectCommentStatusByAidUid" resultType="INTEGER">
     SELECT count(0) FROM comment WHERE articleId=#{articleId,jdbcType=INTEGER} AND userId = #{userId}
   </select>
@@ -29,7 +33,7 @@
     SELECT comment.id AS commentid,comment.articleId,comment.userId,
     blog_user.username AS userName,comment,commentDate,
     (SELECT count(0) FROM comment_like WHERE articleId=#{articleId,jdbcType=INTEGER} AND comment_like.commentId=comment.id) AS commentLikeNum,
-    discussion.id AS discussId,discussion.userId AS discussUserid,discussion.discussion,discussion.discussDate
+    discussion.id AS discussId,discussion.userId AS discussUserid,(SELECT username FROM blog_user WHERE blog_user.id=discussion.userId) AS discussUsername,discussion.discussion,discussion.discussDate
     FROM comment
     INNER JOIN blog_user ON blog_user.id = userId
     LEFT JOIN discussion ON comment.id = discussion.main_commentId
@@ -39,7 +43,7 @@
     SELECT comment.id AS commentid,comment.articleId,comment.userId,
     blog_user.username AS userName,comment,commentDate,
     (SELECT count(0) FROM comment_like WHERE articleId=#{articleId,jdbcType=INTEGER} AND comment_like.commentId=comment.id) AS commentLikeNum,
-    discussion.id AS discussId,discussion.userId AS discussUserid,discussion.discussion,discussion.discussDate
+    discussion.id AS discussId,discussion.userId AS discussUserid,(SELECT username FROM blog_user WHERE blog_user.id=discussion.userId) AS discussUsername,discussion.discussion,discussion.discussDate
     FROM comment
     INNER JOIN blog_user ON blog_user.id = userId
     LEFT JOIN discussion ON comment.id = discussion.main_commentId
