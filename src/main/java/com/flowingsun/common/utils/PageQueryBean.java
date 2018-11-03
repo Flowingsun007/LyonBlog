@@ -51,10 +51,14 @@ public class PageQueryBean {
         }else{
             if(pageNum<1){
                 pageNum = 0;
-            }else if(pageNum>total){
-                pageNum = total-1;
-            }else if(pageNum>pageCount){
-                pageNum = pageCount;
+            }else{
+                if(total!=null){
+                    if(pageNum>total){
+                        pageNum = total-1;
+                    }else if(pageNum>pageCount){
+                        pageNum = pageCount;
+                    }
+                }
             }
             return pageNum;
         }
