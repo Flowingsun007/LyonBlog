@@ -60,7 +60,7 @@ public class ArticleController {
 
     private final String UPLOAD_IMAGE_PATH = "/static/uploadBlogFile/image";
 
-    @RequiresRoles("register")
+    @RequiresPermissions("behavior:elasticSearch")
     @RequestMapping("/elastic/category")
     public String elasticCategorySearch(Model model,@RequestParam(value="keywords")String keywords)throws IOException{
         RestHighLevelClient client = new RestHighLevelClient(
