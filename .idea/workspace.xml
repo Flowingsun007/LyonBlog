@@ -10,7 +10,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="05c41573-5dbf-46bc-a219-886ee90b0cda" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/flowingsun/article/controller/ArticleController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/flowingsun/article/controller/ArticleController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/index.vm" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/index.vm" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -73,7 +73,7 @@
           <entry key="java" value="199" />
           <entry key="properties" value="4" />
           <entry key="sql" value="1" />
-          <entry key="vm" value="79" />
+          <entry key="vm" value="80" />
           <entry key="xml" value="43" />
         </counts>
       </usages-collector>
@@ -85,7 +85,7 @@
           <entry key="Properties" value="4" />
           <entry key="SQL" value="38" />
           <entry key="Scratch" value="1" />
-          <entry key="VTL" value="76" />
+          <entry key="VTL" value="77" />
           <entry key="XML" value="43" />
         </counts>
       </usages-collector>
@@ -94,7 +94,7 @@
           <entry key="SQL" value="22" />
           <entry key="dummy" value="10" />
           <entry key="java" value="6030" />
-          <entry key="vm" value="2696" />
+          <entry key="vm" value="2741" />
           <entry key="xml" value="648" />
         </counts>
       </usages-collector>
@@ -104,7 +104,7 @@
           <entry key="JAVA" value="6030" />
           <entry key="PLAIN_TEXT" value="10" />
           <entry key="SQL" value="33" />
-          <entry key="VTL" value="2694" />
+          <entry key="VTL" value="2739" />
           <entry key="XML" value="637" />
         </counts>
       </usages-collector>
@@ -115,11 +115,23 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/flowingsun/article/controller/ArticleController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="295">
-              <caret line="81" column="67" selection-start-line="81" selection-start-column="67" selection-end-line="81" selection-end-column="67" />
+            <state relative-caret-position="-1563">
+              <caret line="79" column="75" selection-start-line="79" selection-start-column="75" selection-end-line="79" selection-end-column="75" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/index.vm">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="197">
+              <caret line="439" column="89" selection-start-line="439" selection-start-column="89" selection-end-line="439" selection-end-column="89" />
+              <folding>
+                <element signature="n#style#0;n#img#0;n#a#0;n#li#0;n#ul#0;n#!!top" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -144,7 +156,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>BaseResultMap</find>
       <find>getUserBehavior</find>
       <find>collections</find>
       <find>collection</find>
@@ -174,6 +185,7 @@
       <find>setThank</find>
       <find>Search</find>
       <find>RequiresPermissions</find>
+      <find>featurette</find>
     </findStrings>
     <dirStrings>
       <dir>/Library/Java/JavaVirtualMachines/jdk1.8.0_171.jdk/Contents/Home/jre/lib/rt.jar</dir>
@@ -227,7 +239,6 @@
         <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/article/elasticSearch.vm" />
         <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/article/categoryArticle-json.vm" />
         <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/article/singleArticle-json.vm" />
-        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/index.vm" />
         <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/article/tagArticle.vm" />
         <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/article/test.vm" />
         <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/user/activiate.vm" />
@@ -236,6 +247,7 @@
         <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/403.vm" />
         <option value="$PROJECT_DIR$/src/main/java/com/flowingsun/common/security/MyRealm.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/flowingsun/article/controller/ArticleController.java" />
+        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/index.vm" />
       </list>
     </option>
   </component>
@@ -278,8 +290,8 @@
     </treeState>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="155" />
-    <option name="y" value="137" />
+    <option name="x" value="200" />
+    <option name="y" value="185" />
     <option name="width" value="1178" />
     <option name="height" value="757" />
   </component>
@@ -1046,7 +1058,7 @@
       <workItem from="1540911895614" duration="4156000" />
       <workItem from="1540990853811" duration="7992000" />
       <workItem from="1541198832839" duration="44742000" />
-      <workItem from="1541287198027" duration="19552000" />
+      <workItem from="1541287198027" duration="21110000" />
     </task>
     <task id="LOCAL-00001" summary="标签区边框修改">
       <created>1531624311177</created>
@@ -1087,7 +1099,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="1341157000" />
+    <option name="totallyTimeSpent" value="1342715000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1099,10 +1111,10 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="155" y="137" width="1178" height="757" extended-state="0" />
+    <frame x="200" y="185" width="1178" height="757" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.66591424" visible="true" weight="0.24911971" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.66591424" visible="true" weight="0.24911971" />
       <window_info id="Capture Tool" order="1" />
       <window_info id="UI Designer" order="2" />
       <window_info id="Image Layers" order="3" />
@@ -1114,7 +1126,7 @@
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.3478261" />
       <window_info anchor="bottom" id="Run" order="2" weight="0.25452018" />
-      <window_info active="true" anchor="bottom" id="Debug" order="3" sideWeight="0.77881354" visible="true" weight="0.21052632" />
+      <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.77881354" visible="true" weight="0.21052632" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" sideWeight="0.496997" weight="0.3138138" />
@@ -1304,16 +1316,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="160">
           <caret line="355" column="116" selection-start-line="355" selection-start-column="101" selection-end-line="355" selection-end-column="116" />
-          <folding>
-            <element signature="n#style#0;n#img#0;n#a#0;n#li#0;n#ul#0;n#!!top" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/index.vm">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="107">
-          <caret line="264" column="116" selection-start-line="264" selection-start-column="116" selection-end-line="264" selection-end-column="116" />
           <folding>
             <element signature="n#style#0;n#img#0;n#a#0;n#li#0;n#ul#0;n#!!top" expanded="true" />
           </folding>
@@ -1598,8 +1600,18 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/flowingsun/article/controller/ArticleController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="295">
-          <caret line="81" column="67" selection-start-line="81" selection-start-column="67" selection-end-line="81" selection-end-column="67" />
+        <state relative-caret-position="-1563">
+          <caret line="79" column="75" selection-start-line="79" selection-start-column="75" selection-end-line="79" selection-end-column="75" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/index.vm">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="197">
+          <caret line="439" column="89" selection-start-line="439" selection-start-column="89" selection-end-line="439" selection-end-column="89" />
+          <folding>
+            <element signature="n#style#0;n#img#0;n#a#0;n#li#0;n#ul#0;n#!!top" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

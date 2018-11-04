@@ -404,8 +404,12 @@
 
         <div class="row featurette">
             <div class="col-md-7">
-                <h2 class="featurette-heading">First featurette heading. <span class="text-muted">It'll blow your mind.</span></h2>
-                <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
+                <h2 class="featurette-heading">《弹指一挥间》<span class="text-muted">—许嵩</span></h2>
+                <p class="lead">
+                    雨掸霜叶 掸落一地过往  云遮秋雁 遮住十载月光  我推开窗 满手回忆沙沙作响  枕簟凉 残烛晃 人惆怅
+                    离愁别恨 是心的溃疡  戴月披星 是你在流浪  你推开窗 花灯随烟波铺江上  露水凉 老船晃 人惆怅
+                    弹指一挥间 你竟已遥远 沧海成荒野 真情永不灭 弹指一挥间 红尘已缈远 青丝蘸白雪 来路生云烟
+                </p>
             </div>
             <div class="col-md-5">
                 <img src="/static/userFile/images/1-稳稳地幸福-头条号头像.jpg" alt="南京博物院青铜剑.jpg" title="南京博物院青铜剑" width="500" height="400" >
@@ -416,8 +420,13 @@
 
         <div class="row featurette">
             <div class="col-md-6 order-md-2">
-                <h2 class="featurette-heading">Oh yeah <span class="text-muted">See yourself.</span></h2>
-                <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
+                <h2 class="featurette-heading">《如约而至》<span class="text-muted">—许嵩</span></h2>
+                <p class="lead">
+                    如果早知道那天是我们最后一面 我绝不会和你谈论琐事浪费时间 人生里看似偶然却又必经的告别 无约而至 无人可免
+                    有一回置身某个似曾相识的场景 那一刻我忽然感应你就在我身边 过去 当下 未来未必确有其界限 或许爱能穿越时间 抵达永远
+                    等到秋叶终于金黄 等到华发悄然苍苍 我们相约老地方 等到人已不再奔忙 等到心也不再轻狂 我们相约老地方
+                    等到记忆只剩精华 等到笑容不掺伪装 我们相约老地方 等到释怀所有悲伤 等到体谅世事无常 我们相约老地方
+                </p>
             </div>
             <div class="col-md-6 order-md-1">
                 <img src="/static/userFile/images/1-稳稳地幸福-IMG_20170317_152011.jpg" alt="南京博物院青铜剑.jpg" title="南京博物院青铜剑" width="500" height="300" >
@@ -428,8 +437,13 @@
 
         <div class="row featurette">
             <div class="col-md-5">
-                <h2 class="featurette-heading">And lastly, this one. <span class="text-muted">Checkmate.</span></h2>
-                <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
+                <h2 class="featurette-heading">《Beautiful Love》<span class="text-muted">—蔡健雅</span></h2>
+                <p class="lead">
+                    看住时间 别让它再流浪 从前我太适应悲伤 你的出现在无意中 却深深撼动我 一起走着没说什么 心是满足的
+                    这个世界 随时都要崩塌 我没有其它的愿望 假如明天将消失了 趁现在我爱着 只想记得,被你抱着 温热的感受
+                    Love's beautiful so beautiful 我失去过 更珍惜拥有 多庆幸我是我 被你疼爱的我 紧紧牵住的手 不要放手 永远守护我
+                    Love's beautiful so beautiful 我很快乐 你会了解我 我不会再哭泣 是因为我相信 我们勇敢的爱着 每秒钟 都能证明一生的美丽
+                </p>
             </div>
             <div class="col-md-7">
 ##                <img class="featurette-image img-fluid mx-auto" data-src="holder.js/500x500/auto" alt="Generic placeholder image">
