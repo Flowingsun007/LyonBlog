@@ -38,15 +38,19 @@ public class MyRealm extends AuthorizingRealm {
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
         Long userId = (Long)SecurityUtils.getSubject().getSession().getAttribute("userId");
-        User user = userService.getUserByUserId(userId);
         SimpleAuthorizationInfo authorizationInfo = new SimpleAuthorizationInfo();
-        if(user.getRoleList()!=null){
-            for(Role role :user.getRoleList()){
-                authorizationInfo.addRole(role.getRole());
-                for(Permission permission :role.getPermissionList()){
-                    authorizationInfo.addStringPermission(permission.getPermission());
+        if(userId!=null){
+            User user = userService.getUserByUserId(userId);
+            if(user.getRoleList()!=null){
+                for(Role role :user.getRoleList()){
+                    authorizationInfo.addRole(role.getRole());
+                    for(Permission permission :role.getPermissionList()){
+                        authorizationInfo.addStringPermission(permission.getPermission());
+                    }
                 }
             }
+        }else{
+            authorizationInfo=null;
         }
          return authorizationInfo;
     }
