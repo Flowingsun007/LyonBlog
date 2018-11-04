@@ -57,9 +57,33 @@ public class ArticleController {
     @Autowired
     private BehaviorService behaviorService;
 
-
     private final String UPLOAD_IMAGE_PATH = "/static/uploadBlogFile/image";
 
+    private final String SEARCH_FIELD_TITLE = "title";
+
+    private final String SEARCH_FIELD_ABSTRACT = "abstract";
+
+    private final String SEARCH_FIELD_CONTENT = "content";
+
+    private final String DB_FIELD_TITLE = "article_title";
+
+    private final String DB_FIELD_ABSTRACT = "article_abstract";
+
+    private final String DB_FIELD_CONTENT = "article_content";
+
+    /**
+     *@Author Lyon[flowingsun007@163.com]
+     *@Date 18/11/4 14:21
+     *@Param [model, keywords]
+     *@Return java.lang.String
+     *@Description elasticCategorySearch
+     * 用于博客前台搜索，在此方法中调用ElasticSearch的Java客户端RestHighLevelClient，来实现从Es搜索引擎中查询文章信息的效果
+     * 目前设计的是支持查询博客文章中的标题+摘要+正文字段，默认是精准查找；
+     * 可以通过搜索关键字中添加"+"来控制搜索范围，以下三种模式分别支持在标题中、在摘要中、在正文中查找关键字为key的内容。
+     * title     +   key
+     * abstract  +   key
+     * content  +    key
+     */
     @RequiresPermissions("behavior:elasticSearch")
     @RequestMapping("/elastic/category")
     public String elasticCategorySearch(Model model,@RequestParam(value="keywords")String keywords)throws IOException{
@@ -99,25 +123,6 @@ public class ArticleController {
         //String [] excludeFields = new String [] {"id","article_content_copy","article_main_id","userid","article_second_id"};
         //sourceBuilder.fetchSource(includeFields,excludeFields);
 
-
-//        //设置三个字段搜索结果高亮显示的效果
-//        HighlightBuilder highlightBuilder = new HighlightBuilder();
-//        HighlightBuilder.Field title =
-//                new HighlightBuilder.Field("article_title");
-//        HighlightBuilder.Field subtitle =
-//                new HighlightBuilder.Field("article_abstract");
-//        HighlightBuilder.Field content =
-//                new HighlightBuilder.Field("article_content");
-//        title.highlighterType("unified");
-//        subtitle.highlighterType("unified");
-//        content.highlighterType("unified");
-//        highlightBuilder.field(title);
-//        highlightBuilder.field(subtitle);
-//        highlightBuilder.field(content);
-//        //将高亮显示和匹配选择的构造器类都放入sourceBuilder中
-//        sourceBuilder.highlighter(highlightBuilder);
-
-
         QueryBuilder queryBuilder = null;
         MatchPhraseQueryBuilder mpqBuilder1 = null;
         MatchPhraseQueryBuilder mpqBuilder2 = null;
@@ -128,20 +133,20 @@ public class ArticleController {
             String[] slist = keywords.split("\\+");
             String range = slist[0];
             keyword = slist[1];
-            if(range.equals("title")){
-                mpqBuilder1 = new MatchPhraseQueryBuilder("article_title",keyword);
+            if(range.equals(SEARCH_FIELD_TITLE)){
+                mpqBuilder1 = new MatchPhraseQueryBuilder(DB_FIELD_TITLE,keyword);
                 queryBuilder = QueryBuilders.boolQuery().must(mpqBuilder1);
-            }else if(range.equals("abstract")){
-                mpqBuilder2 = new MatchPhraseQueryBuilder("article_abstract",keyword);
+            }else if(range.equals(SEARCH_FIELD_ABSTRACT)){
+                mpqBuilder2 = new MatchPhraseQueryBuilder(DB_FIELD_ABSTRACT,keyword);
                 queryBuilder = QueryBuilders.boolQuery().must(mpqBuilder2);
-            }else if(range.equals("content")){
-                mpqBuilder3 = new MatchPhraseQueryBuilder("article_content",keyword);
+            }else if(range.equals(SEARCH_FIELD_CONTENT)){
+                mpqBuilder3 = new MatchPhraseQueryBuilder(DB_FIELD_CONTENT,keyword);
                 queryBuilder = QueryBuilders.boolQuery().must(mpqBuilder3);
             }
         }else{
-            mpqBuilder1 = new MatchPhraseQueryBuilder("article_title",keyword);
-            mpqBuilder2 = new MatchPhraseQueryBuilder("article_abstract",keyword);
-            mpqBuilder3 = new MatchPhraseQueryBuilder("article_content",keyword);
+            mpqBuilder1 = new MatchPhraseQueryBuilder(DB_FIELD_ABSTRACT,keyword);
+            mpqBuilder2 = new MatchPhraseQueryBuilder(DB_FIELD_ABSTRACT,keyword);
+            mpqBuilder3 = new MatchPhraseQueryBuilder(DB_FIELD_CONTENT,keyword);
             queryBuilder = QueryBuilders.boolQuery().should(mpqBuilder1).should(mpqBuilder2).should(mpqBuilder3);
         }
 
