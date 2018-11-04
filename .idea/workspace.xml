@@ -10,7 +10,78 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="05c41573-5dbf-46bc-a219-886ee90b0cda" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/flowingsun/common/utils/PageQueryBean.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/flowingsun/common/utils/PageQueryBean.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_carrotsearch_hppc_0_7_1.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_fasterxml_jackson_core_jackson_core_2_8_10.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_fasterxml_jackson_dataformat_jackson_dataformat_cbor_2_8_10.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_fasterxml_jackson_dataformat_jackson_dataformat_smile_2_8_10.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_fasterxml_jackson_dataformat_jackson_dataformat_yaml_2_8_10.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_github_spullara_mustache_java_compiler_0_9_3.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_tdunning_t_digest_3_2.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__joda_time_joda_time_2_10.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__net_sf_jopt_simple_jopt_simple_5_0_2.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_httpcomponents_httpasyncclient_4_1_2.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_httpcomponents_httpclient_4_5_2.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_httpcomponents_httpcore_4_4_5.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_httpcomponents_httpcore_nio_4_4_5.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_logging_log4j_log4j_api_2_11_1.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_logging_log4j_log4j_core_2_11_1.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_lucene_lucene_analyzers_common_7_4_0.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_lucene_lucene_backward_codecs_7_4_0.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_lucene_lucene_core_7_4_0.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_lucene_lucene_grouping_7_4_0.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_lucene_lucene_highlighter_7_4_0.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_lucene_lucene_join_7_4_0.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_lucene_lucene_memory_7_4_0.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_lucene_lucene_misc_7_4_0.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_lucene_lucene_queries_7_4_0.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_lucene_lucene_queryparser_7_4_0.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_lucene_lucene_sandbox_7_4_0.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_lucene_lucene_spatial3d_7_4_0.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_lucene_lucene_spatial_7_4_0.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_lucene_lucene_spatial_extras_7_4_0.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_lucene_lucene_suggest_7_4_0.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_elasticsearch_client_elasticsearch_rest_client_6_4_2.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_elasticsearch_client_elasticsearch_rest_high_level_client_6_4_2.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_elasticsearch_elasticsearch_6_4_2.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_elasticsearch_elasticsearch_cli_6_4_2.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_elasticsearch_elasticsearch_core_6_4_2.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_elasticsearch_elasticsearch_secure_sm_6_4_2.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_elasticsearch_elasticsearch_x_content_6_4_2.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_elasticsearch_jna_4_5_1.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_elasticsearch_plugin_aggs_matrix_stats_client_6_4_2.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_elasticsearch_plugin_lang_mustache_client_6_4_2.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_elasticsearch_plugin_parent_join_client_6_4_2.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_elasticsearch_plugin_rank_eval_client_6_4_2.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_hdrhistogram_HdrHistogram_2_1_9.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_yaml_snakeyaml_1_17.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/log4j2.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/article/categoryArticle-json.vm" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/article/elasticSearch.vm" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/article/singleArticle-json.vm" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/artifacts/LyonBlog_war_exploded.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/artifacts/LyonBlog_war_exploded.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/LyonBlog.iml" beforeDir="false" afterPath="$PROJECT_DIR$/LyonBlog.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/flowingsun/article/controller/ArticleController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/flowingsun/article/controller/ArticleController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/flowingsun/behavior/controller/BehaviorController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/flowingsun/behavior/controller/BehaviorController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/403.vm" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/403.vm" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/article/categoryArticle.vm" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/article/categoryArticle.vm" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/article/singleArticle.vm" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/article/singleArticle.vm" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/article/tagArticle.vm" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/article/tagArticle.vm" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/article/test.vm" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/article/test.vm" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/index.vm" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/index.vm" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/user/activiate.vm" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/user/activiate.vm" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/user/donateMoney.vm" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/user/donateMoney.vm" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/user/manageCenter.vm" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/user/manageCenter.vm" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/web.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/web.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/LyonBlog.war" beforeDir="false" afterPath="$PROJECT_DIR$/target/LyonBlog.war" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/LyonBlog/WEB-INF/classes/com/flowingsun/article/controller/ArticleController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/LyonBlog/WEB-INF/classes/com/flowingsun/article/controller/ArticleController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/LyonBlog/WEB-INF/views/article/categoryArticle.vm" beforeDir="false" afterPath="$PROJECT_DIR$/target/LyonBlog/WEB-INF/views/article/categoryArticle.vm" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/LyonBlog/WEB-INF/views/article/singleArticle.vm" beforeDir="false" afterPath="$PROJECT_DIR$/target/LyonBlog/WEB-INF/views/article/singleArticle.vm" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/LyonBlog/WEB-INF/views/user/manageCenter.vm" beforeDir="false" afterPath="$PROJECT_DIR$/target/LyonBlog/WEB-INF/views/user/manageCenter.vm" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/LyonBlog/WEB-INF/web.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/LyonBlog/WEB-INF/web.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/flowingsun/article/controller/ArticleController.class" beforeDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -54,7 +125,7 @@
     <session id="-117177306">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="15" />
+          <entry key="project.closed" value="16" />
           <entry key="project.open.time.14" value="1" />
           <entry key="project.open.time.15" value="1" />
           <entry key="project.open.time.16" value="6" />
@@ -62,47 +133,50 @@
           <entry key="project.open.time.18" value="3" />
           <entry key="project.open.time.19" value="3" />
           <entry key="project.open.time.2" value="1" />
-          <entry key="project.opened" value="16" />
+          <entry key="project.open.time.26" value="1" />
+          <entry key="project.opened" value="17" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
           <entry key="SQL" value="38" />
-          <entry key="class" value="59" />
-          <entry key="java" value="170" />
-          <entry key="properties" value="2" />
+          <entry key="class" value="78" />
+          <entry key="java" value="194" />
+          <entry key="properties" value="4" />
           <entry key="sql" value="1" />
-          <entry key="vm" value="57" />
-          <entry key="xml" value="36" />
+          <entry key="vm" value="79" />
+          <entry key="xml" value="43" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="CLASS" value="59" />
-          <entry key="JAVA" value="170" />
-          <entry key="Properties" value="2" />
+          <entry key="CLASS" value="78" />
+          <entry key="Enforced Plain Text" value="3" />
+          <entry key="JAVA" value="194" />
+          <entry key="Properties" value="4" />
           <entry key="SQL" value="38" />
           <entry key="Scratch" value="1" />
-          <entry key="VTL" value="57" />
-          <entry key="XML" value="36" />
+          <entry key="VTL" value="76" />
+          <entry key="XML" value="43" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="SQL" value="22" />
           <entry key="dummy" value="10" />
-          <entry key="java" value="3658" />
-          <entry key="vm" value="2331" />
-          <entry key="xml" value="578" />
+          <entry key="java" value="5685" />
+          <entry key="vm" value="2696" />
+          <entry key="xml" value="648" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JAVA" value="3658" />
+          <entry key="Enforced Plain Text" value="2" />
+          <entry key="JAVA" value="5685" />
           <entry key="PLAIN_TEXT" value="10" />
           <entry key="SQL" value="33" />
-          <entry key="VTL" value="2331" />
-          <entry key="XML" value="567" />
+          <entry key="VTL" value="2694" />
+          <entry key="XML" value="637" />
         </counts>
       </usages-collector>
     </session>
@@ -113,10 +187,22 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/flowingsun/behavior/service/BehaviorServiceImpl.java">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/flowingsun/article/controller/ArticleController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-626">
-              <caret line="159" column="61" selection-start-line="159" selection-start-column="61" selection-end-line="159" selection-end-column="61" />
+            <state relative-caret-position="214">
+              <caret line="59" lean-forward="true" selection-start-line="59" selection-end-line="59" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/article/categoryArticle.vm">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="124">
+              <caret line="353" column="116" selection-start-line="353" selection-start-column="101" selection-end-line="353" selection-end-column="116" />
+              <folding>
+                <element signature="n#style#0;n#img#0;n#a#0;n#li#0;n#ul#0;n#!!top" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -124,8 +210,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/user/manageCenter.vm">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="132">
-              <caret line="731" column="74" selection-start-line="731" selection-start-column="74" selection-end-line="731" selection-end-column="74" />
+            <state relative-caret-position="123">
+              <caret line="401" column="116" selection-start-line="401" selection-start-column="101" selection-end-line="401" selection-end-column="116" />
               <folding>
                 <element signature="n#style#0;n#img#0;n#a#0;n#li#0;n#ul#0;n#!!top" expanded="true" />
               </folding>
@@ -134,30 +220,12 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/flowingsun/common/utils/PageQueryBean.java">
+        <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/403.vm">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="167">
-              <caret line="61" column="13" selection-start-line="61" selection-start-column="13" selection-end-line="61" selection-end-column="13" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/flowingsun/behavior/controller/BehaviorController.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="807">
-              <caret line="79" selection-start-line="79" selection-end-line="79" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/flowingsun/user/controller/UserController.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="176">
-              <caret line="91" column="61" selection-start-line="91" selection-start-column="61" selection-end-line="91" selection-end-column="61" />
+            <state relative-caret-position="98">
+              <caret line="233" column="116" selection-start-line="233" selection-start-column="116" selection-end-line="233" selection-end-column="116" />
               <folding>
-                <element signature="imports" expanded="true" />
+                <element signature="n#style#0;n#img#0;n#a#0;n#li#0;n#ul#0;n#!!top" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -178,24 +246,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>getUserArticleBehavior</find>
-      <find>collectionMapper</find>
-      <find>selectCollectionCount</find>
-      <find>selectThankCountByUserid</find>
-      <find>上一篇</find>
-      <find>javascript</find>
-      <find>收藏</find>
-      <find>getUserCollection</find>
-      <find>submitCommentLike</find>
-      <find>selectCollectionByUserid</find>
-      <find>uploadButton</find>
-      <find>fast</find>
-      <find>UserCollectionMap</find>
-      <find>articleTitle</find>
-      <find>getUserArticleCollections</find>
-      <find>userid</find>
-      <find>照片墙</find>
-      <find>timelinePicControlBtn</find>
       <find>点滴的幸福与美好~</find>
       <find>BaseResultMap</find>
       <find>getUserBehavior</find>
@@ -206,8 +256,26 @@
       <find>timelinePicture</find>
       <find>timelineCollection</find>
       <find>记录，属于你的时光</find>
-      <find>selectCollectionsByUserid</find>
+      <find>allTags</find>
       <find>pageCount</find>
+      <find>navSearch</find>
+      <find>category</find>
+      <find>swal</find>
+      <find>selectCollectionsByUserid</find>
+      <find>log4j.properties</find>
+      <find>log4jConfigLocation</find>
+      <find>/article</find>
+      <find>log4j</find>
+      <find>selectCategoryArticles</find>
+      <find>getCategoryArticles</find>
+      <find>s</find>
+      <find>unified</find>
+      <find>fragmenter</find>
+      <find>知</find>
+      <find>matchAllQuery</find>
+      <find>MatchQueryBuilder</find>
+      <find>setThank</find>
+      <find>Search</find>
     </findStrings>
     <dirStrings>
       <dir>/Library/Java/JavaVirtualMachines/jdk1.8.0_171.jdk/Contents/Home/jre/lib/rt.jar</dir>
@@ -219,19 +287,10 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/user/activiate.vm" />
-        <option value="$PROJECT_DIR$/src/main/java/com/flowingsun/common/utils/email/service/EmailService.java" />
-        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/403.vm" />
-        <option value="$PROJECT_DIR$/src/main/resources/DDL/comment_agree.SQL" />
-        <option value="$PROJECT_DIR$/src/main/java/com/flowingsun/behavior/dao/CommentLikeMapper.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/flowingsun/behavior/dao/CommentLikeMapper.xml" />
-        <option value="$PROJECT_DIR$/src/main/resources/DDL/comment_like.SQL" />
-        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/article/moneySupport.vm" />
         <option value="$PROJECT_DIR$/src/main/java/com/flowingsun/article/service/ArticleService.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/flowingsun/common/dao/RedisDAO.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/flowingsun/user/dao/UserMapper.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/flowingsun/user/dao/UserMapper.xml" />
-        <option value="$PROJECT_DIR$/src/main/java/com/flowingsun/article/controller/ArticleController.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/flowingsun/common/entity/BlogInfo.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/flowingsun/common/entity/VisitorInfo.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/flowingsun/common/dao/VisitorInfoMapper.java" />
@@ -239,9 +298,6 @@
         <option value="$PROJECT_DIR$/src/main/java/com/flowingsun/common/entity/BlogVisitor.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/flowingsun/article/entity/BlogInfo.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/flowingsun/common/dao/BlogVisitorMapper.java" />
-        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/article/tagArticle.vm" />
-        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/article/test.vm" />
-        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/user/donateMoney.vm" />
         <option value="$PROJECT_DIR$/src/main/java/com/flowingsun/common/dao/BlogVisitorMapper.xml" />
         <option value="$PROJECT_DIR$/src/main/java/com/flowingsun/common/interceptor/SessionInterceptor.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/flowingsun/article/service/ArticleServiceImpl.java" />
@@ -249,7 +305,6 @@
         <option value="$PROJECT_DIR$/src/main/java/com/flowingsun/behavior/entity/Collect.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/flowingsun/article/entity/Article.java" />
         <option value="$PROJECT_DIR$/src/main/resources/DDL/collection.SQL" />
-        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/article/categoryArticle.vm" />
         <option value="$PROJECT_DIR$/src/main/java/com/flowingsun/article/entity/ArticleInfo.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/flowingsun/article/dao/ArticleMapper.xml" />
         <option value="$PROJECT_DIR$/src/main/java/com/flowingsun/user/controller/UserController.java" />
@@ -258,18 +313,31 @@
         <option value="$PROJECT_DIR$/src/main/java/com/flowingsun/behavior/dao/ThankMapper.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/flowingsun/behavior/entity/Thank.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/flowingsun/behavior/dao/ThankMapper.xml" />
-        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/article/singleArticle.vm" />
         <option value="$PROJECT_DIR$/src/main/java/com/flowingsun/behavior/entity/Collection.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/flowingsun/behavior/dao/CollectionMapper.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/flowingsun/behavior/service/BehaviorService.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/flowingsun/behavior/controller/BehaviorController.java" />
-        <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/src/main/java/com/flowingsun/behavior/entity/BehaviorStatus.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/flowingsun/behavior/service/BehaviorServiceImpl.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/flowingsun/behavior/dao/CollectionMapper.xml" />
         <option value="$PROJECT_DIR$/src/main/resources/DDL/thank.SQL" />
-        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/user/manageCenter.vm" />
         <option value="$PROJECT_DIR$/src/main/java/com/flowingsun/common/utils/PageQueryBean.java" />
+        <option value="$PROJECT_DIR$/src/main/resources/DDL/log4j2.properties" />
+        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/web.xml" />
+        <option value="$PROJECT_DIR$/pom.xml" />
+        <option value="$PROJECT_DIR$/src/main/java/com/flowingsun/behavior/controller/BehaviorController.java" />
+        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/article/singleArticle.vm" />
+        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/article/categoryArticle.vm" />
+        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/article/elasticSearch.vm" />
+        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/article/categoryArticle-json.vm" />
+        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/article/singleArticle-json.vm" />
+        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/index.vm" />
+        <option value="$PROJECT_DIR$/src/main/java/com/flowingsun/article/controller/ArticleController.java" />
+        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/article/tagArticle.vm" />
+        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/article/test.vm" />
+        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/user/activiate.vm" />
+        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/user/donateMoney.vm" />
+        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/user/manageCenter.vm" />
+        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/403.vm" />
       </list>
     </option>
   </component>
@@ -311,11 +379,11 @@
       <select />
     </treeState>
   </component>
-  <component name="ProjectFrameBounds">
-    <option name="x" value="111" />
-    <option name="y" value="149" />
-    <option name="width" value="1316" />
-    <option name="height" value="811" />
+  <component name="ProjectFrameBounds" extendedState="1">
+    <option name="x" value="140" />
+    <option name="y" value="104" />
+    <option name="width" value="1178" />
+    <option name="height" value="757" />
   </component>
   <component name="ProjectInspectionProfilesVisibleTreeState">
     <entry key="Project Default">
@@ -414,7 +482,7 @@
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="com" type="462c0819:PsiDirectoryNode" />
               <item name="flowingsun" type="462c0819:PsiDirectoryNode" />
-              <item name="user" type="462c0819:PsiDirectoryNode" />
+              <item name="admin" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="LyonBlog" type="b2602c69:ProjectViewProjectNode" />
@@ -424,8 +492,137 @@
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="com" type="462c0819:PsiDirectoryNode" />
               <item name="flowingsun" type="462c0819:PsiDirectoryNode" />
-              <item name="user" type="462c0819:PsiDirectoryNode" />
+              <item name="admin" type="462c0819:PsiDirectoryNode" />
               <item name="controller" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="LyonBlog" type="b2602c69:ProjectViewProjectNode" />
+              <item name="LyonBlog" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="com" type="462c0819:PsiDirectoryNode" />
+              <item name="flowingsun" type="462c0819:PsiDirectoryNode" />
+              <item name="article" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="LyonBlog" type="b2602c69:ProjectViewProjectNode" />
+              <item name="LyonBlog" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="com" type="462c0819:PsiDirectoryNode" />
+              <item name="flowingsun" type="462c0819:PsiDirectoryNode" />
+              <item name="article" type="462c0819:PsiDirectoryNode" />
+              <item name="controller" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="LyonBlog" type="b2602c69:ProjectViewProjectNode" />
+              <item name="LyonBlog" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="com" type="462c0819:PsiDirectoryNode" />
+              <item name="flowingsun" type="462c0819:PsiDirectoryNode" />
+              <item name="article" type="462c0819:PsiDirectoryNode" />
+              <item name="dao" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="LyonBlog" type="b2602c69:ProjectViewProjectNode" />
+              <item name="LyonBlog" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="com" type="462c0819:PsiDirectoryNode" />
+              <item name="flowingsun" type="462c0819:PsiDirectoryNode" />
+              <item name="article" type="462c0819:PsiDirectoryNode" />
+              <item name="service" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="LyonBlog" type="b2602c69:ProjectViewProjectNode" />
+              <item name="LyonBlog" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="com" type="462c0819:PsiDirectoryNode" />
+              <item name="flowingsun" type="462c0819:PsiDirectoryNode" />
+              <item name="behavior" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="LyonBlog" type="b2602c69:ProjectViewProjectNode" />
+              <item name="LyonBlog" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="com" type="462c0819:PsiDirectoryNode" />
+              <item name="flowingsun" type="462c0819:PsiDirectoryNode" />
+              <item name="behavior" type="462c0819:PsiDirectoryNode" />
+              <item name="controller" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="LyonBlog" type="b2602c69:ProjectViewProjectNode" />
+              <item name="LyonBlog" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="com" type="462c0819:PsiDirectoryNode" />
+              <item name="flowingsun" type="462c0819:PsiDirectoryNode" />
+              <item name="behavior" type="462c0819:PsiDirectoryNode" />
+              <item name="service" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="LyonBlog" type="b2602c69:ProjectViewProjectNode" />
+              <item name="LyonBlog" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="com" type="462c0819:PsiDirectoryNode" />
+              <item name="flowingsun" type="462c0819:PsiDirectoryNode" />
+              <item name="common" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="LyonBlog" type="b2602c69:ProjectViewProjectNode" />
+              <item name="LyonBlog" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="webapp" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="LyonBlog" type="b2602c69:ProjectViewProjectNode" />
+              <item name="LyonBlog" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="webapp" type="462c0819:PsiDirectoryNode" />
+              <item name="WEB-INF" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="LyonBlog" type="b2602c69:ProjectViewProjectNode" />
+              <item name="LyonBlog" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="webapp" type="462c0819:PsiDirectoryNode" />
+              <item name="WEB-INF" type="462c0819:PsiDirectoryNode" />
+              <item name="views" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="LyonBlog" type="b2602c69:ProjectViewProjectNode" />
+              <item name="LyonBlog" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="webapp" type="462c0819:PsiDirectoryNode" />
+              <item name="WEB-INF" type="462c0819:PsiDirectoryNode" />
+              <item name="views" type="462c0819:PsiDirectoryNode" />
+              <item name="article" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="LyonBlog" type="b2602c69:ProjectViewProjectNode" />
+              <item name="LyonBlog" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="webapp" type="462c0819:PsiDirectoryNode" />
+              <item name="WEB-INF" type="462c0819:PsiDirectoryNode" />
+              <item name="views" type="462c0819:PsiDirectoryNode" />
+              <item name="user" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -448,12 +645,12 @@
     <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/src/main/resources" />
-      <recent name="$PROJECT_DIR$/src/main/webapp" />
-      <recent name="$PROJECT_DIR$/src/main/webapp/WEB-INF" />
-      <recent name="$PROJECT_DIR$/src/main/webapp/static/userFile/movie" />
-      <recent name="$PROJECT_DIR$/src/main/webapp/static/userFile" />
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/article" />
+      <recent name="$PROJECT_DIR$/src/main/resources/DDL" />
+      <recent name="$PROJECT_DIR$/src/main/java/com/flowingsun/behavior/dao" />
+      <recent name="$PROJECT_DIR$/src/main/java/com/flowingsun/common/dao" />
+      <recent name="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/user" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="com.flowingsun.behavior.dao" />
@@ -461,12 +658,12 @@
       <recent name="com.flowingsun.common.entity" />
       <recent name="com.flowingsun.article.entity" />
     </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/src/main/resources/DDL" />
-      <recent name="$PROJECT_DIR$/src/main/java/com/flowingsun/behavior/dao" />
-      <recent name="$PROJECT_DIR$/src/main/java/com/flowingsun/common/dao" />
-      <recent name="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/user" />
-      <recent name="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/article" />
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/main/resources" />
+      <recent name="$PROJECT_DIR$/src/main/webapp" />
+      <recent name="$PROJECT_DIR$/src/main/webapp/WEB-INF" />
+      <recent name="$PROJECT_DIR$/src/main/webapp/static/userFile/movie" />
+      <recent name="$PROJECT_DIR$/src/main/webapp/static/userFile" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -950,7 +1147,8 @@
       <workItem from="1540853644933" duration="1119000" />
       <workItem from="1540911895614" duration="4156000" />
       <workItem from="1540990853811" duration="7992000" />
-      <workItem from="1541198832839" duration="25306000" />
+      <workItem from="1541198832839" duration="44742000" />
+      <workItem from="1541287198027" duration="17740000" />
     </task>
     <task id="LOCAL-00001" summary="标签区边框修改">
       <created>1531624311177</created>
@@ -991,7 +1189,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="1302169000" />
+    <option name="totallyTimeSpent" value="1339345000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1003,10 +1201,10 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="167" y="80" width="1316" height="811" extended-state="0" />
+    <frame x="156" y="170" width="1178" height="757" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.66591424" visible="true" weight="0.28492936" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.66591424" visible="true" weight="0.32834506" />
       <window_info id="Capture Tool" order="1" />
       <window_info id="UI Designer" order="2" />
       <window_info id="Image Layers" order="3" />
@@ -1018,12 +1216,12 @@
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.3478261" />
       <window_info anchor="bottom" id="Run" order="2" weight="0.25452018" />
-      <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.77881354" visible="true" weight="0.5744089" />
+      <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.77881354" visible="true" weight="0.29022557" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" sideWeight="0.496997" weight="0.3138138" />
       <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.22118644" side_tool="true" weight="0.18387097" />
-      <window_info anchor="bottom" id="Messages" order="8" sideWeight="0.69553804" weight="0.3739003" />
+      <window_info anchor="bottom" id="Messages" order="8" sideWeight="0.69553804" weight="0.1669173" />
       <window_info anchor="bottom" id="Java Enterprise" order="9" sideWeight="0.496997" weight="0.24478443" />
       <window_info anchor="bottom" id="Version Control" order="10" />
       <window_info anchor="bottom" id="Spring" order="11" sideWeight="0.496997" weight="0.32732734" />
@@ -1038,7 +1236,7 @@
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="right" id="Palette" order="3" />
-      <window_info anchor="right" auto_hide="true" id="Database" order="4" weight="0.3286517" />
+      <window_info anchor="right" auto_hide="true" id="Database" order="4" weight="0.32834506" />
       <window_info anchor="right" id="Palette&#9;" order="5" />
       <window_info anchor="right" id="Capture Analysis" order="6" />
       <window_info anchor="right" id="BPMNPalette" order="7" />
@@ -1046,7 +1244,7 @@
       <window_info anchor="right" id="Maven Projects" order="9" weight="0.3286052" />
     </layout>
     <layout-to-restore>
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.66591424" visible="true" weight="0.2585794" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.66591424" visible="true" weight="0.2566719" />
       <window_info id="Capture Tool" order="1" />
       <window_info id="UI Designer" order="2" />
       <window_info id="Image Layers" order="3" />
@@ -1058,13 +1256,13 @@
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.3478261" />
       <window_info anchor="bottom" id="Run" order="2" weight="0.25452018" />
-      <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.77881354" weight="0.1961057" />
+      <window_info active="true" anchor="bottom" id="Debug" order="3" sideWeight="0.77881354" visible="true" weight="0.32823366" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" sideWeight="0.496997" weight="0.3138138" />
       <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.22118644" side_tool="true" weight="0.18387097" />
-      <window_info anchor="bottom" id="Messages" order="8" sideWeight="0.69553804" visible="true" weight="0.37552157" />
-      <window_info anchor="bottom" id="Java Enterprise" order="9" sideWeight="0.496997" weight="0.32582584" />
+      <window_info anchor="bottom" id="Messages" order="8" sideWeight="0.69553804" weight="0.3727399" />
+      <window_info anchor="bottom" id="Java Enterprise" order="9" sideWeight="0.496997" weight="0.24478443" />
       <window_info anchor="bottom" id="Version Control" order="10" />
       <window_info anchor="bottom" id="Spring" order="11" sideWeight="0.496997" weight="0.32732734" />
       <window_info anchor="bottom" id="Terminal" order="12" sideWeight="0.496997" weight="0.21492538" />
@@ -1109,250 +1307,272 @@
           <properties />
           <option name="timeStamp" value="8" />
         </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/flowingsun/common/utils/PageQueryBean.java</url>
-          <line>51</line>
-          <properties />
-          <option name="timeStamp" value="9" />
-        </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/flowingsun/behavior/entity/BehaviorStatus.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="765">
+          <caret line="68" column="28" selection-start-line="68" selection-start-column="15" selection-end-line="68" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/flowingsun/user/controller/UserController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1123">
+          <caret line="91" column="61" selection-start-line="91" selection-start-column="61" selection-end-line="91" selection-end-column="61" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/flowingsun/article/entity/Article.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="125">
-          <caret line="230" column="18" selection-start-line="230" selection-start-column="18" selection-end-line="230" selection-end-column="18" />
-          <folding>
-            <element signature="e#4236#4237#0" expanded="true" />
-            <element signature="e#4276#4277#0" expanded="true" />
-            <element signature="e#4343#4344#0" expanded="true" />
-            <element signature="e#4401#4402#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="501">
+          <caret line="47" column="44" selection-start-line="47" selection-start-column="26" selection-end-line="47" selection-end-column="44" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/flowingsun/article/entity/ArticleInfo.java">
+    <entry file="file://$PROJECT_DIR$/src/main/resources/spring-cfg.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="206">
-          <caret line="31" column="37" selection-start-line="31" selection-start-column="20" selection-end-line="31" selection-end-column="37" />
-          <folding>
-            <element signature="e#2878#2879#0" expanded="true" />
-            <element signature="e#2918#2919#0" expanded="true" />
-            <element signature="e#2985#2986#0" expanded="true" />
-            <element signature="e#3043#3044#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="167">
+          <caret line="76" column="27" selection-start-line="76" selection-start-column="27" selection-end-line="76" selection-end-column="27" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/article/categoryArticle.vm">
+    <entry file="file://$PROJECT_DIR$/src/main/resources/spring-shiro.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="246">
-          <caret line="547" column="45" selection-start-line="547" selection-start-column="45" selection-end-line="547" selection-end-column="45" />
-          <folding>
-            <element signature="n#style#0;n#img#0;n#a#0;n#li#0;n#ul#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#a#1;n#div#1;n#div#0;n#div#0;n#div#0;n#main#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#a#0;n#a#2;n#div#1;n#div#0;n#div#0;n#div#0;n#main#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-          </folding>
+        <state relative-caret-position="347">
+          <caret line="25" column="20" selection-start-line="25" selection-start-column="20" selection-end-line="25" selection-end-column="20" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/flowingsun/behavior/entity/CommentLike.java">
+    <entry file="file://$PROJECT_DIR$/src/main/resources/log4j2.properties">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="4" column="13" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/flowingsun/behavior/entity/Picture.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="7" column="13" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/flowingsun/behavior/entity/Comment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/flowingsun/behavior/entity/Discussion.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="4" column="13" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/flowingsun/user/service/UserServiceImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="112">
-          <caret line="144" column="72" lean-forward="true" selection-start-line="144" selection-start-column="8" selection-end-line="144" selection-end-column="72" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/flowingsun/behavior/dao/CommentMapper.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="216">
-          <caret line="25" lean-forward="true" selection-start-line="25" selection-end-line="25" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/flowingsun/article/service/ArticleServiceImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-113">
-          <caret line="442" column="43" selection-start-line="442" selection-start-column="37" selection-end-line="442" selection-end-column="43" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/flowingsun/behavior/entity/Thank.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="215">
-          <caret line="40" column="17" selection-start-line="40" selection-start-column="17" selection-end-line="40" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/flowingsun/behavior/dao/ThankMapper.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="11" lean-forward="true" selection-start-line="11" selection-end-line="11" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$USER_HOME$/CodingKit/MavenBox/org/springframework/spring-context/4.3.4.RELEASE/spring-context-4.3.4.RELEASE.jar!/org/springframework/ui/ExtendedModelMap.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="16" selection-start-line="16" selection-end-line="16" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/flowingsun/behavior/dao/ThankMapper.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="12" column="49" lean-forward="true" selection-start-line="12" selection-start-column="49" selection-end-line="12" selection-end-column="49" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/user/managerCenter-test.vm">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/flowingsun/behavior/dao/CollectionMapper.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="284">
-          <caret line="29" column="58" selection-start-line="29" selection-start-column="58" selection-end-line="29" selection-end-column="58" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/flowingsun/article/controller/ArticleController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="397">
-          <caret line="103" column="6" selection-start-line="103" selection-start-column="6" selection-end-line="103" selection-end-column="6" />
+        <state relative-caret-position="75">
+          <caret line="5" column="15" selection-start-line="5" selection-start-column="15" selection-end-line="5" selection-end-column="15" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/pom.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="173">
-          <caret line="146" column="26" selection-start-line="146" selection-start-column="18" selection-end-line="146" selection-end-column="26" />
+        <state relative-caret-position="192">
+          <caret line="252" column="17" lean-forward="true" selection-start-line="252" selection-start-column="17" selection-end-line="252" selection-end-column="17" />
         </state>
       </provider>
     </entry>
-    <entry file="jar://$USER_HOME$/CodingKit/MavenBox/org/springframework/spring-webmvc/4.3.4.RELEASE/spring-webmvc-4.3.4.RELEASE.jar!/org/springframework/web/servlet/mvc/method/annotation/ServletInvocableHandlerMethod.class">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/flowingsun/article/dao/ArticleMapper.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="128">
-          <caret line="85" selection-start-line="85" selection-end-line="85" />
+        <state relative-caret-position="310">
+          <caret line="146" column="16" lean-forward="true" selection-start-line="146" selection-start-column="16" selection-end-line="146" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/flowingsun/article/vo/CategoryArticleQuery.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="4" column="50" selection-start-line="4" selection-start-column="50" selection-end-line="4" selection-end-column="50" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/flowingsun/common/utils/PageQueryBean.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="45">
+          <caret line="3" column="13" selection-start-line="3" selection-start-column="13" selection-end-line="3" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/web.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1305">
+          <caret line="87" column="57" selection-start-line="87" selection-start-column="57" selection-end-line="87" selection-end-column="57" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/log4j.properties">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="315">
+          <caret line="21" column="8" selection-start-line="21" selection-start-column="8" selection-end-line="21" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/spring-mvc.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="317">
+          <caret line="23" column="32" selection-start-line="23" selection-start-column="32" selection-end-line="23" selection-end-column="32" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/CodingKit/MavenBox/org/elasticsearch/elasticsearch/6.4.2/elasticsearch-6.4.2.jar!/org/elasticsearch/search/fetch/subphase/highlight/AbstractHighlighterBuilder.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="110">
+          <caret line="50" column="80" selection-start-line="50" selection-start-column="70" selection-end-line="50" selection-end-column="80" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/CodingKit/MavenBox/org/elasticsearch/elasticsearch/6.4.2/elasticsearch-6.4.2.jar!/org/elasticsearch/common/unit/Fuzziness.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="118">
+          <caret line="24" column="38" selection-start-line="24" selection-start-column="34" selection-end-line="24" selection-end-column="38" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/article/singleArticle-json.vm">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="107">
+          <caret line="524" column="115" selection-start-line="524" selection-start-column="115" selection-end-line="524" selection-end-column="115" />
+          <folding>
+            <element signature="n#style#0;n#img#0;n#a#0;n#li#0;n#ul#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#a#0;n#div#1;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#img#0;n#a#0;n#div#1;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#a#1;n#div#1;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#img#0;n#a#1;n#div#1;n#div#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/article/elasticSearch.vm">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="160">
+          <caret line="355" column="116" selection-start-line="355" selection-start-column="101" selection-end-line="355" selection-end-column="116" />
+          <folding>
+            <element signature="n#style#0;n#img#0;n#a#0;n#li#0;n#ul#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/index.vm">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="107">
+          <caret line="264" column="116" selection-start-line="264" selection-start-column="116" selection-end-line="264" selection-end-column="116" />
+          <folding>
+            <element signature="n#style#0;n#img#0;n#a#0;n#li#0;n#ul#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.8.0_171.jdk/Contents/Home/src.zip!/java/lang/String.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-420">
+          <caret line="2328" column="20" selection-start-line="2328" selection-start-column="20" selection-end-line="2328" selection-end-column="20" />
+          <folding>
+            <element signature="e#94598#94599#0" expanded="true" />
+            <element signature="e#94636#94637#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/article/singleArticle-0609.vm">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/article/categoryArticle-json.vm">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="146">
+          <caret line="353" column="116" selection-start-line="353" selection-start-column="116" selection-end-line="353" selection-end-column="116" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/article/singleArticle.vm">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="110">
+          <caret line="656" column="29" selection-start-line="656" selection-start-column="14" selection-end-line="656" selection-end-column="29" />
+          <folding>
+            <element signature="n#style#0;n#img#0;n#a#0;n#li#0;n#ul#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#a#0;n#div#1;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#img#0;n#a#0;n#div#1;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#a#1;n#div#1;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#img#0;n#a#1;n#div#1;n#div#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/flowingsun/article/service/ArticleServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="923">
+          <caret line="81" column="25" selection-start-line="81" selection-start-column="12" selection-end-line="81" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/CodingKit/MavenBox/org/elasticsearch/elasticsearch/6.4.2/elasticsearch-6.4.2.jar!/org/elasticsearch/index/query/MatchQueryBuilder.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="15">
+          <caret line="177" column="29" selection-start-line="177" selection-start-column="29" selection-end-line="177" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/CodingKit/MavenBox/org/elasticsearch/elasticsearch/6.4.2/elasticsearch-6.4.2.jar!/org/elasticsearch/index/query/QueryBuilder.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="12" column="17" selection-start-line="12" selection-start-column="17" selection-end-line="12" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/CodingKit/MavenBox/org/elasticsearch/elasticsearch/6.4.2/elasticsearch-6.4.2.jar!/org/elasticsearch/index/query/QueryBuilders.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="146">
+          <caret line="26" column="52" selection-start-line="26" selection-start-column="39" selection-end-line="26" selection-end-column="52" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/CodingKit/MavenBox/org/springframework/spring-core/4.3.4.RELEASE/spring-core-4.3.4.RELEASE.jar!/org/springframework/cglib/proxy/MethodProxy.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="94">
+          <caret line="106" selection-start-line="106" selection-end-line="106" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/CodingKit/MavenBox/org/springframework/spring-aop/4.3.4.RELEASE/spring-aop-4.3.4.RELEASE.jar!/org/springframework/aop/framework/CglibAopProxy.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="219">
+          <caret line="507" selection-start-line="507" selection-end-line="507" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/CodingKit/MavenBox/org/springframework/spring-web/4.3.4.RELEASE/spring-web-4.3.4.RELEASE.jar!/org/springframework/web/method/support/InvocableHandlerMethod.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="112">
+          <caret line="137" selection-start-line="137" selection-end-line="137" />
         </state>
       </provider>
     </entry>
     <entry file="jar://$USER_HOME$/CodingKit/MavenBox/org/springframework/spring-webmvc/4.3.4.RELEASE/spring-webmvc-4.3.4.RELEASE.jar!/org/springframework/web/servlet/mvc/method/annotation/RequestMappingHandlerAdapter.class">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="293">
-          <caret line="465" selection-start-line="465" selection-end-line="465" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$USER_HOME$/CodingKit/MavenBox/org/springframework/spring-webmvc/4.3.4.RELEASE/spring-webmvc-4.3.4.RELEASE.jar!/org/springframework/web/servlet/mvc/method/AbstractHandlerMethodAdapter.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="330">
-          <caret line="37" selection-start-line="37" selection-end-line="37" />
+        <state relative-caret-position="144">
+          <caret line="532" selection-start-line="532" selection-end-line="532" />
         </state>
       </provider>
     </entry>
     <entry file="jar://$USER_HOME$/CodingKit/MavenBox/org/springframework/spring-webmvc/4.3.4.RELEASE/spring-webmvc-4.3.4.RELEASE.jar!/org/springframework/web/servlet/DispatcherServlet.class">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="218">
-          <caret line="410" selection-start-line="410" selection-end-line="410" />
+        <state relative-caret-position="143">
+          <caret line="405" selection-start-line="405" selection-end-line="405" />
         </state>
       </provider>
     </entry>
     <entry file="jar://$USER_HOME$/CodingKit/MavenBox/org/springframework/spring-webmvc/4.3.4.RELEASE/spring-webmvc-4.3.4.RELEASE.jar!/org/springframework/web/servlet/FrameworkServlet.class">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="407" selection-start-line="407" selection-end-line="407" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$USER_HOME$/CodingKit/MavenBox/org/springframework/spring-web/4.3.4.RELEASE/spring-web-4.3.4.RELEASE.jar!/org/springframework/web/filter/OncePerRequestFilter.class">
-      <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="128">
-          <caret line="43" selection-start-line="43" selection-end-line="43" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$USER_HOME$/CodingKit/MavenBox/org/springframework/spring-web/4.3.4.RELEASE/spring-web-4.3.4.RELEASE.jar!/org/springframework/web/filter/CharacterEncodingFilter.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="314">
-          <caret line="83" selection-start-line="83" selection-end-line="83" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$USER_HOME$/CodingKit/MavenBox/org/springframework/spring-web/4.3.4.RELEASE/spring-web-4.3.4.RELEASE.jar!/org/springframework/web/filter/DelegatingFilterProxy.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="128">
-          <caret line="114" selection-start-line="114" selection-end-line="114" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$USER_HOME$/CodingKit/MavenBox/org/apache/shiro/shiro-web/1.2.2/shiro-web-1.2.2-sources.jar!/org/apache/shiro/web/servlet/OncePerRequestFilter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="192">
-          <caret line="129" column="13" lean-forward="true" selection-start-line="129" selection-start-column="13" selection-end-line="129" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$USER_HOME$/CodingKit/MavenBox/org/apache/shiro/shiro-web/1.2.2/shiro-web-1.2.2-sources.jar!/org/apache/shiro/web/servlet/AbstractShiroFilter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="137">
-          <caret line="385" selection-start-line="385" selection-end-line="385" />
-          <folding>
-            <element signature="e#17830#18095#0" expanded="true" />
-            <element signature="e#18094#18095#0" expanded="true" />
-          </folding>
+          <caret line="493" selection-start-line="493" selection-end-line="493" />
         </state>
       </provider>
     </entry>
     <entry file="jar://$USER_HOME$/CodingKit/MavenBox/com/alibaba/druid/1.0.11/druid-1.0.11.jar!/com/alibaba/druid/support/http/WebStatFilter.class">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="128">
-          <caret line="204" selection-start-line="204" selection-end-line="204" />
+          <caret line="53" column="16" selection-start-line="53" selection-start-column="16" selection-end-line="53" selection-end-column="16" />
         </state>
       </provider>
     </entry>
-    <entry file="jar://$USER_HOME$/CodingKit/MavenBox/org/springframework/session/spring-session/1.3.1.RELEASE/spring-session-1.3.1.RELEASE.jar!/org/springframework/session/web/http/SessionRepositoryFilter.class">
+    <entry file="jar://$USER_HOME$/CodingKit/MavenBox/org/apache/shiro/shiro-web/1.2.2/shiro-web-1.2.2-sources.jar!/org/apache/shiro/web/servlet/AbstractShiroFilter.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="116">
-          <caret line="73" selection-start-line="73" selection-end-line="73" />
+        <state relative-caret-position="264">
+          <caret line="376" selection-start-line="376" selection-end-line="376" />
         </state>
       </provider>
     </entry>
-    <entry file="jar://$USER_HOME$/CodingKit/MavenBox/org/springframework/session/spring-session/1.3.1.RELEASE/spring-session-1.3.1.RELEASE.jar!/org/springframework/session/web/http/OncePerRequestFilter.class">
+    <entry file="jar://$USER_HOME$/CodingKit/MavenBox/org/springframework/spring-web/4.3.4.RELEASE/spring-web-4.3.4.RELEASE.jar!/org/springframework/web/filter/OncePerRequestFilter.class">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="116">
-          <caret line="37" selection-start-line="37" selection-end-line="37" />
+        <state relative-caret-position="360">
+          <caret line="34" selection-start-line="34" selection-end-line="34" />
         </state>
       </provider>
     </entry>
@@ -1365,149 +1585,127 @@
     </entry>
     <entry file="jar://$USER_HOME$/CodingKit/MavenBox/org/apache/shiro/shiro-core/1.2.2/shiro-core-1.2.2-sources.jar!/org/apache/shiro/subject/support/DelegatingSubject.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="132">
-          <caret line="382" selection-start-line="382" selection-end-line="382" />
+        <state relative-caret-position="147">
+          <caret line="384" selection-start-line="384" selection-end-line="384" />
         </state>
       </provider>
     </entry>
-    <entry file="jar://$USER_HOME$/CodingKit/MavenBox/org/springframework/spring-web/4.3.4.RELEASE/spring-web-4.3.4.RELEASE.jar!/org/springframework/web/method/support/InvocableHandlerMethod.class">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/flowingsun/article/controller/ArticleController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="67">
-          <caret line="129" selection-start-line="129" selection-end-line="129" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$USER_HOME$/CodingKit/MavenBox/org/mybatis/mybatis/3.2.8/mybatis-3.2.8-sources.jar!/org/apache/ibatis/binding/MapperProxy.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="76">
-          <caret line="51" selection-start-line="51" selection-end-line="51" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/flowingsun/article/dao/ArticleMapper.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-3793">
-          <caret line="14" column="49" selection-start-line="14" selection-start-column="49" selection-end-line="14" selection-end-column="49" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/flowingsun/behavior/service/BehaviorService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="307">
-          <caret line="36" column="19" selection-start-line="36" selection-start-column="19" selection-end-line="36" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/flowingsun/behavior/dao/CollectionMapper.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-690">
-          <caret line="30" column="30" selection-start-line="30" selection-start-column="30" selection-end-line="30" selection-end-column="30" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/DDL/collection.SQL">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="45">
-          <caret line="3" column="17" selection-start-line="3" selection-start-column="11" selection-end-line="3" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/DDL/comment.SQL">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/DDL/thank.SQL">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="45">
-          <caret line="3" column="16" lean-forward="true" selection-start-line="3" selection-start-column="16" selection-end-line="3" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/flowingsun/behavior/dao/CommentMapper.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="259">
-          <caret line="50" column="33" lean-forward="true" selection-start-line="50" selection-start-column="33" selection-end-line="50" selection-end-column="33" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/flowingsun/behavior/entity/BehaviorStatus.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="391">
-          <caret line="145" column="5" selection-start-line="145" selection-start-column="5" selection-end-line="145" selection-end-column="5" />
-          <folding>
-            <element signature="e#2960#2961#0" expanded="true" />
-            <element signature="e#2997#2998#0" expanded="true" />
-            <element signature="e#3067#3068#0" expanded="true" />
-            <element signature="e#3119#3120#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/flowingsun/behavior/entity/Collection.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="49">
-          <caret line="10" column="31" selection-start-line="10" selection-start-column="19" selection-end-line="10" selection-end-column="31" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/article/singleArticle.vm">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="203">
-          <caret line="324" column="51" lean-forward="true" selection-start-line="324" selection-start-column="8" selection-end-line="324" selection-end-column="51" />
-          <folding>
-            <element signature="n#style#0;n#img#0;n#a#0;n#li#0;n#ul#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#a#0;n#div#1;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#img#0;n#a#0;n#div#1;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#a#1;n#div#1;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#img#0;n#a#1;n#div#1;n#div#0;n#!!top" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$USER_HOME$/CodingKit/MavenBox/org/apache/velocity/velocity/1.7/velocity-1.7-sources.jar!/org/apache/velocity/runtime/parser/node/ASTIdentifier.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="199">
-          <caret line="207" column="39" lean-forward="true" selection-start-line="207" selection-start-column="39" selection-end-line="207" selection-end-column="39" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/user/manageCenter.vm">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="132">
-          <caret line="731" column="74" selection-start-line="731" selection-start-column="74" selection-end-line="731" selection-end-column="74" />
-          <folding>
-            <element signature="n#style#0;n#img#0;n#a#0;n#li#0;n#ul#0;n#!!top" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/flowingsun/behavior/service/BehaviorServiceImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-626">
-          <caret line="159" column="61" selection-start-line="159" selection-start-column="61" selection-end-line="159" selection-end-column="61" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/flowingsun/user/controller/UserController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="176">
-          <caret line="91" column="61" selection-start-line="91" selection-start-column="61" selection-end-line="91" selection-end-column="61" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+        <state relative-caret-position="214">
+          <caret line="59" lean-forward="true" selection-start-line="59" selection-end-line="59" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/flowingsun/behavior/controller/BehaviorController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="807">
-          <caret line="79" selection-start-line="79" selection-end-line="79" />
+        <state relative-caret-position="244">
+          <caret line="43" column="39" selection-start-line="43" selection-start-column="31" selection-end-line="43" selection-end-column="39" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/flowingsun/common/utils/PageQueryBean.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/flowingsun/behavior/service/BehaviorServiceImpl.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="167">
-          <caret line="61" column="13" selection-start-line="61" selection-start-column="13" selection-end-line="61" selection-end-column="13" />
+        <state relative-caret-position="-32">
+          <caret line="97" column="27" selection-start-line="97" selection-start-column="19" selection-end-line="97" selection-end-column="27" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/flowingsun/admin/controller/AdminController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="155">
+          <caret line="88" column="31" lean-forward="true" selection-start-line="88" selection-start-column="4" selection-end-line="88" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/CodingKit/MavenBox/org/springframework/session/spring-session/1.3.1.RELEASE/spring-session-1.3.1.RELEASE.jar!/org/springframework/session/web/http/SessionRepositoryFilter.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="144">
+          <caret line="73" selection-start-line="73" selection-end-line="73" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/CodingKit/MavenBox/org/apache/shiro/shiro-web/1.2.2/shiro-web-1.2.2-sources.jar!/org/apache/shiro/web/servlet/OncePerRequestFilter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="144">
+          <caret line="128" selection-start-line="128" selection-end-line="128" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/CodingKit/MavenBox/org/springframework/session/spring-session/1.3.1.RELEASE/spring-session-1.3.1.RELEASE.jar!/org/springframework/session/web/http/OncePerRequestFilter.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="128">
+          <caret line="37" selection-start-line="37" selection-end-line="37" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/user/activiate.vm">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="130">
+          <caret line="269" column="116" selection-start-line="269" selection-start-column="101" selection-end-line="269" selection-end-column="116" />
+          <folding>
+            <element signature="n#style#0;n#img#0;n#a#0;n#li#0;n#ul#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/article/test.vm">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="300" column="100" lean-forward="true" selection-start-line="300" selection-start-column="66" selection-end-line="300" selection-end-column="100" />
+          <folding>
+            <element signature="n#style#0;n#img#0;n#a#0;n#li#0;n#ul#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/user/donateMoney.vm">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="271" column="116" selection-start-line="271" selection-start-column="116" selection-end-line="271" selection-end-column="116" />
+          <folding>
+            <element signature="n#style#0;n#img#0;n#a#0;n#li#0;n#ul#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/article/tagArticle.vm">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="112">
+          <caret line="314" column="114" lean-forward="true" selection-start-line="314" selection-start-column="66" selection-end-line="314" selection-end-column="114" />
+          <folding>
+            <element signature="n#style#0;n#img#0;n#a#0;n#li#0;n#ul#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/article/categoryArticle.vm">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="124">
+          <caret line="353" column="116" selection-start-line="353" selection-start-column="101" selection-end-line="353" selection-end-column="116" />
+          <folding>
+            <element signature="n#style#0;n#img#0;n#a#0;n#li#0;n#ul#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/user/manageCenter.vm">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="123">
+          <caret line="401" column="116" selection-start-line="401" selection-start-column="101" selection-end-line="401" selection-end-column="116" />
+          <folding>
+            <element signature="n#style#0;n#img#0;n#a#0;n#li#0;n#ul#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/403.vm">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="98">
+          <caret line="233" column="116" selection-start-line="233" selection-start-column="116" selection-end-line="233" selection-end-column="116" />
+          <folding>
+            <element signature="n#style#0;n#img#0;n#a#0;n#li#0;n#ul#0;n#!!top" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

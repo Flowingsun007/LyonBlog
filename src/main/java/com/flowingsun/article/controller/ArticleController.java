@@ -1,5 +1,6 @@
 package com.flowingsun.article.controller;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.flowingsun.article.entity.*;
 import com.flowingsun.article.service.ArticleService;
@@ -9,9 +10,27 @@ import com.flowingsun.article.vo.TagArticleQuery;
 import com.flowingsun.behavior.service.BehaviorService;
 import com.flowingsun.user.entity.User;
 import org.apache.commons.io.FileUtils;
+import org.apache.http.HttpHost;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.apache.shiro.authz.annotation.RequiresRoles;
+import org.elasticsearch.action.search.SearchRequest;
+import org.elasticsearch.action.search.SearchResponse;
+import org.elasticsearch.client.RequestOptions;
+import org.elasticsearch.client.RestClient;
+import org.elasticsearch.client.RestHighLevelClient;
+import org.elasticsearch.common.text.Text;
+import org.elasticsearch.common.unit.Fuzziness;
+import org.elasticsearch.common.unit.TimeValue;
+import org.elasticsearch.index.query.MatchPhraseQueryBuilder;
+import org.elasticsearch.index.query.MatchQueryBuilder;
+import org.elasticsearch.index.query.QueryBuilder;
+import org.elasticsearch.index.query.QueryBuilders;
+import org.elasticsearch.search.SearchHit;
+import org.elasticsearch.search.SearchHits;
+import org.elasticsearch.search.builder.SearchSourceBuilder;
+import org.elasticsearch.search.fetch.subphase.highlight.HighlightBuilder;
+import org.elasticsearch.search.fetch.subphase.highlight.HighlightField;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,7 +41,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 
 @Controller
@@ -35,7 +57,174 @@ public class ArticleController {
     @Autowired
     private BehaviorService behaviorService;
 
+
     private final String UPLOAD_IMAGE_PATH = "/static/uploadBlogFile/image";
+
+    @RequiresRoles("register")
+    @RequestMapping("/elastic/category")
+    public String elasticCategorySearch(Model model,@RequestParam(value="keywords")String keywords)throws IOException{
+        RestHighLevelClient client = new RestHighLevelClient(
+                RestClient.builder(
+                        new HttpHost("localhost", 9200, "http"),
+                        new HttpHost("localhost", 9201, "http")));
+
+        SearchRequest searchRequest = new SearchRequest();
+        SearchSourceBuilder sourceBuilder = new SearchSourceBuilder();
+        //设置搜索结果起始行数下标，默认从0开始。
+        sourceBuilder.from(0);
+        //设置搜索结果显示条数
+        sourceBuilder.size(10);
+        //设置搜索结果超时时间
+        sourceBuilder.timeout(new TimeValue(60, TimeUnit.SECONDS));
+//        //构建QueryBuilder的子类——匹配查询MatchQueryBuilder
+//        MatchQueryBuilder matchBuilder = new MatchQueryBuilder("article_content",keywords);
+//        //在匹配查询上启用模糊匹配
+//        matchBuilder.fuzziness(Fuzziness.ZERO);
+//        //在匹配查询上设置前缀长度选项
+//        matchBuilder.prefixLength(3);
+//        //设置最大扩展选项以控制查询的模糊过程
+//        matchBuilder.maxExpansions(6);
+//        //也可以采用流畅式编程的方式创建QueryBuilder的子类对象：
+//        QueryBuilder matchBuilder = QueryBuilders
+//                .matchQuery("article_content","encoding")
+//                .fuzziness(Fuzziness.AUTO)
+//                .prefixLength(5)
+//                .maxExpansions(10)
+//        sourceBuilder.query(matchBuilder);
+//
+        //默认情况下，搜索请求会返回文档的内容,可以使用fetchSource(false);来关闭检索全文档；
+        // 通过includeFields和excludeFields来设置要检索的字段：
+        //sourceBuilder.fetchSource(false);
+        //String [] includeFields = new String [] {"article_title","article_abstract","article_content"};
+        //String [] excludeFields = new String [] {"id","article_content_copy","article_main_id","userid","article_second_id"};
+        //sourceBuilder.fetchSource(includeFields,excludeFields);
+
+
+//        //设置三个字段搜索结果高亮显示的效果
+//        HighlightBuilder highlightBuilder = new HighlightBuilder();
+//        HighlightBuilder.Field title =
+//                new HighlightBuilder.Field("article_title");
+//        HighlightBuilder.Field subtitle =
+//                new HighlightBuilder.Field("article_abstract");
+//        HighlightBuilder.Field content =
+//                new HighlightBuilder.Field("article_content");
+//        title.highlighterType("unified");
+//        subtitle.highlighterType("unified");
+//        content.highlighterType("unified");
+//        highlightBuilder.field(title);
+//        highlightBuilder.field(subtitle);
+//        highlightBuilder.field(content);
+//        //将高亮显示和匹配选择的构造器类都放入sourceBuilder中
+//        sourceBuilder.highlighter(highlightBuilder);
+
+
+        QueryBuilder queryBuilder = null;
+        MatchPhraseQueryBuilder mpqBuilder1 = null;
+        MatchPhraseQueryBuilder mpqBuilder2 = null;
+        MatchPhraseQueryBuilder mpqBuilder3 = null;
+        String keyword = keywords;
+        //如果关键词中包含"+"，则默认将其拆分为2部分，+的左半部分用来标识查找范围，+的右半部分是关键词
+        if(keywords.indexOf("+")>-1){
+            String[] slist = keywords.split("\\+");
+            String range = slist[0];
+            keyword = slist[1];
+            if(range.equals("title")){
+                mpqBuilder1 = new MatchPhraseQueryBuilder("article_title",keyword);
+                queryBuilder = QueryBuilders.boolQuery().must(mpqBuilder1);
+            }else if(range.equals("abstract")){
+                mpqBuilder2 = new MatchPhraseQueryBuilder("article_abstract",keyword);
+                queryBuilder = QueryBuilders.boolQuery().must(mpqBuilder2);
+            }else if(range.equals("content")){
+                mpqBuilder3 = new MatchPhraseQueryBuilder("article_content",keyword);
+                queryBuilder = QueryBuilders.boolQuery().must(mpqBuilder3);
+            }
+        }else{
+            mpqBuilder1 = new MatchPhraseQueryBuilder("article_title",keyword);
+            mpqBuilder2 = new MatchPhraseQueryBuilder("article_abstract",keyword);
+            mpqBuilder3 = new MatchPhraseQueryBuilder("article_content",keyword);
+            queryBuilder = QueryBuilders.boolQuery().should(mpqBuilder1).should(mpqBuilder2).should(mpqBuilder3);
+        }
+
+        List<Article> articleList = new ArrayList<>();
+        try{
+            sourceBuilder.query(queryBuilder);
+            //将搜索构造器类sourceBuilder装入SearchRequest类
+            searchRequest.source(sourceBuilder);
+            //client的search方法执行搜索，结果返回到SearchResponse类
+            SearchResponse searchResponse = client.search(searchRequest, RequestOptions.DEFAULT);
+            //获取搜索结果
+            SearchHits hits = searchResponse.getHits();
+            //搜索到的结果数
+            long totalHits = hits.getTotalHits();
+            //处理搜索到的文档结果
+            SearchHit[] searchHits = hits.getHits();
+            for (SearchHit hit : searchHits){
+                Article article = new Article();
+                Map<String, HighlightField> highlightFields = hit.getHighlightFields();
+                Map<String, Object> sourceAsMap = hit.getSourceAsMap();
+                Integer articleId = (Integer) sourceAsMap.get("id");
+                Integer uid = (Integer) sourceAsMap.get("userid");
+                //String createDate = (String) sourceAsMap.get("create_date");
+                String articleTitle = (String) sourceAsMap.get("article_title");
+                String articleAbstract = (String) sourceAsMap.get("article_abstract");
+                String articleContent = (String) sourceAsMap.get("article_content");
+                article.setId(articleId);
+                article.setUserid(uid);
+                article.setArticleTitle(articleTitle);
+                article.setArticleAbstract(articleAbstract);
+                article.setArticleContent(articleContent);
+                articleList.add(article);
+            }
+        }catch (Exception f){
+            System.out.println("-------------------------------------------搜索结果为空或异常\n-------------------------------------------");
+        }
+
+        List<ArticleTag> allTags = articleService.selectAllTag();
+        BlogInfo blogInfo = articleService.selectInfomation();
+        List<Category> categorys = articleService.getCategory();
+        String s1 = JSON.toJSONString(allTags);
+        String s2 = JSON.toJSONString(blogInfo);
+        String s3 = JSON.toJSONString(categorys);
+        String s4 = JSON.toJSONString(articleList);
+        model.addAttribute("allTags",JSON.parseArray(s1));
+        model.addAttribute("blogInfo",JSON.parseObject(s2,BlogInfo.class));
+        model.addAttribute("categorys",JSON.parseArray(s3));
+        model.addAttribute("searchResults",JSON.parseArray(s4));
+        return "/article/elasticSearch";
+
+    }
+
+    @RequestMapping("/json/category")
+    public String jsonCategoryArticle(@RequestParam("cId") Integer cId,
+                                  @RequestParam(value="pageNum",required=false,defaultValue = "1")Integer pageNum,
+                                  @RequestParam(value="pageSize",required=false,defaultValue = "10")Integer pageSize,
+                                  Model model) throws IOException {
+        CategoryArticleQuery queryBean = new CategoryArticleQuery();
+        queryBean.setPageSize(pageSize);
+        queryBean.setPageNum(pageNum);
+        queryBean.setcId(cId);
+        List<Category> categorys = articleService.getCategory();
+        CategoryArticleQuery categoryArticleQuery = articleService.getCategoryArticles(cId,queryBean);
+        Long userId = (Long)SecurityUtils.getSubject().getSession().getAttribute("userId");
+        List<ArticleTag> allTags = articleService.selectAllTag();
+        BlogInfo blogInfo = articleService.selectInfomation();
+        String s1 = JSON.toJSONString(allTags);
+        String s2 = JSON.toJSONString(blogInfo);
+        String s3 = JSON.toJSONString(categoryArticleQuery);
+        String s4 = JSON.toJSONString(categorys);
+        if(userId!=null&&categoryArticleQuery.getTotal()!=0){
+            CategoryArticleQuery result = behaviorService.getUserCategoryArticleBehavior(categoryArticleQuery,userId);
+            s3 = JSON.toJSONString(result);
+        }
+        model.addAttribute("allTags",JSON.parseArray(s1));
+        model.addAttribute("blogInfo",JSON.parseObject(s2,BlogInfo.class));
+        model.addAttribute("pageQueryBean",JSON.parseObject(s3,CategoryArticleQuery.class));
+        model.addAttribute("categorys",JSON.parseArray(s4));
+
+
+        return "/article/categoryArticle-json";
+
+    }
 
     /**
      *@Author Lyon[flowingsun007@163.com]
@@ -68,6 +257,33 @@ public class ArticleController {
             model.addAttribute("pageQueryBean",result);
         }
         return "/article/categoryArticle";
+    }
+
+    @RequestMapping("/json/single")
+    public String jsonSingleArticle(@RequestParam("articleId") Integer articleId,Model model){
+        List<Category> categorys = articleService.getCategory();
+        model.addAttribute("categorys",categorys);
+        if(articleService.checkArticleExist(articleId)){
+            Article article = articleService.getArticle(articleId);
+            List<ArticleTag> allTags = articleService.selectAllTag();
+            BlogInfo blogInfo = articleService.selectInfomation();
+            String s1 = JSON.toJSONString(allTags);
+            String s2 = JSON.toJSONString(blogInfo);
+            String s3 = JSON.toJSONString(article);
+            if(article!=null){
+                RegularRecommend regularRecommend = articleService.getRegularRecommendArticle(articleId);
+                if(regularRecommend!=null){article.setRegularRecommend(regularRecommend);}
+                Long userId = (Long)SecurityUtils.getSubject().getSession().getAttribute("userId");
+                if(userId!=null){
+                    Article result = behaviorService.getUserArticleBehavior(article,userId);
+                    s3 = JSON.toJSONString(result);
+                }
+            }
+            model.addAttribute("allTags",JSON.parseArray(s1));
+            model.addAttribute("blogInfo",JSON.parseObject(s2,BlogInfo.class));
+            model.addAttribute("article",JSON.parseObject(s3,Article.class));
+        }
+        return "/article/singleArticle-json";
     }
 
     /**

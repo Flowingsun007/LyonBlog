@@ -88,6 +88,11 @@
     <param-value>classpath:log4j.properties</param-value>
   </context-param>
 
+  <context-param>
+    <param-name>log4j2ConfigLocation</param-name>
+    <param-value>classpath:log4j2.properties</param-value>
+  </context-param>
+
 
   <!-- 连接池 启用 Web 监控统计功能    start-->
   <servlet>
