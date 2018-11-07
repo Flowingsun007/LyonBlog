@@ -172,6 +172,14 @@
             }
         });
 
+        $("#searchSubmit").click(function () {
+            var text = $("#navSearch").children("input").val();
+            if(text==""){
+                swal("请输入搜索关键词！");
+                return false;
+            }
+        });
+
         $("#userRegister").click(function () {
             var username = $("#username").val();
             var password = $('#password').val();
@@ -268,7 +276,7 @@
             </ul>
             <form class="form-inline mt-2 mt-md-0" id="navSearch" action="/article/elastic/category">
                 <input class="form-control mr-sm-2" type="text" placeholder="🔍搜" aria-label="Search" name="keywords">
-                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit" id="searchSubmit">Search</button>
             </form>
             <ul class="navbar-nav mr-sm-0">
                 <li class="nav-item dropdown" id="navLogin">

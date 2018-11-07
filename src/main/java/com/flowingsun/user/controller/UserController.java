@@ -8,6 +8,7 @@ import com.flowingsun.behavior.service.BehaviorService;
 import com.flowingsun.behavior.vo.PictureQuery;
 import com.flowingsun.user.entity.User;
 import com.flowingsun.user.service.UserService;
+import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -76,6 +77,8 @@ public class UserController {
         return "/user/activiate";
     }
 
+
+    @RequiresRoles("register")
     @RequestMapping("/manageCenter")
     public String userManageCenter(
             Model model,HttpServletRequest request,

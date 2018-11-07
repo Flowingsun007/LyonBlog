@@ -57,7 +57,7 @@
                     success:function (data) {
                         if(data=="logout_succ"){
                             window.location.reload();
-                        }else{alert("退出登录失败！");}
+                        }else{swal("退出登录失败！");}
                     }
                 });
             }else{
@@ -119,10 +119,10 @@
                         data:JSON.stringify({"telephone":usertoken,"userpass":userpass}),
                         success:function (result) {
                             if(result=="login_succ"){
-                                alert("登录成功😊！");
+                                swal("登录成功😊！");
                                 window.location.reload();
                             } else if(result=="login_fail"){
-                                alert("登录失败😊！");
+                                swal("登录失败💔！");
                             }
                         }
                     });
@@ -138,11 +138,19 @@
                                 alert("登录成功😊！");
                                 window.location.reload();
                             } else if(result=="login_fail"){
-                                alert("登录失败😊！");
+                                alert("登录失败💔！");
                             }
                         }
                     });
                 }
+            }
+        });
+
+        $("#searchSubmit").click(function () {
+            var text = $("#navSearch").children("input").val();
+            if(text==""){
+                swal("请输入搜索关键词！");
+                return false;
             }
         });
 
@@ -186,9 +194,9 @@
                     data:JSON.stringify({"username":username,"userpass":password,"useremail":useremail,"telephone":telephone}),
                     success:function (data) {
                         if(data=="register_succ"){
-                            alert("注册成功😊！");
+                            swal("注册成功😊！");
                         } else if(data=="register_fail"){
-                            alert("注册失败😊！");
+                            swal("注册失败😊！");
                         }
                     }
                 });
@@ -208,10 +216,11 @@
 
 <header>
     <nav id="navBlog" class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-        <a class="navbar-brand" href="/article">对不起,您遭遇了[没有权限】错误😶，请先登录哦！</a>
+        <a class="navbar-brand" href="/index" target="_blank">Lyon's Blog</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
+        <a class="navbar-brand">Sorry,您遭遇了[没有权限】错误😶，请尝试重新登录或联系管理员！</a>
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav mr-auto">
                 #foreach($category in ${categorys})
@@ -232,7 +241,7 @@
             </ul>
             <form class="form-inline mt-2 mt-md-0" id="navSearch" action="/article/elastic/category" method="post">
                 <input class="form-control mr-sm-2" type="text" placeholder="🔍搜" aria-label="Search" name="keywords">
-                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit" id="searchSubmit">Search</button>
             </form>
             <ul class="navbar-nav mr-sm-0">
                 <li class="nav-item dropdown" id="navLogin">

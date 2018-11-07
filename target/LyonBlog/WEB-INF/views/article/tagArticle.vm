@@ -17,6 +17,10 @@
     <link href="/static/css/blogHome.css" rel="stylesheet">
     <!--登录注册框样式-->
     <link href="/static/css/loginStyle.css" rel="stylesheet" type="text/css" media="all">
+    <!-- This is what you need -->
+    <script src="/static/js/sweetalert-dev.js"></script>
+    <link rel="stylesheet" href="/static/css/sweetalert.css">
+    <!--.......................-->
     <!--blogTemplate Style-->
     <link href="/static/css/font/googleapis.css" rel="stylesheet">
     <link href="/static/css/templateBlog.css" rel="stylesheet">
@@ -245,10 +249,38 @@
             return false;
         });
 
-        $(".submitSave").click(function () {
+        $("#blogList").on("click",".submitCollect",function(){
             var theNode = $(this);
-            $(theNode).children("img").attr("src","/static/image/save2.png");
-            swal("收藏成功😊！");
+            var articleid = $(this).next().next().text();
+            var collectionNum = parseInt($.trim($(this).children("span").text()))+1;
+            $.ajax({
+                type:"POST",
+                contentType: "application/json",
+                url:"/behavior/collect",
+                data:JSON.stringify({"articleid":articleid}),
+                success:function (data) {
+                    if(data=="collect_success"){
+                        $(theNode).children("img").attr("src","/static/image/save2.png");
+                        $(theNode).children("span").text(collectionNum);
+                    } else if(data=="collect_fail_重复收藏"){
+                        swal({
+                            title: "您已收藏,请勿重复提交️！",
+                            text:  data,
+                            timer: 3000,
+                            showConfirmButton: false
+                        });
+                    } else if(data=="collect_fail_未登录"){
+                        swal({
+                            title: "亲，请先登录再收藏哦！",
+                            text:  data,
+                            timer: 3000,
+                            showConfirmButton: false
+                        });
+                    } else{
+                        swal("收藏失败😶！", data);
+                    }
+                }
+            });
             return false;
         });
 
@@ -260,32 +292,17 @@
             return false;
         });
 
+        $("#searchSubmit").click(function () {
+            var text = $("#navSearch").children("input").val();
+            if(text==""){
+                swal("请输入搜索关键词！");
+                return false;
+            }
+        });
+
     });
 </script>
 
-<script type="text/javascript">
-    function submitThank(value){
-        var articleid = value;
-        $.ajax({
-            type:"POST",
-            contentType: "application/json",
-            url:"/behavior/thank",
-            data:JSON.stringify({"articleid":articleid}),
-            success:function (data) {
-                if(data=="setThank_success"){
-                    window.location.reload();
-                } else if(data=="setThank_fail_重复点赞"){
-                    alert("您已点过👍哦,请勿重复点赞！");
-                } else if(data=="setThank_fail_未登录"){
-                    alert("请先登录再点赞哦！！！");
-                } else{
-                    alert("点赞失败！😶"+data);
-                }
-            }
-        });
-        return false;
-    };
-</script>
 
 <header>
     <nav id="navBlog" class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
@@ -314,7 +331,7 @@
             </ul>
             <form class="form-inline mt-2 mt-md-0" id="navSearch" action="/article/elastic/category" method="post">
                 <input class="form-control mr-sm-2" type="text" placeholder="🔍搜" aria-label="Search" name="keywords">
-                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit" id="searchSubmit">Search</button>
             </form>
             <ul class="navbar-nav mr-sm-0">
                 <li class="nav-item dropdown" id="navLogin">
@@ -370,6 +387,79 @@
 
 </div>
 
+<div class="container">
+
+    <div class="nav-scroller py-1 mb-2">
+        <nav class="nav d-flex justify-content-between">
+            <a class="p-2 text-muted" href="#">World</a>
+            <a class="p-2 text-muted" href="#">U.S.</a>
+            <a class="p-2 text-muted" href="#">Technology</a>
+            <a class="p-2 text-muted" href="#">Design</a>
+            <a class="p-2 text-muted" href="#">Culture</a>
+            <a class="p-2 text-muted" href="#">Business</a>
+        </nav>
+    </div>
+
+    <div class="jumbotron p-4 p-lg-8 text-white rounded bg-dark">
+        <div class="col-md-12 px-0">
+            <h1 class="display-4 font-italic">《弹指一挥间》— 许嵩</h1>
+            <p class="lead my-3" style="font-family:STFangsong;">
+                雨掸霜叶掸落一地过往
+                云遮秋雁遮住十载月光
+                我推开窗 满手回忆沙沙作响
+                枕簟凉 残烛晃 人惆怅
+                离愁别恨是心的溃疡
+                戴月披星是你在流浪
+                你推开窗花灯随烟波铺江上
+                露水凉 老船晃 人惆怅
+                弹指一挥间 你竟已遥远
+                沧海成荒野 真情永不灭
+                弹指一挥间 红尘已缈远
+                青丝蘸白雪 来路生云烟
+            </p>
+            <p class="lead mb-0"><a href="#" class="text-white" style="float: right">——Keep balance , Be a better man!</a></p>
+        </div>
+    </div>
+
+    <div class="row mb-2">
+        <div class="col-md-6">
+            <div class="card flex-md-row mb-4 box-shadow h-md-250">
+                <div class="card-body d-flex flex-column align-items-start">
+                    <h3 class="mb-0">
+                        <a class="text-dark" href="https://www.zhihu.com/question/21395276/answer/300567726" target="_blank">可以用Python编程语言做哪些神奇好玩的事情</a>
+                    </h3>
+                    <strong class="d-inline-block mb-2 text-primary"> 【知乎】：Lyon</strong>
+                    <div class="mb-1 text-muted">2018/06/21</div>
+                    <p class="card-text mb-auto">
+                        用Python写的第一个程序，是爬取糗事百科上的图片、自动下载到本地、自动分成文件夹保存，当时就觉得，卧糟，太NB了~第二个程序，当然还是图片爬虫，不过这次，嘿嘿，是妹纸图，你懂得~
+                    </p>
+                    <a href="https://www.zhihu.com/question/21395276/answer/300567726" target="_blank">阅读全文</a>
+                </div>
+                <div>
+                    <img src="/static/uploadBlogFile/image/zhihu-Zhilian1.jpg" alt="知乎Lyon.jpg" title="知乎Lyon.jpg">
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card flex-md-row mb-4 box-shadow h-md-250">
+                <div class="card-body d-flex flex-column align-items-start">
+                    <h3 class="mb-0">
+                        <a class="text-dark" href="https://zhuanlan.zhihu.com/p/35233558" target="_blank">直接插入排序算法——Java实现</a>
+                    </h3>
+                    <strong class="d-inline-block mb-2 text-success">【知乎】：Lyon</strong>
+                    <div class="mb-1 text-muted">2018/06/21</div>
+                    <p class="card-text mb-auto">直接插入排序，是算法里老生常谈的经典，这里直接先上一段原始版的直接插入排序代码，然后顺着代码理思路，最后再来一段优化版的代码。</p>
+                    <a href="https://zhuanlan.zhihu.com/p/35233558" target="_blank">阅读全文</a>
+                </div>
+                <div>
+                    <img src="/static/uploadBlogFile/image/zhihu-1.jpg" alt="11.jpg" title="11.jpg" >
+                </div>
+            ##<img class="card-img-right flex-auto d-none d-md-block" data-src="holder.js/200x250?theme=thumb" alt="Card image cap">
+            </div>
+        </div>
+    </div>
+</div>
+
 
 <main role="main" class="container">
     <div class="row">
@@ -377,23 +467,23 @@
             #foreach($article in $!{pageQueryBean.dataList})
                 <div class="blog-post">
                     <div>
-                        <h2 class="blog-post-title"><a href="/article/single?articleId=$article.getId()" target="_blank">$article.getArticleTitle()</a></h2>
-                        <span id="articleMainId" style="visibility: hidden">$article.getArticleMainId()</span>
-                        <span id="articleSecondId" style="visibility: hidden">$article.getArticleSecondId()</span>
+                        <h3 class="blog-post-meta" style="font-family: Vincent;"><a href="/article/single?articleId=$article.getId()" target="_blank" style="color: #000000">$article.getArticleTitle()</a></h3>
+##                        <span id="articleMainId" style="visibility: hidden">$article.getArticleMainId()</span>
+##                        <span id="articleSecondId" style="visibility: hidden">$article.getArticleSecondId()</span>
                         <div>
-                            <h3 class="font-italic" style="color:#9F79EE;font-size:15px">
+                            <h4 class="font-italic" style="color:#9F79EE;font-size:15px">
                                 #set($tags = $article.getArticleTagList())
                                 #foreach($tag in $!{tags})
                                     <a class="anewTag" href="/article/tag?tagId=$tag.tagId" target="_blank">
-                                        <span class="btn btn-success btn-sm">$tag.tagName</span>
+                                        <span class="badge badge-success btn-sm">$tag.tagName</span>
                                     </a>
                                 #end
-                            </h3>
+                            </h4>
                         </div>
                         <div>
                             <p>Lyon 创建于：<span> $!date.format('yyyy-MM-dd HH:mm',$!article.getCreateDate())</span></p>
                             <p><span style="font-size:12px;font-family:Vincent;font-weight:100;color:#66CDAA;">文章分类:</span>
-                                <span>$article.getMainCategoryName()-></span>
+                                <span>$article.getMainCategoryName()>></span>
                                 <a  href="/article/category?cId=$article.getArticleSecondId()" target="_blank">$article.getSecondCategoryName()</a>
                             </p>
                         </div>
@@ -411,13 +501,13 @@
                             #end
                             <span>
                                 #if(!$article.getArticleThank())
-                                        0
+                                    0
                                 #else
                                     $article.getArticleThank()
                                 #end
                             </span>感谢</a>
                         <span style="visibility: hidden">$article.getId()</span>
-                        <a href="" style="margin-right:40px;color:#919191;">
+                        <a href="javascript:void(0)" style="margin-right:40px;color:#919191;">
                             #if($article.getBehaviorStatus().getCommentStatus()==1)
                                 <img class="icon" src="/static/image/comment2.png" alt="comment" width="15px;" height="15px;">
                             #else
@@ -428,8 +518,24 @@
                             #else
                                 $article.getArticleComment()
                             #end</span>评论</a>
-                        <a href="" style="margin-right:40px;color:#919191;" class="submitSave"><img class="icon" src="/static/image/save1.png" alt="star" width="17px;" height="17px;" >收藏</a>
-                        <a href=""  style="color:#919191;" class="submitShare"><img class="icon" src="/static/image/share1.png" alt="share" width="15px;" height="15px;">分享</a>
+                        <a href="javascript:void(0)"  style="margin-right:40px;color:#919191;" class="submitCollect">
+                            #if($article.getBehaviorStatus().getCollectStatus()==1)
+                                <img class="icon" src="/static/image/save2.png" alt="star" width="17px;" height="17px;">
+                            #else
+                                <img class="icon" src="/static/image/save1.png" alt="star" width="17px;" height="17px;">
+                            #end
+                            <span>
+                                #if(!$article.getArticleCollection())
+                                            0
+                                #else
+                                    $article.getArticleCollection()
+                                #end
+                            </span>收藏
+                        </a>
+                        <a href=""  style="color:#919191;" class="submitShare">
+                            <img class="icon" src="/static/image/share1.png" alt="share" width="15px;" height="15px;">
+                            分享
+                        </a>
                     </div>
 
                 </div><!-- /.blog-post -->

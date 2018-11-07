@@ -176,6 +176,14 @@
             }
         });
 
+        $("#searchSubmit").click(function () {
+            var text = $("#navSearch").children("input").val();
+            if(text==""){
+                swal("请输入搜索关键词！");
+                return false;
+            }
+        });
+
         $("#userRegister").click(function () {
             var username = $("#username").val();
             var password = $('#password').val();
@@ -300,7 +308,7 @@
             </ul>
             <form class="form-inline mt-2 mt-md-0" id="navSearch" action="/article/elastic/category">
                 <input class="form-control mr-sm-2" type="text" placeholder="🔍搜" aria-label="Search" name="keywords">
-                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit" id="searchSubmit">Search</button>
             </form>
             <ul class="navbar-nav mr-sm-0">
                 <li class="nav-item dropdown" id="navLogin">
@@ -413,10 +421,18 @@
 
 
     #if(!$article.getArticleTitle())
-        <h1 class="display-4 font-italic">Dear,You seem break into no man's land,It's a wilderness without knowledge!</h1>
-        <h3 class="mb-0">
-            <a class="text-dark" href="#">亲，你来到了无人区，这是一片没有知识存在的荒原！</a>
-        </h3>
+        <main role="main" class="container">
+            <div class="row">
+                <div class="col-md-9 blog-main">
+                    <div class="blog-post">
+                        <h1>Dear,You seem break into no man's land,It's a wilderness without knowledge!</h1>
+                        <h3>
+                            <a class="text-dark" href="#">亲，你来到了无人区，这是一片没有知识存在的荒原！</a>
+                        </h3>
+                    </div>
+                </div>
+            </div>
+        </main>
     #else
 
         <main role="main" class="container">

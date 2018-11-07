@@ -305,19 +305,20 @@
             return false;
         });
 
-        // $(".submitCollect").click(function () {
-        //     var theNode = $(this);
-        //     $(theNode).children("img").attr("src","/static/image/save2.png");
-        //     swal("收藏成功😊！");
-        //     return false;
-        // });
-
         $(".submitShare").click(function () {
             var theNode = $(this);
             $(theNode).children("img").attr("src","/static/image/share2.png");
             var sharelink = window.location.href;
             swal(sharelink,"复制链接分享吧😊！");
             return false;
+        });
+
+        $("#searchSubmit").click(function () {
+            var text = $("#navSearch").children("input").val();
+            if(text==""){
+                swal("请输入搜索关键词！");
+                return false;
+            }
         });
 
     });
@@ -352,7 +353,7 @@
             </ul>
             <form class="form-inline mt-2 mt-md-0" id="navSearch" action="/article/elastic/category" method="post">
                 <input class="form-control mr-sm-2" type="text" placeholder="🔍搜" aria-label="Search" name="keywords">
-                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit" id="searchSubmit">Search</button>
             </form>
             <ul class="navbar-nav mr-sm-0">
                 <li class="nav-item dropdown" id="navLogin">
@@ -500,7 +501,7 @@
                                 <div style="font-family:Vincent;font-weight:600;">
                                     <p>Lyon 创建于：<span> $!date.format('yyyy-MM-dd HH:mm',$!article.getCreateDate())</span></p>
                                     <p><span style="color:#66CDAA;">文章分类:</span>
-                                        <span>$article.getMainCategoryName()-></span>
+                                        <span>$article.getMainCategoryName()>></span>
                                         <a  href="/article/category?cId=$article.getArticleSecondId()" target="_blank">$article.getSecondCategoryName()</a>
                                     </p>
                                 </div>
@@ -518,11 +519,11 @@
                                         <img class="icon" src="/static/image/thank1.png" alt="thank" width="15px;" height="15px;">
                                     #end
                                     <span>
-                                    #if(!$article.getArticleThank())
-                                        0
-                                    #else
-                                        $article.getArticleThank()
-                                    #end
+                                        #if(!$article.getArticleThank())
+                                            0
+                                        #else
+                                            $article.getArticleThank()
+                                        #end
                                     </span>感谢</a>
                                 <span style="visibility: hidden">$article.getId()</span>
                                 <a href="javascript:void(0)"  style="margin-right:40px;color:#919191;">
@@ -602,7 +603,7 @@
                                 #end<a class="page-link" href="/article/category?cId=$pageQueryBean.cId&pageNum=$pageNum2&pageSize=$pageQueryBean.pageSize" aria-label="Next">下页</a></li>
                             <li class="page-item"><a class="page-link" href="/article/category?cId=$pageQueryBean.cId&pageNum=$pageQueryBean.pageCount&pageSize=$pageQueryBean.pageSize"><span aria-hidden="true">&raquo;</span></a></li>
                             </ul>
-                            <form class="form-inline mt-2 mt-md-0" id="navSearch" style="float:right" action="/article/category?>
+                            <form class="form-inline mt-2 mt-md-0"  style="float:right" action="/article/category?>
                                 <label style="float: right">第<span id="page">$pageQueryBean.pageNum</span>/$pageQueryBean.pageCount页(共$pageQueryBean.total条),每页</label>
                                 <input id="psize" name="pageSize" class="form-control mr-sm-1" type="text" placeholder=$pageQueryBean.pageSize aria-label="Search" maxlength="3" size="3">
                                 <input type="hidden"  id="pcId" name="cId" >

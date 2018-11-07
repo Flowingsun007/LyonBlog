@@ -6,6 +6,7 @@ import com.flowingsun.article.entity.Category;
 import com.flowingsun.article.service.ArticleService;
 import com.flowingsun.behavior.entity.*;
 import com.flowingsun.behavior.service.BehaviorService;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -87,7 +88,7 @@ public class BehaviorController {
      * 数, 则需要先将其转为MultipartHttpServletRequest类型
      * MultipartHttpServletRequest request = (MultipartHttpServletRequest) HttpServletRequest;
      */
-    //@RequiresPermissions("behavior:uploadImage")
+    @RequiresPermissions("behavior:uploadImage")
     @RequestMapping("/uploadImage")
     public String imageUpload(HttpServletRequest request, @RequestParam(value="description",required = false) String description){
         //MultipartHttpServletRequest
