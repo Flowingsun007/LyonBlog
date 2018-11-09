@@ -14,4 +14,6 @@ public interface DiscussionMapper {
     int updateByPrimaryKeySelective(Discussion record);
 
     int updateByPrimaryKey(Discussion record);
+
+    int deleteByCommentId(int commentId);
 }

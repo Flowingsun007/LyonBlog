@@ -23,4 +23,6 @@ public interface ThankMapper {
     int updateByPrimaryKey(Thank record);
 
     int selectThankCountByUserid(Long userid);
+
+    int deleteByArticleId(int articleId);
 }

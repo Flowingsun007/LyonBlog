@@ -32,6 +32,10 @@
     delete from thank
     where id = #{id,jdbcType=INTEGER}
   </delete>
+  <delete id="deleteByArticleId" parameterType="java.lang.Integer" >
+    DELETE FROM THANK
+    WHERE articleId = #{articleId,jdbcType=INTEGER}
+  </delete>
   <insert id="insertThank" parameterType="com.flowingsun.behavior.entity.Thank" >
     INSERT IGNORE INTO thank (articleId, userId,thankDate)
     VALUES (#{articleid,jdbcType=INTEGER}, #{userid,jdbcType=BIGINT},#{thankdate,jdbcType=TIMESTAMP})

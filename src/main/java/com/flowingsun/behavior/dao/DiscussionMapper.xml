@@ -19,6 +19,10 @@
     from discussion
     where id = #{id,jdbcType=INTEGER}
   </select>
+  <delete id="deleteByCommentId" parameterType="java.lang.Integer" >
+    DELETE FROM discussion
+    WHERE main_commentId = #{commentId,jdbcType=INTEGER}
+  </delete>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from discussion
     where id = #{id,jdbcType=INTEGER}

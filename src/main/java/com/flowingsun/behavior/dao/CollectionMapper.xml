@@ -40,6 +40,10 @@
     delete from collection
     where id = #{id,jdbcType=INTEGER}
   </delete>
+  <delete id="deleteByArticleId" parameterType="java.lang.Integer" >
+    DELETE FROM collection
+    WHERE articleId = #{articleId,jdbcType=INTEGER}
+  </delete>
   <insert id="insertCollection" parameterType="com.flowingsun.behavior.entity.Collection" >
     INSERT IGNORE INTO collection (articleId, userId,collectDate)
     VALUES (#{articleid,jdbcType=INTEGER}, #{userid,jdbcType=BIGINT},#{collectdate,jdbcType=TIMESTAMP})

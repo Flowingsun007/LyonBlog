@@ -5,8 +5,7 @@ import com.flowingsun.article.dao.ArticleMapper;
 import com.flowingsun.article.entity.*;
 import com.flowingsun.article.vo.CategoryArticleQuery;
 import com.flowingsun.article.vo.TagArticleQuery;
-import com.flowingsun.behavior.dao.CommentMapper;
-import com.flowingsun.behavior.dao.ThankMapper;
+import com.flowingsun.behavior.dao.*;
 import com.flowingsun.behavior.entity.Comment;
 import com.flowingsun.common.dao.BlogVisitorMapper;
 import com.flowingsun.common.dao.RedisDAO;
@@ -29,6 +28,15 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Autowired
     private BlogVisitorMapper blogVisitorMapper;
+
+    @Autowired
+    private CollectionMapper collectionMapper;
+
+    @Autowired
+    private CommentLikeMapper commentLikeMapper;
+
+    @Autowired
+    private DiscussionMapper discussionMapper;
 
     @Autowired
     private ArticleMapper articleMapper;
@@ -228,6 +236,28 @@ public class ArticleServiceImpl implements ArticleService {
 
     /**
      *@Author Lyon[flowingsun007@163.com]
+     *@Date 18/11/7 22:26
+     *@Param [articleId]
+     *@Return void
+     *@Description deleteArticleRelations
+     * 删除一篇文章的所有附属信息，包括文章感谢、评论、收藏，以及对评论区的点赞和讨论内容。
+     */
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void deleteArticleRelations(int articleId){
+        thankMapper.deleteByArticleId(articleId);
+        commentMapper.deleteByArticleId(articleId);
+        collectionMapper.deleteByArticleId(articleId);
+        List<Integer> commentidList = commentMapper.selectCommentsIdByArticleId(articleId);
+        for(int i=0;i<commentidList.size();i++){
+            commentLikeMapper.deleteByCommentId(commentidList.get(i));
+            discussionMapper.deleteByCommentId(commentidList.get(i));
+        }
+    }
+
+
+    /**
+     *@Author Lyon[flowingsun007@163.com]
      *@Date 18/05/19 15:39
      *@Param [articleId]
      *@Return java.lang.String
@@ -241,22 +271,15 @@ public class ArticleServiceImpl implements ArticleService {
      * 若数量=1，则证明该标签只在此文章中存在，故删除此标签关系的同时还需要在article_tag表中删除此标签。
      */
     @Override
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public String deleteOneArticle(Integer articleId) {
         try{
-            List<ArticleTag> tags = articleMapper.selectArticleTagsByPrimarykey(articleId);
-            if(tags!=null){
-                for(ArticleTag tag: tags){
-                    //根据articleId和tagId作为唯一键删除文章中此条标签
-                    if(1==articleMapper.deleteTagRelation(articleId, tag.getTagId())){
-                        if(0==articleMapper.selectTagCountByTagId(tag.getTagId())){
-                            articleMapper.deleteTagByTagId(tag.getTagId());
-                        }
-                    }
-                }
-            }
+            //删除所有该文章标签
+            deleteArticleAllTag(articleId);
+            //删除该文章id下的所有评论、点赞、收藏信息(已经评论区的点赞和讨论内容)
+            deleteArticleRelations(articleId);
+            //后面可能添加的功能：给所有收藏此文章的人发送一封通知邮件
             if(1==articleMapper.deleteByPrimaryKey(articleId)){
-                updateAllTag();
                 String s = String.valueOf(articleMapper.selectAllArticleCount());
                 redisDAO.setString("articleCount",s);
                 return "delete_success";
@@ -277,7 +300,7 @@ public class ArticleServiceImpl implements ArticleService {
      *@Description 根据前台传进的articleId字符串，批量删除文章。
      */
     @Override
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public String deleteBatchArticle (String articleIdStr){
         try{
             String[] idStrList = articleIdStr.split(",");
@@ -667,7 +690,7 @@ public class ArticleServiceImpl implements ArticleService {
      *遍历原文章标签组后，在newTags中剩下的都是需要执行插入操作的标签，故再for(newtag:newTags){}遍历一次newTags进行逐个插入即可。
      */
     @Override
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public String batchResetArticleTag(ArticleTag tagBean) {
         //idStrList装的是前端传来的String行文章id列表;articleIdList是经过转换的int行id列表；tagList装的是前端传来的tagName列表。
         try{
@@ -863,7 +886,7 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public String deleteArticleAllTag(ArticleTag tagBean) {
         try{
             Integer articleId = tagBean.getArticleId();
@@ -881,15 +904,18 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public Integer deleteArticleAllTag(Integer articleId) {
         try{
             List<String> tagList = articleMapper.selectTagsNameByPrimarykey(articleId);
-            for(String tag : tagList){
-                if(deleteArticleOneTag(articleId,tag)==FAIL){
-                    return FAIL;
+            if(tagList.size()>0){
+                for(String tag : tagList){
+                    if(deleteArticleOneTag(articleId,tag)==FAIL){
+                        return FAIL;
+                    }
                 }
+                updateAllTag();
             }
-            updateAllTag();
             return SUCCESS;
         }catch (Exception e){
             e.printStackTrace();
@@ -927,7 +953,7 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public String batchDeleteArticleAllTag(ArticleTag tagBean) {
         try{
             String idStrs = tagBean.getArticleIdStr();

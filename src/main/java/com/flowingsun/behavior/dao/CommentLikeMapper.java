@@ -3,6 +3,9 @@ package com.flowingsun.behavior.dao;
 import com.flowingsun.behavior.entity.CommentLike;
 
 public interface CommentLikeMapper {
+
+    int deleteByCommentId(int id);
+
     int deleteByPrimaryKey(Integer id);
 
     int insert(CommentLike record);

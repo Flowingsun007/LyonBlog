@@ -27,4 +27,8 @@ public interface CommentMapper {
     List<Comment> selectCommentByCommentLikeCountDesc(Integer id);
 
     int selectCommentCountByUserid(Long userid);
+
+    List<Integer> selectCommentsIdByArticleId(int articleId);
+
+    int deleteByArticleId(int articleId);
 }

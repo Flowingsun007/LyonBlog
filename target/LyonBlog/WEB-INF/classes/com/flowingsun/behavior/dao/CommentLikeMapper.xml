@@ -18,14 +18,16 @@
     from comment_like
     where id = #{id,jdbcType=INTEGER}
   </select>
-
   <select id="selectLikeCountByCommentLikeBean" resultType="INTEGER" parameterType="com.flowingsun.behavior.entity.CommentLike" >
     SELECT COUNT(0) FROM comment_like WHERE commentId = #{commentid,jdbcType=INTEGER} AND userId = #{userid,jdbcType=INTEGER}
   </select>
-
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from comment_like
     where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByCommentId" parameterType="java.lang.Integer" >
+    DELETE FROM comment_like
+    WHERE commentId = #{commentId,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.flowingsun.behavior.entity.CommentLike" >
     insert into comment_like (id, articleId, mainUserId, 

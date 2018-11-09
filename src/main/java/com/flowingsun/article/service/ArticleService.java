@@ -35,6 +35,8 @@ public interface ArticleService {
 
     void updateAllTag();
 
+    void deleteArticleRelations(int articleId);
+
     String editArticle(Article article);
 
     String changeArticleCategory(Category articles);

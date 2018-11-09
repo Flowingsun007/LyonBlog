@@ -28,4 +28,6 @@ public interface CollectionMapper {
     int selectCollectionCountByUserid(Long userid);
 
     List<Collection> selectCollectionsByUserid(Long userid);
+
+    int deleteByArticleId(int articleId);
 }
