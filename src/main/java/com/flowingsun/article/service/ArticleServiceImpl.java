@@ -13,6 +13,8 @@ import com.flowingsun.common.annotation.MethodExcuteTimeLog;
 import com.flowingsun.common.utils.InfoCountUtils;
 import com.flowingsun.common.utils.changeListFormatUtils;
 import com.flowingsun.user.dao.UserMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,6 +24,8 @@ import java.util.*;
 
 @Service("articleService")
 public class ArticleServiceImpl implements ArticleService {
+
+    private static Logger logger = LoggerFactory.getLogger(ArticleServiceImpl.class);
 
     private static final Integer SUCCESS=1;
 
@@ -90,7 +94,7 @@ public class ArticleServiceImpl implements ArticleService {
             Integer pageSize = queryBean.getPageSize();
             Integer startNum = queryBean.getStartRow();
             List<Article> articleList = articleMapper.selectCategoryArticles(cId,startNum,pageSize);
-            for(Integer i=0; i<articleList.size(); i++){
+            for(int i=0; i<articleList.size(); i++){
                 Article article = articleList.get(i);
                 //查询文章标签，并将标签信息放入bean中
                 List<ArticleTag> articleTags = articleMapper.selectArticleTagsByPrimarykey(article.getId());
@@ -161,7 +165,7 @@ public class ArticleServiceImpl implements ArticleService {
                 article.setArticleTagList(articleTags);
             }
             queryBean.setDataList(articleList);
-        }else{ System.out.println("没有查询到对应cid下的相关记录"); }
+        }
         return queryBean;
 
     }
@@ -176,15 +180,15 @@ public class ArticleServiceImpl implements ArticleService {
      */
     @Override
     public List<ArticleTag> selectAllTag() {
-        System.out.println("\n----------------------正在尝试从redis获取文章标签...----------------------");
+        logger.info("\n----------------------正在尝试从redis获取文章标签...----------------------");
         List<ArticleTag> allTags = redisDAO.getList("allTags");
         if(allTags==null){
-            System.out.println("\n----------------------从redis获取文章标签失败!----------------------");
+            logger.warn("\n----------------------从redis获取文章标签失败!----------------------");
             allTags = articleMapper.selectAllTag();
             String result = redisDAO.setList("allTags",allTags);
-            System.out.println("\n----------------------正在尝试将文章标签allTags放入redis缓存...----------------------\n结果:"+result);
+            logger.info("\n----------------------正在尝试将文章标签allTags放入redis缓存...----------------------\n结果:"+result);
         }else{
-            System.out.println("\n----------------------从redis获取文章标签成功!,allTags:----------------------\n"+allTags);
+            logger.info("\n----------------------从redis获取文章标签成功!,allTags:----------------------\n"+allTags);
         }
         return allTags;
     }
@@ -199,14 +203,14 @@ public class ArticleServiceImpl implements ArticleService {
     @Override
     public BlogInfo selectInfomation() {
         BlogInfo blogInfo = new BlogInfo();
-        System.out.println("\n----------------------正在尝试从redis获取博客公共信息...----------------------");
+        logger.info("\n----------------------正在尝试从redis获取博客公共信息...----------------------");
         String s1 = redisDAO.getString("articleCount");
         String s2 = redisDAO.getString("commentCount");
         String s3 = redisDAO.getString("thankCount");
         String s4 = redisDAO.getString("userCount");
         String s5 = redisDAO.getString("visitorCount");
         String s6 = redisDAO.getString("viewCount");
-        System.out.println("\n----------------------redis博客公共信息:----------------------\narticleCount："+s1+"\ncommentCount："+s2+"\nthankCount："+s3+"\nuserCount："+s4+"\nvisitorCount："+s5+"\nviewCount："+s6);
+        logger.info("\n----------------------redis博客公共信息:----------------------\narticleCount："+s1+"\ncommentCount："+s2+"\nthankCount："+s3+"\nuserCount："+s4+"\nvisitorCount："+s5+"\nviewCount："+s6);
         if(s1==null||s2==null||s3==null||s4==null||s5==null||s6==null){
             s1 = String.valueOf(articleMapper.selectAllArticleCount());
             s2 = String.valueOf(commentMapper.selectCommentCount());
@@ -286,10 +290,11 @@ public class ArticleServiceImpl implements ArticleService {
             if(1==articleMapper.deleteByPrimaryKey(articleId)){
                 String s = String.valueOf(articleMapper.selectAllArticleCount());
                 redisDAO.setString("articleCount",s);
+                logger.info("deleteOneArticle():delete_success");
                 return "delete_success";
             }
         }catch (Exception e){
-            e.printStackTrace();
+            logger.error("deleteOneArticle失败:",e);
         }
         return "delete_fail";
 
@@ -313,19 +318,18 @@ public class ArticleServiceImpl implements ArticleService {
                 try {
                     idIntList[i] = Integer.parseInt(idStrList[i]);
                 }catch (NumberFormatException e) {
-                    e.printStackTrace();
+                    logger.error("Integer.parseInt(idStrList[i])error:",e);
                 }
             }
             for(Integer articleId : idIntList){
-                String result = deleteOneArticle(articleId);
-                System.out.println("\n-----------------------------DeleteResult:-----------------------------------\n"+result);
+                deleteOneArticle(articleId);
             }
             updateAllTag();
             String s = String.valueOf(articleMapper.selectAllArticleCount());
             redisDAO.setString("articleCount",s);
             return "delete_batch_succ";
-        }catch (Exception e){
-            e.printStackTrace();
+        }catch (Exception f){
+            logger.error("deleteBatchArticle()方法Error：",f);
         }
         return "delete_batch_fail";
     }
@@ -342,10 +346,10 @@ public class ArticleServiceImpl implements ArticleService {
      */
     @Override
     public List<Category> getCategory(){
-        System.out.println("\n----------------------正在尝试从redis获取文章分类...----------------------");
+        logger.info("\n----------------------正在尝试从redis获取文章分类...----------------------");
         List<Category> categories = redisDAO.getList("categories");
         if(categories==null){
-            System.out.println("\n----------------------从redis获取文章分类失败!----------------------");
+            logger.warn("\n----------------------从redis获取文章分类失败!----------------------");
             categories = articleMapper.selectMainCategory();
             for(int i=0;i<categories.size();i++){
                 Integer mainId = categories.get(i).getMainCategoryId();
@@ -358,11 +362,11 @@ public class ArticleServiceImpl implements ArticleService {
                 }
                 categories.get(i).setSecondCategorys(secondCatsList);
             }
-            System.out.println("\n----------------------正在尝试将所有文章主分类、二级分类信息放入Redis缓存...:----------------------");
+            logger.info("\n----------------------正在尝试将所有文章主分类、二级分类信息放入Redis缓存...:----------------------");
             String result = redisDAO.setList("categories",categories);
-            System.out.println("\n----------------------尝试结果:----------------------"+result);
+            logger.info("\n----------------------尝试结果:----------------------"+result);
         }else {
-            System.out.println("\n----------------------从redis获取文章分类成功!----------------------\ncategories:"+categories);
+            logger.info("\n----------------------从redis获取文章分类成功!----------------------\ncategories:"+categories);
         }
         return categories;
     }
@@ -438,7 +442,7 @@ public class ArticleServiceImpl implements ArticleService {
                 article.setArticleCommentList(commentList);
             }
         }catch (Exception e){
-            e.printStackTrace();
+            logger.error("getArticle(Integer id)方法Error：",e);
         }
         return article;
     }
@@ -569,7 +573,7 @@ public class ArticleServiceImpl implements ArticleService {
                 articletag.setTagId(tagId);
                 articletag.setCreateDate(dateTime);
                 if(articleMapper.insertTagRelation(articletag)==1){
-                    System.out.println("\n--------------------------------------给文章添加标签:" + tag + "成功！--------------------------------------\n");
+                    logger.info("\n--------------------------------------给文章添加标签:" + tag + "成功！--------------------------------------\n");
                 }
             }
             //插入更新后的文章
@@ -578,7 +582,7 @@ public class ArticleServiceImpl implements ArticleService {
                 return "edit_blog_success";
             }
         }catch (Exception e){
-            e.printStackTrace();
+            logger.error("editArticle(Article article)方法执行Error：",e);
         }
         return "edit_blog_fail";
     }
@@ -655,7 +659,7 @@ public class ArticleServiceImpl implements ArticleService {
             updateAllTag();
             return "reset_tag_succ";
         }catch (Exception e){
-            e.printStackTrace();
+            logger.error("resetArticleTag(ArticleTag tagBean)执行Error：",e);
             return "reset_tag_fail";
         }
     }
@@ -709,7 +713,7 @@ public class ArticleServiceImpl implements ArticleService {
                 try {
                     idIntList[i] = Integer.parseInt(idStrList[i]);
                 }catch (NumberFormatException e) {
-                    e.printStackTrace();
+                    logger.error("batchResetArticleTag()>>Integer.parseInt(idStrList[i])方法执行Error：",e);
                 }
             }
 
@@ -744,8 +748,8 @@ public class ArticleServiceImpl implements ArticleService {
             }
             updateAllTag();
             return "batchReset_tags_succ";
-        }catch (Exception e){
-            e.printStackTrace();
+        }catch (Exception f){
+            logger.error("batchResetArticleTag(ArticleTag tagBean)方法执行Error：",f);
             return "batchReset_tags_fail";
         }
     }
@@ -861,7 +865,7 @@ public class ArticleServiceImpl implements ArticleService {
                 try {
                     idIntList[i] = Integer.parseInt(idStrList[i]);
                 }catch (NumberFormatException e) {
-                    e.printStackTrace();
+                    logger.error("batchAddArticleTag()>>Integer.parseInt(idStrList[i])方法执行Error：",e);
                 }
             }
             for(String tag : TagsList){
@@ -884,8 +888,8 @@ public class ArticleServiceImpl implements ArticleService {
             }
             updateAllTag();
             return "batch_addTag_succ";
-        }catch (Exception e){
-            e.printStackTrace();
+        }catch (Exception f){
+            logger.error("batchAddArticleTag(ArticleTag tagBean)方法执行Error：",f);
             return "batch_addTag_fail";
         }
     }
@@ -903,7 +907,7 @@ public class ArticleServiceImpl implements ArticleService {
             updateAllTag();
             return "delete_allTag_succ";
         }catch (Exception e){
-            e.printStackTrace();
+            logger.error("deleteArticleAllTag(ArticleTag tagBean)方法执行Error：",e);
             return "delete_allTag_fail";
         }
     }
@@ -923,7 +927,7 @@ public class ArticleServiceImpl implements ArticleService {
             }
             return SUCCESS;
         }catch (Exception e){
-            e.printStackTrace();
+            logger.error("deleteArticleAllTag(Integer articleId)方法执行Error：",e);
             return FAIL;
         }
     }
@@ -968,7 +972,7 @@ public class ArticleServiceImpl implements ArticleService {
                 try {
                     idIntList[i] = Integer.parseInt(idStrList[i]);
                 }catch (NumberFormatException e) {
-                    e.printStackTrace();
+                    logger.error("batchDeleteArticleAllTag()>>Integer.parseInt(idStrList[i])方法执行Error：",e);
                 }
             }
             for(Integer articleId : idIntList){
@@ -978,8 +982,8 @@ public class ArticleServiceImpl implements ArticleService {
             }
             updateAllTag();
             return "batch_deleteAllTag_succ";
-        }catch (Exception e){
-            e.printStackTrace();
+        }catch (Exception f){
+            logger.error("batchDeleteArticleAllTag(ArticleTag tagBean)方法执行Error：",f);
             return "batch_deleteAllTag_fail";
         }
     }
@@ -1038,7 +1042,7 @@ public class ArticleServiceImpl implements ArticleService {
             updateAllTag();
             return SUCCESS;
         }catch (Exception e){
-            e.printStackTrace();
+            logger.error("deleteArticleOneTag(Integer articleId,String tagName)执行Error：",e);
             return FAIL;
         }
     }
