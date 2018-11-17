@@ -25,6 +25,7 @@ import java.security.NoSuchAlgorithmException;
 import java.util.Random;
 
 import static org.apache.log4j.Level.INFO;
+import static org.apache.log4j.Level.WARN;
 
 @Service("userService")
 public class UserServiceImpl implements UserService {
@@ -69,7 +70,7 @@ public class UserServiceImpl implements UserService {
         String result = "register_fail";
         if(0==userMapper.insertByUserRegister(user)){
             //用户插入失败，可能是手机/邮箱已存在
-            logger.log(INFO,"用户插入失败，可能是手机/邮箱已存在"+user.toString());
+            logger.warn("用户插入失败，可能是手机/邮箱已存在"+user.toString());
             return result;
         }
         else{
@@ -80,12 +81,12 @@ public class UserServiceImpl implements UserService {
             try {
                 emailService.sendHtmlMail(user.getUseremail(),user.getUsername(),randomCode,user.getTelephone());
                 result = "register_succ";
-                logger.log(INFO,"用户提交注册信息，激活邮件发送成功"+user.toString());
+                logger.warn("用户提交注册信息，激活邮件发送成功"+user.toString());
             } catch (MessagingException|UnsupportedEncodingException e) {
-                logger.log(INFO,"用户提交注册信息，激活邮件发送失败"+e);
+                logger.error("用户提交注册信息，激活邮件发送失败",e);
                 e.printStackTrace();
                 if(0==userMapper.deleteByUserphone(user.getTelephone())){
-                    logger.log(INFO,"数据库删除用户注册信息失败，用户手机号："+user.getTelephone());
+                    logger.warn("数据库删除用户注册信息失败，用户手机号："+user.getTelephone());
                 }
                 request.getSession().getServletContext().removeAttribute(user.getTelephone());
             } finally {
@@ -129,8 +130,7 @@ public class UserServiceImpl implements UserService {
              return "login_succ";
          } catch (Exception e) {
              SecurityUtils.getSubject().getSession().removeAttribute("userId");
-             e.printStackTrace();
-             System.out.println("login_fail:"+e);
+             logger.warn("UserLogin(User user,HttpServletRequest request):login_fail登录失败");
              return "login_fail";
          }
      }
@@ -146,8 +146,10 @@ public class UserServiceImpl implements UserService {
         if(userId!=null){
             request.getSession().removeAttribute("userId");
             if(redisDAO.removeUser(userId)==true){
-                System.out.println("用户退出登录，清空redis信息成功！");
-            }else{System.out.println("用户退出登录，清空redis信息失败！");}
+                logger.info("用户退出登录，清空redis信息成功！");
+            }else{
+                logger.info("用户退出登录，清空redis信息失败！");
+            }
             return "logout_succ";
         }
         return "logout_fail";
@@ -159,15 +161,14 @@ public class UserServiceImpl implements UserService {
         try {
             user =userMapper.selectByUserToken(userInput);
         }catch (Exception e){
-            e.printStackTrace();
+            logger.error("findUserByUserToken(User userInput)方法执行Error：",e);
         }
         return user;
     }
 
     @Override
     public User getUserByUserId(Long userId) {
-        User user=null;
-        user = userMapper.selectByPrimaryKey(userId);
+        User user = userMapper.selectByPrimaryKey(userId);
         return user;
     }
 
@@ -194,11 +195,11 @@ public class UserServiceImpl implements UserService {
                     }
                     else{
                         deleteDefaultUserRole(userphone);
-                        logger.log(INFO,"数据库激活用户失败，用户手机号："+userphone);
+                        logger.log(WARN,"数据库激活用户失败，用户手机号："+userphone);
                     }
                 }else{
                     if(0==userMapper.deleteByUserphone(userphone)){
-                        logger.log(INFO,"数据库删除用户失败，用户手机号："+userphone);
+                        logger.log(WARN,"数据库删除用户失败，用户手机号："+userphone);
                     }
                 }
                 pageNotice.setStatus(0);
@@ -209,7 +210,7 @@ public class UserServiceImpl implements UserService {
             }
             return pageNotice;
         }catch (Exception e){
-            e.printStackTrace();
+            logger.error("userActivate()用户激活失败："+pageNotice.toString()+"+Error：",e);
             return pageNotice;
         }finally {
             request.getSession().getServletContext().removeAttribute(userphone);
@@ -238,6 +239,7 @@ public class UserServiceImpl implements UserService {
                 return FAIL;
             }
         }catch (Exception e){
+            logger.error("设置用户角色失败，setDefaultUserRole()执行Error：",e);
             return FAIL;
         }
     }
