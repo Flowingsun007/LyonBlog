@@ -86,7 +86,7 @@ public class BehaviorServiceImpl implements BehaviorService {
                 return "setComment_fail_未登录";
             }
         }catch(Exception e){
-            e.printStackTrace();
+            logger.error("setComment(Comment commentBean, HttpServletRequest request)执行Error",e);
             return "setComment_fail_exception";
         }
     }
@@ -120,7 +120,7 @@ public class BehaviorServiceImpl implements BehaviorService {
             }
             return "setThank_fail_未登录";
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.error("setThank (Thank thankBean, HttpServletRequest request)执行Error：",e);
             return "setThank_fail_exception";
         }
     }
@@ -145,7 +145,7 @@ public class BehaviorServiceImpl implements BehaviorService {
             }
             return "collect_fail_未登录";
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.error("setCollect(Collection collectionBean, HttpServletRequest request)执行Error：",e);
             return "collect_fail_exception";
         }
     }
@@ -191,7 +191,7 @@ public class BehaviorServiceImpl implements BehaviorService {
                 return "setCommentLike_fail_未登录";
             }
         }catch(Exception e){
-            e.printStackTrace();
+            logger.error("setCommentLike(CommentLike bean, HttpServletRequest request)执行Error：",e);
             return "setCommentLike_fail_exception";
         }
     }
@@ -212,7 +212,7 @@ public class BehaviorServiceImpl implements BehaviorService {
                 return "setCommentDiscussion_fail_未登录";
             }
         }catch(Exception e){
-            e.printStackTrace();
+            logger.error("setCommentDiscussion(Discussion discussion, HttpServletRequest request)执行Error：",e);
             return "setCommentDiscussion_fail_exception";
         }
     }
@@ -349,13 +349,14 @@ public class BehaviorServiceImpl implements BehaviorService {
                 }
             } catch (IllegalStateException f) {
                 resultInfo += "IllegalStateException:上传状态错误，可能是从非法页面提交上传";
+                logger.error(resultInfo,f);
                 f.printStackTrace();
             } catch (UnauthenticatedException g) {
                 resultInfo += "UnauthenticatedException:用户无上传图片权限";
-                g.printStackTrace();
+                logger.error(resultInfo,g);
             } catch (Exception e) {
                 resultInfo += "Exception:e";
-                e.printStackTrace();
+                logger.error(resultInfo,e);
             } finally {
                 return resultInfo;
             }
