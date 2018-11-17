@@ -1,7 +1,9 @@
 package com.flowingsun.common.dao;
 
 import com.flowingsun.common.entity.BlogVisitor;
+import org.springframework.stereotype.Component;
 
+@Component
 public interface BlogVisitorMapper {
     int deleteByPrimaryKey(Long id);
 

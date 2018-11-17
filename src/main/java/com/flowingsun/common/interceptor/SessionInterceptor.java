@@ -39,23 +39,8 @@ public class SessionInterceptor implements HandlerInterceptor {
         if(uri.indexOf("user/userInfo")>=0){
             return true;
         }
-        BlogVisitor blogVisitor = new BlogVisitor();
-        blogVisitor.setTargeturl(uri);
-        //访客操作系统
-        blogVisitor.setOs(InfoCountUtils.getSysInfo(request));
-        //访客浏览器
-        blogVisitor.setBrowser(InfoCountUtils.getBrowser(request));
-        //访客ip
-        blogVisitor.setIp(InfoCountUtils.getIp(request));
-        //访问来源url
-        blogVisitor.setSourceurl(request.getHeader("Referer"));
-        //request.getHeaderNames()请求Header信息
-        Enumeration<String> headerNames = request.getHeaderNames();
-        while(headerNames.hasMoreElements()){
-            String headerName = headerNames.nextElement();
-            String headerValue = request.getHeader(headerName);
-            System.out.println(headerName+"::"+headerValue);
-        }
+        //获取请求详细信息
+        BlogVisitor blogVisitor = InfoCountUtils.getVisitorInfo(request);
         //用户id信息
         Long userId = (Long)request.getSession().getAttribute("userId");
         if(userId!=null&&userId!=0){
@@ -68,7 +53,7 @@ public class SessionInterceptor implements HandlerInterceptor {
                 blogVisitor.setArticleid(Integer.parseInt(articleId));
             }
             blogVisitorMapper.insertSelective(blogVisitor);
-            logger.log(INFO,"---------------------------访客信息统计---------------------------"+blogVisitor.toString());
+            logger.log(INFO,"\n---------------------------访客信息统计---------------------------\n"+blogVisitor.toString());
             String s1 = String.valueOf(userMapper.selectUserCount());
             String s2 = String.valueOf(blogVisitorMapper.selectVisitorCount());
             String s3 = String.valueOf(blogVisitorMapper.selectViewCount());

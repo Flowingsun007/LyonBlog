@@ -8,6 +8,7 @@ import com.flowingsun.behavior.dao.*;
 import com.flowingsun.behavior.entity.*;
 import com.flowingsun.behavior.entity.Collection;
 import com.flowingsun.behavior.vo.PictureQuery;
+import com.flowingsun.common.annotation.MethodExcuteTimeLog;
 import com.flowingsun.common.dao.RedisDAO;
 import com.flowingsun.common.utils.InfoCountUtils;
 import com.flowingsun.user.dao.UserMapper;
@@ -26,7 +27,7 @@ import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
-@Service("behaviorServiceImpl")
+@Service("behaviorService")
 public class BehaviorServiceImpl implements BehaviorService {
 
     private static Logger logger = Logger.getLogger(BehaviorServiceImpl.class);
@@ -68,6 +69,7 @@ public class BehaviorServiceImpl implements BehaviorService {
      * 评论文章
      */
     @Override
+    @MethodExcuteTimeLog
     public String setComment(Comment commentBean, HttpServletRequest request) {
         try {
             Long userId = (Long)SecurityUtils.getSubject().getSession().getAttribute("userId");
@@ -99,6 +101,7 @@ public class BehaviorServiceImpl implements BehaviorService {
      * 给文章点感谢
      */
     @Override
+    @MethodExcuteTimeLog
     public String setThank (Thank thankBean, HttpServletRequest request){
         try {
             Long userId = (Long)SecurityUtils.getSubject().getSession().getAttribute("userId");
@@ -123,6 +126,7 @@ public class BehaviorServiceImpl implements BehaviorService {
     }
 
     @Override
+    @MethodExcuteTimeLog
     public String setCollect(Collection collectionBean, HttpServletRequest request) {
         try {
             Long userId = (Long)SecurityUtils.getSubject().getSession().getAttribute("userId");
@@ -147,6 +151,7 @@ public class BehaviorServiceImpl implements BehaviorService {
     }
 
     @Override
+    @MethodExcuteTimeLog
     public BehaviorStatus getUserBehavior(Long userid) {
         BehaviorStatus behaviorBean = new BehaviorStatus();
         behaviorBean.setCollectionCount(collectionMapper.selectCollectionCountByUserid(userid));
@@ -157,6 +162,7 @@ public class BehaviorServiceImpl implements BehaviorService {
     }
 
     @Override
+    @MethodExcuteTimeLog
     public String getUserArticleCollections(HttpServletRequest request) {
         Long userId = (Long)SecurityUtils.getSubject().getSession().getAttribute("userId");
         List<Collection> collections = collectionMapper.selectCollectionsByUserid(userId);
@@ -166,6 +172,7 @@ public class BehaviorServiceImpl implements BehaviorService {
 
 
     @Override
+    @MethodExcuteTimeLog
     public String setCommentLike(CommentLike bean, HttpServletRequest request) {
         try {
             Long userId = (Long)SecurityUtils.getSubject().getSession().getAttribute("userId");
@@ -190,6 +197,7 @@ public class BehaviorServiceImpl implements BehaviorService {
     }
 
     @Override
+    @MethodExcuteTimeLog
     public String setCommentDiscussion(Discussion discussion, HttpServletRequest request) {
         try {
             Long userId = (Long)SecurityUtils.getSubject().getSession().getAttribute("userId");
@@ -399,6 +407,7 @@ public class BehaviorServiceImpl implements BehaviorService {
      * 用于判断给定的用户id在某篇文章下的用户行为,譬如点赞、评论等
      */
     @Override
+    @MethodExcuteTimeLog
     public Article getUserArticleBehavior(Article article, Long userId) {
         BehaviorStatus behaviorBean = new BehaviorStatus();
         Integer articleId = article.getId();
@@ -426,6 +435,7 @@ public class BehaviorServiceImpl implements BehaviorService {
      * 此方法用于加载分类浏览文章中特定用户id下的浏览点赞评论等行为信息,具体通过遍历每篇文章调用getUserArticleBehavior()查询。
      */
     @Override
+    @MethodExcuteTimeLog
     public CategoryArticleQuery getUserCategoryArticleBehavior(CategoryArticleQuery categoryArticleQuery,  Long userId) {
         List<Article> articleList = (List<Article>) categoryArticleQuery.getDataList();
         List<Article> articles = new ArrayList<>();

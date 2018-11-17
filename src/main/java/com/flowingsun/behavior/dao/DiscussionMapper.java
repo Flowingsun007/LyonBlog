@@ -1,7 +1,9 @@
 package com.flowingsun.behavior.dao;
 
 import com.flowingsun.behavior.entity.Discussion;
+import org.springframework.stereotype.Component;
 
+@Component
 public interface DiscussionMapper {
     int deleteByPrimaryKey(Integer id);
 

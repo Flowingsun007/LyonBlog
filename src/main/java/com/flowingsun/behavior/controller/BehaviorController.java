@@ -32,6 +32,7 @@ public class BehaviorController {
     @Autowired
     private ArticleService articleService;
 
+    //@RequiresPermissions("article:comment")
     @RequestMapping("/comment")
     @ResponseBody
     public String commentToArticle(@RequestBody Comment commentBean, HttpServletRequest request){
@@ -45,19 +46,20 @@ public class BehaviorController {
         return behaviorService.setThank(thankBean,request);
     }
 
+    //@RequiresPermissions("article:collect")
     @RequestMapping("/collect")
     @ResponseBody
     public String collectArticle(@RequestBody Collection collectionBean, HttpServletRequest request){
         return behaviorService.setCollect(collectionBean,request);
     }
 
-
+    //@RequiresPermissions("article:comment")
     @RequestMapping("/commentLike")
     @ResponseBody
     public String setCommentLike(@RequestBody CommentLike commentLikeBean, HttpServletRequest request){
         return behaviorService.setCommentLike(commentLikeBean,request);
     }
-
+    //@RequiresPermissions("article:comment")
     @RequestMapping("/commentDiscuss")
     @ResponseBody
     public String setCommentDiscussion(@RequestBody Discussion discussion, HttpServletRequest request){
@@ -75,6 +77,7 @@ public class BehaviorController {
         return behaviorService.getMoneyDonatePage(request);
     }
 
+    @RequiresPermissions("article:collect")
     @RequestMapping("/getColletions")
     @ResponseBody
     public String getUserArticleCollections(HttpServletRequest request){

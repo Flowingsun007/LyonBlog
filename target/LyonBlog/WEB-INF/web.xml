@@ -94,7 +94,8 @@
   </context-param>
 
 
-  <!-- 连接池 启用 Web 监控统计功能    start-->
+  <!-- Druid连接池启用Web监控统计功能——start-->
+  <!--Nginx下需要配置，默认访问的是单Tomcat路径：http:localhost:8090/druid)-->
   <servlet>
     <servlet-name>DruidStatView</servlet-name>
     <servlet-class>com.alibaba.druid.support.http.StatViewServlet</servlet-class>
@@ -106,12 +107,12 @@
     <init-param>
       <!-- 用户名 -->
       <param-name>loginUsername</param-name>
-      <param-value>15151852070</param-value>
+      <param-value>druid123</param-value>
     </init-param>
     <init-param>
       <!-- 密码 -->
       <param-name>loginPassword</param-name>
-      <param-value>920726zly</param-value>
+      <param-value>druid123</param-value>
     </init-param>
   </servlet>
   <servlet-mapping>
@@ -126,18 +127,6 @@
     <init-param>
         <param-name>exclusions</param-name>
         <param-value>*.js,*.gif,*.jpg,*.png,*.css,*.ico,/druid/*</param-value>
-    </init-param>
-    <init-param>
-    	<param-name>profileEnable</param-name>
-    	<param-value>true</param-value>
-	</init-param>
-	<init-param>
-        <param-name>principalCookieName</param-name>
-        <param-value>USER_COOKIE</param-value>
-    </init-param>
-    <init-param>
-        <param-name>principalSessionName</param-name>
-        <param-value>USER_SESSION</param-value>
     </init-param>
   </filter>
   <filter-mapping>

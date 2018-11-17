@@ -2,10 +2,11 @@ package com.flowingsun.behavior.dao;
 
 import com.flowingsun.behavior.entity.Picture;
 import com.flowingsun.behavior.vo.PictureQuery;
+import org.springframework.stereotype.Component;
 
 import java.util.Date;
 import java.util.List;
-
+@Component
 public interface PictureMapper {
 
     Picture selectByPrimaryKey(Integer id);

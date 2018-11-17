@@ -1,7 +1,9 @@
 package com.flowingsun.behavior.dao;
 
 import com.flowingsun.behavior.entity.CommentLike;
+import org.springframework.stereotype.Component;
 
+@Component
 public interface CommentLikeMapper {
 
     int deleteByCommentId(int id);

@@ -1,7 +1,9 @@
 package com.flowingsun.user.dao;
 
 import com.flowingsun.user.entity.Permission;
+import org.springframework.stereotype.Component;
 
+@Component
 public interface PermissionMapper {
     int deleteByPrimaryKey(Byte permissionid);
 

@@ -266,12 +266,12 @@
                 } else if(data=="setThank_fail_未登录"){
                     swal({
                         title: "亲，请先登录再点❤️哦！",
-                        text:  data,
+                        text:  "囧",
                         timer: 3000,
                         showConfirmButton: false
                     });
                 } else{
-                    swal("点❤失败😶！", data);
+                    swal("点❤失败😶！",data);
                 }
             }
         });
@@ -329,8 +329,10 @@
         var time = date.toLocaleTimeString();
         newdiv.innerHTML = '<div class="box-header with-border"> <div class="user-block"> <img class="direct-chat-img" src="/static/image/userHead/header.png" alt="User Image">'
                 + '<span class="username"><a href="#">'+userName+'</a></span><span class="description">'+time+'</span> </div><!-- /.user-block --> <div class="box-tools">'
-                + '<a href="javascript:void(0)" onclick="submitThank()" style="margin-right:15px;color:#919191;" class="submitThank"> <img class="icon" src="/static/image/thumb-up1.png" alt="thumb-up" style="width="15px;" height="15px;"">0 赞</a>'
-                + '<a href="" style="color:#919191;"><img class="icon" src="/static/image/discuss-1.png" alt="discuss" style="width="15px;" height="15px;"">讨论</a></div><!-- /.box-tools --> </div><!-- /.box-header -->'
+                + '<a href="javascript:void(0)" style="margin-right:15px;color:#919191;" class="submitCommentLike">'
+                + '<img class="icon" src="/static/image/thumb-up2.png" alt="thumb-up" width="15px;" height="15px;"><span>0</span>赞</a>'
+                + '<span style="visibility: hidden">70</span><span style="visibility: hidden">1</span>'
+                + '<a href="javascript:void(0)" style="color:#919191;" class="showDiscussionArea"><img class="icon" src="/static/image/discuss-2.png" alt="discuss" width="15px;" height="15px;">讨论</a></div>'
                 + '<div class="box-body"> <p>'+usrComment+'</p></div>';
         commentlist.appendChild(newdiv);
         return true;
@@ -725,7 +727,8 @@
                                             0
                                         #else
                                             $article.getArticleCollection()
-                                        #end</span>收藏
+                                        #end
+                                    </span>收藏
                                 </a>
                                 <a href=""  style="color:#919191;" id="submitShare"><img class="icon" src="/static/image/share1.png" alt="share" width="15px;" height="15px;">分享</a>
                             </div>
@@ -801,12 +804,12 @@
                         <h3><span class="f-ff2">留言区</span></h3>
                         <textarea style="height:100px;" class="form-control" placeholder="亲，在此写下您的评论！" id="maincomment"></textarea>
                     </div>
-                    <button type="button" id="commentsubmit"  class="btn btn-default btn-xs " style="background-color:#7D9EC0;color:#FFFFFF;width=5px;height=5px;float:right;">
+                    <button type="button" id="commentsubmit"  class="btn btn-default btn-xs " style="background-color:#7D9EC0;color:#FFFFFF;float:right;">
                         <span class="glyphicon glyphicon-comment">评论
                     </button>
                 </div>
 
-                <div id="commentList0">
+                <div id="commentList0" style="height: 30px;">
                     <div class="commentCounts" >
                         共<span class="j-flag" id="commentNum">#if(!$article.getArticleComment())0#else$article.getArticleComment()#end</span>条评论
                     </div>
@@ -850,12 +853,11 @@
                                             <h3 class="box-title">讨论</h3>
 
                                             <div class="box-tools pull-right">
-                                                <span data-toggle="tooltip" title="3 New Messages" class="badge bg-yellow">3</span>
-                                                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-                                                </button>
                                                 <button type="button" class="btn btn-box-tool" data-toggle="tooltip" title="Contacts" data-widget="chat-pane-toggle">
-                                                    <i class="fa fa-comments"></i></button>
-                                                <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i>
+                                                    <i class="fa fa-comments"></i>
+                                                </button>
+                                                <span data-toggle="tooltip" title="$discussions.size()条讨论" class="badge bg-yellow">$discussions.size()</span>
+                                                <button type="button" class="showDiscussionArea" data-widget="remove"><i class="fa fa-times"></i>
                                                 </button>
                                             </div>
                                         </div>

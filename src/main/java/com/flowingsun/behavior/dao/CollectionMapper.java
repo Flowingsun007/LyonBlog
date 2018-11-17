@@ -2,9 +2,11 @@ package com.flowingsun.behavior.dao;
 
 import com.flowingsun.behavior.entity.Collection;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
+@Component
 public interface CollectionMapper {
 
     int deleteByPrimaryKey(Integer id);

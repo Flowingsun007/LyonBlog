@@ -2,7 +2,9 @@ package com.flowingsun.behavior.dao;
 
 import com.flowingsun.behavior.entity.Thank;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Component;
 
+@Component
 public interface ThankMapper {
     int deleteByPrimaryKey(Integer id);
 

@@ -2,7 +2,9 @@ package com.flowingsun.user.dao;
 
 import com.flowingsun.user.entity.UserRole;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Component;
 
+@Component
 public interface UserRoleMapper {
     int deleteByPrimaryKey(Long userId);
 

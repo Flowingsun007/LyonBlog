@@ -3,11 +3,12 @@ package com.flowingsun.article.dao;
 import com.flowingsun.admin.entity.AdminBlogQuery;
 import com.flowingsun.article.entity.*;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Component;
 
 
 import java.util.List;
 import java.util.Map;
-
+@Component
 public interface ArticleMapper {
 
     List<Category> selectMainCategory();

@@ -9,6 +9,7 @@ import com.flowingsun.behavior.dao.*;
 import com.flowingsun.behavior.entity.Comment;
 import com.flowingsun.common.dao.BlogVisitorMapper;
 import com.flowingsun.common.dao.RedisDAO;
+import com.flowingsun.common.annotation.MethodExcuteTimeLog;
 import com.flowingsun.common.utils.InfoCountUtils;
 import com.flowingsun.common.utils.changeListFormatUtils;
 import com.flowingsun.user.dao.UserMapper;
@@ -81,6 +82,7 @@ public class ArticleServiceImpl implements ArticleService {
      * CategoryArticleQuery 继承于PageQueryBean
      */
     @Override
+    @MethodExcuteTimeLog
     public CategoryArticleQuery getCategoryArticles(Integer cId, CategoryArticleQuery queryBean) {
         Integer total = articleMapper.selectCategoryArticlesCount(cId);
         if(total!=null&&total>0){
@@ -204,6 +206,7 @@ public class ArticleServiceImpl implements ArticleService {
         String s4 = redisDAO.getString("userCount");
         String s5 = redisDAO.getString("visitorCount");
         String s6 = redisDAO.getString("viewCount");
+        System.out.println("\n----------------------redis博客公共信息:----------------------\narticleCount："+s1+"\ncommentCount："+s2+"\nthankCount："+s3+"\nuserCount："+s4+"\nvisitorCount："+s5+"\nviewCount："+s6);
         if(s1==null||s2==null||s3==null||s4==null||s5==null||s6==null){
             s1 = String.valueOf(articleMapper.selectAllArticleCount());
             s2 = String.valueOf(commentMapper.selectCommentCount());
@@ -271,6 +274,7 @@ public class ArticleServiceImpl implements ArticleService {
      * 若数量=1，则证明该标签只在此文章中存在，故删除此标签关系的同时还需要在article_tag表中删除此标签。
      */
     @Override
+    @MethodExcuteTimeLog
     @Transactional(rollbackFor = Exception.class)
     public String deleteOneArticle(Integer articleId) {
         try{
@@ -411,6 +415,7 @@ public class ArticleServiceImpl implements ArticleService {
      * 主要用于前台，单篇文章查看。根据文章id查询对应文章的标题、摘要、文章主体内容、标签等详细信息。
      */
     @Override
+    @MethodExcuteTimeLog
     public Article getArticle(Integer id){
         Article article = articleMapper.selectByPrimaryKey(id);
         try{
