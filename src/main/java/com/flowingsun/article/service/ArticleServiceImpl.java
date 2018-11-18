@@ -188,7 +188,7 @@ public class ArticleServiceImpl implements ArticleService {
             String result = redisDAO.setList("allTags",allTags);
             logger.info("\n----------------------正在尝试将文章标签allTags放入redis缓存...----------------------\n结果:"+result);
         }else{
-            logger.info("\n----------------------从redis获取文章标签成功!,allTags:----------------------\n"+allTags);
+            logger.info("\n----------------------从redis获取文章标签成功!----------------------\n");
         }
         return allTags;
     }
@@ -210,7 +210,7 @@ public class ArticleServiceImpl implements ArticleService {
         String s4 = redisDAO.getString("userCount");
         String s5 = redisDAO.getString("visitorCount");
         String s6 = redisDAO.getString("viewCount");
-        logger.info("\n----------------------redis博客公共信息:----------------------\narticleCount："+s1+"\ncommentCount："+s2+"\nthankCount："+s3+"\nuserCount："+s4+"\nvisitorCount："+s5+"\nviewCount："+s6);
+        logger.info("\n----------------------redis博客公共信息:----------------------\narticleCount："+s1+";commentCount："+s2+";thankCount："+s3+";userCount："+s4+";visitorCount："+s5+";viewCount："+s6);
         if(s1==null||s2==null||s3==null||s4==null||s5==null||s6==null){
             s1 = String.valueOf(articleMapper.selectAllArticleCount());
             s2 = String.valueOf(commentMapper.selectCommentCount());
@@ -366,7 +366,7 @@ public class ArticleServiceImpl implements ArticleService {
             String result = redisDAO.setList("categories",categories);
             logger.info("\n----------------------尝试结果:----------------------"+result);
         }else {
-            logger.info("\n----------------------从redis获取文章分类成功!----------------------\ncategories:"+categories);
+            logger.info("\n----------------------从redis获取文章分类成功!----------------------\n");
         }
         return categories;
     }
