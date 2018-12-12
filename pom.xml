@@ -270,6 +270,15 @@
           <include>**/*.xml</include>
         </includes>
       </resource>
+      <resource>
+        <directory>src/main/resources</directory>
+        <includes>
+          <include>**/*.properties</include>
+          <include>**/*.xml</include>
+        </includes>
+        <!-- 是否替换资源中的属性-->
+        <!--<filtering>true</filtering>-->
+      </resource>
     </resources>
 
     <pluginManagement><!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->
