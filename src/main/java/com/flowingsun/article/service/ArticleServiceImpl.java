@@ -182,7 +182,7 @@ public class ArticleServiceImpl implements ArticleService {
     public List<ArticleTag> selectAllTag() {
         logger.info("\n----------------------正在尝试从redis获取文章标签...----------------------");
         List<ArticleTag> allTags = redisDAO.getList("allTags");
-        if(allTags==null){
+        if(allTags==null||allTags.size()==0){
             logger.warn("\n----------------------从redis获取文章标签失败!----------------------");
             allTags = articleMapper.selectAllTag();
             String result = redisDAO.setList("allTags",allTags);
