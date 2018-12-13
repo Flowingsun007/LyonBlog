@@ -191,7 +191,10 @@ public class ArticleServiceImpl implements ArticleService {
             logger.info("\n----------------------从redis获取文章标签成功!----------------------\n");
         }
         return allTags;
+
     }
+
+
 
     /**
      *@Author Lyon[flowingsun007@163.com]
