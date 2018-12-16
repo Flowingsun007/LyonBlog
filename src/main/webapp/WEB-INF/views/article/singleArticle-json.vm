@@ -986,7 +986,7 @@
 
 <script src="/static/Editormd/examples/js/jquery.min.js" ></script>
 <script src="/static/Editormd/lib/marked.min.js" ></script>
-<script src="/static/Editormd/lib/pettyfy.min.js" ></script>
+<script src="/static/Editormd/lib/prettify.min.js" ></script>
 <script src="/static/Editormd/lib/raphael.min.js" ></script>
 <script src="/static/Editormd/lib/underscore.min.js" ></script>
 <script src="/static/Editormd/lib/sequence-diagram.min.js"></script>

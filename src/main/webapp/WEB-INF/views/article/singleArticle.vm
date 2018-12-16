@@ -27,14 +27,15 @@
     <!-- Theme style -->
     <link rel="stylesheet" href="/static/styleTemplate/dist/css/AdminLTE.min.css">
     <!--Editormd-->
-    ##<link rel="stylesheet" href="/static/Editormd/css/editormd.preview.css" />
-    <link rel="stylesheet" href="/static/Editormd/css/editormd.preview.min.css" />
+    <link rel="stylesheet" href="/static/Editormd/css/editormd.preview.css" />
+    ##<link rel="stylesheet" href="/static/Editormd/css/editormd.preview.min.css" />
     ##<link rel="stylesheet" href="/static/Editormd/css/editormd.css" />
     <link rel="stylesheet" href="/static/Editormd/css/editormd.min.css" />
     <!--博客模板来源于bootstarp4.0：https://getbootstrap.com/docs/4.0/examples/blog-->
     <!--slim版本的貌似不支持Ajax-->
     <script src="/static/jquery/jquery-3.2.1.slim.min.js"  crossorigin="anonymous"></script>
     <script src="/static/jquery/jquery-2.2.3.min.js" ></script>
+
 
 </head>
 <body>
@@ -680,7 +681,6 @@
         </div>
     </main>
 #else
-
     <main role="main" class="container">
         <div class="row">
             <div class="col-md-9 blog-main">
@@ -762,20 +762,14 @@
                         </div>
 
 
-
+                        ##class="content editormd-preview-theme-dark"
+                        ##class="markdown-body editormd-html-preview"
                         <div id="test-editormd-view" class="content editormd-preview-theme-dark">
                             <textarea style="display:none;" name="test-editormd-markdown-doc">Hello Markdown,Editor.md!</textarea>
                         </div>
                         <div id="test-editormd-view2">
                             <textarea id="append-test" style="display:none;" >$article.getArticleContent()</textarea>
                         </div>
-
-##                        <div class="content editormd-preview-theme-dark" id="content">
-##                            $article.getArticleContent()
-##                        </div>
-##                        <div id="wordsView">
-##                            <textarea style="display:none;" name="editormd-markdown-doc">$article.getArticleContent()</textarea>
-##                        </div>
                         <div style="margin-bottom: 15px;margin-left: 10px">
                             <a href="/behavior/donateMoney" target="_blank" class="btn btn-dark" style="border-radius:15px">觉得有用? 打个赏吧😊:)</a>
                         </div>
@@ -934,6 +928,7 @@
 
 
 
+
             <aside class="col-md-3 blog-sidebar">
                 <div class="p-3 mb-3 bg-light rounded" style="font-family:Brush Script MT;color:#66CDAA;">
                     <h2 class="font-italic" style="color:#9F79EE;font-size:25px;">About</h2>
@@ -984,7 +979,6 @@
 
         </div><!-- /.row -->
     </main>
-
 #end
 
     <!-- FOOTER -->
@@ -1000,7 +994,7 @@
 
 <script src="/static/Editormd/examples/js/jquery.min.js" ></script>
 <script src="/static/Editormd/lib/marked.min.js" ></script>
-<script src="/static/Editormd/lib/pettyfy.min.js" ></script>
+##<script src="/static/Editormd/lib/prettify.min.js" ></script>
 <script src="/static/Editormd/lib/raphael.min.js" ></script>
 <script src="/static/Editormd/lib/underscore.min.js" ></script>
 <script src="/static/Editormd/lib/sequence-diagram.min.js"></script>
@@ -1010,38 +1004,88 @@
 <script src="/static/Editormd/editormd.js" ></script>
 <script type="text/javascript">
     $(function() {
-        var testEditormdView;
-        var testEditormdView2;
+        var testEditormdView,testEditormdView2;
         //testEditormdView.getMarkdown()可以获取显示出来的markdown源码
         testEditormdView = editormd.markdownToHTML("test-editormd-view", {
             markdown        : $("#append-test").text(),
-            htmlDecode      : true,
-            //htmlDecode      : "style,script,iframe",  // you can filter tags decode
+            //htmlDecode      : true,
+            htmlDecode      : "style,script,iframe",  // you can filter tags decode
+            toc             : false,
+            tocm            : true,    // Using [TOCM]
+            //tocContainer    : "#custom-toc-container", // 自定义 ToC 容器层
+            gfm             : false,
+            //tocDropdown     : true,
             markdownSourceCode : true,
             emoji           : true,
             taskList        : true,
             tex             : true,  // 默认不解析
             flowChart       : true,  // 默认不解析
             sequenceDiagram : true,  // 默认不解析
-            codeFold: true
+            //codeFold        : true
         });
         var result = testEditormdView.getMarkdown();
         testEditormdView2 = editormd.markdownToHTML("test-editormd-view2", {
             markdown        : result,
-            htmlDecode      : true,
-            //htmlDecode      : "style,script,iframe",  // you can filter tags decode
+            //htmlDecode      : true,
+            htmlDecode      : "style,script,iframe",  // you can filter tags decode
+            gfm             : false,
             emoji           : true,
             taskList        : true,
             tex             : true,  // 默认不解析
             flowChart       : true,  // 默认不解析
             sequenceDiagram : true,  // 默认不解析
-            codeFold: true
-        });
-    });
-</script>
-<!-- Bootstrap core JavaScript
-    <!--================================================== -->
-<!-- Placed at the end of the document so the pages load faster -->
-<script>window.jQuery || document.write('<script src="/static/bootstrap/assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
-<script src="/static/bootstrap/assets/js/vendor/popper.min.js"></script>
-<script src="/static/bootstrap/dist/js/bootstrap.min.js"></script>
+            //codeFold        : true
+         });
+     });
+ </script>
+## <script type="text/javascript">
+##     $(function() {
+##         var testEditormdView, testEditormdView2;
+##
+##         $.get("test.md", function(markdown) {
+##
+##             testEditormdView = editormd.markdownToHTML("test-editormd-view", {
+##                 markdown        : markdown ,//+ "\r\n" + $("#append-test").text(),
+##                 //htmlDecode      : true,       // 开启 HTML 标签解析，为了安全性，默认不开启
+##                 htmlDecode      : "style,script,iframe",  // you can filter tags decode
+##                 toc             : false,
+##                 tocm            : true,    // Using [TOCM]
+##                 //tocContainer    : "#custom-toc-container", // 自定义 ToC 容器层
+##                 gfm             : false,
+##                 //tocDropdown     : true,
+##                 // markdownSourceCode : true, // 是否保留 Markdown 源码，即是否删除保存源码的 Textarea 标签
+##                 emoji           : true,
+##                 taskList        : true,
+##                 tex             : true,  // 默认不解析
+##                 flowChart       : true,  // 默认不解析
+##                 sequenceDiagram : true,  // 默认不解析
+##             });
+##
+##             //console.log("返回一个 jQuery 实例 =>", testEditormdView);
+##
+##             // 获取Markdown源码
+##             //console.log(testEditormdView.getMarkdown());
+##
+##             //alert(testEditormdView.getMarkdown());
+##         });
+##
+##         testEditormdView2 = editormd.markdownToHTML("test-editormd-view2", {
+##             htmlDecode      : "style,script,iframe",  // you can filter tags decode
+##             emoji           : true,
+##             taskList        : true,
+##             toc             : false,
+##             tocm            : true,    // Using [TOCM]
+##             gfm             : false,
+##             tex             : true,  // 默认不解析
+##             flowChart       : true,  // 默认不解析
+##             sequenceDiagram : true,  // 默认不解析
+##         });
+##     });
+## </script>
+
+##<!-- Bootstrap core JavaScript
+##    <!--================================================== -->
+##<!-- Placed at the end of the document so the pages load faster -->
+##<script>window.jQuery || document.write('<script src="/static/bootstrap/assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
+##<script src="/static/bootstrap/assets/js/vendor/popper.min.js"></script>
+##<script src="/static/bootstrap/dist/js/bootstrap.min.js"></script>

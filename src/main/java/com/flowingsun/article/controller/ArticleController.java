@@ -360,7 +360,7 @@ public class ArticleController {
     @RequestMapping("/uploadBlogFile")
     public void uploadArticleImage(HttpServletRequest request, HttpServletResponse response, @RequestParam(value = "editormd-image-file", required = false)MultipartFile attach){
         try {
-            request.setCharacterEncoding( "UTF-8" );
+            request.setCharacterEncoding("utf-8");
             response.setHeader( "Content-Type" , "text/html" );
             String fileName = attach.getOriginalFilename();
             String rootPath = request.getSession().getServletContext().getRealPath(UPLOAD_IMAGE_PATH);
