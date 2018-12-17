@@ -10,9 +10,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="05c41573-5dbf-46bc-a219-886ee90b0cda" name="Default" comment="remove useless style">
-      <change afterPath="$PROJECT_DIR$/src/main/resources/SQL/ddl.SQL" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/SQL/dml.SQL" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/flowingsun/article/service/ArticleServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/flowingsun/article/service/ArticleServiceImpl.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -78,9 +77,9 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
-          <entry key="SQL" value="40" />
+          <entry key="SQL" value="41" />
           <entry key="class" value="91" />
-          <entry key="java" value="280" />
+          <entry key="java" value="283" />
           <entry key="properties" value="7" />
           <entry key="sql" value="1" />
           <entry key="vm" value="127" />
@@ -91,9 +90,9 @@
         <counts>
           <entry key="CLASS" value="91" />
           <entry key="Enforced Plain Text" value="6" />
-          <entry key="JAVA" value="280" />
+          <entry key="JAVA" value="283" />
           <entry key="Properties" value="7" />
-          <entry key="SQL" value="40" />
+          <entry key="SQL" value="41" />
           <entry key="Scratch" value="1" />
           <entry key="VTL" value="121" />
           <entry key="XML" value="59" />
@@ -103,7 +102,7 @@
         <counts>
           <entry key="SQL" value="32" />
           <entry key="dummy" value="10" />
-          <entry key="java" value="7923" />
+          <entry key="java" value="7935" />
           <entry key="properties" value="233" />
           <entry key="txt" value="32" />
           <entry key="vm" value="4056" />
@@ -113,7 +112,7 @@
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="Enforced Plain Text" value="5" />
-          <entry key="JAVA" value="7923" />
+          <entry key="JAVA" value="7935" />
           <entry key="PLAIN_TEXT" value="42" />
           <entry key="Properties" value="233" />
           <entry key="SQL" value="43" />
@@ -145,37 +144,28 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/resources/SQL/ddl.SQL">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/flowingsun/article/controller/ArticleController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="543">
-              <caret line="162" column="56" selection-start-line="162" selection-start-column="56" selection-end-line="162" selection-end-column="56" />
+            <state relative-caret-position="4653">
+              <caret line="359" column="38" lean-forward="true" selection-start-line="359" selection-start-column="38" selection-end-line="359" selection-end-column="38" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/resources/SQL/dml.SQL">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/flowingsun/admin/controller/AdminController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="543">
-              <caret line="120" lean-forward="true" selection-start-line="120" selection-end-line="120" />
+            <state relative-caret-position="294">
+              <caret line="138" column="38" lean-forward="true" selection-start-line="138" selection-start-column="38" selection-end-line="138" selection-end-column="38" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/article/singleArticle-json.vm">
+        <entry file="file://$PROJECT_DIR$/src/main/resources/sql/ddl.SQL">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="14865">
-              <caret line="991" column="21" selection-start-line="991" selection-start-column="21" selection-end-line="991" selection-end-column="21" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/admin/writeBlog.vm">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3990">
-              <caret line="266" column="53" selection-start-line="266" selection-start-column="39" selection-end-line="266" selection-end-column="53" />
+            <state relative-caret-position="529">
+              <caret line="162" column="56" selection-start-line="162" selection-start-column="56" selection-end-line="162" selection-end-column="56" />
             </state>
           </provider>
         </entry>
@@ -183,8 +173,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/flowingsun/article/service/ArticleServiceImpl.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3750">
-              <caret line="269" column="41" selection-start-line="269" selection-start-column="41" selection-end-line="269" selection-end-column="41" />
+            <state relative-caret-position="195">
+              <caret line="251" column="37" selection-start-line="251" selection-start-column="37" selection-end-line="251" selection-end-column="37" />
             </state>
           </provider>
         </entry>
@@ -240,9 +230,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>submitThank</find>
-      <find>setThank</find>
-      <find>收藏</find>
       <find>getUserCategoryArticleBehavior</find>
       <find>getUserArticleBehavior</find>
       <find>&lt;aop</find>
@@ -265,11 +252,14 @@
       <find>navbarCollapse</find>
       <find>catagoryResultMap</find>
       <find>selectAllTag</find>
-      <find>deleteOneArticle</find>
       <find>markdown-body table</find>
       <find>testEditormdView</find>
       <find>uploadBlogFile</find>
       <find>test-editormd-view</find>
+      <find>deleteOneArticle</find>
+      <find>deleteArticleOneTag</find>
+      <find>deleteArticleAllTag</find>
+      <find>deleteArticleRelations</find>
     </findStrings>
     <dirStrings>
       <dir>/Library/Java/JavaVirtualMachines/jdk1.8.0_171.jdk/Contents/Home/jre/lib/rt.jar</dir>
@@ -326,12 +316,12 @@
         <option value="$PROJECT_DIR$/src/main/resources/log4j.properties" />
         <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/article/categoryArticle.vm" />
         <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/article/tagArticle.vm" />
-        <option value="$PROJECT_DIR$/src/main/java/com/flowingsun/article/service/ArticleServiceImpl.java" />
         <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/article/singleArticle-json.vm" />
         <option value="$PROJECT_DIR$/src/main/java/com/flowingsun/article/controller/ArticleController.java" />
         <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/article/singleArticle.vm" />
         <option value="$PROJECT_DIR$/src/main/resources/SQL/article.SQL" />
         <option value="$PROJECT_DIR$/src/main/resources/SQL/dml.SQL" />
+        <option value="$PROJECT_DIR$/src/main/java/com/flowingsun/article/service/ArticleServiceImpl.java" />
       </list>
     </option>
   </component>
@@ -374,8 +364,8 @@
     </treeState>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="67" />
-    <option name="y" value="114" />
+    <option name="x" value="82" />
+    <option name="y" value="101" />
     <option name="width" value="1126" />
     <option name="height" value="690" />
   </component>
@@ -457,7 +447,59 @@
               <item name="LyonBlog" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="com" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="LyonBlog" type="b2602c69:ProjectViewProjectNode" />
+              <item name="LyonBlog" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="com" type="462c0819:PsiDirectoryNode" />
+              <item name="flowingsun" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="LyonBlog" type="b2602c69:ProjectViewProjectNode" />
+              <item name="LyonBlog" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="com" type="462c0819:PsiDirectoryNode" />
+              <item name="flowingsun" type="462c0819:PsiDirectoryNode" />
+              <item name="admin" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="LyonBlog" type="b2602c69:ProjectViewProjectNode" />
+              <item name="LyonBlog" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="com" type="462c0819:PsiDirectoryNode" />
+              <item name="flowingsun" type="462c0819:PsiDirectoryNode" />
+              <item name="admin" type="462c0819:PsiDirectoryNode" />
+              <item name="controller" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="LyonBlog" type="b2602c69:ProjectViewProjectNode" />
+              <item name="LyonBlog" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="com" type="462c0819:PsiDirectoryNode" />
+              <item name="flowingsun" type="462c0819:PsiDirectoryNode" />
+              <item name="article" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="LyonBlog" type="b2602c69:ProjectViewProjectNode" />
+              <item name="LyonBlog" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="com" type="462c0819:PsiDirectoryNode" />
+              <item name="flowingsun" type="462c0819:PsiDirectoryNode" />
+              <item name="article" type="462c0819:PsiDirectoryNode" />
+              <item name="service" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="LyonBlog" type="b2602c69:ProjectViewProjectNode" />
@@ -465,7 +507,6 @@
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="resources" type="462c0819:PsiDirectoryNode" />
-              <item name="SQL" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -501,11 +542,11 @@
       <recent name="com.flowingsun.article.entity" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/main/java/com/flowingsun/article/service" />
+      <recent name="$PROJECT_DIR$/src/main/resources" />
       <recent name="$PROJECT_DIR$/src/main/resources/SQL" />
       <recent name="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/article" />
       <recent name="$PROJECT_DIR$/src/main/resources/DDL" />
-      <recent name="$PROJECT_DIR$/src/main/java/com/flowingsun/behavior/dao" />
-      <recent name="$PROJECT_DIR$/src/main/java/com/flowingsun/common/dao" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -1012,7 +1053,7 @@
       <workItem from="1544791233304" duration="1655000" />
       <workItem from="1544874108732" duration="11218000" />
       <workItem from="1544939344710" duration="18238000" />
-      <workItem from="1545005324056" duration="469000" />
+      <workItem from="1545005324056" duration="2009000" />
     </task>
     <task id="LOCAL-00001" summary="标签区边框修改">
       <created>1531624311177</created>
@@ -1067,7 +1108,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="1438963000" />
+    <option name="totallyTimeSpent" value="1440503000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1079,10 +1120,10 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="67" y="114" width="1126" height="690" extended-state="0" />
+    <frame x="0" y="142" width="1126" height="690" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.68421054" visible="true" weight="0.25645757" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.68421054" visible="true" weight="0.38284132" />
       <window_info id="Capture Tool" order="1" />
       <window_info id="UI Designer" order="2" />
       <window_info id="Image Layers" order="3" />
@@ -1483,20 +1524,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/flowingsun/admin/controller/AdminController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="137">
-          <caret line="23" column="30" lean-forward="true" selection-start-line="23" selection-start-column="30" selection-end-line="23" selection-end-column="30" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/flowingsun/article/controller/ArticleController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="213">
-          <caret line="359" column="38" lean-forward="true" selection-start-line="359" selection-start-column="38" selection-end-line="359" selection-end-column="38" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/flowingsun/behavior/controller/BehaviorController.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="150">
@@ -1508,20 +1535,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="14865">
           <caret line="991" column="21" selection-start-line="991" selection-start-column="21" selection-end-line="991" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/admin/writeBlog.vm">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3990">
-          <caret line="266" column="53" selection-start-line="266" selection-start-column="39" selection-end-line="266" selection-end-column="53" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/flowingsun/article/service/ArticleServiceImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3750">
-          <caret line="269" column="41" selection-start-line="269" selection-start-column="41" selection-end-line="269" selection-end-column="41" />
         </state>
       </provider>
     </entry>
@@ -1553,6 +1566,13 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/sql/dml.SQL">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1800">
+          <caret line="120" lean-forward="true" selection-start-line="120" selection-end-line="120" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/article/singleArticle.vm">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="507">
@@ -1567,17 +1587,38 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/SQL/ddl.SQL">
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/admin/writeBlog.vm">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="543">
+        <state relative-caret-position="323">
+          <caret line="266" column="53" selection-start-line="266" selection-start-column="39" selection-end-line="266" selection-end-column="53" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/sql/ddl.SQL">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="529">
           <caret line="162" column="56" selection-start-line="162" selection-start-column="56" selection-end-line="162" selection-end-column="56" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/SQL/dml.SQL">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/flowingsun/article/service/ArticleServiceImpl.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="543">
-          <caret line="120" lean-forward="true" selection-start-line="120" selection-end-line="120" />
+        <state relative-caret-position="195">
+          <caret line="251" column="37" selection-start-line="251" selection-start-column="37" selection-end-line="251" selection-end-column="37" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/flowingsun/article/controller/ArticleController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="4653">
+          <caret line="359" column="38" lean-forward="true" selection-start-line="359" selection-start-column="38" selection-end-line="359" selection-end-column="38" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/flowingsun/admin/controller/AdminController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="294">
+          <caret line="138" column="38" lean-forward="true" selection-start-line="138" selection-start-column="38" selection-end-line="138" selection-end-column="38" />
         </state>
       </provider>
     </entry>

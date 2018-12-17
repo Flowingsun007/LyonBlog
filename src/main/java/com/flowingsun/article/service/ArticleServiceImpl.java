@@ -259,9 +259,11 @@ public class ArticleServiceImpl implements ArticleService {
         commentMapper.deleteByArticleId(articleId);
         collectionMapper.deleteByArticleId(articleId);
         List<Integer> commentidList = commentMapper.selectCommentsIdByArticleId(articleId);
-        for(int i=0;i<commentidList.size();i++){
-            commentLikeMapper.deleteByCommentId(commentidList.get(i));
-            discussionMapper.deleteByCommentId(commentidList.get(i));
+        if(commentidList.size()>0){
+            for(int i=0;i<commentidList.size();i++){
+                commentLikeMapper.deleteByCommentId(commentidList.get(i));
+                discussionMapper.deleteByCommentId(commentidList.get(i));
+            }
         }
     }
 
