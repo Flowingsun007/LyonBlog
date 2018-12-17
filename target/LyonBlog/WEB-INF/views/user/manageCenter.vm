@@ -1,0 +1,874 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Meta-Tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="/static/bootstrap/favicon.ico">
+
+    <title>阳光流淌的个人博客</title>
+    <!-- Bootstrap core CSS -->
+    <link href="/static/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom styles for this template -->
+    <link href="/static/css/blogHome.css" rel="stylesheet">
+    <!--登录注册框样式-->
+    <link href="/static/css/loginStyle.css" rel="stylesheet" type="text/css" media="all">
+    <!-- This is what you need -->
+    <script src="/static/js/sweetalert-dev.js"></script>
+    <link rel="stylesheet" href="/static/css/sweetalert.css">
+    <!--.......................-->
+    <!--blogTemplate Style-->
+    <link href="/static/css/font/googleapis.css" rel="stylesheet">
+    <link href="/static/css/templateBlog.css" rel="stylesheet">
+    <link rel="stylesheet" href="/static/Editormd/css/editormd.preview.min.css" />
+    <link rel="stylesheet" href="/static/Editormd/css/editormd.min.css" />
+    <!--博客模板来源于bootstarp4.0：https://getbootstrap.com/docs/4.0/examples/blog-->
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="/static/styleTemplate/bootstrap/fonts/font-awesome-4.5.0.min.css">
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="/static/styleTemplate/bootstrap/ionicons.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="/static/styleTemplate/dist/css/AdminLTE.min.css">
+    <!-- AdminLTE Skins. Choose a skin from the css/skins
+         folder instead of downloading all of them to reduce the load. -->
+    <link rel="stylesheet" href="/static/styleTemplate/dist/css/skins/_all-skins.min.css">
+
+    <!--4种超酷Bootstrap图片画廊和lightbox效果模板-->
+##    <link href="http://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/static/styleTemplate/imageStyle/css/baguetteBox.min.css">
+    <link rel="stylesheet" href="/static/styleTemplate/imageStyle/css/thumbnail-gallery.css">
+    <!--slim版本的貌似不支持Ajax-->
+    <script src="/static/jquery/jquery-3.2.1.slim.min.js"  crossorigin="anonymous"></script>
+    <script src="/static/jquery/jquery-2.2.3.min.js" ></script>
+
+</head>
+<body>
+<script type="application/javascript">
+    $(function(){
+        $.ajax({
+            type:"GET",
+            url:"/user/userInfo",
+            dataType:"json",
+            contentType:"application/json",
+            success:function (data) {
+                if(data!=null){
+                    if(data.userstatus==1){
+                        $("#navLoginButton").html(data.username);
+                        $("#headerUsername").html(data.username);
+                    }else{
+                        var str = data.username + ":未激活";
+                        $("#navLoginButton").html(str);
+                        $("#headerUsername").html(str);
+                    }
+                    var logoutHtml = '<div class="dropdown-menu" id="navLogout" aria-labelledby="navbarDropdownMenuLink">'+ '<a class="dropdown-item" id="behaviorCenter" href="/user/manageCenter">个人中心</a><a class="dropdown-item" id="logoutButton" href="#">'+'退出登录</a></div>';
+                    var userHeadImg = '<ul class="navbar-nav mr-sm-0" id="navUserHead">'+ '<li class="nav-item" id="navLogin">'+
+                            '<a class="nav-link" href="#"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">'
+                            +'<img src="/static/image/userHead/header.png" class="user-image" alt="User Image" style="width:25px;height:25px;border-radius:50%;"></a> </li></ul>';
+                    $("#navLogin").append(logoutHtml);
+                    $("#navbarCollapse").append(userHeadImg);
+                }
+            }
+        });
+        $("#navLogin").on('click',"#logoutButton",function(){
+            if(confirm("确定退出登录？")){
+                $.ajax({
+                    type:"GET",
+                    url:"/user/logout/check",
+                    contentType:"text/html",
+                    success:function (data) {
+                        if(data=="logout_succ"){
+                            window.location.reload();
+                            swal({
+                                title: "您已退出登录！",
+                                timer: 3000,
+                                showConfirmButton: false
+                            });
+                        }else{alert("退出登录失败！");}
+                    }
+                });
+            }else{
+                return false;
+            }
+        });
+        var content = $("#navLoginButton").text();
+        $("#navLoginButton").click(function(){
+            var css = $('#loginDiv').css('display');
+            if(css=='block'){
+                $('#loginDiv').css('display','none');
+                $("#navLoginButton").text(content);
+            }else{
+                if($("#navLoginButton").text()=="登录注册"){
+                    $('#loginDiv').css('display','block');
+                    $("#navLoginButton").text("关闭×");
+                }else{
+                    return true;
+                }
+            }
+        });
+    });
+</script>
+<script type="application/javascript">
+    $(function () {
+        var re1 = /^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/;
+        $("#userLogin").click(function () {
+            var usertoken = $("#usertoken").val();
+            var userpass = $('#userpass').val();
+            var loginAlert = "";
+            if(usertoken=="" || $.trim(usertoken).length==0 ||userpass=="" || $.trim(userpass).length == 0){
+                loginAlert = "账号/密码不能为空";
+                $("#loginAlert").text(loginAlert);
+                $("#loginAlert").css('display','block');
+                return false;
+            }else{
+                if(/^\d+$/.test(usertoken)==true){
+                    if(!(/^\d{11,12}$/.test(usertoken))){
+                        loginAlert += "请输入11~12位的手机号！"
+                    }
+                }else if(!(re1.test(usertoken))){
+                    loginAlert += "请输入正确格式的邮箱地址！";
+                }
+                if(!(/^[0-9a-zA-Z-=.]{8,16}$/.test(userpass))){
+                    loginAlert += "密码必须是8~16位！"
+                }
+            }
+            if(loginAlert!=""){
+                $("#loginAlert").text(loginAlert);
+                $("#loginAlert").css('display','block');
+                return false;
+            }else{
+                if(/^\d+$/.test(usertoken)==true){
+                    //ajax提交表单
+                    $.ajax({
+                        type:"POST",
+                        contentType: "application/json",
+                        url:"/user/login/check",
+                        data:JSON.stringify({"telephone":usertoken,"userpass":userpass}),
+                        success:function (result) {
+                            if(result=="login_succ"){
+                                swal({
+                                    title: "登录成功😊！",
+                                    text: "3秒后自动关闭。",
+                                    timer: 5000,
+                                    showConfirmButton: false
+                                });
+                                window.location.reload();
+                            } else if(result=="login_fail"){
+                                swal("矮油，登录失败😶！", result)
+                            }
+                        }
+                    });
+                }else{
+                    //ajax提交表单
+                    $.ajax({
+                        type:"POST",
+                        contentType: "application/json",
+                        url:"/user/login/check",
+                        data:JSON.stringify({"useremail":usertoken,"userpass":userpass}),
+                        success:function (result) {
+                            if(result=="login_succ"){
+                                swal({
+                                    title: "登录成功😊！",
+                                    text: "3秒后自动关闭。",
+                                    timer: 5000,
+                                    showConfirmButton: false
+                                });
+                                window.location.reload();
+                            } else if(result=="login_fail"){
+                                swal("矮油，登录失败😶！", result)
+                            }
+                        }
+                    });
+                }
+            }
+        });
+
+        $("#userRegister").click(function () {
+            var username = $("#username").val();
+            var password = $('#password').val();
+            var useremail = $('#useremail').val();
+            var telephone = $('#telephone').val();
+            var registerAlert = "";
+            if(username==""||$.trim(username).length==0||password==""||$.trim(password).length==0||useremail==""||$.trim(useremail).length==0||telephone==""||$.trim(telephone).length==0){
+                registerAlert = "用户名/邮箱/密码/手机号为必填项，均不能为空！";
+                $("#registerAlert").text(registerAlert);
+                $("#registerAlert").css('display','block');
+                return false;
+            }else{
+                if(/^\d+$/.test(telephone)==true){
+                    if(!(/^\d{11,12}$/.test(telephone))){
+                        registerAlert += "您输入的手机号位数有误(请输入11~12位)!";
+                    }
+                }else{
+                    registerAlert += "您输入手机号格式有误(必须全为数字)!)"
+                }
+                if(!(re1.test(useremail))){
+                    registerAlert += "请输入正确格式的邮箱地址！";
+                }
+                if(!(/^[0-9a-zA-Z-=.]{8,16}$/.test(password))){
+                    registerAlert += "密码必须是8~16位！"
+                }
+            }
+            if(registerAlert!=""){
+                $("#registerAlert").text(registerAlert);
+                $("#registerAlert").css('display','block');
+                return false;
+            }else{
+                $("#registerAlert").css('display','none');
+                swal({
+                    title: "恭喜，注册信息格式正确！😊！",
+                    text: "正在为您注册中...",
+                    timer: 3000,
+                    showConfirmButton: false
+                });
+                //ajax提交表单
+                $.ajax({
+                    type:"POST",
+                    contentType: "application/json",
+                    url:"/user/register/check",
+                    data:JSON.stringify({"username":username,"userpass":password,"useremail":useremail,"telephone":telephone}),
+                    success:function (data) {
+                        if(data=="register_succ"){
+                            swal({
+                                title: "恭喜你，注册成功😊！",
+                                text: "请尽快去邮箱:"+useremail+"激活！",
+                                timer: 5000,
+                                showConfirmButton: true
+                            });
+                        }else{
+                            swal("矮油，注册失败😶！",data)
+                        }
+                    }
+                });
+            }
+        });
+
+        $(".content").on("click","#getUserCollection",function(){
+            $.ajax({
+                type:"GET",
+                contentType: "application/json",
+                url:"/behavior/getColletions",
+                success:function (data) {
+                    var collections = JSON.parse(data);
+                    swal({
+                        title: collections[0].articleTitle,
+                        text:  data,
+                        timer: 3000,
+                        showConfirmButton: false
+                    });
+                }
+            });
+        });
+
+        $("#searchSubmit").click(function () {
+            var text = $("#navSearch").children("input").val();
+            if(text==""){
+                swal("请输入搜索关键词！");
+                return false;
+            }
+        });
+
+        $("#").click(function () {
+            var options =
+                    {
+                        url: "/behavior/uploadImage",
+                        type: 'post',
+                        contentType:"multipart/form-data", //"text/xml",
+                        cache:false,//cache设置为false，上传文件不需要缓存。
+                        success: function (data) {
+                            if("fileUpload_succ"==data.message){
+                                alert("图片上传成功！");
+                                return true;
+                            }else{
+                                // $.messager.alert('提示', data.message);
+                                alert("图片上传失败");
+                            }
+                        },
+                        resetForm: true
+                    };
+            if(confirm("亲，确定提交么？")){
+                $("#uploadForm").ajaxSubmit(options);
+                return true;
+            }else{
+                return false;
+            }
+        });
+
+        $("#timelinePicControlBtn").click(function(){
+            var isShow = $('#timelinePicture').css('display');
+            if(isShow =='block'){
+                $('#timelinePicture').css('display','none');
+                $("#timelinePicControlBtn").text("显示");
+
+            }else{
+                $('#timelinePicture').css('display','block');
+                $("#timelinePicControlBtn").text("隐藏");
+            }
+        });
+
+    });
+</script>
+##<script type="application/javascript">
+##    function uploadSubmit() {
+##        var options = {
+##            url: "/behavior/uploadImage",
+##            type: 'post',
+##            success: function (data) {
+##                if("fileUpload_succ"==data.message){
+##                    alert("图片上传成功！");
+##                    return true;
+##                }else{
+##                    // $.messager.alert('提示', data.message);
+##                    alert("图片上传失败");
+##                }
+##            },
+##            resetForm: true
+##        };
+##        swal({
+##            title: "亲，确定提交么？",
+##            type: "warning",
+##            showCancelButton: true,
+##            confirmButtonColor: "#DD6B55",
+##            confirmButtonText: "提交"
+##        },
+##            // function(){
+##            //    alert("提交成功");
+##            //    return false;
+##            // }
+##                function(){
+##                    alert("提交成功");
+##                    $("#uploadForm").ajaxSubmit(options);
+##                });
+##        return false;
+##    }
+##</script>
+<script type="text/javascript">
+    function submitThank(){
+        // a,b,c,d,e,f,g分别为文章标题，文章摘要，文章主分类id，文章二级分类id，文章HTML内容,文章markdown原文,文章标签(以tag1,tag2,...字符串形式返回))
+        var articleid = $article.getId();
+        $.ajax({
+            type:"POST",
+            contentType: "application/json",
+            url:"/behavior/thank",
+            data:JSON.stringify({"articleid":articleid}),
+            success:function (data) {
+                if(data=="setThank_success"){
+                    window.location.reload();
+                } else if(data=="setThank_fail_重复点赞"){
+                    swal({
+                        title: "您已点过👍哦,请勿重复点赞！",
+                        text:  data,
+                        timer: 3000,
+                        showConfirmButton: false
+                    });
+                } else if(data=="setThank_fail_未登录"){
+                    swal({
+                        title: "请先登录再点赞哦😶！",
+                        text:  data,
+                        timer: 3000,
+                        showConfirmButton: false
+                    });
+                } else{
+                    swal("点赞失败😶！", data);
+                }
+            }
+        });
+        return false;
+    }
+</script>
+
+
+<header>
+    <nav id="navBlog" class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+        <a class="navbar-brand" href="/index" target="_blank">Lyon's Blog</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav mr-auto">
+                #foreach($category in ${categorys})
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            ${category.getMainCategoryName()}
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                            #foreach($secondCat in ${category.getSecondCategorys()})
+                                #foreach($item in ${secondCat.entrySet()})
+                                    <a class="dropdown-item" href="/article/category?cId=$item.key" target="_blank">$item.value</a>
+                                #end
+                            #end
+                        </div>
+                    </li>
+                #end
+
+            </ul>
+            <form class="form-inline mt-2 mt-md-0" id="navSearch" action="/article/elastic/category" method="post">
+                <input class="form-control mr-sm-2" type="text" placeholder="🔍搜" aria-label="Search" name="keywords">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit" id="searchSubmit">Search</button>
+            </form>
+            <ul class="navbar-nav mr-sm-0">
+                <li class="nav-item dropdown" id="navLogin">
+                    <a class="nav-link dropdown-toggle" href="#" id="navLoginButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">登录注册</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</header>
+
+
+<div id="loginDiv" class="Logincontainer w3layouts agileits" style="position:absolute;z-index: 99;left:25%;width:60%;height:auto;display:block;margin-top:80px;padding:20px 10px 30px 35px;display: none;">
+    <div class="login w3layouts agileits">
+        <h2>登 录</h2>
+        <div id="loginArea" class="send-button w3layouts agileits">
+            <input type="text"     id="usertoken" placeholder="手机号/邮箱" style="padding: 10px;">
+            <input type="password" id="userpass" placeholder="密码" style="padding: 10px;">
+            <p id="loginAlert" style="display: none;color:#ff0000;float: right">囧！账号/密码错误！</p>
+            <input type="submit"   id="userLogin" value="登 录" style="margin-top:50px;">
+            <input type="checkbox" id="brand1" value="" style="margin-left: 15px;">
+            <label for="brand1"><span></span>记住我</label>
+        </div>
+        <div class="social-icons w3layouts agileits">
+            <p style="margin-bottom: 5px;">- 其他方式登录 -</p>
+            <ul>
+                <li class="qq"><a href="#">
+                    <span class="icons w3layouts agileits"></span>
+                    <span class="text w3layouts agileits">QQ</span></a>
+                </li>
+                <li class="weixin w3ls"><a href="#">
+                    <span class="icons w3layouts"></span>
+                    <span class="text w3layouts agileits">微信</span></a>
+                </li>
+                <li class="weibo aits"><a href="#">
+                    <span class="icons agileits"></span>
+                    <span class="text w3layouts agileits">微博</span></a>
+                </li>
+            </ul>
+        </div>
+
+    </div>
+    <div class="register w3layouts agileits">
+        <h2>注 册</h2>
+        <div id="registerArea" class="send-button w3layouts agileits" style="margin-top: 20px;">
+            <input type="text" id="username" placeholder="用户名" style="padding: 10px;">
+            <input type="text" id="useremail" placeholder="邮箱" style="padding: 10px;">
+            <input type="password" id="password" placeholder="密码" style="padding: 10px;">
+            <input type="text" id="telephone" placeholder="手机号码" style="padding: 10px;">
+            <p id="registerAlert" style="display: none;color:#ff0000;float: left">囧！注册信息有误！</p>
+            <input id="userRegister" type="submit" value="免费注册" style="padding: 10px;margin-top: 30px;">
+        </div>
+    </div>
+
+</div>
+
+
+
+<section class="content">
+    <!-- row -->
+    <div class="row">
+        <div class="box box-widget widget-user">
+            <!-- Add the bg color to the header using any of the bg-* classes -->
+            <div class="widget-user-header bg-black" style="background: url('/static/styleTemplate/dist/img/photo1.png') center center;">
+                <h3 class="widget-user-username" id="headerUsername">稳稳地幸福 </h3>
+                <h5 class="widget-user-desc">个人中心</h5>
+            </div>
+            <div class="widget-user-image">
+                <img class="img-circle" src="/static/styleTemplate/dist/img/user3-128x128.jpg" alt="User Avatar">
+            </div>
+            <div class="box-footer">
+                <div class="row">
+                    <div class="col-sm-4 border-right">
+                        <div class="description-block">
+                            <h5 class="description-header">
+                                $behaviorBean.getCollectionCount()
+                            </h5>
+                            <span class="description-text">
+                                <a href="javascript:void(0)" id="getUserCollection">收藏</a>
+                            </span>
+                        </div>
+                        <!-- /.description-block -->
+                    </div>
+                    <!-- /.col -->
+                    <div class="col-sm-4 border-right">
+                        <div class="description-block">
+                            <h5 class="description-header">️$behaviorBean.getThankCount()</h5>
+                            <span class="description-text">感❤️谢</span>
+                        </div>
+                        <!-- /.description-block -->
+                    </div>
+                    <!-- /.col -->
+                    <div class="col-sm-4">
+                        <div class="description-block">
+                            <h5 class="description-header">$behaviorBean.getCommentCount()</h5>
+                            <span class="description-text">评论</span>
+                        </div>
+                        <!-- /.description-block -->
+                    </div>
+                    <!-- /.col -->
+                </div>
+                <!-- /.row -->
+            </div>
+        </div>
+
+
+
+        <div class="col-md-6">
+            <div class="box box-primary">
+                <div class="box-header ui-sortable-handle" style="cursor: move;">
+                    <i class="ion ion-clipboard"></i>
+
+                    <h3 class="box-title">To Do List</h3>
+                    <label style="font-size: xx-small"><span id="page">1</span>/<span>13</span>页(共122条)</label>
+
+                    <div class="box-tools pull-right">
+                        <nav aria-label="..." style="text-align:right;font-size: xx-small">
+                            <ul class="pagination justify-content-center">
+                                <li class="page-item">
+                                    <a class="page-link" href="#"><span aria-hidden="true">«</span></a>
+                                </li>
+                                <li class="page-item disabled">
+                                    <a class="page-link" href="#">上页</a></li>
+                                <li class="page-item active"><a class="page-link">1</a></li>
+                                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                <li class="page-item">
+                                    <a class="page-link" href="#">下页</a></li>
+                                <li class="page-item"><a class="page-link" href="#"><span aria-hidden="true">»</span></a></li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body">
+                    <ul class="todo-list ui-sortable">
+
+                        <li class="" style="">
+                            <!-- drag handle -->
+                            <span class="handle ui-sortable-handle">
+                        <i class="fa fa-ellipsis-v"></i>
+                        <i class="fa fa-ellipsis-v"></i>
+                      </span>
+                            <!-- checkbox -->
+                            <input type="checkbox" value="">
+                            <!-- todo text -->
+                            <span class="text">Design a nice theme</span>
+                            <!-- Emphasis label -->
+                            <small class="label label-danger"><i class="fa fa-clock-o"></i> 2 mins</small>
+                            <!-- General tools such as edit or delete-->
+                            <div class="tools">
+                                <i class="fa fa-edit"></i>
+                                <i class="fa fa-trash-o"></i>
+                            </div>
+                        </li><li class="">
+                      <span class="handle ui-sortable-handle">
+                        <i class="fa fa-ellipsis-v"></i>
+                        <i class="fa fa-ellipsis-v"></i>
+                      </span>
+                        <input type="checkbox" value="">
+                        <span class="text">Make the theme responsive</span>
+                        <small class="label label-info"><i class="fa fa-clock-o"></i> 4 hours</small>
+                        <div class="tools">
+                            <i class="fa fa-edit"></i>
+                            <i class="fa fa-trash-o"></i>
+                        </div>
+                    </li>
+                        <li>
+                      <span class="handle ui-sortable-handle">
+                        <i class="fa fa-ellipsis-v"></i>
+                        <i class="fa fa-ellipsis-v"></i>
+                      </span>
+                            <input type="checkbox" value="">
+                            <span class="text">Let theme shine like a star</span>
+                            <small class="label label-warning"><i class="fa fa-clock-o"></i> 1 day</small>
+                            <div class="tools">
+                                <i class="fa fa-edit"></i>
+                                <i class="fa fa-trash-o"></i>
+                            </div>
+                        </li>
+                        <li>
+                      <span class="handle ui-sortable-handle">
+                        <i class="fa fa-ellipsis-v"></i>
+                        <i class="fa fa-ellipsis-v"></i>
+                      </span>
+                            <input type="checkbox" value="">
+                            <span class="text">Let theme shine like a star</span>
+                            <small class="label label-success"><i class="fa fa-clock-o"></i> 3 days</small>
+                            <div class="tools">
+                                <i class="fa fa-edit"></i>
+                                <i class="fa fa-trash-o"></i>
+                            </div>
+                        </li>
+                        <li>
+                      <span class="handle ui-sortable-handle">
+                        <i class="fa fa-ellipsis-v"></i>
+                        <i class="fa fa-ellipsis-v"></i>
+                      </span>
+                            <input type="checkbox" value="">
+                            <span class="text">Check your messages and notifications</span>
+                            <small class="label label-primary"><i class="fa fa-clock-o"></i> 1 week</small>
+                            <div class="tools">
+                                <i class="fa fa-edit"></i>
+                                <i class="fa fa-trash-o"></i>
+                            </div>
+                        </li>
+                        <li>
+                      <span class="handle ui-sortable-handle">
+                        <i class="fa fa-ellipsis-v"></i>
+                        <i class="fa fa-ellipsis-v"></i>
+                      </span>
+                            <input type="checkbox" value="">
+                            <span class="text">Let theme shine like a star</span>
+                            <small class="label label-default"><i class="fa fa-clock-o"></i> 1 month</small>
+                            <div class="tools">
+                                <i class="fa fa-edit"></i>
+                                <i class="fa fa-trash-o"></i>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <!-- /.box-body -->
+                <div class="box-footer clearfix no-border">
+                    <button type="button" class="btn btn-default pull-right"><i class="fa fa-plus"></i> Add item</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <!-- general form elements -->
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <h3 class="box-title">新增图文动态#if($resultInfo)<label style="font-size: xx-small">$resultInfo.toString()</label>#end
+                    </h3>
+                </div>
+                <div class="box-body">
+                    <form role="form"   method="post" id="uploadForm" enctype="multipart/form-data" action="/behavior/uploadImage">
+                        <div class="form-group">
+                            <textarea class="form-control" rows="3" placeholder="请输入文字..." name="description"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>单个上传: </label>
+                            <input type="file" name="oneImage"> <br/>
+                            <label>批量上传:</label>
+                            <input type="file" name="batchImage" multiple>
+                            <button type="submit" class="btn btn-primary" style="float: right" id="uploadButton" >提交</button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- /.box-body  onclick="return uploadSubmit()" -->
+                <div class="box-footer">
+                    #set($pageQueryBean = $pictureQueryList)
+                        <nav aria-label="..." style="text-align:right;float:left;font-size: xx-small">
+                            <ul class="pagination justify-content-center">
+                                <li class="page-item">
+                                    <a class="page-link" href="/user/manageCenter?pageNum=1&pageSize=$pageQueryBean.pageSize"><span aria-hidden="true">&laquo;</span></a>
+                                </li>
+                                #set($pageNum0 = $pageQueryBean.pageNum - 1)
+                                #if($pageNum0>0)
+                                <li class="page-item">
+                                #else
+                                <li class="page-item disabled">
+                                #end<a class="page-link" href="/user/manageCenter?pageNum=1&pageSize=$pageQueryBean.pageSize" aria-label="Previous">上页</a></li>
+                                <li class="page-item active"><a class="page-link">$pageQueryBean.pageNum</a></li>
+                                #set($pagelist=[2,3])
+                                #foreach($item in $pagelist)
+                                    #set($page = $pageNum0 + $item)
+                                    #if($page <= $pageQueryBean.pageCount)
+                                        <li class="page-item"><a class="page-link" href="/user/manageCenter?pageNum=$page&pageSize=$pageQueryBean.pageSize">$page</a></li>
+                                    #end
+                                #end
+                                #set($pageNum2 = $pageNum0+2)
+                                #if($pageNum2 <= $pageQueryBean.pageCount)
+                                <li class="page-item">
+                                #else
+                                <li class="page-item disabled">
+                                #end<a class="page-link" href="/user/manageCenter?pageNum=$pageNum2&pageSize=$pageQueryBean.pageSize" aria-label="Next">下页</a></li>
+                                <li class="page-item"><a class="page-link" href="/user/manageCenter?pageNum=$pageQueryBean.pageCount&pageSize=$pageQueryBean.pageSize"><span aria-hidden="true">&raquo;</span></a></li>
+                            </ul>
+                            <label>第<span>$pageQueryBean.pageNum/$pageQueryBean.pageCount</span>页,共$pageQueryBean.total 张相片（每页20张）</label>
+                        </nav>
+                    <a class="btn btn-primary btn-xs" id="timelinePicControlBtn" style="float: right;color: #ffffff;background-color: #2331ff">隐藏</a>
+                </div>
+            </div>
+            <!-- /.box -->
+        </div>
+
+
+
+        <div class="col-md-12" id="timeLineWall">
+        <!-- The time line -->
+
+            <!-- The time line -->
+            <ul class="timeline" id="timelineCollection" style="display: block">
+                #foreach($Collection in $behaviorBean.collectionList)
+                    <!-- timeline time label -->
+                    <li class="time-label">
+                  <span class="bg-green">
+                      $!date.format('yyyy-MM-dd',$Collection.collectdate)
+                  </span>
+                    </li>
+                    <!-- /.timeline-label -->
+                    <!-- timeline item -->
+                    <li>
+                        <i class="fa fa-camera bg-purple"></i>
+                        <div class="timeline-item">
+                            <span class="time"><i class="fa fa-clock-o"></i>收藏于:$!date.format('yyyy-MM-dd HH:mm',$Collection.collectdate)</span>
+                            <h3 class="timeline-header"><a href="#">收藏ID:$Collection.id</a></h3>
+                            <a href="/article/single?articleId=$Collection.articleid" target="_blank">$Collection.articleTitle</a>
+                        </div>
+                    </li>
+                    <!-- timeline item -->
+                #end
+                <li>
+                    <i class="fa fa-clock-o bg-gray"></i>
+                </li>
+            </ul>
+
+
+            <!-- The time line -->
+            <ul class="timeline" id="timelinePicture" style="display: block">
+                <li class="time-label">
+                  <span class="bg-green">
+                      照片墙
+                  </span>
+                </li>
+                <!-- timeline item -->
+                <li>
+                    <i class="fa fa-camera bg-purple"></i>
+                    <div class="timeline-item">
+                        <span class="time"><i class="fa fa-clock-o"></i>上次上传:2018-07-08</span>
+                        <h3 class="timeline-header"><a href="#">相片和文字，记录——「你的时光」</a></h3>
+                    </div>
+                </li>
+                <!-- END timeline item -->
+                #foreach($PictureQuery in $pictureQueryList.dataList)
+                    #set($pageQueryBean = $PictureQuery.pictureList)
+                    <!-- timeline time label -->
+                    <li class="time-label">
+                  <span class="bg-green">
+                      $!date.format('yyyy-MM-dd',$PictureQuery.createDate)
+                  </span>
+                    </li>
+                    <!-- /.timeline-label -->
+                    <!-- timeline item -->
+                    <li>
+                        <i class="fa fa-camera bg-purple"></i>
+
+                        <div class="timeline-item">
+                            <span class="time"><i class="fa fa-clock-o"></i> 12 hours ago</span>
+                            <h3 class="timeline-header"><a href="#">Lyon</a> uploaded new photos</h3>
+                            <div class="tz-gallery">
+                                <div class="row">
+                                    #foreach($picture in ${pageQueryBean})
+                                        #if($pageQueryBean.size() == 1)
+                                        <div class="col-sm-6 col-md-12">
+                                        #elseif($pageQueryBean.size() == 2)
+                                        <div class="col-sm-6 col-md-6">
+                                        #elseif($pageQueryBean.size() == 3)
+                                        <div class="col-sm-6 col-md-4">
+                                        #elseif($pageQueryBean.size() >= 3)
+                                        <div class="col-sm-6 col-md-3">
+                                        #end
+                                        <div class="thumbnail">
+                                            <a class="lightbox" href=$picture.filepath>
+                                                <img src=$picture.filepath alt=$picture.details title="上传于:$!date.format('yyyy-MM-dd HH:mm',$!picture.createdate)">
+                                            </a>
+                                            <div class="caption">
+                                                <h3>$picture.details</h3>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    #end
+                                </div>
+                                </div>
+                                </div>
+                    </li>
+                    <!-- END timeline item -->
+                #end
+                <li>
+                    <i class="fa fa-clock-o bg-gray"></i>
+                </li>
+            </ul>
+        </div>
+
+
+
+
+
+
+
+
+
+
+    </div>
+    <!-- /.row -->
+</section>
+
+
+<!-- FOOTER -->
+<footer class="container">
+    <p class="float-right"><a href="#">返回顶部↑</a></p>
+    <p>&copy; CopyRight 2018-2019 <a href="#">www.flowingsun.com</a> Inc All Rights Reserved 皖ICP备17013223号<a href="#">Email: </a>Flowingsun007@163.com</p>
+</footer>
+
+
+<script src="/static/Editormd/examples/js/jquery.min.js" ></script>
+<script src="/static/Editormd/lib/marked.min.js" ></script>
+<script src="/static/Editormd/lib/prettify.min.js" ></script>
+<script src="/static/Editormd/lib/raphael.min.js" ></script>
+<script src="/static/Editormd/lib/underscore.min.js" ></script>
+<script src="/static/Editormd/lib/sequence-diagram.min.js"></script>
+<script src="/static/Editormd/lib/flowchart.min.js" ></script>
+<script src="/static/Editormd/lib/jquery.flowchart.min.js" ></script>
+##<script src="/static/Editormd/editormd.min.js" ></script>
+<script src="/static/Editormd/editormd.js" ></script>
+<script type="text/javascript">
+    $(function() {
+        var testEditormdView;
+        var testEditormdView2;
+        //testEditormdView.getMarkdown()可以获取显示出来的markdown源码
+        testEditormdView = editormd.markdownToHTML("test-editormd-view", {
+            markdown        : $("#append-test").text(),
+            htmlDecode      : true,
+            //htmlDecode      : "style,script,iframe",  // you can filter tags decode
+            markdownSourceCode : true,
+            emoji           : true,
+            taskList        : true,
+            // tex             : true,  // 默认不解析
+            // flowChart       : true,  // 默认不解析
+            // sequenceDiagram : true,  // 默认不解析
+            codeFold: true
+        });
+        var result = testEditormdView.getMarkdown();
+        testEditormdView2 = editormd.markdownToHTML("test-editormd-view2", {
+            markdown        : result,
+            htmlDecode      : true,
+            //htmlDecode      : "style,script,iframe",  // you can filter tags decode
+            emoji           : true,
+            taskList        : true,
+            tex             : true,  // 默认不解析
+            flowChart       : true,  // 默认不解析
+            sequenceDiagram : true,  // 默认不解析
+            codeFold: true
+        });
+    });
+</script>
+<!-- Bootstrap core JavaScript
+    <!--================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+##<script>window.jQuery || document.write('<script src="/static/bootstrap/assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
+<script src="/static/bootstrap/assets/js/vendor/popper.min.js"></script>
+<script src="/static/bootstrap/dist/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="/static/styleTemplate/imageStyle/js/baguetteBox.min.js"></script>
+<script type="text/javascript">
+    baguetteBox.run('.tz-gallery');
+</script>
+</body>
+</html>
+
+
+
+

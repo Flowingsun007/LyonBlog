@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.flowingsun.behavior.dao.DiscussionMapper" >
+  <resultMap id="BaseResultMap" type="com.flowingsun.behavior.entity.Discussion" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="articleId" property="articleid" jdbcType="INTEGER" />
+    <result column="main_userId" property="mainUserid" jdbcType="BIGINT" />
+    <result column="main_commentId" property="mainCommentid" jdbcType="INTEGER" />
+    <result column="userId" property="userid" jdbcType="BIGINT" />
+    <result column="discussion" property="discussion" jdbcType="VARCHAR" />
+    <result column="discussDate" property="discussdate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, articleId, main_userId, main_commentId, userId, discussion, discussDate
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from discussion
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByCommentId" parameterType="java.lang.Integer" >
+    DELETE FROM discussion
+    WHERE main_commentId = #{commentId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from discussion
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.flowingsun.behavior.entity.Discussion" >
+    insert into discussion (id, articleId, main_userId, 
+      main_commentId, userId, discussion, 
+      discussDate)
+    values (#{id,jdbcType=INTEGER}, #{articleid,jdbcType=INTEGER}, #{mainUserid,jdbcType=BIGINT}, 
+      #{mainCommentid,jdbcType=INTEGER}, #{userid,jdbcType=BIGINT}, #{discussion,jdbcType=VARCHAR}, 
+      #{discussdate,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.flowingsun.behavior.entity.Discussion" >
+    insert into discussion
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="articleid != null" >
+        articleId,
+      </if>
+      <if test="mainUserid != null" >
+        main_userId,
+      </if>
+      <if test="mainCommentid != null" >
+        main_commentId,
+      </if>
+      <if test="userid != null" >
+        userId,
+      </if>
+      <if test="discussion != null" >
+        discussion,
+      </if>
+      <if test="discussdate != null" >
+        discussDate,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="articleid != null" >
+        #{articleid,jdbcType=INTEGER},
+      </if>
+      <if test="mainUserid != null" >
+        #{mainUserid,jdbcType=BIGINT},
+      </if>
+      <if test="mainCommentid != null" >
+        #{mainCommentid,jdbcType=INTEGER},
+      </if>
+      <if test="userid != null" >
+        #{userid,jdbcType=BIGINT},
+      </if>
+      <if test="discussion != null" >
+        #{discussion,jdbcType=VARCHAR},
+      </if>
+      <if test="discussdate != null" >
+        #{discussdate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.flowingsun.behavior.entity.Discussion" >
+    update discussion
+    <set >
+      <if test="articleid != null" >
+        articleId = #{articleid,jdbcType=INTEGER},
+      </if>
+      <if test="mainUserid != null" >
+        main_userId = #{mainUserid,jdbcType=BIGINT},
+      </if>
+      <if test="mainCommentid != null" >
+        main_commentId = #{mainCommentid,jdbcType=INTEGER},
+      </if>
+      <if test="userid != null" >
+        userId = #{userid,jdbcType=BIGINT},
+      </if>
+      <if test="discussion != null" >
+        discussion = #{discussion,jdbcType=VARCHAR},
+      </if>
+      <if test="discussdate != null" >
+        discussDate = #{discussdate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.flowingsun.behavior.entity.Discussion" >
+    update discussion
+    set articleId = #{articleid,jdbcType=INTEGER},
+      main_userId = #{mainUserid,jdbcType=BIGINT},
+      main_commentId = #{mainCommentid,jdbcType=INTEGER},
+      userId = #{userid,jdbcType=BIGINT},
+      discussion = #{discussion,jdbcType=VARCHAR},
+      discussDate = #{discussdate,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

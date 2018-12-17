@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.flowingsun.user.dao.RolePermissonMapper" >
+  <resultMap id="BaseResultMap" type="com.flowingsun.user.entity.RolePermisson" >
+    <result column="role_id" property="roleId" jdbcType="TINYINT" />
+    <result column="permission_id" property="permissionId" jdbcType="TINYINT" />
+  </resultMap>
+  <insert id="insert" parameterType="com.flowingsun.user.entity.RolePermisson" >
+    insert into role_permission (role_id, permission_id)
+    values (#{roleId,jdbcType=TINYINT}, #{permissionId,jdbcType=TINYINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.flowingsun.user.entity.RolePermisson" >
+    insert into role_permission
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="roleId != null" >
+        role_id,
+      </if>
+      <if test="permissionId != null" >
+        permission_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="roleId != null" >
+        #{roleId,jdbcType=TINYINT},
+      </if>
+      <if test="permissionId != null" >
+        #{permissionId,jdbcType=TINYINT},
+      </if>
+    </trim>
+  </insert>
+</mapper>
