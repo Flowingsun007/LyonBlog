@@ -3,6 +3,10 @@
 这个项目是个人学java时自己做的，从前端-到后端-数据库都是100%原创的~第一版的项目是jsp+servlet写的，学了SSM后重构了一次才有的这个项目，里面代码写的比较水，勿喷~新人学习玩耍还是可以的~P.S.后面有时间会不断重构和优化里面的代码^_^
 
 ## 1.项目展示
+### 页面：
+![](https://pic3.zhimg.com/v2-8938aa61be97b55c37009744c761a44a_r.jpg)
+![](https://pic3.zhimg.com/v2-cdc3a4b107a010dc54203b33bfc50176_r.jpg)
+![](https://pic2.zhimg.com/v2-5f1e438570a24223d22356e0e48c91ed_r.jpg)
 ### 功能：
 用户登录注册、MD5加密、邮箱验证。
 博客文章前台展示、文章点赞、评论、收藏，支持对评论进行点赞和讨论。
@@ -34,8 +38,7 @@ ElasticSearch是流行的全文检索服务器，主要用于博客搜索。Logs
 开发环境：
 MacOS系统+Idea开发+Maven构建+Git版本控制
 ### 架构图：
-
-
+![](https://pic3.zhimg.com/80/v2-72fae8ab4a314f253d214dcb3f70d80e_hd.jpg)
 ## 3.项目部署
 由于项目是在Mac上开发的，所以对Linux系统比较友好。Github地址：Flowingsun007/LyonBlog ，欢迎点赞~
 有三个分支：
@@ -43,7 +46,6 @@ master：本地mac上开发，同步更新的分支
 server：用于部署服务器的分支
 windows：仅仅是为了跑起来而新建的此分支，不保证及时更新
 ### 项目标准配置：
-
 1.Mysql——5.6
 2.Tomcat——9(2个)
 3.Nginx——1.14.0
@@ -60,4 +62,5 @@ Nginx、Redis配置
 主要是log4j.properties里修改几种类别日志存放路径
 ### 运行顺序
 Nginx和Redis先启动，然后启动项目，在Idea中可以直接启动Tomcat、或者手动打war包放入Tomcat中运行。
-
+### 文件夹结构
+![](https://pic1.zhimg.com/80/v2-a95cec3239527b265b191c368e888e04_hd.jpg)
