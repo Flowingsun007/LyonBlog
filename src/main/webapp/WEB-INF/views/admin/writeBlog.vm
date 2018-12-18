@@ -225,19 +225,19 @@
         </div>
     </div>
     <div class="btns">
-        <button id="goto-line-btn">Goto line 90</button>
-        <button id="show-btn">Show editor</button>
-        <button id="hide-btn">Hide editor</button>
-        <button id="get-md-btn">Get Markdown</button>
-        <button id="get-html-btn">Get HTML</button>
-        <button id="watch-btn">Watch</button>
-        <button id="unwatch-btn">Unwatch</button>
-        <button id="preview-btn">Preview HTML (Press Shift + ESC cancel)</button>
-        <button id="fullscreen-btn">Fullscreen (Press ESC cancel)</button>
-        <button id="show-toolbar-btn">Show toolbar</button>
-        <button id="close-toolbar-btn">Hide toolbar</button>
-        <button id="toc-menu-btn">ToC Dropdown menu</button>
-        <button id="toc-default-btn">ToC default</button>
+        ##<button id="goto-line-btn">跳转至90行</button>
+        <button id="show-btn">显示编辑器</button>
+        <button id="hide-btn">隐藏编辑器</button>
+        ##<button id="get-md-btn">获取Markdown</button>
+        ##<button id="get-html-btn">获取Html</button>
+        <button id="watch-btn">编辑+预览</button>
+        <button id="unwatch-btn">编辑模式</button>
+        <button id="preview-btn">预览模式</button>
+        <button id="fullscreen-btn">全屏预览</button>
+        <button id="show-toolbar-btn">显示工具栏</button>
+        <button id="close-toolbar-btn">隐藏工具栏</button>
+        ##<button id="toc-menu-btn">折叠目录</button>
+        ##<button id="toc-default-btn">展开目录</button>
     </div>
 
     <div id="test-editormd">
