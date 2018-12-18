@@ -22,17 +22,18 @@ import java.util.List;
 @Controller
 @RequestMapping("admin")
 public class AdminController {
+
     @Autowired
     private ArticleService articleService;
 
     @RequiresPermissions("admin:home")
-    @RequestMapping("")
+    @GetMapping("")
     public String adminIndex(){
         return "redirect:admin/home";
     }
 
     @RequiresPermissions("admin:editTag")
-    @RequestMapping("/editTag")
+    @GetMapping("/editTag")
     public String editArticleTag(@RequestParam(value="pageNum",required=false,defaultValue = "1")Integer pageNum,
                                  @RequestParam(value="pageSize",required=false,defaultValue = "10")Integer pageSize,
                                  @RequestParam(value="articleCid",required=false,defaultValue = "0")Integer articleCid,
@@ -52,49 +53,49 @@ public class AdminController {
     }
 
     @RequiresRoles("blogAdmin")
-    @RequestMapping("/editTag/reset")
+    @PostMapping("/editTag/reset")
     @ResponseBody
     public String batchResetTagSubmit(@RequestBody ArticleTag tagBean){
         return articleService.resetArticleTag(tagBean);
     }
 
     @RequiresRoles("blogAdmin")
-    @RequestMapping("/editTag/batchReset")
+    @PostMapping("/editTag/batchReset")
     @ResponseBody
     public String resetTagsubmit(@RequestBody ArticleTag tagBean){
         return articleService.batchResetArticleTag(tagBean);
     }
 
     @RequiresRoles("blogAdmin")
-    @RequestMapping("/editTag/batchAdd")
+    @PostMapping("/editTag/batchAdd")
     @ResponseBody
     public String batchAddTag(@RequestBody ArticleTag tagBean){
         return articleService.batchAddArticleTag(tagBean);
     }
 
     @RequiresRoles("blogAdmin")
-    @RequestMapping("/editTag/batchDelete")
+    @PostMapping("/editTag/batchDelete")
     @ResponseBody
     public String batchDeleteTag(@RequestBody ArticleTag tagBean){
         return articleService.batchDeleteArticleTag(tagBean);
     }
 
     @RequiresRoles("blogAdmin")
-    @RequestMapping("/editTag/article/deleteAll")
+    @PostMapping("/editTag/article/deleteAll")
     @ResponseBody
     public String deleteArticleAllTag(@RequestBody ArticleTag tagBean){
         return articleService.deleteArticleAllTag(tagBean);
     }
 
     @RequiresRoles("blogAdmin")
-    @RequestMapping("/editTag/article/batchDeleteAll")
+    @PostMapping("/editTag/article/batchDeleteAll")
     @ResponseBody
     public String batchDeleteArticleAllTag(@RequestBody ArticleTag tagBean){
         return articleService.batchDeleteArticleAllTag(tagBean);
     }
 
     @RequiresPermissions("admin:home")
-    @RequestMapping("/home")
+    @GetMapping("/home")
     public String adminHome(@RequestParam(value="pageNum",required=false,defaultValue = "1")Integer pageNum,
                             @RequestParam(value="pageSize",required=false,defaultValue = "10")Integer pageSize,
                             @RequestParam(value="articleCid",required=false,defaultValue = "0")Integer articleCid,
@@ -114,14 +115,14 @@ public class AdminController {
     }
 
     @RequiresPermissions("admin:home")
-    @RequestMapping("/categorySelect")
+    @GetMapping("/categorySelect")
     @ResponseBody
     public String submitArticle(@RequestParam("mId") Integer mId){
         return articleService.categorySelectAjax(mId);
     }
 
     @RequiresPermissions("admin:home")
-    @RequestMapping("/writeBlog")
+    @GetMapping("/writeBlog")
     public String writeArticle(Model model){
         Category categoryChoice = articleService.getAllCategory();
         model.addAttribute("categoryChoice",categoryChoice);
@@ -129,28 +130,28 @@ public class AdminController {
     }
 
     @RequiresPermissions("admin:home")
-    @RequestMapping("/writeBlog/submit")
+    @PostMapping("/writeBlog/submit")
     @ResponseBody
     public String submitArticle(@RequestBody Article article){
         return articleService.createArticle(article);
     }
 
     @RequiresRoles("blogAdmin")
-    @RequestMapping("/delete/oneBlog")
+    @GetMapping("/delete/oneBlog")
     @ResponseBody
     public String deleteOneArticle(@RequestParam("articleId") Integer articleId){
         return articleService.deleteOneArticle(articleId);
     }
 
     @RequiresRoles("blogAdmin")
-    @RequestMapping("/delete/batchBlog")
+    @GetMapping("/delete/batchBlog")
     @ResponseBody
     public String deleteOneArticle(@RequestParam("articleIdStr") String articleIdStr){
         return articleService.deleteBatchArticle(articleIdStr);
     }
 
     @RequiresRoles("blogAdmin")
-    @RequestMapping("/editBlog")
+    @GetMapping("/editBlog")
     public String editArticle(@RequestParam("articleId") Integer articleId , Model model){
         Category categoryChoice = articleService.getAllCategory();
         Article article = articleService.getArticle(articleId);
@@ -160,7 +161,7 @@ public class AdminController {
     }
 
     @RequiresRoles("blogAdmin")
-    @RequestMapping("/editBlog/submit")
+    @PostMapping("/editBlog/submit")
     @ResponseBody
     public String editSubmit(@RequestBody Article article){
         return articleService.editArticle(article);
