@@ -145,11 +145,7 @@ public class UserServiceImpl implements UserService {
         Long userId = (Long)request.getSession().getAttribute("userId");
         if(userId!=null){
             request.getSession().removeAttribute("userId");
-            if(redisDAO.removeUser(userId)==true){
-                logger.info("用户退出登录，清空redis信息成功！");
-            }else{
-                logger.info("用户退出登录，清空redis信息失败！");
-            }
+            redisDAO.removeUser(userId);
             return "logout_succ";
         }
         return "logout_fail";
@@ -157,19 +153,12 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User findUserByUserToken(User userInput) {
-        User user=null;
-        try {
-            user =userMapper.selectByUserToken(userInput);
-        }catch (Exception e){
-            logger.error("findUserByUserToken(User userInput)方法执行Error：",e);
-        }
-        return user;
+        return userMapper.selectByUserToken(userInput);
     }
 
     @Override
     public User getUserByUserId(Long userId) {
-        User user = userMapper.selectByPrimaryKey(userId);
-        return user;
+        return userMapper.selectByPrimaryKey(userId);
     }
 
     /**
@@ -219,10 +208,8 @@ public class UserServiceImpl implements UserService {
 
     public void deleteDefaultUserRole(String userphone) {
         Long userId = userMapper.selectUseridByUserphone(userphone);
-        if(userId!=null){
-            Integer result = userRoleMapper.deleteByPrimaryKey(userId);
-            System.out.println("deleteDefaultUserRole"+"result:"+result);
-        }
+        if(userId!=null)
+            userRoleMapper.deleteByPrimaryKey(userId);
     }
 
     @Override
@@ -233,11 +220,10 @@ public class UserServiceImpl implements UserService {
         try{
             Long userId = userMapper.selectUseridByUserphone(userphone);
             int userstatus = 1;
-            if(1==userMapper.updateUserStatusByUserphone(userstatus,userphone)&&(1==userRoleMapper.insertByUseridRoleid(userId,roleId))){
+            if(1==userMapper.updateUserStatusByUserphone(userstatus,userphone)&&(1==userRoleMapper.insertByUseridRoleid(userId,roleId)))
                 return SUCCESS;
-            }else{
+            else
                 return FAIL;
-            }
         }catch (Exception e){
             logger.error("设置用户角色失败，setDefaultUserRole()执行Error：",e);
             return FAIL;

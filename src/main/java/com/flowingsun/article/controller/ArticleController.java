@@ -181,7 +181,7 @@ public class ArticleController {
                 articleList.add(article);
             }
         }catch (Exception f){
-            System.out.println("-------------------------------------------搜索结果为空或异常\n-------------------------------------------");
+            System.out.println("\n-------------------------------------------搜索结果为空或异常-------------------------------------------\n"+f.toString());
         }
 
         List<ArticleTag> allTags = articleService.selectAllTag();

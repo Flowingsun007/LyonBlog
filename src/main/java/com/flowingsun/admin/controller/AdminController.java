@@ -33,7 +33,7 @@ public class AdminController {
     }
 
     @RequiresPermissions("admin:editTag")
-    @GetMapping("/editTag")
+    @RequestMapping("/editTag")
     public String editArticleTag(@RequestParam(value="pageNum",required=false,defaultValue = "1")Integer pageNum,
                                  @RequestParam(value="pageSize",required=false,defaultValue = "10")Integer pageSize,
                                  @RequestParam(value="articleCid",required=false,defaultValue = "0")Integer articleCid,

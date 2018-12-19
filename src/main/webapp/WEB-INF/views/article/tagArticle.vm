@@ -350,7 +350,7 @@
                     </li>
                 #end
             </ul>
-            <form class="form-inline mt-2 mt-md-0" id="navSearch" action="/article/elastic/category" method="post">
+            <form class="form-inline mt-2 mt-md-0" id="navSearch" action="/article/elastic/category" method="get">
                 <input class="form-control mr-sm-2" type="text" placeholder="🔍搜" aria-label="Search" name="keywords">
                 <button class="btn btn-outline-success my-2 my-sm-0" type="submit" id="searchSubmit">Search</button>
             </form>

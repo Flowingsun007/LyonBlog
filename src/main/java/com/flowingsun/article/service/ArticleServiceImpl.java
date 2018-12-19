@@ -20,6 +20,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import java.sql.Timestamp;
 import java.util.*;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 
 @Service("articleService")
@@ -71,10 +73,9 @@ public class ArticleServiceImpl implements ArticleService {
         String item="";
         List<Category> secondCats = articleMapper.selectSecondCatogoryByMid(mId);
         for(int i=0; i<secondCats.size(); i++){
-            item = secondCats.get(i).getSecondCategoryId().toString()+":"+secondCats.get(i).getSecondCategoryName();
-            if(i<secondCats.size()-1){
-                item+=";";
-            }
+            item = secondCats.get(i).getSecondCategoryId().toString() + ":" + secondCats.get(i).getSecondCategoryName();
+            if(i<secondCats.size()-1)
+                item += ";";
             categorystrs+=item;
         }
         return categorystrs;
@@ -251,9 +252,10 @@ public class ArticleServiceImpl implements ArticleService {
         collectionMapper.deleteByArticleId(articleId);
         List<Integer> commentidList = commentMapper.selectCommentsIdByArticleId(articleId);
         if(commentidList.size()>0){
-            commentidList.forEach(e->{
-                commentLikeMapper.deleteByCommentId(e);
-                discussionMapper.deleteByCommentId(e);
+            commentidList.parallelStream().map(e->{
+                commentLikeMapper.deleteByCommentId(e.intValue());
+                discussionMapper.deleteByCommentId(e.intValue());
+                return null;
             });
         }
     }
@@ -316,8 +318,8 @@ public class ArticleServiceImpl implements ArticleService {
                     logger.error("Integer.parseInt(idStrList[i])error:",e);
                 }
             }
-            for(Integer articleId : idIntList){
-                deleteOneArticle(articleId);
+            for (int i = 0; i < idIntList.length; i++) {
+                deleteOneArticle(idIntList[i]);
             }
             updateAllTag();
             String s = String.valueOf(articleMapper.selectAllArticleCount());
@@ -341,23 +343,21 @@ public class ArticleServiceImpl implements ArticleService {
      */
     @Override
     public List<Category> getCategory(){
-        //logger.info("\n----------------------正在尝试从redis获取文章分类...----------------------");
         List<Category> categories = redisDAO.getList("categories");
         if(categories==null){
             logger.warn("\n----------------------从redis获取文章分类失败!----------------------");
             categories = articleMapper.selectMainCategory();
         }
-        for(int i=0;i<categories.size();i++){
-            Integer mainId = categories.get(i).getMainCategoryId();
-            List<Map<Integer,String>> secondCatsList = new ArrayList<Map<Integer,String>>();
+        categories.forEach(category -> {
+            Integer mainId = category.getMainCategoryId();
             List<Category> secondCats = articleMapper.selectSecondCatogoryByMid(mainId);
-            for(int j=0; j<secondCats.size(); j++){
-                Map<Integer,String>  secondCatMap = new HashMap<Integer,String>();
-                secondCatMap.put(secondCats.get(j).getSecondCategoryId(),secondCats.get(j).getSecondCategoryName());
-                secondCatsList.add(secondCatMap);
-            }
-            categories.get(i).setSecondCategorys(secondCatsList);
-        }
+            List<Map<Integer,String>> secondCatsList = secondCats.stream().map(secondCat->{
+                Map<Integer,String>  secondCatMap = new HashMap<>();
+                secondCatMap.put(secondCat.getSecondCategoryId(), secondCat.getSecondCategoryName());
+                return secondCatMap;
+            }).collect(Collectors.toList());
+            category.setSecondCategorys(secondCatsList);
+        });
         redisDAO.setList("categories",categories);
         return categories;
     }
@@ -374,21 +374,21 @@ public class ArticleServiceImpl implements ArticleService {
     public Category getAllCategory() {
         Category categorys = new Category();
         List<Category> mainCategorys = articleMapper.selectMainCategory();
-        List<Map<Integer,String>> mainCatList = new ArrayList<Map<Integer,String>>();
-        List<Map<Integer,String>> secondCatList = new ArrayList<Map<Integer,String>>();
-        for(int i=0;i<mainCategorys.size();i++){
-            Integer mId = mainCategorys.get(i).getMainCategoryId();
-            Map<Integer,String>  mainCatMap = new HashMap<Integer,String>();
-            mainCatMap.put(mId,mainCategorys.get(i).getMainCategoryName());
+        List<Map<Integer,String>> mainCatList = new ArrayList<>();
+        List<Map<Integer,String>> secondCatList = new ArrayList<>();
+        mainCategorys.forEach(e->{
+            Integer mId = e.getMainCategoryId();
+            Map<Integer,String>  mainCatMap = new HashMap<>();
+            mainCatMap.put(mId, e.getMainCategoryName());
             mainCatList.add(mainCatMap);
             List<Category> secondCats = articleMapper.selectSecondCatogoryByMid(mId);
-            for(int j=0; j<secondCats.size(); j++){
-                Map<Integer,String>  secondCatMap = new HashMap<Integer,String>();
-                secondCatMap.put(secondCats.get(j).getSecondCategoryId(),secondCats.get(j).getSecondCategoryName());
+            secondCats.forEach(f->{
+                Map<Integer,String>  secondCatMap = new HashMap<>();
+                secondCatMap.put(f.getSecondCategoryId(), f.getSecondCategoryName());
                 secondCatList.add(secondCatMap);
-            }
+            });
 
-        }
+        });
         categorys.setMainCategorys(mainCatList);
         categorys.setSecondCategorys(secondCatList);
         return categorys;
@@ -437,15 +437,6 @@ public class ArticleServiceImpl implements ArticleService {
         }
         return article;
     }
-    //准备删除的方法
-//    @Override
-//    public ArticleInfo getArticleInfo(Integer articleId){
-//        ArticleInfo articleInfo = articleMapper.selectInfoByPrimaryKey(articleId);
-//        if(articleInfo.getArticleTitle()!=null){
-//            articleInfo.setArticleTags(articleMapper.selectTagsNameByPrimarykey(articleId));
-//        }
-//        return articleInfo;
-//    }
 
 
     /**
