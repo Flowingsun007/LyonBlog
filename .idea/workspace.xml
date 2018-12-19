@@ -10,16 +10,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="05c41573-5dbf-46bc-a219-886ee90b0cda" name="Default" comment="remove useless style">
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LyonBlog.iml" beforeDir="false" afterPath="$PROJECT_DIR$/LyonBlog.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/flowingsun/admin/controller/AdminController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/flowingsun/admin/controller/AdminController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/flowingsun/article/controller/ArticleController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/flowingsun/article/controller/ArticleController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/flowingsun/article/dao/ArticleMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/flowingsun/article/dao/ArticleMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/flowingsun/article/service/ArticleServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/flowingsun/article/service/ArticleServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/log4j.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/log4j.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/article/singleArticle.vm" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/article/singleArticle.vm" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/flowingsun/behavior/service/BehaviorServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/flowingsun/behavior/service/BehaviorServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/admin/adminHome.vm" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/admin/adminHome.vm" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/article/tagArticle.vm" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/article/tagArticle.vm" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/pageutils/header.vm" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/pageutils/homeHeader.vm" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/user/manageCenter.vm" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/user/manageCenter.vm" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -80,8 +77,9 @@
           <entry key="project.open.time.26" value="2" />
           <entry key="project.open.time.28" value="1" />
           <entry key="project.open.time.3" value="2" />
+          <entry key="project.open.time.4" value="1" />
           <entry key="project.open.time.5" value="1" />
-          <entry key="project.opened" value="45" />
+          <entry key="project.opened" value="46" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
@@ -89,45 +87,45 @@
           <entry key="SQL" value="42" />
           <entry key="class" value="91" />
           <entry key="conf" value="3" />
-          <entry key="java" value="295" />
+          <entry key="java" value="297" />
           <entry key="properties" value="10" />
           <entry key="sql" value="1" />
-          <entry key="vm" value="131" />
-          <entry key="xml" value="65" />
+          <entry key="vm" value="147" />
+          <entry key="xml" value="66" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
           <entry key="CLASS" value="91" />
           <entry key="Enforced Plain Text" value="6" />
-          <entry key="JAVA" value="295" />
+          <entry key="JAVA" value="297" />
           <entry key="PLAIN_TEXT" value="3" />
           <entry key="Properties" value="10" />
           <entry key="SQL" value="42" />
           <entry key="Scratch" value="1" />
-          <entry key="VTL" value="125" />
-          <entry key="XML" value="65" />
+          <entry key="VTL" value="141" />
+          <entry key="XML" value="66" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="SQL" value="32" />
           <entry key="dummy" value="10" />
-          <entry key="java" value="8210" />
+          <entry key="java" value="8279" />
           <entry key="properties" value="241" />
           <entry key="txt" value="32" />
-          <entry key="vm" value="4170" />
+          <entry key="vm" value="4211" />
           <entry key="xml" value="923" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="Enforced Plain Text" value="5" />
-          <entry key="JAVA" value="8210" />
+          <entry key="JAVA" value="8279" />
           <entry key="PLAIN_TEXT" value="42" />
           <entry key="Properties" value="241" />
           <entry key="SQL" value="43" />
-          <entry key="VTL" value="4165" />
+          <entry key="VTL" value="4206" />
           <entry key="XML" value="912" />
         </counts>
       </usages-collector>
@@ -139,98 +137,100 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/flowingsun/admin/controller/AdminController.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="141">
-              <caret line="163" column="16" selection-start-line="163" selection-start-column="16" selection-end-line="163" selection-end-column="16" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/flowingsun/admin/entity/AdminBlogQuery.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="60">
-              <caret line="7" column="13" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/flowingsun/article/controller/ArticleController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-243">
-              <caret line="359" column="16" selection-start-line="359" selection-start-column="16" selection-end-line="359" selection-end-column="16" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/flowingsun/article/dao/ArticleMapper.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-616">
-              <caret line="9" selection-start-line="9" selection-end-line="9" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/flowingsun/article/entity/Article.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="180">
-              <caret line="16" selection-start-line="16" selection-end-line="16" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/flowingsun/article/entity/ArticleInfo.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="60">
-              <caret line="6" column="13" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/flowingsun/article/entity/ArticleTag.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="60">
-              <caret line="7" column="13" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/flowingsun/article/entity/ArticleThank.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="60">
-              <caret line="4" column="13" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/flowingsun/article/service/ArticleService.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-908">
-              <caret line="10" column="17" selection-start-line="10" selection-start-column="17" selection-end-line="10" selection-end-column="17" />
+            <state relative-caret-position="288">
+              <caret line="318" column="38" selection-start-line="318" selection-start-column="38" selection-end-line="318" selection-end-column="38" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/flowingsun/article/service/ArticleServiceImpl.java">
+        <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/admin/adminHome.vm">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="167">
-              <caret line="966" column="45" selection-start-line="966" selection-start-column="45" selection-end-line="966" selection-end-column="45" />
+            <state relative-caret-position="293">
+              <caret line="21" column="61" selection-start-line="21" selection-start-column="61" selection-end-line="21" selection-end-column="61" />
               <folding>
-                <element signature="e#41644#41645#0" expanded="true" />
-                <element signature="e#41707#41708#0" expanded="true" />
+                <element signature="n#style#0;n#img#0;n#a#0;n#li#0;n#ul#0;n#!!top" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/article/categoryArticle.vm">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="6038">
+              <caret line="407" column="10" lean-forward="true" selection-start-line="407" selection-start-column="10" selection-end-line="407" selection-end-column="10" />
+              <folding>
+                <element signature="n#style#0;n#img#0;n#a#0;n#li#0;n#ul#0;n#!!top" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/article/singleArticle.vm">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="109">
+              <caret line="66" column="12" lean-forward="true" selection-start-line="66" selection-start-column="12" selection-end-line="90" selection-end-column="15" />
+              <folding>
+                <element signature="n#style#0;n#img#0;n#a#0;n#li#0;n#ul#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#a#0;n#div#1;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#span#0;n#div#1;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#span#1;n#div#1;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#a#1;n#div#1;n#div#0;n#!!top" expanded="true" />
+                <element signature="e#47489#47539#0#HTML" expanded="true" />
+                <element signature="e#47585#47622#0#HTML" expanded="true" />
+                <element signature="e#47657#47700#0#HTML" expanded="true" />
+                <element signature="e#47747#47797#0#HTML" expanded="true" />
+                <element signature="e#47861#47919#0#HTML" expanded="true" />
+                <element signature="e#48658#48712#0#HTML" expanded="true" />
+                <element signature="e#49223#49277#0#HTML" expanded="true" />
+                <element signature="e#49363#49382#0#HTML" expanded="true" />
+                <element signature="e#49459#49478#0#HTML" expanded="true" />
+                <element signature="e#49558#49577#0#HTML" expanded="true" />
+                <element signature="e#49654#49673#0#HTML" expanded="true" />
+                <element signature="e#49752#49771#0#HTML" expanded="true" />
+                <element signature="e#49850#49869#0#HTML" expanded="true" />
+                <element signature="e#50026#50080#0#HTML" expanded="true" />
+                <element signature="e#50167#50186#0#HTML" expanded="true" />
+                <element signature="e#50296#50315#0#HTML" expanded="true" />
+                <element signature="e#50379#50398#0#HTML" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/article/tagArticle.vm">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="210">
+              <caret line="19" column="4" lean-forward="true" selection-start-line="19" selection-start-column="4" selection-end-line="21" selection-end-column="61" />
+              <folding>
+                <element signature="n#style#0;n#img#0;n#a#0;n#li#0;n#ul#0;n#!!top" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/user/manageCenter.vm">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="15">
+              <caret line="77" column="12" selection-start-line="77" selection-start-column="12" selection-end-line="101" selection-end-column="23" />
+              <folding>
+                <element signature="n#style#0;n#img#0;n#a#0;n#li#0;n#ul#0;n#!!top" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/web.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-1704">
+              <caret line="15" column="12" selection-start-line="15" selection-start-column="12" selection-end-line="15" selection-end-column="12" />
             </state>
           </provider>
         </entry>
@@ -250,9 +250,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>&lt;aop</find>
-      <find>spend</find>
-      <find>method</find>
       <find>setCollect</find>
       <find>getCategoryArticles</find>
       <find>execute</find>
@@ -280,6 +277,9 @@
       <find>deleteArticleRelations</find>
       <find>二级分类</find>
       <find>getCategory</find>
+      <find>登录成功</find>
+      <find>退出登录</find>
+      <find>确定退出登录</find>
     </findStrings>
     <dirStrings>
       <dir>/Library/Java/JavaVirtualMachines/jdk1.8.0_171.jdk/Contents/Home/jre/lib/rt.jar</dir>
@@ -291,12 +291,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/article/elasticSearch.vm" />
-        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/article/singleArticle-0609.vm" />
-        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/user/activiate.vm" />
-        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/user/donateMoney.vm" />
-        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/user/manageCenter.vm" />
-        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/user/managerCenter-test.vm" />
         <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/index.vm" />
         <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/403.vm" />
         <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/article/test.vm" />
@@ -326,10 +320,8 @@
         <option value="$PROJECT_DIR$/src/main/java/com/flowingsun/common/interceptor/MethodExcuteTimeInterceptor.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/flowingsun/common/interceptor/SessionInterceptor.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/flowingsun/common/utils/InfoCountUtils.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/flowingsun/behavior/service/BehaviorServiceImpl.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/flowingsun/user/service/UserServiceImpl.java" />
         <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/article/categoryArticle.vm" />
-        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/article/tagArticle.vm" />
         <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/article/singleArticle-json.vm" />
         <option value="$PROJECT_DIR$/src/main/resources/SQL/article.SQL" />
         <option value="$PROJECT_DIR$/src/main/resources/SQL/dml.SQL" />
@@ -337,11 +329,19 @@
         <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/admin/writeBlog.vm" />
         <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/admin/editBlog.vm" />
         <option value="$PROJECT_DIR$/src/main/resources/log4j.properties" />
-        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/article/singleArticle.vm" />
         <option value="$PROJECT_DIR$/src/main/java/com/flowingsun/admin/controller/AdminController.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/flowingsun/article/controller/ArticleController.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/flowingsun/article/dao/ArticleMapper.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/flowingsun/article/service/ArticleServiceImpl.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/flowingsun/behavior/service/BehaviorServiceImpl.java" />
+        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/components/header.vm" />
+        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/components/footer.vm" />
+        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/components/sider.vm" />
+        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/article/singleArticle-test.vm" />
+        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/article/singleArticle.vm" />
+        <option value="$PROJECT_DIR$/src/main/java/com/flowingsun/article/controller/ArticleController.java" />
+        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/article/tagArticle.vm" />
+        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/user/manageCenter.vm" />
+        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/admin/adminHome.vm" />
       </list>
     </option>
   </component>
@@ -383,9 +383,9 @@
       <select />
     </treeState>
   </component>
-  <component name="ProjectFrameBounds">
-    <option name="x" value="208" />
-    <option name="y" value="58" />
+  <component name="ProjectFrameBounds" extendedState="1">
+    <option name="x" value="244" />
+    <option name="y" value="93" />
     <option name="width" value="1126" />
     <option name="height" value="690" />
   </component>
@@ -425,7 +425,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -548,6 +547,27 @@
               <item name="LyonBlog" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="com" type="462c0819:PsiDirectoryNode" />
+              <item name="flowingsun" type="462c0819:PsiDirectoryNode" />
+              <item name="behavior" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="LyonBlog" type="b2602c69:ProjectViewProjectNode" />
+              <item name="LyonBlog" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="com" type="462c0819:PsiDirectoryNode" />
+              <item name="flowingsun" type="462c0819:PsiDirectoryNode" />
+              <item name="behavior" type="462c0819:PsiDirectoryNode" />
+              <item name="service" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="LyonBlog" type="b2602c69:ProjectViewProjectNode" />
+              <item name="LyonBlog" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="resources" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -617,7 +637,7 @@
               <item name="webapp" type="462c0819:PsiDirectoryNode" />
               <item name="WEB-INF" type="462c0819:PsiDirectoryNode" />
               <item name="views" type="462c0819:PsiDirectoryNode" />
-              <item name="article" type="462c0819:PsiDirectoryNode" />
+              <item name="user" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -634,6 +654,7 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
       <pane id="AndroidView" />
     </panes>
   </component>
@@ -650,12 +671,12 @@
     <property name="settings.editor.selected.configurable" value="reference.projectsettings.compiler.javacompiler" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/src/main/resources/conf" />
-      <recent name="$PROJECT_DIR$/src/main/java/com/flowingsun/article/service" />
-      <recent name="$PROJECT_DIR$/src/main/resources" />
-      <recent name="$PROJECT_DIR$/src/main/resources/SQL" />
+    <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/article" />
+      <recent name="$PROJECT_DIR$/src/main/resources" />
+      <recent name="$PROJECT_DIR$/src/main/webapp" />
+      <recent name="$PROJECT_DIR$/src/main/webapp/WEB-INF" />
+      <recent name="$PROJECT_DIR$/src/main/webapp/static/userFile/movie" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="com.flowingsun.behavior.dao" />
@@ -663,12 +684,12 @@
       <recent name="com.flowingsun.common.entity" />
       <recent name="com.flowingsun.article.entity" />
     </key>
-    <key name="MoveFile.RECENT_KEYS">
+    <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/article" />
+      <recent name="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/components" />
+      <recent name="$PROJECT_DIR$/src/main/resources/conf" />
+      <recent name="$PROJECT_DIR$/src/main/java/com/flowingsun/article/service" />
       <recent name="$PROJECT_DIR$/src/main/resources" />
-      <recent name="$PROJECT_DIR$/src/main/webapp" />
-      <recent name="$PROJECT_DIR$/src/main/webapp/WEB-INF" />
-      <recent name="$PROJECT_DIR$/src/main/webapp/static/userFile/movie" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -1182,6 +1203,7 @@
       <workItem from="1545140592338" duration="83000" />
       <workItem from="1545140723237" duration="173000" />
       <workItem from="1545144832390" duration="4353000" />
+      <workItem from="1545174843532" duration="3364000" />
     </task>
     <task id="LOCAL-00001" summary="标签区边框修改">
       <created>1531624311177</created>
@@ -1236,7 +1258,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="1450071000" />
+    <option name="totallyTimeSpent" value="1453435000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1248,9 +1270,10 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="208" y="58" width="1126" height="690" extended-state="0" />
+    <frame x="68" y="315" width="1126" height="690" extended-state="0" />
+    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.68421054" visible="true" weight="0.3118081" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.68421054" visible="true" weight="0.31734318" />
       <window_info id="Capture Tool" order="1" />
       <window_info id="UI Designer" order="2" />
       <window_info id="Image Layers" order="3" />
@@ -1264,7 +1287,7 @@
       <window_info anchor="bottom" id="Run" order="2" weight="0.25452018" />
       <window_info anchor="bottom" id="Cvs" order="3" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="4" weight="0.4" />
-      <window_info anchor="bottom" id="Debug" order="5" sideWeight="0.6936508" weight="0.3110368" />
+      <window_info anchor="bottom" id="Debug" order="5" sideWeight="0.6936508" visible="true" weight="0.3110368" />
       <window_info anchor="bottom" id="Terminal" order="6" sideWeight="0.49603173" weight="0.34949833" />
       <window_info anchor="bottom" id="TODO" order="7" sideWeight="0.49603173" weight="0.31278196" />
       <window_info anchor="bottom" id="Event Log" order="8" sideWeight="0.30634922" side_tool="true" weight="0.51428574" />
@@ -1385,62 +1408,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/flowingsun/user/dao/RolePermissonMapper.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="12" lean-forward="true" selection-start-line="12" selection-end-line="12" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/flowingsun/user/dao/RoleMapper.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="17" column="28" selection-start-line="17" selection-start-column="28" selection-end-line="17" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$USER_HOME$/CodingKit/MavenBox/org/apache/shiro/shiro-core/1.2.2/shiro-core-1.2.2-sources.jar!/org/apache/shiro/authz/annotation/Logical.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="26" column="12" selection-start-line="26" selection-start-column="12" selection-end-line="26" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$USER_HOME$/CodingKit/MavenBox/com/alibaba/druid/1.0.11/druid-1.0.11.jar!/com/alibaba/druid/pool/DruidDataSource.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="80" column="13" selection-start-line="80" selection-start-column="13" selection-end-line="80" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$USER_HOME$/CodingKit/MavenBox/org/apache/shiro/shiro-core/1.2.2/shiro-core-1.2.2-sources.jar!/org/apache/shiro/authz/annotation/RequiresRoles.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="148">
-          <caret line="51" column="3" lean-forward="true" selection-start-line="51" selection-start-column="3" selection-end-line="51" selection-end-column="3" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/spring-mvc.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="143">
-          <caret line="16" column="8" selection-start-line="16" selection-start-column="4" selection-end-line="16" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/flowingsun/common/annotation/MethodExcuteTimeLog.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="10" column="18" selection-start-line="10" selection-start-column="18" selection-end-line="10" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/flowingsun/user/service/UserServiceImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="75">
-          <caret line="240" column="29" lean-forward="true" selection-start-line="240" selection-start-column="29" selection-end-line="240" selection-end-column="29" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/flowingsun/common/utils/InfoCountUtils.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="261">
@@ -1469,45 +1436,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/web.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="225">
-          <caret line="15" column="12" selection-start-line="15" selection-start-column="12" selection-end-line="15" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/flowingsun/article/entity/Category.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="855">
           <caret line="96" column="12" selection-start-line="96" selection-start-column="12" selection-end-line="96" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/article/categoryArticle.vm">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="6300">
-          <caret line="420" column="27" selection-start-line="420" selection-start-column="27" selection-end-line="420" selection-end-column="27" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/article/tagArticle.vm">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="7590">
-          <caret line="506" column="36" selection-start-line="506" selection-start-column="36" selection-end-line="506" selection-end-column="36" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/flowingsun/behavior/service/BehaviorServiceImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="5655">
-          <caret line="403" column="26" selection-start-line="403" selection-start-column="26" selection-end-line="403" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/article/singleArticle-0609.vm">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="467">
-          <caret line="901" column="35" lean-forward="true" selection-start-line="901" selection-start-column="35" selection-end-line="901" selection-end-column="35" />
         </state>
       </provider>
     </entry>
@@ -1630,26 +1562,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/admin/writeBlog.vm">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3585">
-          <caret line="239" column="52" selection-start-line="227" selection-start-column="7" selection-end-line="239" selection-end-column="52" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/admin/editBlog.vm">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1998">
-          <caret line="277" column="41" selection-start-line="277" selection-start-column="41" selection-end-line="277" selection-end-column="41" />
-          <folding>
-            <element signature="n#style#0;n#span#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#button#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#span#0;n#button#0;n#!!top" expanded="true" />
-            <element signature="e#245#252#1" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/resources/log4j2.properties">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
@@ -1660,37 +1572,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/article/singleArticle.vm">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="15">
-          <caret line="1" column="16" lean-forward="true" selection-start-line="1" selection-start-column="16" selection-end-line="1" selection-end-column="16" />
-          <folding>
-            <element signature="n#style#0;n#img#0;n#a#0;n#li#0;n#ul#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#a#0;n#div#1;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#span#0;n#div#1;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#span#1;n#div#1;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#a#1;n#div#1;n#div#0;n#!!top" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/admin/adminHome.vm">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="61">
-          <caret line="47" column="14" lean-forward="true" selection-start-line="47" selection-start-column="8" selection-end-line="47" selection-end-column="14" />
-          <folding>
-            <element signature="n#style#0;n#img#0;n#a#0;n#li#0;n#ul#0;n#!!top" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/flowingsun/admin/controller/AdminController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="141">
-          <caret line="163" column="16" selection-start-line="163" selection-start-column="16" selection-end-line="163" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/flowingsun/admin/entity/AdminBlogQuery.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="60">
@@ -1698,16 +1579,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/flowingsun/article/controller/ArticleController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-243">
-          <caret line="359" column="16" selection-start-line="359" selection-start-column="16" selection-end-line="359" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/flowingsun/article/dao/ArticleMapper.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-616">
+        <state relative-caret-position="135">
           <caret line="9" selection-start-line="9" selection-end-line="9" />
           <folding>
             <element signature="imports" expanded="true" />
@@ -1745,18 +1619,184 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/flowingsun/article/service/ArticleService.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-908">
+        <state relative-caret-position="60">
           <caret line="10" column="17" selection-start-line="10" selection-start-column="17" selection-end-line="10" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/flowingsun/admin/controller/AdminController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="327">
+          <caret line="163" column="16" selection-start-line="163" selection-start-column="16" selection-end-line="163" selection-end-column="16" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/flowingsun/article/service/ArticleServiceImpl.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="167">
+        <state relative-caret-position="-51">
           <caret line="966" column="45" selection-start-line="966" selection-start-column="45" selection-end-line="966" selection-end-column="45" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/flowingsun/behavior/service/BehaviorServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="156">
+          <caret line="445" column="40" lean-forward="true" selection-start-line="445" selection-start-column="40" selection-end-line="445" selection-end-column="40" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/admin/editBlog.vm">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="15">
+          <caret line="277" column="41" selection-start-line="277" selection-start-column="41" selection-end-line="277" selection-end-column="41" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/admin/editTag.vm">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/admin/writeBlog.vm">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="343">
+          <caret line="239" column="52" selection-start-line="227" selection-start-column="7" selection-end-line="239" selection-end-column="52" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/components/footer.vm">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1620">
+          <caret line="108" column="66" selection-start-line="108" selection-start-column="66" selection-end-line="108" selection-end-column="66" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/components/aside.vm">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="675">
+          <caret line="45" column="31" selection-start-line="45" selection-start-column="31" selection-end-line="45" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/components/header.vm">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="246">
+          <caret line="594" lean-forward="true" selection-start-line="594" selection-end-line="594" />
           <folding>
-            <element signature="e#41644#41645#0" expanded="true" />
-            <element signature="e#41707#41708#0" expanded="true" />
+            <element signature="n#style#0;n#img#0;n#a#0;n#li#0;n#ul#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#a#0;n#div#1;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#span#0;n#div#1;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#span#1;n#div#1;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#a#1;n#div#1;n#div#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/web.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1704">
+          <caret line="15" column="12" selection-start-line="15" selection-start-column="12" selection-end-line="15" selection-end-column="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/article/header.vm">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/article/singleArticle-test.vm">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="12" column="65" lean-forward="true" selection-start-line="12" selection-start-column="65" selection-end-line="12" selection-end-column="65" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/flowingsun/article/controller/ArticleController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="288">
+          <caret line="318" column="38" selection-start-line="318" selection-start-column="38" selection-end-line="318" selection-end-column="38" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/article/singleArticle-0609.vm">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="343">
+          <caret line="901" column="35" lean-forward="true" selection-start-line="901" selection-start-column="35" selection-end-line="901" selection-end-column="35" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/article/categoryArticle.vm">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="6038">
+          <caret line="407" column="10" lean-forward="true" selection-start-line="407" selection-start-column="10" selection-end-line="407" selection-end-column="10" />
+          <folding>
+            <element signature="n#style#0;n#img#0;n#a#0;n#li#0;n#ul#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/article/singleArticle.vm">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="109">
+          <caret line="66" column="12" lean-forward="true" selection-start-line="66" selection-start-column="12" selection-end-line="90" selection-end-column="15" />
+          <folding>
+            <element signature="n#style#0;n#img#0;n#a#0;n#li#0;n#ul#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#a#0;n#div#1;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#span#0;n#div#1;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#span#1;n#div#1;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#a#1;n#div#1;n#div#0;n#!!top" expanded="true" />
+            <element signature="e#47489#47539#0#HTML" expanded="true" />
+            <element signature="e#47585#47622#0#HTML" expanded="true" />
+            <element signature="e#47657#47700#0#HTML" expanded="true" />
+            <element signature="e#47747#47797#0#HTML" expanded="true" />
+            <element signature="e#47861#47919#0#HTML" expanded="true" />
+            <element signature="e#48658#48712#0#HTML" expanded="true" />
+            <element signature="e#49223#49277#0#HTML" expanded="true" />
+            <element signature="e#49363#49382#0#HTML" expanded="true" />
+            <element signature="e#49459#49478#0#HTML" expanded="true" />
+            <element signature="e#49558#49577#0#HTML" expanded="true" />
+            <element signature="e#49654#49673#0#HTML" expanded="true" />
+            <element signature="e#49752#49771#0#HTML" expanded="true" />
+            <element signature="e#49850#49869#0#HTML" expanded="true" />
+            <element signature="e#50026#50080#0#HTML" expanded="true" />
+            <element signature="e#50167#50186#0#HTML" expanded="true" />
+            <element signature="e#50296#50315#0#HTML" expanded="true" />
+            <element signature="e#50379#50398#0#HTML" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/article/test.vm">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-716">
+          <folding>
+            <element signature="n#style#0;n#img#0;n#a#0;n#li#0;n#ul#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/user/manageCenter.vm">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="15">
+          <caret line="77" column="12" selection-start-line="77" selection-start-column="12" selection-end-line="101" selection-end-column="23" />
+          <folding>
+            <element signature="n#style#0;n#img#0;n#a#0;n#li#0;n#ul#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/article/tagArticle.vm">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="19" column="4" lean-forward="true" selection-start-line="19" selection-start-column="4" selection-end-line="21" selection-end-column="61" />
+          <folding>
+            <element signature="n#style#0;n#img#0;n#a#0;n#li#0;n#ul#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/admin/adminHome.vm">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="293">
+          <caret line="21" column="61" selection-start-line="21" selection-start-column="61" selection-end-line="21" selection-end-column="61" />
+          <folding>
+            <element signature="n#style#0;n#img#0;n#a#0;n#li#0;n#ul#0;n#!!top" expanded="true" />
           </folding>
         </state>
       </provider>

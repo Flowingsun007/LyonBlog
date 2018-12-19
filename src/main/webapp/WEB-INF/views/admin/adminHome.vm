@@ -17,6 +17,9 @@
     <link href="/static/css/blogHome.css" rel="stylesheet">
     <!--登录注册框样式-->
     <link href="/static/css/loginStyle.css" rel="stylesheet" type="text/css" media="all">
+    <!-- This is what you need -->
+    <script src="/static/js/sweetalert-dev.js"></script>
+    <link rel="stylesheet" href="/static/css/sweetalert.css">
     <!--blogTemplate Style-->
     <link href="/static/css/font/googleapis.css" rel="stylesheet">
     <link href="/static/css/templateBlog.css" rel="stylesheet">
@@ -63,20 +66,31 @@
             }
         });
         $("#navLogin").on('click',"#logoutButton",function(){
-            if(confirm("确定退出登录？")){
-                $.ajax({
-                    type:"GET",
-                    url:"/user/logout/check",
-                    contentType:"text/html",
-                    success:function (data) {
-                        if(data=="logout_succ"){
-                            window.location.reload();
-                        }else{alert("退出登录失败！");}
-                    }
-                });
-            }else{
-                return false;
-            }
+            swal({
+                        title: "确定退出登录？💔",
+                        type: "warning",
+                        showCancelButton: true,
+                        confirmButtonColor: "#DD6B55",
+                        confirmButtonText: "狠心退出！",
+                        closeOnConfirm: false
+                    },
+                    function(){
+                        $.ajax({
+                            type:"GET",
+                            url:"/user/logout/check",
+                            contentType:"text/html",
+                            success:function (data) {
+                                if(data=="logout_succ"){
+                                    window.location.reload();
+                                    swal({
+                                        title: "您已退出登录！",
+                                        timer: 3000,
+                                        showConfirmButton: false
+                                    });
+                                }else{alert("退出登录失败！");}
+                            }
+                        });
+                    });
         });
         var content = $("#navLoginButton").text();
         $("#navLoginButton").click(function(){
@@ -134,7 +148,7 @@
             if(options1.val()!=0){
                 $.ajax({
                     cache:true,
-                    type:"POST",
+                    type:"GET",
                     url:"/admin/categorySelect",
                     async: false,
                     data:{
@@ -166,7 +180,7 @@
             if(options1.val()!=0){
                 $.ajax({
                     cache:true,
-                    type:"POST",
+                    type:"GET",
                     url:"/admin/categorySelect",
                     async: false,
                     data:{
@@ -245,7 +259,7 @@
         if(confirm(words)){
             $.ajax({
                 cache:false,
-                type:"POST",
+                type:"GET",
                 url:"/admin/delete/batchBlog",
                 async: false,
                 data:{'articleIdStr':articleIdStr},
@@ -270,7 +284,7 @@
         if(confirm(words)){
             $.ajax({
                 cache:false,
-                type:"POST",
+                type:"GET",
                 url:"/admin/delete/oneBlog",
                 async: false,
                 data:{'articleId':value},

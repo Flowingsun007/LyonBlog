@@ -75,25 +75,31 @@
             }
         });
         $("#navLogin").on('click',"#logoutButton",function(){
-            if(confirm("确定退出登录？")){
-                $.ajax({
-                    type:"GET",
-                    url:"/user/logout/check",
-                    contentType:"text/html",
-                    success:function (data) {
-                        if(data=="logout_succ"){
-                            window.location.reload();
-                            swal({
-                                title: "您已退出登录！",
-                                timer: 3000,
-                                showConfirmButton: false
-                            });
-                        }else{alert("退出登录失败！");}
-                    }
-                });
-            }else{
-                return false;
-            }
+            swal({
+                        title: "确定退出登录？💔",
+                        type: "warning",
+                        showCancelButton: true,
+                        confirmButtonColor: "#DD6B55",
+                        confirmButtonText: "狠心退出！",
+                        closeOnConfirm: false
+                    },
+                    function(){
+                        $.ajax({
+                            type:"GET",
+                            url:"/user/logout/check",
+                            contentType:"text/html",
+                            success:function (data) {
+                                if(data=="logout_succ"){
+                                    window.location.reload();
+                                    swal({
+                                        title: "您已退出登录！",
+                                        timer: 3000,
+                                        showConfirmButton: false
+                                    });
+                                }else{alert("退出登录失败！");}
+                            }
+                        });
+                    });
         });
         var content = $("#navLoginButton").text();
         $("#navLoginButton").click(function(){
