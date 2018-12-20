@@ -305,12 +305,12 @@
             return false;
         });
 
-        // $(".submitCollect").click(function () {
-        //     var theNode = $(this);
-        //     $(theNode).children("img").attr("src","/static/image/save2.png");
-        //     swal("收藏成功😊！");
-        //     return false;
-        // });
+        $("#blogList").on("click",".submitComment",function(){
+            swal({
+                title:"(*^▽^*)请移步至评论区↓",
+                text:"博主比较懒，前端比较菜，此功能暂未开发...囧"
+            });
+        });
 
         $(".submitShare").click(function () {
             var theNode = $(this);
@@ -530,7 +530,7 @@
                                     #end
                                     </span>感谢</a>
                                 <span style="visibility: hidden">$article.id</span>
-                                <a href="javascript:void(0)"  style="margin-right:40px;color:#919191;">
+                                <a href="javascript:void(0)"  style="margin-right:40px;color:#919191;" class="submitComment">
                                     #if($article.behaviorStatus.commentStatus==1)
                                         <img class="icon" src="/static/image/comment2.png" alt="comment" width="15px;" height="15px;">
                                     #else

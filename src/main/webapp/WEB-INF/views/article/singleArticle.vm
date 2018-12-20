@@ -342,7 +342,7 @@
     };
 
     function showCommentArea() {
-        alert("此功能暂时没有开发哦亲！");
+        swal({title:"(*^▽^*)请移步至评论区↓"});
     };
 
 </script>
