@@ -191,7 +191,7 @@
     function batchResetBlogTag(){
         var inputArea = $("#inputTags");
         if($("#batchResetButton").text()=="批量更改"){
-            $("#batchResetButton").text("批量提交");
+            $("#batchResetButton").text("提交");
             $(inputArea).css("visibility","visible");
         }else{
             var test = $("input[name='checkArticle']:checked");
@@ -207,7 +207,7 @@
             })
             articlIdStr = articlIdStr.substring(0,articlIdStr.length-1);
             if(articlIdStr==""){
-                if($("#batchResetButton").text()=="批量提交"){
+                if($("#batchResetButton").text()=="提交"){
                     alert("请先选中要批量更改标签的文章！");
                     return false;
                 }
@@ -250,7 +250,7 @@
     function batchAddBlogTag(){
         var inputArea = $("#inputTags");
         if($("#batchAddButton").text()=="批量新增"){
-            $("#batchAddButton").text("批量提交");
+            $("#batchAddButton").text("提交");
             $(inputArea).css("visibility","visible");
         }else{
             var test = $("input[name='checkArticle']:checked");
@@ -266,7 +266,7 @@
             })
             articlIdStr = articlIdStr.substring(0,articlIdStr.length-1);
             if(articlIdStr==""){
-                if($("#batchAddButton").text()=="批量提交"){
+                if($("#batchAddButton").text()=="提交"){
                     alert("请先选中要批量新增标签的文章！");
                     return false;
                 }
@@ -308,7 +308,7 @@
     function batchDeleteBlogTag(){
         var inputArea = $("#inputTags");
         if($("#batchDeleteButton").text()=="批量删除"){
-            $("#batchDeleteButton").text("批量提交");
+            $("#batchDeleteButton").text("提交");
             $(inputArea).css("visibility","visible");
         }else{
             var test = $("input[name='checkArticle']:checked");
@@ -324,7 +324,7 @@
             })
             articlIdStr = articlIdStr.substring(0,articlIdStr.length-1);
             if(articlIdStr==""){
-                if($("#batchDeleteButton").text()=="批量提交"){
+                if($("#batchDeleteButton").text()=="提交"){
                     alert("请先选中要批量删除标签的文章！");
                     return false;
                 }
