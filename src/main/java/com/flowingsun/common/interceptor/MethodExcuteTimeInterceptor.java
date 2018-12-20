@@ -12,6 +12,7 @@ import org.springframework.stereotype.Component;
 @Aspect
 @Component
 public class MethodExcuteTimeInterceptor {
+
     private static Logger logger = LoggerFactory.getLogger(MethodExcuteTimeLog.class);
 
     @Pointcut("@annotation(com.flowingsun.common.annotation.MethodExcuteTimeLog)")

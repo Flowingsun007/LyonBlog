@@ -20,9 +20,6 @@ public interface ArticleService {
 
     Article getArticle(Integer id);
 
-    //准备删除的方法
-//    ArticleInfo getArticleInfo(Integer id);
-
     String createArticle(Article article);
 
     CategoryArticleQuery getCategoryArticles(Integer cId, CategoryArticleQuery categoryArticleQuery);

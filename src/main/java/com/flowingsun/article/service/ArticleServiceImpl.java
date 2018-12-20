@@ -90,17 +90,21 @@ public class ArticleServiceImpl implements ArticleService {
     @Override
     @MethodExcuteTimeLog
     public CategoryArticleQuery getCategoryArticles(Integer cId, CategoryArticleQuery queryBean) {
+
         Integer total = articleMapper.selectCategoryArticlesCount(cId);
         if(total!=null&&total>0){
             queryBean.setTotal(total);
             Integer pageSize = queryBean.getPageSize();
             Integer startNum = queryBean.getStartRow();
             List<Article> articleList = articleMapper.selectCategoryArticles(cId,startNum,pageSize);
-            articleList.forEach(article->{
-                List<ArticleTag> articleTags = articleMapper.selectArticleTagsByPrimarykey(article.getId());
-                article.setArticleTagList(articleTags);
-            });
-            queryBean.setDataList(articleList);
+//            articleList.forEach(article->{
+//                article.setArticleTagList(articleMapper.selectArticleTagsByPrimarykey(article.getId()));
+//            });
+            List<Article> results = articleList.parallelStream().map(article->{
+                article.setArticleTagList(articleMapper.selectArticleTagsByPrimarykey(article.getId()));
+                return article;
+            }).collect(Collectors.toList());
+            queryBean.setDataList(results);
         }else{//对应cid下没有文章
             queryBean.setTotal(0);
         }
