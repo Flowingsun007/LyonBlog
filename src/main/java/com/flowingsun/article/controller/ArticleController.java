@@ -44,6 +44,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 
@@ -56,6 +58,8 @@ public class ArticleController {
 
     @Autowired
     private BehaviorService behaviorService;
+
+    ExecutorService executorService = Executors.newFixedThreadPool(2);
 
     private final String UPLOAD_IMAGE_PATH = "/static/uploadBlogFile/image";
 
@@ -201,9 +205,9 @@ public class ArticleController {
 
     @GetMapping("/json/category")
     public String jsonCategoryArticle(@RequestParam("cId") Integer cId,
-                                  @RequestParam(value="pageNum",required=false,defaultValue = "1")Integer pageNum,
-                                  @RequestParam(value="pageSize",required=false,defaultValue = "10")Integer pageSize,
-                                  Model model) throws IOException {
+                                      @RequestParam(value="pageNum",required=false,defaultValue = "1")Integer pageNum,
+                                      @RequestParam(value="pageSize",required=false,defaultValue = "10")Integer pageSize,
+                                      Model model) throws IOException {
         CategoryArticleQuery queryBean = new CategoryArticleQuery();
         queryBean.setPageSize(pageSize);
         queryBean.setPageNum(pageNum);
@@ -244,16 +248,16 @@ public class ArticleController {
             @RequestParam(value="pageNum",required=false,defaultValue = "1")Integer pageNum,
             @RequestParam(value="pageSize",required=false,defaultValue = "10")Integer pageSize,
             Model model){
+        Long userId = (Long)SecurityUtils.getSubject().getSession().getAttribute("userId");
         CategoryArticleQuery queryBean = new CategoryArticleQuery();
         queryBean.setPageSize(pageSize);
         queryBean.setPageNum(pageNum);
         queryBean.setcId(cId);
         List<Category> categorys = articleService.getCategory();
-        CategoryArticleQuery categoryArticleQuery = articleService.getCategoryArticles(cId,queryBean);
-        model.addAttribute("categorys",categorys);
-        Long userId = (Long)SecurityUtils.getSubject().getSession().getAttribute("userId");
         List<ArticleTag> allTags = articleService.selectAllTag();
         BlogInfo blogInfo = articleService.selectInfomation();
+        CategoryArticleQuery categoryArticleQuery = articleService.getCategoryArticles(cId,queryBean);
+        model.addAttribute("categorys",categorys);
         model.addAttribute("allTags",allTags);
         model.addAttribute("blogInfo",blogInfo);
         model.addAttribute("pageQueryBean",categoryArticleQuery);
