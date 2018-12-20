@@ -20,6 +20,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import java.sql.Timestamp;
 import java.util.*;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
@@ -28,6 +30,8 @@ import java.util.stream.Collectors;
 public class ArticleServiceImpl implements ArticleService {
 
     private static Logger logger = LoggerFactory.getLogger(ArticleServiceImpl.class);
+
+    ExecutorService executorService = Executors.newFixedThreadPool(3);
 
     private static final Integer SUCCESS=1;
 
@@ -97,14 +101,14 @@ public class ArticleServiceImpl implements ArticleService {
             Integer pageSize = queryBean.getPageSize();
             Integer startNum = queryBean.getStartRow();
             List<Article> articleList = articleMapper.selectCategoryArticles(cId,startNum,pageSize);
-//            articleList.forEach(article->{
-//                article.setArticleTagList(articleMapper.selectArticleTagsByPrimarykey(article.getId()));
-//            });
-            List<Article> results = articleList.parallelStream().map(article->{
+            articleList.forEach(article->{
                 article.setArticleTagList(articleMapper.selectArticleTagsByPrimarykey(article.getId()));
-                return article;
-            }).collect(Collectors.toList());
-            queryBean.setDataList(results);
+            });
+//            List<Article> results = articleList.parallelStream().map(article->{
+//                article.setArticleTagList(articleMapper.selectArticleTagsByPrimarykey(article.getId()));
+//                return article;
+//            }).collect(Collectors.toList());
+            queryBean.setDataList(articleList);
         }else{//对应cid下没有文章
             queryBean.setTotal(0);
         }
@@ -534,11 +538,18 @@ public class ArticleServiceImpl implements ArticleService {
             article.setEditDate(dateTime);
             List<ArticleTag> tags = articleMapper.selectArticleTagsByPrimarykey(articleId);
             //清除该文章之前创建的所有标签
-            for(int i=0; i<tags.size(); i++){
-                ArticleTag tag = tags.get(i);
-                if(1==articleMapper.deleteTagRelation(articleId, tag.getTagId())&&0==articleMapper.selectTagCountByTagId(tag.getTagId())){
-                    articleMapper.deleteTagByTagId(tag.getTagId());
-                }
+//            for(int i=0; i<tags.size(); i++){
+//                ArticleTag tag = tags.get(i);
+//                if(1==articleMapper.deleteTagRelation(articleId, tag.getTagId())&&0==articleMapper.selectTagCountByTagId(tag.getTagId())){
+//                    articleMapper.deleteTagByTagId(tag.getTagId());
+//                }
+//            }
+            for(ArticleTag tag:tags){
+                executorService.execute(()->{
+                    if(1==articleMapper.deleteTagRelation(articleId, tag.getTagId())&&0==articleMapper.selectTagCountByTagId(tag.getTagId())){
+                        articleMapper.deleteTagByTagId(tag.getTagId());
+                    }
+                });
             }
             //给该文章逐个添加新标签
             String[] taglist = article.getArticleTags().split(",");
