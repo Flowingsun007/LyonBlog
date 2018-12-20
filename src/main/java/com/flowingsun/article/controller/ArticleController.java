@@ -85,7 +85,7 @@ public class ArticleController {
      * content  +    key
      */
     //@RequiresPermissions("behavior:elasticSearch")
-    @RequestMapping("/elastic/category")
+    @GetMapping("/elastic/category")
     public String elasticCategorySearch(Model model,@RequestParam(value="keywords")String keywords)throws IOException{
         RestHighLevelClient client = new RestHighLevelClient(
                 RestClient.builder(
@@ -181,7 +181,7 @@ public class ArticleController {
                 articleList.add(article);
             }
         }catch (Exception f){
-            System.out.println("-------------------------------------------搜索结果为空或异常\n-------------------------------------------");
+            System.out.println("\n-------------------------------------------搜索结果为空或异常-------------------------------------------\n"+f.toString());
         }
 
         List<ArticleTag> allTags = articleService.selectAllTag();
@@ -199,7 +199,7 @@ public class ArticleController {
 
     }
 
-    @RequestMapping("/json/category")
+    @GetMapping("/json/category")
     public String jsonCategoryArticle(@RequestParam("cId") Integer cId,
                                   @RequestParam(value="pageNum",required=false,defaultValue = "1")Integer pageNum,
                                   @RequestParam(value="pageSize",required=false,defaultValue = "10")Integer pageSize,
@@ -238,7 +238,7 @@ public class ArticleController {
      *@Return java.lang.String
      *@Description 根据cid查询分类文章,pageNum和pageSize是页面传参,是分页查询的参数,默认从第一页开始,每页显示10条
      */
-    @RequestMapping("/category")
+    @GetMapping("/category")
     public String categoryArticle(
             @RequestParam("cId") Integer cId,
             @RequestParam(value="pageNum",required=false,defaultValue = "1")Integer pageNum,
@@ -264,7 +264,7 @@ public class ArticleController {
         return "/article/categoryArticle";
     }
 
-    @RequestMapping("/json/single")
+    @GetMapping("/json/single")
     public String jsonSingleArticle(@RequestParam("articleId") Integer articleId,Model model){
         List<Category> categorys = articleService.getCategory();
         model.addAttribute("categorys",categorys);
@@ -296,7 +296,7 @@ public class ArticleController {
      *@Return java.lang.String
      *@Description 浏览某一篇文章
      */
-    @RequestMapping("/single")
+    @GetMapping("/single")
     public String singleArticle(@RequestParam("articleId") Integer articleId,Model model){
         List<Category> categorys = articleService.getCategory();
         model.addAttribute("categorys",categorys);
@@ -320,7 +320,7 @@ public class ArticleController {
     }
 
     @RequiresPermissions("article:changeCategory")
-    @RequestMapping("/changeCategory")
+    @PostMapping("/changeCategory")
     @ResponseBody
     public String changeArticleCategory(@RequestBody Category articles){
         return articleService.changeArticleCategory(articles);
@@ -331,7 +331,7 @@ public class ArticleController {
      *@Return java.lang.String
      *@Description 浏览某个文章标签
      */
-    @RequestMapping("/tag")
+    @GetMapping("/tag")
     public String tagArticle(@RequestParam("tagId") Integer tagId,
                              @RequestParam(value="pageNum",required=false,defaultValue = "1")Integer pageNum,
                              @RequestParam(value="pageSize",required=false,defaultValue = "10")Integer pageSize,
@@ -357,10 +357,10 @@ public class ArticleController {
      *@Description 写Blog文章时上传图片
      */
     //@RequiresPermissions("admin:home")
-    @RequestMapping("/uploadBlogFile")
+    @PostMapping("/uploadBlogFile")
     public void uploadArticleImage(HttpServletRequest request, HttpServletResponse response, @RequestParam(value = "editormd-image-file", required = false)MultipartFile attach){
         try {
-            request.setCharacterEncoding( "UTF-8" );
+            request.setCharacterEncoding("utf-8");
             response.setHeader( "Content-Type" , "text/html" );
             String fileName = attach.getOriginalFilename();
             String rootPath = request.getSession().getServletContext().getRealPath(UPLOAD_IMAGE_PATH);

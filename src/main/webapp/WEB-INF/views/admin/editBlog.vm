@@ -9,15 +9,15 @@
     <link href="/static/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Custom styles for this template -->
     <link href="/static/css/blogHome.css" rel="stylesheet">
-    <link rel="stylesheet" href="/static/css/writeBlog.css" />
+    <link rel="stylesheet" href="/static/css/writeBlog.css"/>
     <!-- This is what you need -->
     <script src="/static/js/sweetalert-dev.js"></script>
     <link rel="stylesheet" href="/static/css/sweetalert.css">
     <!--Editormd-->
-    <link rel="stylesheet" href="/static/Editormd/css/editormd.min.css" />
-    <link rel="shortcut icon" href="https://pandao.github.io/editor.md/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="/static/Editormd/css/editormd.min.css"/>
+    <link rel="shortcut icon" href="https://pandao.github.io/editor.md/favicon.ico" type="image/x-icon"/>
     <!-- Bootstrap related Jquery -->
-    <script src="/static/jquery/jquery-2.2.3.min.js" ></script>
+    <script src="/static/jquery/jquery-2.2.3.min.js"></script>
     <!-- Bootstrap core JavaScript-->
     <!--================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
@@ -28,77 +28,77 @@
 </head>
 <body>
 <script type="text/javascript">
-    $(function(){
-        $("#inputnewTag").keyup(function(e){
-            if(e.keyCode == 13){
+    $(function () {
+        $("#inputnewTag").keyup(function (e) {
+            if (e.keyCode == 13) {
                 var value = $("#inputnewTag").val();
                 $("#addnewTag").click();
             }
         });
 
-        $("#tagDiv").on("click","#addnewTag",function() {
+        $("#tagDiv").on("click", "#addnewTag", function () {
             var tagName = $('#inputnewTag').val();
-            if (tagName==''){
+            if (tagName == '') {
                 swal("请输入标签内容😶！");
                 return false;
-            }else{
+            } else {
                 $('#inputnewTag').val('');
                 var newTag = document.createElement("a");
                 var farther = document.getElementById('tagDiv');
                 newTag.setAttribute("class", "anewTag");
                 newTag.setAttribute("title", tagName);
                 newTag.setAttribute("style", "margin-left: 8px;");
-                newTag.innerHTML = '<span type="button" class="btn btn-success btn-sm" style="font-size: 13px;background-color:#555;">'+tagName+'</span><button type="button" id="closeTag" style="display: none"  class="close" aria-label="Close"><span aria-hidden="true" style="color: #FF0000">&times;</span></button>';
+                newTag.innerHTML = '<span type="button" class="btn btn-success btn-sm" style="font-size: 13px;background-color:#555;">' + tagName + '</span><button type="button" id="closeTag" style="display: none"  class="close" aria-label="Close"><span aria-hidden="true" style="color: #FF0000">&times;</span></button>';
                 farther.appendChild(newTag);
             }
         });
 
 
-        $('#tagDiv').on("mouseenter",".anewTag",function(){
+        $('#tagDiv').on("mouseenter", ".anewTag", function () {
             var a = $(this).children('span');
             var b = $(this).children('button');
-            a.css("color","#8175ff");
-            a.css("background-color","");
-            b.css("display","block");
+            a.css("color", "#8175ff");
+            a.css("background-color", "");
+            b.css("display", "block");
         });
-        $('#tagDiv').on("mouseleave",".anewTag",function(){
+        $('#tagDiv').on("mouseleave", ".anewTag", function () {
             var a = $(this).children('span');
             var b = $(this).children('button');
-            a.css("color","#f6fffc");
-            a.css("background-color","#555");
-            b.css("display","none");
+            a.css("color", "#f6fffc");
+            a.css("background-color", "#555");
+            b.css("display", "none");
         });
-        $('#tagDiv').on("click","#closeTag",function(){
+        $('#tagDiv').on("click", "#closeTag", function () {
             var mother = $(this).parents('.anewTag');
             mother.remove();
         });
 
-        $('#blogMainCat').change(function(){
+        $('#blogMainCat').change(function () {
             var select1 = $('#blogMainCat');
             var select2 = $('#blogSecondCat');
             var options1 = $('#blogMainCat option:selected');
             var options2 = $('#blogSecondCat option:selected');
-            if(options1.val()!=0){
+            if (options1.val() != 0) {
                 $.ajax({
-                    cache:true,
-                    type:"POST",
-                    url:"/admin/categorySelect",
+                    cache: true,
+                    type: "POST",
+                    url: "/admin/categorySelect",
                     async: false,
-                    data:{
-                        'mId':options1.val()
+                    data: {
+                        'mId': options1.val()
                     },
-                    dataType:'text',
-                    error:function(request){
-                        alert("💔登录失败：Connection error:"+request.error);
+                    dataType: 'text',
+                    error: function (request) {
+                        alert("💔登录失败：Connection error:" + request.error);
                     },
-                    success:function(data) {
+                    success: function (data) {
                         select2.children().remove();
                         var result = data.split(";");
-                        for(var i=0;i<result.length;i++){
+                        for (var i = 0; i < result.length; i++) {
                             var alist = result[i].split(":");
                             var cId = alist[0];
                             var cidName = alist[1];
-                            select2.append('<option value="'+cId+'">'+cidName+'</option>');
+                            select2.append('<option value="' + cId + '">' + cidName + '</option>');
                         }
                     }
                 });
@@ -108,7 +108,7 @@
     })
 </script>
 <script type="text/javascript">
-    function submitCheck(){
+    function submitCheck() {
         // a,b,c,d,e,f,g分别为文章标题，文章摘要，文章主分类id，文章二级分类id，文章HTML内容,文章markdown原文,文章标签(以tag1,tag2,...字符串形式返回))
         var id = $article.getId();
         var a = $('#blogTitle').val();
@@ -119,15 +119,15 @@
         var f = $(".editormd-markdown-textarea").val(); // 获取左侧编辑区里markdown格式的内容
         var taglist = [];
         var tags = document.getElementsByClassName("anewTag");
-        for(var i = 0; i < tags.length; i++){
+        for (var i = 0; i < tags.length; i++) {
             taglist.push(tags[i].getAttribute('title'));
         }
-        if ((a=='')||(b=='')||(taglist.length==0)){
+        if ((a == '') || (b == '') || (taglist.length == 0)) {
             swal("文章标题、摘要、标签均不能为空！！！");
             return false;
-        }else{
+        } else {
             var g = taglist.join();
-            var tt = "您创建了"+taglist.length+"个标签：";
+            var tt = "您创建了" + taglist.length + "个标签：";
             swal({
                 title: tt,
                 text: g,
@@ -135,26 +135,35 @@
                 showConfirmButton: false
             });
             //alert("您创建了"+taglist.length+"个标签：" + g);
-            if (e==''||f==''){
+            if (e == '' || f == '') {
                 swal("亲，请填写文章内容，不能提交空文章😶！");
                 return false;
-            }else{
-                if(confirm('确定提交编辑么？')) {
+            } else {
+                if (confirm('确定提交编辑么？')) {
                     $.ajax({
-                        type:"POST",
+                        type: "POST",
                         contentType: "application/json",
-                        url:"/admin/editBlog/submit",
-                        data:JSON.stringify({"id":id,"articleTitle":a,"articleAbstract":b,"articleMainId":c,"articleSecondId":d,"articleContent":e,"articleContentCopy":f,"articleTags":g}),
-                        success:function (data) {
-                            if(data=="edit_blog_success"){
+                        url: "/admin/editBlog/submit",
+                        data: JSON.stringify({
+                            "id": id,
+                            "articleTitle": a,
+                            "articleAbstract": b,
+                            "articleMainId": c,
+                            "articleSecondId": d,
+                            "articleContent": e,
+                            "articleContentCopy": f,
+                            "articleTags": g
+                        }),
+                        success: function (data) {
+                            if (data == "edit_blog_success") {
                                 swal("文章编辑成功😊！");
-                            } else if(data=="edit_blog_fail"){
+                            } else if (data == "edit_blog_fail") {
                                 swal("文章编辑失败😊！");
                             }
                         }
                     });
                     return false;
-                }else{
+                } else {
                     return false;
                 }
             }
@@ -166,73 +175,78 @@
 <hr>
 
 <main role="main" class="container">
-<div class="row">
-    <div class="col-md-12 blog-main">
+    <div class="row">
+        <div class="col-md-12 blog-main">
 
-        <div class="blog-post">
-            <div>
-                <h2 class="blog-post-title"><a href="/article/single?articleId=$article.getId()">$article.getArticleTitle()</a></h2>
-                <p><span style="font-size:12px;font-family:Vincent;font-weight:100;color:#66CDAA;">文章分类:</span>
-                    <span>$article.getMainCategoryName()-></span>
-                    <a  href="/article/category?cId=$article.getArticleSecondId()">$article.getSecondCategoryName()</a>
-                </p>
-                <span id="articleMainId" style="visibility: hidden">$article.getArticleMainId()</span>
-                <span id="articleSecondId" style="visibility: hidden">$article.getArticleSecondId()</span>
+            <div class="blog-post">
                 <div>
-                    <h3 class="font-italic" style="color:#9F79EE;font-size:15px">Tags:
-                        #set($tags = $article.getArticleTagList())
-                        #foreach($tag in $!{tags})
-                            <a href="/article/tag?tagId=$tag.tagId">$tag.tagName</a>
-                        #end
-                    </h3>
-                    <p>Lyon 创建于：<span> $!date.format('yyyy-MM-dd HH:mm',$!article.getCreateDate())</span></p>
+                    <h2 class="blog-post-title"><a
+                            href="/article/single?articleId=$article.getId()">$article.getArticleTitle()</a></h2>
+                    <p><span style="font-size:12px;font-family:Vincent;font-weight:100;color:#66CDAA;">文章分类:</span>
+                        <span>$article.getMainCategoryName()-></span>
+                        <a href="/article/category?cId=$article.getArticleSecondId()">$article.getSecondCategoryName()</a>
+                    </p>
+                    <span id="articleMainId" style="visibility: hidden">$article.getArticleMainId()</span>
+                    <span id="articleSecondId" style="visibility: hidden">$article.getArticleSecondId()</span>
+                    <div>
+                        <h3 class="font-italic" style="color:#9F79EE;font-size:15px">Tags:
+                            #set($tags = $article.getArticleTagList())
+                            #foreach($tag in $!{tags})
+                                <a href="/article/tag?tagId=$tag.tagId">$tag.tagName</a>
+                            #end
+                        </h3>
+                        <p>Lyon 创建于：<span> $!date.format('yyyy-MM-dd HH:mm',$!article.getCreateDate())</span></p>
+                    </div>
+
                 </div>
 
-            </div>
+
+            </div><!-- /.blog-post -->
 
 
+            <div class="linkandshare-mainarticle">
 
-        </div><!-- /.blog-post -->
-
-
-
-        <div class="linkandshare-mainarticle">
-
-            <a href="javascript:void(0)" onclick="submitThank()" style="margin-right:30px;color:#919191;" class="submitThank" id="submitThank">
-                #if($article.getBehaviorStatus().getThankStatus()==1)
-                    <img class="icon" src="/static/image/thank2.png" alt="thank" width="15px;" height="15px;">
-                #else
-                    <img class="icon" src="/static/image/thank1.png" alt="thank" width="15px;" height="15px;">
-                #end
-                <span id="thankNum">
-                    #if(!$article.getArticleThank())
-                                0
+                <a href="javascript:void(0)" onclick="submitThank()" style="margin-right:30px;color:#919191;"
+                   class="submitThank" id="submitThank">
+                    #if($article.getBehaviorStatus().getThankStatus()==1)
+                        <img class="icon" src="/static/image/thank2.png" alt="thank" width="15px;" height="15px;">
                     #else
-                        $article.getArticleThank()
-                    #end</span>感谢</a>
-
-
-        ##                        <img class="icon" src="/static/open-iconic/svg/comment-square.svg" alt="comment-square">
-            <a href="javascript:void(0)" onclick="showCommentArea()" style="margin-right:40px;color:#919191;" id="commentIcon">
-                #if($article.getBehaviorStatus().getCommentStatus()==1)
-                    <img class="icon" src="/static/image/comment2.png" alt="comment" width="15px;" height="15px;">
-                #else
-                    <img class="icon" src="/static/image/comment1.png" alt="comment" width="15px;" height="15px;">
-                #end
-                <span>
-                    #if(!$article.getArticleComment())
-                                0
-                    #else
-                        $article.getArticleComment()
+                        <img class="icon" src="/static/image/thank1.png" alt="thank" width="15px;" height="15px;">
                     #end
-                </span>评论</a>
+                    <span id="thankNum">
+                        #if(!$article.getArticleThank())
+                                0
+                        #else
+                            $article.getArticleThank()
+                        #end</span>感谢</a>
 
 
-            <a href="" style="margin-right:40px;color:#919191;" id="submitSave"><img class="icon" src="/static/image/save1.png" alt="star" width="17px;" height="17px;" >收藏</a>
-            <a href=""  style="color:#919191;" id="submitShare"><img class="icon" src="/static/image/share1.png" alt="share" width="15px;" height="15px;">分享</a>
-        </div>
-    </div><!-- /.blog-main -->
-</div><!-- /.row -->
+            ##                        <img class="icon" src="/static/open-iconic/svg/comment-square.svg" alt="comment-square">
+                <a href="javascript:void(0)" onclick="showCommentArea()" style="margin-right:40px;color:#919191;"
+                   id="commentIcon">
+                    #if($article.getBehaviorStatus().getCommentStatus()==1)
+                        <img class="icon" src="/static/image/comment2.png" alt="comment" width="15px;" height="15px;">
+                    #else
+                        <img class="icon" src="/static/image/comment1.png" alt="comment" width="15px;" height="15px;">
+                    #end
+                    <span>
+                        #if(!$article.getArticleComment())
+                                0
+                        #else
+                            $article.getArticleComment()
+                        #end
+                    </span>评论</a>
+
+
+                <a href="" style="margin-right:40px;color:#919191;" id="submitSave"><img class="icon"
+                                                                                         src="/static/image/save1.png"
+                                                                                         alt="star" width="17px;"
+                                                                                         height="17px;">收藏</a>
+                <a href="" style="color:#919191;" id="submitShare"><img class="icon" src="/static/image/share1.png"
+                                                                        alt="share" width="15px;" height="15px;">分享</a>
+            </div>
+        </div><!-- /.blog-main -->
+    </div><!-- /.row -->
 </main>
 
 <div id="layout">
@@ -243,18 +257,24 @@
 
                     <form id="submitForm" action="/article/submit">
                         <div class="form-group">
-                            <p style='font-family: STXingkai,"Playfair Display", Georgia, "Times New Roman", serif;font-size: 25px;font-weight: lighter'>文章标题</p>
-                            <input type="text" class="form-control" id="blogTitle" value="$article.articleTitle"  style="background-color:#E6E6FA">
+                            <p style='font-family: STXingkai,"Playfair Display", Georgia, "Times New Roman", serif;font-size: 25px;font-weight: lighter'>
+                                文章标题</p>
+                            <input type="text" class="form-control" id="blogTitle" value="$article.articleTitle"
+                                   style="background-color:#E6E6FA">
                         </div>
                         <div class="form-group">
-                            <p style='font-family: STXingkai,"Playfair Display", Georgia, "Times New Roman", serif;font-size: 25px;font-weight: lighter'>摘要</p>
-                            <input type="text" class="form-control" id="blogSubtitle" value="$article.articleAbstract" style="background-color:#E6E6FA">
+                            <p style='font-family: STXingkai,"Playfair Display", Georgia, "Times New Roman", serif;font-size: 25px;font-weight: lighter'>
+                                摘要</p>
+                            <input type="text" class="form-control" id="blogSubtitle" value="$article.articleAbstract"
+                                   style="background-color:#E6E6FA">
                         </div>
 
                         <div class="form-row">
-                            <label for="staticEmail" class="col-sm-2 col-form-label" style='font-family: STXingkai;font-size: 16px;'>主分类</label>
+                            <label for="staticEmail" class="col-sm-2 col-form-label"
+                                   style='font-family: STXingkai;font-size: 16px;'>主分类</label>
                             <div class="form-group col-md-4">
-                                <select id="blogMainCat" class="form-control" style="background-color:#E0EEEE;margin-left: -80px;">
+                                <select id="blogMainCat" class="form-control"
+                                        style="background-color:#E0EEEE;margin-left: -80px;">
                                     #foreach($maincat in $!categoryChoice.getMainCategorys())
                                         #foreach($item in ${maincat.entrySet()})
                                             #if($item.key==$article.articleMainId)
@@ -266,7 +286,8 @@
                                     #end
                                 </select>
                             </div>
-                            <label for="staticEmail" class="col-sm-2 col-form-label" style='font-family: STXingkai;font-size: 16px;'>二级分类</label>
+                            <label for="staticEmail" class="col-sm-2 col-form-label"
+                                   style='font-family: STXingkai;font-size: 16px;'>二级分类</label>
                             <div class="form-group col-md-4">
                                 <select id="blogSecondCat" class="form-control" style="background-color:#E0EEEE;">
                                     #foreach($secondcat in $!categoryChoice.getSecondCategorys())
@@ -283,21 +304,31 @@
                         </div>
                         <div class="form-group">
                             <div class="form-check">
-                                <button type="submit" class="btn btn-primary " id="submitBlog" style="color: #ffffff;background-color: #FF0000;float: right" onclick="return submitCheck()">🙂提交文章</button>
+                                <button type="submit" class="btn btn-primary " id="submitBlog"
+                                        style="color: #ffffff;background-color: #FF0000;float: right"
+                                        onclick="return submitCheck()">🙂提交文章
+                                </button>
                             </div>
                         </div>
                     </form>
 
-                    <div class="form-row" id="tagDiv" >
-                        <label for="staticEmail" class="col-sm-2 col-form-label" style='font-family: STXingkai;font-size: 16px;'>标 签</label>
+                    <div class="form-row" id="tagDiv">
+                        <label for="staticEmail" class="col-sm-2 col-form-label"
+                               style='font-family: STXingkai;font-size: 16px;'>标 签</label>
                         <div class="form-group col-md-3">
-                            <input type="text"  name="tags"  class="form-control" id="inputnewTag"  placeholder="Tags" style="background-color:#E0EEEE;margin-left: -62px;">
+                            <input type="text" name="tags" class="form-control" id="inputnewTag" placeholder="Tags"
+                                   style="background-color:#E0EEEE;margin-left: -62px;">
                         </div>
-                        <a href="javascript:void(0);"  id="addnewTag" class="btn btn-primary btn-group-lg" name="addnewTag" style="height:35px;width:60px;background-color: #1A8BE8;margin-left: -50px;">新  增</a>
+                        <a href="javascript:void(0);" id="addnewTag" class="btn btn-primary btn-group-lg"
+                           name="addnewTag"
+                           style="height:35px;width:60px;background-color: #1A8BE8;margin-left: -50px;">新 增</a>
                         #foreach($tag in $!article.articleTagList)
                             <a class="anewTag" title="$tag.tagName" style="margin-left: 8px">
-                                <span type="button" class="btn btn-success btn-sm" style="font-size: 13px;background-color:#555;">$tag.tagName</span>
-                                <button type="button" id="closeTag" style="display: none"  class="close" aria-label="Close"><span aria-hidden="true" style="color: #FF0000">&times;</span></button>
+                                <span type="button" class="btn btn-success btn-sm"
+                                      style="font-size: 13px;background-color:#555;">$tag.tagName</span>
+                                <button type="button" id="closeTag" style="display: none" class="close"
+                                        aria-label="Close"><span aria-hidden="true"
+                                                                 style="color: #FF0000">&times;</span></button>
                             </a>
                         #end
                     </div>
@@ -337,103 +368,104 @@
 
     </div>
 
-<script src="/static/Editormd/examples/js/jquery.min.js"></script>
-<script src="/static/Editormd/editormd.min.js"></script>
-<script src="/static/Editormd/editormd.js" ></script>
-<script>
-    $(function(){
-        var testoriginBlog;
-        $("#insertBlog").click(function(){
-            var content = $("#originBlog").text();
-            testEditor.insertValue(content);可以将内容插入左侧编辑区
-            //$(".editormd-preview-container").html(content); 可以将内容插入右侧预览区
+    <script src="/static/Editormd/examples/js/jquery.min.js"></script>
+    <script src="/static/Editormd/editormd.min.js"></script>
+    <script src="/static/Editormd/editormd.js"></script>
+    <script>
+        $(function () {
+            var testoriginBlog;
+            $("#insertBlog").click(function () {
+                var content = $("#originBlog").text();
+                testEditor.insertValue(content);
+                可以将内容插入左侧编辑区
+                //$(".editormd-preview-container").html(content); 可以将内容插入右侧预览区
 
+            });
         });
-    });
-</script>
-<script type="text/javascript">
-    var testEditor;
+    </script>
+    <script type="text/javascript">
+        var testEditor;
 
-    $(function() {
-        testEditor = editormd({
-            id      : "test-editormd",
-            width   : "90%",
-            height  : 640,
-            syncScrolling : "single",
-            path    : "/static/Editormd/lib/",
-            previewTheme: "dark",
-            imageUpload : true,
-            imageFormats : ["jpg", "jpeg", "gif", "png", "bmp", "webp"],
-            imageUploadURL : "/article/uploadBlogFile",
-            codeFold : true,
-            saveHTMLToTextarea : true,    //将html存入第二个textarea中以方便提交表单
-            emoji : true,
-            taskList : true,
-            tocm: false,                   // Using [TOCM]自动生成左侧内容导航栏
-            tex : true,                   // 开启科学公式TeX语言支持，默认关闭
-            flowChart : true,             // 开启流程图支持，默认关闭
-            sequenceDiagram : true,       // 开启时序/序列图支持，默认关闭,
+        $(function () {
+            testEditor = editormd({
+                id: "test-editormd",
+                width: "90%",
+                height: 640,
+                syncScrolling: "single",
+                path: "/static/Editormd/lib/",
+                previewTheme: "dark",
+                imageUpload: true,
+                imageFormats: ["jpg", "jpeg", "gif", "png", "bmp", "webp"],
+                imageUploadURL: "/article/uploadBlogFile",
+                codeFold: true,
+                saveHTMLToTextarea: true,    //将html存入第二个textarea中以方便提交表单
+                emoji: true,
+                taskList: true,
+                tocm: false,                   // Using [TOCM]自动生成左侧内容导航栏
+                tex: true,                   // 开启科学公式TeX语言支持，默认关闭
+                flowChart: true,             // 开启流程图支持，默认关闭
+                sequenceDiagram: true,       // 开启时序/序列图支持，默认关闭,
 
 
-        });
+            });
 
-        $("#goto-line-btn").bind("click", function(){
-            testEditor.gotoLine(90);
-        });
+            $("#goto-line-btn").bind("click", function () {
+                testEditor.gotoLine(90);
+            });
 
-        $("#show-btn").bind('click', function(){
-            testEditor.show();
-        });
+            $("#show-btn").bind('click', function () {
+                testEditor.show();
+            });
 
-        $("#hide-btn").bind('click', function(){
-            testEditor.hide();
-        });
+            $("#hide-btn").bind('click', function () {
+                testEditor.hide();
+            });
 
-        $("#get-md-btn").bind('click', function(){
-            alert(testEditor.getMarkdown());
-        });
+            $("#get-md-btn").bind('click', function () {
+                alert(testEditor.getMarkdown());
+            });
 
-        $("#get-html-btn").bind('click', function() {
-            alert(testEditor.getHTML());
-        });
+            $("#get-html-btn").bind('click', function () {
+                alert(testEditor.getHTML());
+            });
 
-        $("#watch-btn").bind('click', function() {
-            testEditor.watch();
-        });
+            $("#watch-btn").bind('click', function () {
+                testEditor.watch();
+            });
 
-        $("#unwatch-btn").bind('click', function() {
-            testEditor.unwatch();
-        });
+            $("#unwatch-btn").bind('click', function () {
+                testEditor.unwatch();
+            });
 
-        $("#preview-btn").bind('click', function() {
-            testEditor.previewing();
-        });
+            $("#preview-btn").bind('click', function () {
+                testEditor.previewing();
+            });
 
-        $("#fullscreen-btn").bind('click', function() {
-            testEditor.fullscreen();
-        });
+            $("#fullscreen-btn").bind('click', function () {
+                testEditor.fullscreen();
+            });
 
-        $("#show-toolbar-btn").bind('click', function() {
-            testEditor.showToolbar();
-        });
+            $("#show-toolbar-btn").bind('click', function () {
+                testEditor.showToolbar();
+            });
 
-        $("#close-toolbar-btn").bind('click', function() {
-            testEditor.hideToolbar();
-        });
+            $("#close-toolbar-btn").bind('click', function () {
+                testEditor.hideToolbar();
+            });
 
-        $("#toc-menu-btn").click(function(){
-            testEditor.config({
-                tocDropdown   : true,
-                tocTitle      : "目录 Table of Contents",
+            $("#toc-menu-btn").click(function () {
+                testEditor.config({
+                    tocDropdown: true,
+                    tocTitle: "目录 Table of Contents",
+                });
+            });
+
+            $("#toc-default-btn").click(function () {
+                testEditor.config("tocDropdown", false);
             });
         });
 
-        $("#toc-default-btn").click(function() {
-            testEditor.config("tocDropdown", false);
-        });
-    });
-
-</script>
+    </script>
 
 
 </body>

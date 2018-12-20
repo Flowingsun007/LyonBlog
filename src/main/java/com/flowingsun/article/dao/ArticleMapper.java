@@ -7,7 +7,6 @@ import org.springframework.stereotype.Component;
 
 
 import java.util.List;
-import java.util.Map;
 @Component
 public interface ArticleMapper {
 
@@ -45,9 +44,9 @@ public interface ArticleMapper {
 
     String selectSecondCategoryNameById(Integer id);
 
-    List<Article> selectCategoryArticles(@Param("cId") Integer cId,@Param("startNum")Integer pageNum,@Param("pageSize")Integer pageSize);
+    List<Article> selectCategoryArticles(@Param("cId") Integer cId, @Param("startNum") Integer pageNum, @Param("pageSize") Integer pageSize);
 
-    List<Article> selectTagArticles(@Param("tagId") Integer tagId,@Param("startNum")Integer pageNum,@Param("pageSize")Integer pageSize);
+    List<Article> selectTagArticles(@Param("tagId") Integer tagId, @Param("startNum") Integer pageNum, @Param("pageSize") Integer pageSize);
 
     List<Category> selectSecondCatogoryByMid(Integer mId);
 
@@ -63,7 +62,7 @@ public interface ArticleMapper {
 
     Integer selectTagCountByTagId(Integer tagId);
 
-    Integer deleteTagRelation(@Param("articleId")Integer articleId, @Param("tagId")Integer tagId);
+    Integer deleteTagRelation(@Param("articleId") Integer articleId, @Param("tagId") Integer tagId);
 
     Integer deleteTagByTagId(Integer tagId);
 

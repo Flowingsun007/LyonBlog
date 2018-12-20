@@ -14,17 +14,17 @@ public interface BehaviorService {
 
     String setComment(Comment commentBean, HttpServletRequest request);
 
-    String setThank(Thank thankBean,HttpServletRequest request);
+    String setThank(Thank thankBean, HttpServletRequest request);
 
     String setCommentLike(CommentLike commentLikeBean, HttpServletRequest request);
 
     boolean saveUserImage(Picture picture);
 
-    String imageUpload(MultipartHttpServletRequest request,String description);
+    String imageUpload(MultipartHttpServletRequest request, String description);
 
     PictureQuery getUserImages(PictureQuery pictureQuery) throws ParseException;
 
-    Article getUserArticleBehavior(Article article,Long userId);
+    Article getUserArticleBehavior(Article article, Long userId);
 
     CategoryArticleQuery getUserCategoryArticleBehavior(CategoryArticleQuery categoryArticleQuery, Long userId);
 

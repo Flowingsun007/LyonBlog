@@ -27,35 +27,35 @@
     <!-- Theme style -->
     <link rel="stylesheet" href="/static/styleTemplate/dist/css/AdminLTE.min.css">
     <!--Editormd-->
-    <link rel="stylesheet" href="/static/Editormd/css/editormd.preview.min.css" />
-    <link rel="stylesheet" href="/static/Editormd/css/editormd.min.css" />
+    <link rel="stylesheet" href="/static/Editormd/css/editormd.preview.min.css"/>
+    <link rel="stylesheet" href="/static/Editormd/css/editormd.min.css"/>
     <!--博客模板来源于bootstarp4.0：https://getbootstrap.com/docs/4.0/examples/blog-->
     <!--slim版本的貌似不支持Ajax-->
-    <script src="/static/jquery/jquery-3.2.1.slim.min.js"  crossorigin="anonymous"></script>
-    <script src="/static/jquery/jquery-2.2.3.min.js" ></script>
+    <script src="/static/jquery/jquery-3.2.1.slim.min.js" crossorigin="anonymous"></script>
+    <script src="/static/jquery/jquery-2.2.3.min.js"></script>
 
 </head>
 <body>
 <script type="application/javascript">
-    $(function(){
+    $(function () {
         $.ajax({
-            type:"GET",
-            url:"/user/userInfo",
-            dataType:"json",
-            contentType:"application/json",
-            success:function (data) {
-                if(data!=null){
+            type: "GET",
+            url: "/user/userInfo",
+            dataType: "json",
+            contentType: "application/json",
+            success: function (data) {
+                if (data != null) {
                     $("#navLoginButton").html(data.username);
-                    var logoutHtml = '<div class="dropdown-menu" id="navLogout" aria-labelledby="navbarDropdownMenuLink">'+ '<a class="dropdown-item" id="behaviorCenter" href="/user/manageCenter">个人中心</a><a class="dropdown-item" id="logoutButton" href="#">'+'退出登录</a> </div>';
-                    var userHeadImg = '<ul class="navbar-nav mr-sm-0" id="navUserHead">'+ '<li class="nav-item" id="navLogin">'+
+                    var logoutHtml = '<div class="dropdown-menu" id="navLogout" aria-labelledby="navbarDropdownMenuLink">' + '<a class="dropdown-item" id="behaviorCenter" href="/user/manageCenter">个人中心</a><a class="dropdown-item" id="logoutButton" href="#">' + '退出登录</a> </div>';
+                    var userHeadImg = '<ul class="navbar-nav mr-sm-0" id="navUserHead">' + '<li class="nav-item" id="navLogin">' +
                             '<a class="nav-link" href="#"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">'
-                            +'<img src="/static/image/userHead/header.png" class="user-image" alt="User Image" style="width:25px;height:25px;border-radius:50%;"></a> </li></ul>';
+                            + '<img src="/static/image/userHead/header.png" class="user-image" alt="User Image" style="width:25px;height:25px;border-radius:50%;"></a> </li></ul>';
                     $("#navLogin").append(logoutHtml);
                     $("#navbarCollapse").append(userHeadImg);
                 }
             }
         });
-        $("#navLogin").on('click',"#logoutButton",function(){
+        $("#navLogin").on('click', "#logoutButton", function () {
             swal({
                         title: "确定退出登录？💔",
                         type: "warning",
@@ -64,35 +64,37 @@
                         confirmButtonText: "狠心退出！",
                         closeOnConfirm: false
                     },
-                    function(){
+                    function () {
                         $.ajax({
-                            type:"GET",
-                            url:"/user/logout/check",
-                            contentType:"text/html",
-                            success:function (data) {
-                                if(data=="logout_succ"){
+                            type: "GET",
+                            url: "/user/logout/check",
+                            contentType: "text/html",
+                            success: function (data) {
+                                if (data == "logout_succ") {
                                     window.location.reload();
                                     swal({
                                         title: "您已退出登录！",
                                         timer: 3000,
                                         showConfirmButton: false
                                     });
-                                }else{alert("退出登录失败！");}
+                                } else {
+                                    alert("退出登录失败！");
+                                }
                             }
                         });
                     });
         });
         var content = $("#navLoginButton").text();
-        $("#navLoginButton").click(function(){
+        $("#navLoginButton").click(function () {
             var css = $('#loginDiv').css('display');
-            if(css=='block'){
-                $('#loginDiv').css('display','none');
+            if (css == 'block') {
+                $('#loginDiv').css('display', 'none');
                 $("#navLoginButton").text(content);
-            }else{
-                if($("#navLoginButton").text()=="登录注册"){
-                    $('#loginDiv').css('display','block');
+            } else {
+                if ($("#navLoginButton").text() == "登录注册") {
+                    $('#loginDiv').css('display', 'block');
                     $("#navLoginButton").text("关闭×");
-                }else{
+                } else {
                     return true;
                 }
             }
@@ -106,37 +108,37 @@
             var usertoken = $("#usertoken").val();
             var userpass = $('#userpass').val();
             var loginAlert = "";
-            if(usertoken=="" || $.trim(usertoken).length==0 ||userpass=="" || $.trim(userpass).length == 0){
+            if (usertoken == "" || $.trim(usertoken).length == 0 || userpass == "" || $.trim(userpass).length == 0) {
                 loginAlert = "账号/密码不能为空";
                 $("#loginAlert").text(loginAlert);
-                $("#loginAlert").css('display','block');
+                $("#loginAlert").css('display', 'block');
                 return false;
-            }else{
-                if(/^\d+$/.test(usertoken)==true){
-                    if(!(/^\d{11,12}$/.test(usertoken))){
+            } else {
+                if (/^\d+$/.test(usertoken) == true) {
+                    if (!(/^\d{11,12}$/.test(usertoken))) {
                         loginAlert += "请输入11~12位的手机号！"
                     }
-                }else if(!(re1.test(usertoken))){
+                } else if (!(re1.test(usertoken))) {
                     loginAlert += "请输入正确格式的邮箱地址！";
                 }
-                if(!(/^[0-9a-zA-Z-=.]{8,16}$/.test(userpass))){
+                if (!(/^[0-9a-zA-Z-=.]{8,16}$/.test(userpass))) {
                     loginAlert += "密码必须是8~16位！"
                 }
             }
-            if(loginAlert!=""){
+            if (loginAlert != "") {
                 $("#loginAlert").text(loginAlert);
-                $("#loginAlert").css('display','block');
+                $("#loginAlert").css('display', 'block');
                 return false;
-            }else{
-                if(/^\d+$/.test(usertoken)==true){
+            } else {
+                if (/^\d+$/.test(usertoken) == true) {
                     //ajax提交表单
                     $.ajax({
-                        type:"POST",
+                        type: "POST",
                         contentType: "application/json",
-                        url:"/user/login/check",
-                        data:JSON.stringify({"telephone":usertoken,"userpass":userpass}),
-                        success:function (result) {
-                            if(result=="login_succ"){
+                        url: "/user/login/check",
+                        data: JSON.stringify({"telephone": usertoken, "userpass": userpass}),
+                        success: function (result) {
+                            if (result == "login_succ") {
                                 swal({
                                     title: "登录成功😊！",
                                     text: "3秒后自动关闭。",
@@ -144,20 +146,20 @@
                                     showConfirmButton: false
                                 });
                                 window.location.reload();
-                            } else if(result=="login_fail"){
+                            } else if (result == "login_fail") {
                                 swal("矮油，登录失败😶！", result)
                             }
                         }
                     });
-                }else{
+                } else {
                     //ajax提交表单
                     $.ajax({
-                        type:"POST",
+                        type: "POST",
                         contentType: "application/json",
-                        url:"/user/login/check",
-                        data:JSON.stringify({"useremail":usertoken,"userpass":userpass}),
-                        success:function (result) {
-                            if(result=="login_succ"){
+                        url: "/user/login/check",
+                        data: JSON.stringify({"useremail": usertoken, "userpass": userpass}),
+                        success: function (result) {
+                            if (result == "login_succ") {
                                 swal({
                                     title: "登录成功😊！",
                                     text: "3秒后自动关闭。",
@@ -165,7 +167,7 @@
                                     showConfirmButton: false
                                 });
                                 window.location.reload();
-                            } else if(result=="login_fail"){
+                            } else if (result == "login_fail") {
                                 swal("矮油，登录失败😶！", result)
                             }
                         }
@@ -180,31 +182,31 @@
             var useremail = $('#useremail').val();
             var telephone = $('#telephone').val();
             var registerAlert = "";
-            if(username==""||$.trim(username).length==0||password==""||$.trim(password).length==0||useremail==""||$.trim(useremail).length==0||telephone==""||$.trim(telephone).length==0){
+            if (username == "" || $.trim(username).length == 0 || password == "" || $.trim(password).length == 0 || useremail == "" || $.trim(useremail).length == 0 || telephone == "" || $.trim(telephone).length == 0) {
                 registerAlert = "用户名/邮箱/密码/手机号为必填项，均不能为空！";
                 $("#registerAlert").text(registerAlert);
-                $("#registerAlert").css('display','block');
+                $("#registerAlert").css('display', 'block');
                 return false;
-            }else{
-                if(/^\d+$/.test(telephone)==true){
-                    if(!(/^\d{11,12}$/.test(telephone))){
+            } else {
+                if (/^\d+$/.test(telephone) == true) {
+                    if (!(/^\d{11,12}$/.test(telephone))) {
                         registerAlert += "您输入的手机号位数有误(请输入11~12位)!";
                     }
-                }else{
+                } else {
                     registerAlert += "您输入手机号格式有误(必须全为数字)!)"
                 }
-                if(!(re1.test(useremail))){
+                if (!(re1.test(useremail))) {
                     registerAlert += "请输入正确格式的邮箱地址！";
                 }
-                if(!(/^[0-9a-zA-Z-=.]{8,16}$/.test(password))){
+                if (!(/^[0-9a-zA-Z-=.]{8,16}$/.test(password))) {
                     registerAlert += "密码必须是8~16位！"
                 }
             }
-            if(registerAlert!=""){
+            if (registerAlert != "") {
                 $("#registerAlert").text(registerAlert);
-                $("#registerAlert").css('display','block');
+                $("#registerAlert").css('display', 'block');
                 return false;
-            }else{
+            } else {
                 swal({
                     title: "亲，❤️注册信息格式正确！",
                     text: "正在为您注册中...",
@@ -213,20 +215,25 @@
                 });
                 //ajax提交表单
                 $.ajax({
-                    type:"POST",
+                    type: "POST",
                     contentType: "application/json",
-                    url:"/user/register/check",
-                    data:JSON.stringify({"username":username,"userpass":password,"useremail":useremail,"telephone":telephone}),
-                    success:function (data) {
-                        if(data=="register_succ"){
+                    url: "/user/register/check",
+                    data: JSON.stringify({
+                        "username": username,
+                        "userpass": password,
+                        "useremail": useremail,
+                        "telephone": telephone
+                    }),
+                    success: function (data) {
+                        if (data == "register_succ") {
                             swal({
                                 title: "恭喜你，注册成功😊！",
-                                text: "请尽快去邮箱:"+useremail+"激活！",
+                                text: "请尽快去邮箱:" + useremail + "激活！",
                                 timer: 5000,
                                 showConfirmButton: true
                             });
-                        }else{
-                            swal("矮油，注册失败😶！",data)
+                        } else {
+                            swal("矮油，注册失败😶！", data)
                         }
                     }
                 });
@@ -237,32 +244,32 @@
 </script>
 
 <script type="text/javascript">
-    function submitThank(){
+    function submitThank() {
         // a,b,c,d,e,f,g分别为文章标题，文章摘要，文章主分类id，文章二级分类id，文章HTML内容,文章markdown原文,文章标签(以tag1,tag2,...字符串形式返回))
         var articleid = $article.getId();
         $.ajax({
-            type:"POST",
+            type: "POST",
             contentType: "application/json",
-            url:"/behavior/thank",
-            data:JSON.stringify({"articleid":articleid}),
-            success:function (data) {
-                if(data=="setThank_success"){
+            url: "/behavior/thank",
+            data: JSON.stringify({"articleid": articleid}),
+            success: function (data) {
+                if (data == "setThank_success") {
                     window.location.reload();
-                } else if(data=="setThank_fail_重复点赞"){
+                } else if (data == "setThank_fail_重复点赞") {
                     swal({
                         title: "您已点过👍哦,请勿重复点赞！",
-                        text:  data,
+                        text: data,
                         timer: 3000,
                         showConfirmButton: false
                     });
-                } else if(data=="setThank_fail_未登录"){
+                } else if (data == "setThank_fail_未登录") {
                     swal({
                         title: "亲，请先登录再点👍️哦！",
-                        text:  data,
+                        text: data,
                         timer: 3000,
                         showConfirmButton: false
                     });
-                } else{
+                } else {
                     swal("点赞失败😶！", data);
                 }
             }
@@ -270,25 +277,25 @@
         return false;
     };
 
-    function createCommentArea(){
+    function createCommentArea() {
         var usrComment = document.getElementById('maincomment').value;
         var newdiv = document.createElement("div");
         var commentlist = document.getElementById("commentList");
         newdiv.className = 'commentItem';
         var date = new Date();
         var time = date.toLocaleTimeString();
-        newdiv.innerHTML = '<div><a href=""></a>：'+usrComment+'</div><span>'+time+'</span><div id="praise"><span class="praise" onclick="return function(this)"><img src="/static/image/userHead/header.png" id="praise-img" style="width:25px;height:25px;border-radius:50%;" /></span><span id="praise-txt">0</span><span id="add-num"><em></em></span></div>';
+        newdiv.innerHTML = '<div><a href=""></a>：' + usrComment + '</div><span>' + time + '</span><div id="praise"><span class="praise" onclick="return function(this)"><img src="/static/image/userHead/header.png" id="praise-img" style="width:25px;height:25px;border-radius:50%;" /></span><span id="praise-txt">0</span><span id="add-num"><em></em></span></div>';
         commentlist.appendChild(newdiv);
         return true;
     }
 </script>
 
 <script>
-    $(function(){
-        $("#commentsubmit").click(function(){
+    $(function () {
+        $("#commentsubmit").click(function () {
             var comment = $("#maincomment").val();
             var articleid = $article.getId();
-            if(comment==""){
+            if (comment == "") {
                 swal({
                     title: "请不要提交空评论！！！",
                     showConfirmButton: true
@@ -296,30 +303,30 @@
                 return false;
             }
             $.ajax({
-                type:"POST",
+                type: "POST",
                 contentType: "application/json",
-                url:"/behavior/comment",
-                data:JSON.stringify({"articleid":articleid,"comment":comment}),
-                success:function (data) {
-                    if(data=="setComment_success"){
+                url: "/behavior/comment",
+                data: JSON.stringify({"articleid": articleid, "comment": comment}),
+                success: function (data) {
+                    if (data == "setComment_success") {
                         alert("评论成功！");
                         createCommentArea();
                         //window.location.reload();
-                    } else if(data=="setComment_fail_插入数据库失败"){
+                    } else if (data == "setComment_fail_插入数据库失败") {
                         swal({
                             title: "setComment_fail_插入数据库失败",
-                            text:  data,
+                            text: data,
                             timer: 3000,
                             showConfirmButton: false
                         });
-                    } else if(data=="setComment_fail_未登录"){
+                    } else if (data == "setComment_fail_未登录") {
                         swal({
                             title: "亲，请先登录再评论哦！",
-                            text:  data,
+                            text: data,
                             timer: 3000,
                             showConfirmButton: false
                         });
-                    } else{
+                    } else {
                         swal("评论失败😶！", data);
                     }
                 }
@@ -333,20 +340,23 @@
 <header>
     <nav id="navBlog" class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
         <a class="navbar-brand" href="/index" target="_blank">Lyon's Blog</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse"
+                aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav mr-auto">
                 #foreach($category in ${categorys})
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
+                           aria-haspopup="true" aria-expanded="false">
                             ${category.getMainCategoryName()}
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                             #foreach($secondCat in ${category.getSecondCategorys()})
                                 #foreach($item in ${secondCat.entrySet()})
-                                    <a class="dropdown-item" href="/article/category?cId=$item.key" target="_blank">$item.value</a>
+                                    <a class="dropdown-item" href="/article/category?cId=$item.key"
+                                       target="_blank">$item.value</a>
                                 #end
                             #end
                         </div>
@@ -360,7 +370,8 @@
             </form>
             <ul class="navbar-nav mr-sm-0">
                 <li class="nav-item dropdown" id="navLogin">
-                    <a class="nav-link dropdown-toggle" href="#" id="navLoginButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">登录注册</a>
+                    <a class="nav-link dropdown-toggle" href="#" id="navLoginButton" data-toggle="dropdown"
+                       aria-haspopup="true" aria-expanded="false">登录注册</a>
                 </li>
             </ul>
         </div>
@@ -368,14 +379,15 @@
 </header>
 
 
-<div id="loginDiv" class="Logincontainer w3layouts agileits" style="position:absolute;z-index: 99;left:25%;width:60%;height:auto;display:block;margin-top:80px;padding:20px 10px 30px 35px;display: none;">
+<div id="loginDiv" class="Logincontainer w3layouts agileits"
+     style="position:absolute;z-index: 99;left:25%;width:60%;height:auto;display:block;margin-top:80px;padding:20px 10px 30px 35px;display: none;">
     <div class="login w3layouts agileits">
         <h2>登 录</h2>
         <div id="loginArea" class="send-button w3layouts agileits">
-            <input type="text"     id="usertoken" placeholder="手机号/邮箱" style="padding: 10px;">
+            <input type="text" id="usertoken" placeholder="手机号/邮箱" style="padding: 10px;">
             <input type="password" id="userpass" placeholder="密码" style="padding: 10px;">
             <p id="loginAlert" style="display: none;color:#ff0000;float: right">囧！账号/密码错误！</p>
-            <input type="submit"   id="userLogin" value="登 录" style="margin-top:50px;">
+            <input type="submit" id="userLogin" value="登 录" style="margin-top:50px;">
             <input type="checkbox" id="brand1" value="" style="margin-left: 15px;">
             <label for="brand1"><span></span>记住我</label>
         </div>
@@ -443,7 +455,8 @@
                     弹指一挥间 红尘已缈远
                     青丝蘸白雪 来路生云烟
                 </p>
-                <p class="lead mb-0"><a href="#" class="text-white" style="float: right">——Keep balance , Be a better man!</a></p>
+                <p class="lead mb-0"><a href="#" class="text-white" style="float: right">——Keep balance , Be a better
+                    man!</a></p>
             </div>
         </div>
 
@@ -452,7 +465,8 @@
                 <div class="card flex-md-row mb-4 box-shadow h-md-250">
                     <div class="card-body d-flex flex-column align-items-start">
                         <h3 class="mb-0">
-                            <a class="text-dark" href="https://www.zhihu.com/question/21395276/answer/300567726" target="_blank">可以用Python编程语言做哪些神奇好玩的事情</a>
+                            <a class="text-dark" href="https://www.zhihu.com/question/21395276/answer/300567726"
+                               target="_blank">可以用Python编程语言做哪些神奇好玩的事情</a>
                         </h3>
                         <strong class="d-inline-block mb-2 text-primary"> 【知乎】：Lyon</strong>
                         <div class="mb-1 text-muted">2018/06/21</div>
@@ -479,7 +493,7 @@
                         <a href="https://zhuanlan.zhihu.com/p/35233558" target="_blank">阅读全文</a>
                     </div>
                     <div>
-                        <img src="/static/uploadBlogFile/image/zhihu-1.jpg" alt="11.jpg" title="11.jpg" >
+                        <img src="/static/uploadBlogFile/image/zhihu-1.jpg" alt="11.jpg" title="11.jpg">
                     </div>
                 ##<img class="card-img-right flex-auto d-none d-md-block" data-src="holder.js/200x250?theme=thumb" alt="Card image cap">
                 </div>
@@ -488,7 +502,8 @@
     </div>
 
     #if(!$article.getArticleTitle())
-        <h1 class="display-4 font-italic">Dear,You seem break into no man's land,It's a wilderness without knowledge!</h1>
+        <h1 class="display-4 font-italic">Dear,You seem break into no man's land,It's a wilderness without
+            knowledge!</h1>
         <h3 class="mb-0">
             <a class="text-dark" href="#">亲，你来到了无人区，这是一片没有知识存在的荒原！</a>
         </h3>
@@ -500,7 +515,9 @@
 
                     <div class="blog-post">
                         <div>
-                            <h2 class="blog-post-meta" style="font-family: STXingkai;"><a href="/article/single?articleId=$article.getId()" target="_blank" style="color: #000000;">$article.getArticleTitle()</a></h2>
+                            <h2 class="blog-post-meta" style="font-family: STXingkai;"><a
+                                    href="/article/single?articleId=$article.getId()" target="_blank"
+                                    style="color: #000000;">$article.getArticleTitle()</a></h2>
                             <div>
                                 <h4 class="font-italic" style="color:#9F79EE;font-size:15px">
                                     #set($tags = $article.getArticleTagList())
@@ -509,15 +526,19 @@
                                             <span class="badge badge-success">$tag.tagName</span>
                                         </a>
                                     #end
-                                    <span id="articleMainId" style="visibility: hidden">$article.getArticleMainId()</span>
-                                    <span id="articleSecondId" style="visibility: hidden">$article.getArticleSecondId()</span>
+                                    <span id="articleMainId"
+                                          style="visibility: hidden">$article.getArticleMainId()</span>
+                                    <span id="articleSecondId"
+                                          style="visibility: hidden">$article.getArticleSecondId()</span>
                                 </h4>
                             </div>
                             <div>
-                                <p>Lyon 创建于：<span> $!date.format('yyyy-MM-dd HH:mm',$!article.getCreateDate())</span></p>
+                                <p>Lyon 创建于：<span> $!date.format('yyyy-MM-dd HH:mm',$!article.getCreateDate())</span>
+                                </p>
                                 <p><span style="color:#66CDAA;">文章分类:</span>
                                     <span>$article.getMainCategoryName()-></span>
-                                    <a  href="/article/category?cId=$article.getArticleSecondId()" target="_blank">$article.getSecondCategoryName()</a>
+                                    <a href="/article/category?cId=$article.getArticleSecondId()"
+                                       target="_blank">$article.getSecondCategoryName()</a>
                                 </p>
                             </div>
 
@@ -528,12 +549,12 @@
                         </div>
 
 
-
                         <div id="test-editormd-view" class="content editormd-preview-theme-dark">
-                            <textarea style="display:none;" name="test-editormd-markdown-doc">Hello Markdown,Editor.md!</textarea>
+                            <textarea style="display:none;"
+                                      name="test-editormd-markdown-doc">Hello Markdown,Editor.md!</textarea>
                         </div>
                         <div id="test-editormd-view2">
-                            <textarea id="append-test" style="display:none;" >$article.getArticleContent()</textarea>
+                            <textarea id="append-test" style="display:none;">$article.getArticleContent()</textarea>
                         </div>
 
                     ##                        <div class="content editormd-preview-theme-dark" id="content">
@@ -542,7 +563,6 @@
                     ##                        <div id="wordsView">
                     ##                            <textarea style="display:none;" name="editormd-markdown-doc">$article.getArticleContent()</textarea>
                     ##                        </div>
-
 
 
                     </div><!-- /.blog-post -->
@@ -569,7 +589,9 @@
 
                     <div class="linkandshare-mainarticle">
 
-                        <a href="javascript:void(0)" onclick="submitThank()" style="margin-right:65px;color:#919191;" class="submitThank"><img class="icon" src="/static/open-iconic/svg/thumb-up.svg" alt="thumb-up">
+                        <a href="javascript:void(0)" onclick="submitThank()" style="margin-right:65px;color:#919191;"
+                           class="submitThank"><img class="icon" src="/static/open-iconic/svg/thumb-up.svg"
+                                                    alt="thumb-up">
                             #if(!$article.getArticleThank())
                                 0
                             #else
@@ -577,8 +599,9 @@
                             #end</span></span>赞</a>
 
 
-
-                        <a href="" style="margin-right:65px;color:#919191;"><img class="icon" src="/static/open-iconic/svg/comment-square.svg" alt="comment-square">
+                        <a href="" style="margin-right:65px;color:#919191;"><img class="icon"
+                                                                                 src="/static/open-iconic/svg/comment-square.svg"
+                                                                                 alt="comment-square">
                             #if(!$article.getArticleComment())
                                 0
                             #else
@@ -586,22 +609,27 @@
                             #end</span>评论</a>
 
 
-                        <a href="" style="margin-right:65px;color:#919191;"><img class="icon" src="/static/open-iconic/svg/heart.svg" alt="heart">收藏</a>
-                        <a href=""  style="color:#919191;"><img class="icon" src="/static/open-iconic/svg/location.svg" alt="location">分享</a>
+                        <a href="" style="margin-right:65px;color:#919191;"><img class="icon"
+                                                                                 src="/static/open-iconic/svg/heart.svg"
+                                                                                 alt="heart">收藏</a>
+                        <a href="" style="color:#919191;"><img class="icon" src="/static/open-iconic/svg/location.svg"
+                                                               alt="location">分享</a>
                     </div>
 
                     <div>
-                        <div class="commentHeader" >
+                        <div class="commentHeader">
                             <h3><span class="f-ff2">留言区</span></h3>
                         </div>
-                        <textarea style="height:100px;" class="writeComment" placeholder="亲，在此写下您的评论！" id="maincomment"></textarea>
-                        <button type="button" id="commentsubmit"  class="btn btn-default btn-xs " style="background-color:#7D9EC0;color:#FFFFFF;width=5px;height=5px;float:right;">
+                        <textarea style="height:100px;" class="writeComment" placeholder="亲，在此写下您的评论！"
+                                  id="maincomment"></textarea>
+                        <button type="button" id="commentsubmit" class="btn btn-default btn-xs "
+                                style="background-color:#7D9EC0;color:#FFFFFF;width=5px;height=5px;float:right;">
                         <span class="glyphicon glyphicon-comment">评论
                         </button>
                     </div>
 
                     <div id="commentList">
-                        <div class="commentCounts" >
+                        <div class="commentCounts">
                             共<span class="j-flag">0</span>条评论
                         </div>
                     </div>
@@ -618,20 +646,26 @@
                             </div>
                             <!-- /.user-block -->
                             <div class="box-tools">
-                                <button type="button" class="btn btn-box-tool" data-toggle="tooltip" title="Mark as read">
+                                <button type="button" class="btn btn-box-tool" data-toggle="tooltip"
+                                        title="Mark as read">
                                     <i class="fa fa-circle-o"></i></button>
-                                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i
+                                        class="fa fa-minus"></i>
                                 </button>
-                                <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                                <button type="button" class="btn btn-box-tool" data-widget="remove"><i
+                                        class="fa fa-times"></i></button>
                             </div>
                             <!-- /.box-tools -->
                         </div>
                         <!-- /.box-header -->
                         <div class="box-body">
                             <p>雨掸霜叶掸落一地过往 云遮秋雁遮住十载月光</p>
-                            <a href="javascript:void(0)" onclick="submitThank()" style="margin-right:15px;color:#919191;" class="submitThank">
+                            <a href="javascript:void(0)" onclick="submitThank()"
+                               style="margin-right:15px;color:#919191;" class="submitThank">
                                 <img class="icon" src="/static/open-iconic/svg/thumb-up.svg" alt="thumb-up">2 赞</a>
-                            <a href="" style="color:#919191;"><img class="icon" src="/static/open-iconic/svg/location.svg" alt="location">分享</a>
+                            <a href="" style="color:#919191;"><img class="icon"
+                                                                   src="/static/open-iconic/svg/location.svg"
+                                                                   alt="location">分享</a>
                             <span class="pull-right text-muted">讨论 - 折叠</span>
                         </div>
 
@@ -645,12 +679,16 @@
                                         <h3 class="box-title">讨论</h3>
 
                                         <div class="box-tools pull-right">
-                                            <span data-toggle="tooltip" title="3 New Messages" class="badge bg-yellow">3</span>
-                                            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                                            <span data-toggle="tooltip" title="3 New Messages"
+                                                  class="badge bg-yellow">3</span>
+                                            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i
+                                                    class="fa fa-minus"></i>
                                             </button>
-                                            <button type="button" class="btn btn-box-tool" data-toggle="tooltip" title="Contacts" data-widget="chat-pane-toggle">
+                                            <button type="button" class="btn btn-box-tool" data-toggle="tooltip"
+                                                    title="Contacts" data-widget="chat-pane-toggle">
                                                 <i class="fa fa-comments"></i></button>
-                                            <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i>
+                                            <button type="button" class="btn btn-box-tool" data-widget="remove"><i
+                                                    class="fa fa-times"></i>
                                             </button>
                                         </div>
                                     </div>
@@ -665,7 +703,8 @@
                                                     <span class="direct-chat-timestamp pull-right">23 Jan 2:00 pm</span>
                                                 </div>
                                                 <!-- /.direct-chat-info -->
-                                                <img class="direct-chat-img" src="/static/image/userHead/header.png" alt="message user image"><!-- /.direct-chat-img -->
+                                                <img class="direct-chat-img" src="/static/image/userHead/header.png"
+                                                     alt="message user image"><!-- /.direct-chat-img -->
                                                 <div class="direct-chat-text">
                                                     Is this template really for free? That's unbelievable!
                                                 </div>
@@ -680,7 +719,8 @@
                                                     <span class="direct-chat-timestamp pull-left">23 Jan 2:05 pm</span>
                                                 </div>
                                                 <!-- /.direct-chat-info -->
-                                                <img class="direct-chat-img" src="/static/image/userHead/header.png" alt="message user image"><!-- /.direct-chat-img -->
+                                                <img class="direct-chat-img" src="/static/image/userHead/header.png"
+                                                     alt="message user image"><!-- /.direct-chat-img -->
                                                 <div class="direct-chat-text">
                                                     You better believe it!
                                                 </div>
@@ -695,7 +735,8 @@
                                                     <span class="direct-chat-timestamp pull-right">23 Jan 5:37 pm</span>
                                                 </div>
                                                 <!-- /.direct-chat-info -->
-                                                <img class="direct-chat-img" src="/static/image/userHead/header.png" alt="message user image"><!-- /.direct-chat-img -->
+                                                <img class="direct-chat-img" src="/static/image/userHead/header.png"
+                                                     alt="message user image"><!-- /.direct-chat-img -->
                                                 <div class="direct-chat-text">
                                                     Working with AdminLTE on a great new app! Wanna join?
                                                 </div>
@@ -710,7 +751,8 @@
                                                     <span class="direct-chat-timestamp pull-left">23 Jan 6:10 pm</span>
                                                 </div>
                                                 <!-- /.direct-chat-info -->
-                                                <img class="direct-chat-img" src="/static/image/userHead/header.png" alt="message user image"><!-- /.direct-chat-img -->
+                                                <img class="direct-chat-img" src="/static/image/userHead/header.png"
+                                                     alt="message user image"><!-- /.direct-chat-img -->
                                                 <div class="direct-chat-text">
                                                     I would love to.
                                                 </div>
@@ -725,7 +767,8 @@
                                     <div class="box-footer">
                                         <form action="#" method="post">
                                             <div class="input-group">
-                                                <input type="text" name="message" placeholder="Type Message ..." class="form-control">
+                                                <input type="text" name="message" placeholder="Type Message ..."
+                                                       class="form-control">
                                                 <span class="input-group-btn">
                             <button type="button" class="btn btn-warning btn-flat">回复</button>
                           </span>
@@ -748,9 +791,12 @@
                             </div>
                             <!-- /.user-block -->
                             <div class="box-tools">
-                                <a href="javascript:void(0)" onclick="submitThank()" style="margin-right:15px;color:#919191;" class="submitThank">
+                                <a href="javascript:void(0)" onclick="submitThank()"
+                                   style="margin-right:15px;color:#919191;" class="submitThank">
                                     <img class="icon" src="/static/open-iconic/svg/thumb-up.svg" alt="thumb-up">2 赞</a>
-                                <a href="" style="color:#919191;"><img class="icon" src="/static/open-iconic/svg/location.svg" alt="location">分享</a>
+                                <a href="" style="color:#919191;"><img class="icon"
+                                                                       src="/static/open-iconic/svg/location.svg"
+                                                                       alt="location">分享</a>
                             </div>
                             <!-- /.box-tools -->
                         </div>
@@ -769,9 +815,12 @@
                             </div>
                             <!-- /.user-block -->
                             <div class="box-tools">
-                                <a href="javascript:void(0)" onclick="submitThank()" style="margin-right:15px;color:#919191;" class="submitThank">
+                                <a href="javascript:void(0)" onclick="submitThank()"
+                                   style="margin-right:15px;color:#919191;" class="submitThank">
                                     <img class="icon" src="/static/open-iconic/svg/thumb-up.svg" alt="thumb-up">2 赞</a>
-                                <a href="" style="color:#919191;"><img class="icon" src="/static/open-iconic/svg/location.svg" alt="location">分享</a>
+                                <a href="" style="color:#919191;"><img class="icon"
+                                                                       src="/static/open-iconic/svg/location.svg"
+                                                                       alt="location">分享</a>
                             </div>
                             <!-- /.box-tools -->
                         </div>
@@ -790,9 +839,12 @@
                             </div>
                             <!-- /.user-block -->
                             <div class="box-tools">
-                                <a href="javascript:void(0)" onclick="submitThank()" style="margin-right:15px;color:#919191;" class="submitThank">
+                                <a href="javascript:void(0)" onclick="submitThank()"
+                                   style="margin-right:15px;color:#919191;" class="submitThank">
                                     <img class="icon" src="/static/open-iconic/svg/thumb-up.svg" alt="thumb-up">2 赞</a>
-                                <a href="" style="color:#919191;"><img class="icon" src="/static/open-iconic/svg/location.svg" alt="location">分享</a>
+                                <a href="" style="color:#919191;"><img class="icon"
+                                                                       src="/static/open-iconic/svg/location.svg"
+                                                                       alt="location">分享</a>
                             </div>
                             <!-- /.box-tools -->
                         </div>
@@ -812,9 +864,12 @@
                             </div>
                             <!-- /.user-block -->
                             <div class="box-tools">
-                                <a href="javascript:void(0)" onclick="submitThank()" style="margin-right:15px;color:#919191;" class="submitThank">
+                                <a href="javascript:void(0)" onclick="submitThank()"
+                                   style="margin-right:15px;color:#919191;" class="submitThank">
                                     <img class="icon" src="/static/open-iconic/svg/thumb-up.svg" alt="thumb-up">2 赞</a>
-                                <a href="" style="color:#919191;"><img class="icon" src="/static/open-iconic/svg/location.svg" alt="location">分享</a>
+                                <a href="" style="color:#919191;"><img class="icon"
+                                                                       src="/static/open-iconic/svg/location.svg"
+                                                                       alt="location">分享</a>
                             </div>
                             <!-- /.box-tools -->
                         </div>
@@ -828,20 +883,19 @@
                 </div>
 
 
-
-
-
                 <aside class="col-md-3 blog-sidebar">
                     <div class="p-3 mb-3 bg-light rounded" style="font-family:Brush Script MT;color:#66CDAA;">
                         <h2 class="font-italic" style="color:#9F79EE;"">About</h2>
                         <p style="font-size:20px;font-family:fantasy;">《When you are old》</p>
                         <p style="font-size:18px;font-family:Brush Script MT"><em>————William Butler Yeats. </em></p>
-                        <p style="font-size:15px;font-family:Vincent;font-weight:100">When you are old and grey and full of sleep,
+                        <p style="font-size:15px;font-family:Vincent;font-weight:100">When you are old and grey and full
+                            of sleep,
                             And nodding by the fire，take down this book,And slowly read,and dream of the soft look,
                             Your eyes had once,and of their shadows deep;How many loved your moments of glad grace,
                             And loved your beauty with love false or true, But one man loved the pilgrim Soul in you
                             And loved the sorrows of your changing face; And bending down beside the glowing bars,
-                            Murmur,a little sadly,how Love fled And paced upon the mountains overhead And hid his face amid a crowd of stars.
+                            Murmur,a little sadly,how Love fled And paced upon the mountains overhead And hid his face
+                            amid a crowd of stars.
                         </p>
                     </div>
 
@@ -856,9 +910,11 @@
                     <div class="p-3">
                         <h3 style="font-size:35px;color:#9F79EE;font-weight: 300;">Other</h3>
                         <ol class="list-unstyled">
-                            <li style="margin:5px;"><a href="https://www.zhihu.com/people/better-man007/activities">知乎-Lyon</a></li>
+                            <li style="margin:5px;"><a href="https://www.zhihu.com/people/better-man007/activities">知乎-Lyon</a>
+                            </li>
                             <li style="margin:5px;"><a href="#">微信公众号-阳光流淌007</a></li>
-                            <li style="margin:5px;"><a href="https://github.com/Flowingsun007">GitHub-Flowingsun007</a></li>
+                            <li style="margin:5px;"><a href="https://github.com/Flowingsun007">GitHub-Flowingsun007</a>
+                            </li>
                         </ol>
                     </div>
                 </aside><!-- /.blog-sidebar -->
@@ -871,7 +927,8 @@
     <!-- FOOTER -->
     <footer class="container">
         <p class="float-right"><a href="#">返回顶部↑</a></p>
-        <p>&copy; CopyRight 2018-2019 <a href="#">www.flowingsun.com</a> Inc All Rights Reserved 皖ICP备17013223号<a href="#">Email: </a>Flowingsun007@163.com</p>
+        <p>&copy; CopyRight 2018-2019 <a href="#">www.flowingsun.com</a> Inc All Rights Reserved 皖ICP备17013223号<a
+                href="#">Email: </a>Flowingsun007@163.com</p>
     </footer>
 
 
@@ -879,28 +936,28 @@
 </html>
 
 
-<script src="/static/Editormd/examples/js/jquery.min.js" ></script>
-<script src="/static/Editormd/lib/marked.min.js" ></script>
-<script src="/static/Editormd/lib/pettyfy.min.js" ></script>
-<script src="/static/Editormd/lib/raphael.min.js" ></script>
-<script src="/static/Editormd/lib/underscore.min.js" ></script>
+<script src="/static/Editormd/examples/js/jquery.min.js"></script>
+<script src="/static/Editormd/lib/marked.min.js"></script>
+<script src="/static/Editormd/lib/pettyfy.min.js"></script>
+<script src="/static/Editormd/lib/raphael.min.js"></script>
+<script src="/static/Editormd/lib/underscore.min.js"></script>
 <script src="/static/Editormd/lib/sequence-diagram.min.js"></script>
-<script src="/static/Editormd/lib/flowchart.min.js" ></script>
-<script src="/static/Editormd/lib/jquery.flowchart.min.js" ></script>
+<script src="/static/Editormd/lib/flowchart.min.js"></script>
+<script src="/static/Editormd/lib/jquery.flowchart.min.js"></script>
 ##<script src="/static/Editormd/editormd.min.js" ></script>
-<script src="/static/Editormd/editormd.js" ></script>
+<script src="/static/Editormd/editormd.js"></script>
 <script type="text/javascript">
-    $(function() {
+    $(function () {
         var testEditormdView;
         var testEditormdView2;
         //testEditormdView.getMarkdown()可以获取显示出来的markdown源码
         testEditormdView = editormd.markdownToHTML("test-editormd-view", {
-            markdown        : $("#append-test").text(),
-            htmlDecode      : true,
+            markdown: $("#append-test").text(),
+            htmlDecode: true,
             //htmlDecode      : "style,script,iframe",  // you can filter tags decode
-            markdownSourceCode : true,
-            emoji           : true,
-            taskList        : true,
+            markdownSourceCode: true,
+            emoji: true,
+            taskList: true,
             // tex             : true,  // 默认不解析
             // flowChart       : true,  // 默认不解析
             // sequenceDiagram : true,  // 默认不解析
@@ -908,14 +965,14 @@
         });
         var result = testEditormdView.getMarkdown();
         testEditormdView2 = editormd.markdownToHTML("test-editormd-view2", {
-            markdown        : result,
-            htmlDecode      : true,
+            markdown: result,
+            htmlDecode: true,
             //htmlDecode      : "style,script,iframe",  // you can filter tags decode
-            emoji           : true,
-            taskList        : true,
-            tex             : true,  // 默认不解析
-            flowChart       : true,  // 默认不解析
-            sequenceDiagram : true,  // 默认不解析
+            emoji: true,
+            taskList: true,
+            tex: true,  // 默认不解析
+            flowChart: true,  // 默认不解析
+            sequenceDiagram: true,  // 默认不解析
             codeFold: true
         });
     });

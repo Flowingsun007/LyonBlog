@@ -3,6 +3,7 @@ package com.flowingsun.common.dao;
 import com.flowingsun.common.utils.SerializeUtils;
 import com.flowingsun.user.entity.Role;
 import com.flowingsun.user.entity.User;
+import com.sun.tools.internal.xjc.reader.xmlschema.bindinfo.BIConversion;
 import io.protostuff.LinkedBuffer;
 import io.protostuff.ProtobufIOUtil;
 import io.protostuff.ProtostuffIOUtil;

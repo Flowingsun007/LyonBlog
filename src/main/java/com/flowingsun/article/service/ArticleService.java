@@ -53,7 +53,7 @@ public interface ArticleService {
 
     String batchAddArticleTag(ArticleTag tagBean);
 
-    Integer deleteArticleOneTag(Integer articleId,String tagName);
+    Integer deleteArticleOneTag(Integer articleId, String tagName);
 
     String resetArticleTag(ArticleTag tagBean);
 
@@ -65,7 +65,7 @@ public interface ArticleService {
 
     Integer createOneTagRelation(ArticleTag tagBean);
 
-    Integer createOneTagRelation(Integer articleId, Integer tagId,String tagName);
+    Integer createOneTagRelation(Integer articleId, Integer tagId, String tagName);
 
     Integer deleteOneTag(Integer tagId);
 
@@ -73,7 +73,7 @@ public interface ArticleService {
 
     boolean checkTagExist(String tagName);
 
-    boolean checkTagRelationExist(Integer articleId,Integer tagId);
+    boolean checkTagRelationExist(Integer articleId, Integer tagId);
 
     boolean checkArticleExist(Integer articleId);
 

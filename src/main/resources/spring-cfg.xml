@@ -22,10 +22,10 @@
     <context:property-placeholder location="classpath:jdbc.properties"/>
 
     <!--Spring-session-redis配置-->
-    <bean class="org.springframework.session.data.redis.config.annotation.web.http.RedisHttpSessionConfiguration" />
+    <bean class="org.springframework.session.data.redis.config.annotation.web.http.RedisHttpSessionConfiguration"/>
     <bean class="org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory">
-        <property name="hostName" value="localhost" />
-        <property name="port" value="6379" />
+        <property name="hostName" value="localhost"/>
+        <property name="port" value="6379"/>
     </bean>
     <!--Spring-session-redis配置-->
 
@@ -67,8 +67,8 @@
         <property name="testOnBorrow" value="false"/>
         <property name="testOnReturn" value="false"/>
         <!-- 打开PSCache，并且指定每个连接上PSCache的大小 -->
-        <property name="poolPreparedStatements" value="true" />
-        <property name="maxPoolPreparedStatementPerConnectionSize" value="30" />
+        <property name="poolPreparedStatements" value="true"/>
+        <property name="maxPoolPreparedStatementPerConnectionSize" value="30"/>
         <!-- 打开removeAbandoned功能 -->
         <property name="removeAbandoned" value="true"/>
         <!-- 1800秒，也就是30分钟 -->
@@ -76,32 +76,32 @@
         <!-- 关闭abanded连接时输出错误日志 -->
         <property name="logAbandoned" value="true"/>
         <!-- 监控数据库,配置监控统计拦截的filters-->
-        <property name="filters" value="stat" />
+        <property name="filters" value="stat"/>
         <!--<property name="filters" value="mergeStat"/>-->
     </bean>
 
     <!--&lt;!&ndash;流程引擎配置项&ndash;&gt;-->
     <!--<bean  id="processEngineConfiguration" class="org.activiti.spring.SpringProcessEngineConfiguration">-->
-        <!--&lt;!&ndash;数据源 和系统同一个&ndash;&gt;-->
-        <!--<property name="dataSource" ref="dataSource"/>-->
-        <!--<property name="transactionManager" ref="transactionManager" />-->
-        <!--&lt;!&ndash;更新数据库表 如果没有 则创建&ndash;&gt;-->
-        <!--<property name="databaseSchemaUpdate" value="true" />-->
-        <!--&lt;!&ndash; 是否启动jobExecutor &ndash;&gt;-->
-        <!--<property name="jobExecutorActivate" value="false" />-->
-        <!--<property name="activityFontName" value="宋体"/>-->
-        <!--<property name="labelFontName" value="宋体"/>-->
-        <!--&lt;!&ndash;自动部署流程&ndash;&gt;-->
-        <!--<property name="deploymentResources">-->
-            <!--<list>-->
-                <!--<value>classpath*:workflow/*.bpmn</value>-->
-            <!--</list>-->
-        <!--</property>-->
+    <!--&lt;!&ndash;数据源 和系统同一个&ndash;&gt;-->
+    <!--<property name="dataSource" ref="dataSource"/>-->
+    <!--<property name="transactionManager" ref="transactionManager" />-->
+    <!--&lt;!&ndash;更新数据库表 如果没有 则创建&ndash;&gt;-->
+    <!--<property name="databaseSchemaUpdate" value="true" />-->
+    <!--&lt;!&ndash; 是否启动jobExecutor &ndash;&gt;-->
+    <!--<property name="jobExecutorActivate" value="false" />-->
+    <!--<property name="activityFontName" value="宋体"/>-->
+    <!--<property name="labelFontName" value="宋体"/>-->
+    <!--&lt;!&ndash;自动部署流程&ndash;&gt;-->
+    <!--<property name="deploymentResources">-->
+    <!--<list>-->
+    <!--<value>classpath*:workflow/*.bpmn</value>-->
+    <!--</list>-->
+    <!--</property>-->
     <!--</bean>-->
 
     <!--&lt;!&ndash;流程引擎&ndash;&gt;-->
     <!--<bean id="processEngine" class="org.activiti.spring.ProcessEngineFactoryBean">-->
-        <!--<property name="processEngineConfiguration" ref="processEngineConfiguration" />-->
+    <!--<property name="processEngineConfiguration" ref="processEngineConfiguration" />-->
     <!--</bean>-->
 
     <!--&lt;!&ndash; 工作流数据存储服务 &ndash;&gt;-->
@@ -126,8 +126,6 @@
         <constructor-arg index="1" value="6379">
         </constructor-arg>
     </bean>
-
-
 
 
 </beans>

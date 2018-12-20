@@ -33,7 +33,7 @@
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <delete id="deleteByArticleId" parameterType="java.lang.Integer" >
-    DELETE FROM THANK
+    DELETE FROM thank
     WHERE articleId = #{articleId,jdbcType=INTEGER}
   </delete>
   <insert id="insertThank" parameterType="com.flowingsun.behavior.entity.Thank" >

@@ -26,9 +26,9 @@
                 <property name="supportedMediaTypes">
                     <list>
                         <bean class="org.springframework.http.MediaType">
-                            <constructor-arg value="text" />
-                            <constructor-arg value="plain" />
-                            <constructor-arg value="UTF-8" />
+                            <constructor-arg value="text"/>
+                            <constructor-arg value="plain"/>
+                            <constructor-arg value="UTF-8"/>
                         </bean>
                     </list>
                 </property>
@@ -87,10 +87,10 @@
     <!-- SpringMVC上传文件时，需要配置MultipartResolver处理器 -->
     <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
         <!-- 默认编码 -->
-        <property name="defaultEncoding" value="UTF-8" />
+        <property name="defaultEncoding" value="UTF-8"/>
         <!-- 指定所上传文件的总大小100M,单位字节B。注意maxUploadSize属性的限制不是针对单个文件，而是所有文件的容量之和 -->
-        <property name="maxUploadSize" value="102400000" />
+        <property name="maxUploadSize" value="102400000"/>
         <!-- 内存中的最大值 -->
-        <property name="maxInMemorySize" value="102400" />
+        <property name="maxInMemorySize" value="102400"/>
     </bean>
 </beans>

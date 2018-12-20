@@ -9,8 +9,8 @@
 
     <title>阳光流淌的个人博客</title>
     <!--slim版本的貌似不支持Ajax-->
-    <script src="/static/jquery/jquery-3.2.1.slim.min.js"  crossorigin="anonymous"></script>
-    <script src="/static/jquery/jquery-2.2.3.min.js" ></script>
+    <script src="/static/jquery/jquery-3.2.1.slim.min.js" crossorigin="anonymous"></script>
+    <script src="/static/jquery/jquery-2.2.3.min.js"></script>
     <!-- Bootstrap core CSS -->
     <link href="/static/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Custom styles for this template -->
@@ -19,7 +19,13 @@
     <!-- Meta-Tags -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+    <script type="application/x-javascript"> addEventListener("load", function () {
+        setTimeout(hideURLbar, 0);
+    }, false);
+
+    function hideURLbar() {
+        window.scrollTo(0, 1);
+    } </script>
     <link href="/static/css/loginStyle.css" rel="stylesheet" type="text/css" media="all">
 
 </head>
@@ -28,13 +34,13 @@
 <script type="application/javascript">
     $(function () {
         var re1 = /^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/;
-        $("#navLogin").click(function(){
+        $("#navLogin").click(function () {
             var css = $('#loginDiv').css('display');
-            if(css=='block'){
-                $('#loginDiv').css('display','none');
+            if (css == 'block') {
+                $('#loginDiv').css('display', 'none');
                 $(this).text("登录注册");
-            }else{
-                $('#loginDiv').css('display','block');
+            } else {
+                $('#loginDiv').css('display', 'block');
                 $(this).text("关闭×");
             }
         })
@@ -43,54 +49,54 @@
             var usertoken = $("#usertoken").val();
             var userpass = $('#userpass').val();
             var loginAlert = ""
-            if(usertoken=="" || $.trim(usertoken).length==0 ||userpass=="" || $.trim(userpass).length == 0){
+            if (usertoken == "" || $.trim(usertoken).length == 0 || userpass == "" || $.trim(userpass).length == 0) {
                 loginAlert = "账号/密码不能为空";
                 $("#loginAlert").text(loginAlert);
-                $("#loginAlert").css('display','block');
+                $("#loginAlert").css('display', 'block');
                 return false;
-            }else{
-                if(/^\d+$/.test(usertoken)==true){
-                    if(!(/^\d{11,12}$/.test(usertoken))){
+            } else {
+                if (/^\d+$/.test(usertoken) == true) {
+                    if (!(/^\d{11,12}$/.test(usertoken))) {
                         loginAlert += "请输入11~12位的手机号！"
                     }
-                }else if(!(re1.test(usertoken))){
+                } else if (!(re1.test(usertoken))) {
                     loginAlert += "请输入正确格式的邮箱地址！";
                 }
-                if(!(/^[0-9a-zA-Z.]{8,16}$/.test(userpass))){
+                if (!(/^[0-9a-zA-Z.]{8,16}$/.test(userpass))) {
                     loginAlert += "密码必须是8~16位！"
                 }
             }
-            if(loginAlert!=""){
+            if (loginAlert != "") {
                 $("#loginAlert").text(loginAlert);
-                $("#loginAlert").css('display','block');
+                $("#loginAlert").css('display', 'block');
                 return false;
-            }else{
-                if(/^\d+$/.test(usertoken)==true){
+            } else {
+                if (/^\d+$/.test(usertoken) == true) {
                     //ajax提交表单
                     $.ajax({
-                        type:"POST",
+                        type: "POST",
                         contentType: "application/json",
-                        url:"/login/check",
-                        data:JSON.stringify({"telephone":usertoken,"userpass":userpass}),
-                        success:function (result) {
-                            if(result=="login_succ"){
+                        url: "/login/check",
+                        data: JSON.stringify({"telephone": usertoken, "userpass": userpass}),
+                        success: function (result) {
+                            if (result == "login_succ") {
                                 alert("登录成功😊！");
-                            } else if(result=="login_fail"){
+                            } else if (result == "login_fail") {
                                 alert("登录失败😊！");
                             }
                         }
                     });
-                }else{
+                } else {
                     //ajax提交表单
                     $.ajax({
-                        type:"POST",
+                        type: "POST",
                         contentType: "application/json",
-                        url:"/login/check",
-                        data:JSON.stringify({"useremail":usertoken,"userpass":userpass}),
-                        success:function (result) {
-                            if(result=="login_succ"){
+                        url: "/login/check",
+                        data: JSON.stringify({"useremail": usertoken, "userpass": userpass}),
+                        success: function (result) {
+                            if (result == "login_succ") {
                                 alert("登录成功😊！");
-                            } else if(result=="login_fail"){
+                            } else if (result == "login_fail") {
                                 alert("登录失败😊！");
                             }
                         }
@@ -105,42 +111,47 @@
             var useremail = $('#useremail').val();
             var telephone = $('#telephone').val();
             var registerAlert = "";
-            if(username==""||$.trim(username).length==0||password==""||$.trim(password).length==0||useremail==""||$.trim(useremail).length==0||telephone==""||$.trim(telephone).length==0){
+            if (username == "" || $.trim(username).length == 0 || password == "" || $.trim(password).length == 0 || useremail == "" || $.trim(useremail).length == 0 || telephone == "" || $.trim(telephone).length == 0) {
                 registerAlert = "用户名/邮箱/密码/手机号为必填项，均不能为空！";
                 $("#registerAlert").text(registerAlert);
-                $("#registerAlert").css('display','block');
+                $("#registerAlert").css('display', 'block');
                 return false;
-            }else{
-                if(/^\d+$/.test(telephone)==true){
-                    if(!(/^\d{11,12}$/.test(telephone))){
+            } else {
+                if (/^\d+$/.test(telephone) == true) {
+                    if (!(/^\d{11,12}$/.test(telephone))) {
                         registerAlert += "您输入的手机号位数有误(请输入11~12位)!";
                     }
-                }else{
+                } else {
                     registerAlert += "您输入手机号格式有误(必须全为数字)!)"
                 }
-                if(!(re1.test(useremail))){
+                if (!(re1.test(useremail))) {
                     registerAlert += "请输入正确格式的邮箱地址！";
                 }
-                if(!(/^[0-9a-zA-Z.]{8,16}$/.test(password))){
+                if (!(/^[0-9a-zA-Z.]{8,16}$/.test(password))) {
                     registerAlert += "密码必须是8~16位！"
                 }
             }
-            if(registerAlert!=""){
+            if (registerAlert != "") {
                 $("#registerAlert").text(registerAlert);
-                $("#registerAlert").css('display','block');
+                $("#registerAlert").css('display', 'block');
                 return false;
-            }else{
+            } else {
                 alert("恭喜你，提交的注册信息格式正确！");
                 //ajax提交表单
                 $.ajax({
-                    type:"POST",
+                    type: "POST",
                     contentType: "application/json",
-                    url:"/register/check",
-                    data:JSON.stringify({"username":username,"userpass":password,"useremail":useremail,"telephone":telephone}),
-                    success:function (data) {
-                        if(data=="register_succ"){
+                    url: "/register/check",
+                    data: JSON.stringify({
+                        "username": username,
+                        "userpass": password,
+                        "useremail": useremail,
+                        "telephone": telephone
+                    }),
+                    success: function (data) {
+                        if (data == "register_succ") {
                             alert("注册成功😊！");
-                        } else if(data=="register_fail"){
+                        } else if (data == "register_fail") {
                             alert("注册失败😊！");
                         }
                     }
@@ -154,13 +165,15 @@
 <header>
     <nav id="navBlog" class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
         <a class="navbar-brand" href="#">Lyon's Blog</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse"
+                aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
+                       aria-haspopup="true" aria-expanded="false">
                         JavaWeb
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
@@ -171,7 +184,8 @@
                     </div>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
+                       aria-haspopup="true" aria-expanded="false">
                         Python和Data
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
@@ -181,7 +195,8 @@
                     </div>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
+                       aria-haspopup="true" aria-expanded="false">
                         数据库服务器
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
@@ -209,15 +224,16 @@
 </header>
 
 
-<div id="loginDiv" class="Logincontainer w3layouts agileits" style="position:absolute;z-index: 99;left:25%;width:55%;height:auto;display:block;margin-top:80px;padding:20px 10px 30px 35px;display: none;">
+<div id="loginDiv" class="Logincontainer w3layouts agileits"
+     style="position:absolute;z-index: 99;left:25%;width:55%;height:auto;display:block;margin-top:80px;padding:20px 10px 30px 35px;display: none;">
 
     <div class="login w3layouts agileits">
         <h2>登 录</h2>
         <div id="loginArea" class="send-button w3layouts agileits">
-            <input type="text"     id="usertoken" placeholder="手机号/邮箱" style="padding: 10px;">
+            <input type="text" id="usertoken" placeholder="手机号/邮箱" style="padding: 10px;">
             <input type="password" id="userpass" placeholder="密码" style="padding: 10px;">
             <p id="loginAlert" style="display: none;color:#ff0000;float: right">囧！账号/密码错误！</p>
-            <input type="submit"   id="userLogin" value="登 录" style="margin-top:50px;">
+            <input type="submit" id="userLogin" value="登 录" style="margin-top:50px;">
             <input type="checkbox" id="brand1" value="" style="margin-left: 15px;">
             <label for="brand1"><span></span>记住我</label>
         </div>

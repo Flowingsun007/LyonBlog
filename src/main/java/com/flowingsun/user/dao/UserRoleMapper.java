@@ -18,5 +18,5 @@ public interface UserRoleMapper {
 
     int updateByPrimaryKey(UserRole record);
 
-    Integer insertByUseridRoleid(@Param("userId")Long userId, @Param("roleId")Integer roleId);
+    Integer insertByUseridRoleid(@Param("userId") Long userId, @Param("roleId") Integer roleId);
 }
