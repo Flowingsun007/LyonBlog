@@ -324,8 +324,8 @@
                     <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                         <a class="dropdown-item" href="/admin/writeBlog" target="_blank">新增文章</a>
                         <a class="dropdown-item" href="/admin/editTag" target="_blank">标签管理</a>
-                        <a class="dropdown-item" href="/article/category?cId=$item.key" target="_blank">评论管理</a>
-                        <a class="dropdown-item" href="/article/category?cId=$item.key" target="_blank">用户管理</a>
+                        <a class="dropdown-item" href="#" target="_blank">评论管理</a>
+                        <a class="dropdown-item" href="#" target="_blank">用户管理</a>
                     </div>
                 </li>
                 #foreach($category in ${categorys})
