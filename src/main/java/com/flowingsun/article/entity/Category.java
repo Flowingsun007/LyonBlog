@@ -5,16 +5,27 @@ import java.util.List;
 import java.util.Map;
 
 public class Category implements Serializable{
+
     private Integer articleId;
+
     private Integer mainCategoryId;
+
     private Integer secondCategoryId;
+
     private String mainCategoryName;
+
     private String secondCategoryName;
+
     private Map<Integer,String> mainCategoryMap;
+
     private Map<Integer,String> secondCategoryMap;
+
     private List<Map<Integer,String>> mainCategorys;
+
     private List<Map<Integer,String>> secondCategorys;
+
     private String articleIdStr;
+
     private Integer[] idIntList;
 
     public Integer[] getIdIntList() {

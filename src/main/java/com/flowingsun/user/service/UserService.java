@@ -11,7 +11,7 @@ import java.security.NoSuchAlgorithmException;
 
 public interface UserService {
 
-    String UserRegister(User user,HttpServletRequest request) throws UnsupportedEncodingException, NoSuchAlgorithmException;
+    String UserRegister(User user, HttpServletRequest request) throws UnsupportedEncodingException, NoSuchAlgorithmException;
 
     String UserLogin(User user, HttpServletRequest request) throws UnsupportedEncodingException, NoSuchAlgorithmException;
 
@@ -21,7 +21,7 @@ public interface UserService {
 
     User getUserByUserId(Long userId);
 
-    PageNotice userActivate(Integer code, String userphone,HttpServletRequest request);
+    PageNotice userActivate(Integer code, String userphone, HttpServletRequest request);
 
     boolean setDefaultUserRole(String userphone);
 

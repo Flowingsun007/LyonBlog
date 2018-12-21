@@ -1,11 +1,13 @@
 package com.flowingsun.article.service;
 
-import com.flowingsun.admin.entity.AdminBlogQuery;
+import com.flowingsun.admin.dto.AdminBlogQuery;
+import com.flowingsun.article.dto.ArticleTag;
+import com.flowingsun.article.dto.BlogInfo;
+import com.flowingsun.article.dto.RegularRecommend;
 import com.flowingsun.article.entity.*;
 import com.flowingsun.article.vo.CategoryArticleQuery;
 import com.flowingsun.article.vo.TagArticleQuery;
 
-import java.util.Date;
 import java.util.List;
 
 public interface ArticleService {
@@ -19,9 +21,6 @@ public interface ArticleService {
     int getTagId(String tagName);
 
     Article getArticle(Integer id);
-
-    //准备删除的方法
-//    ArticleInfo getArticleInfo(Integer id);
 
     String createArticle(Article article);
 
@@ -53,7 +52,7 @@ public interface ArticleService {
 
     String batchAddArticleTag(ArticleTag tagBean);
 
-    Integer deleteArticleOneTag(Integer articleId,String tagName);
+    Integer deleteArticleOneTag(Integer articleId, String tagName);
 
     String resetArticleTag(ArticleTag tagBean);
 
@@ -65,7 +64,7 @@ public interface ArticleService {
 
     Integer createOneTagRelation(ArticleTag tagBean);
 
-    Integer createOneTagRelation(Integer articleId, Integer tagId,String tagName);
+    Integer createOneTagRelation(Integer articleId, Integer tagId, String tagName);
 
     Integer deleteOneTag(Integer tagId);
 
@@ -73,7 +72,7 @@ public interface ArticleService {
 
     boolean checkTagExist(String tagName);
 
-    boolean checkTagRelationExist(Integer articleId,Integer tagId);
+    boolean checkTagRelationExist(Integer articleId, Integer tagId);
 
     boolean checkArticleExist(Integer articleId);
 

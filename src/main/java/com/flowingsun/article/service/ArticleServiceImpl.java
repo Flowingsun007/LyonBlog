@@ -1,7 +1,10 @@
 package com.flowingsun.article.service;
 
-import com.flowingsun.admin.entity.AdminBlogQuery;
+import com.flowingsun.admin.dto.AdminBlogQuery;
 import com.flowingsun.article.dao.ArticleMapper;
+import com.flowingsun.article.dto.ArticleTag;
+import com.flowingsun.article.dto.BlogInfo;
+import com.flowingsun.article.dto.RegularRecommend;
 import com.flowingsun.article.entity.*;
 import com.flowingsun.article.vo.CategoryArticleQuery;
 import com.flowingsun.article.vo.TagArticleQuery;
@@ -22,7 +25,6 @@ import java.sql.Timestamp;
 import java.util.*;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 
@@ -94,17 +96,21 @@ public class ArticleServiceImpl implements ArticleService {
     @Override
     @MethodExcuteTimeLog
     public CategoryArticleQuery getCategoryArticles(Integer cId, CategoryArticleQuery queryBean) {
+
         Integer total = articleMapper.selectCategoryArticlesCount(cId);
         if(total!=null&&total>0){
             queryBean.setTotal(total);
             Integer pageSize = queryBean.getPageSize();
             Integer startNum = queryBean.getStartRow();
             List<Article> articleList = articleMapper.selectCategoryArticles(cId,startNum,pageSize);
-            List<Article> results = articleList.stream().map(article->{
+            articleList.forEach(article->{
                 article.setArticleTagList(articleMapper.selectArticleTagsByPrimarykey(article.getId()));
-                return article;
-            }).collect(Collectors.toList());
-            queryBean.setDataList(results);
+            });
+//            List<Article> results = articleList.parallelStream().map(article->{
+//                article.setArticleTagList(articleMapper.selectArticleTagsByPrimarykey(article.getId()));
+//                return article;
+//            }).collect(Collectors.toList());
+            queryBean.setDataList(articleList);
         }else{//对应cid下没有文章
             queryBean.setTotal(0);
         }
@@ -144,7 +150,7 @@ public class ArticleServiceImpl implements ArticleService {
     /**
      *@Date 18/05/19 15:54
      *@Param [queryBean]
-     *@Return com.flowingsun.admin.entity.AdminBlogQuery
+     *@Return com.flowingsun.admin.dto.AdminBlogQuery
      *@Description getAllArticles
      * 主要用于admin后台文章管理，主要根据页面查询参数查询除主体外文章的全部信息、分类信息、标签信息
      * AdminBlogQuery 继承于PageQueryBean，主要存放pageSize，cId，pageNum等页面查询参数信息。
@@ -175,7 +181,7 @@ public class ArticleServiceImpl implements ArticleService {
      *@Author Lyon[flowingsun007@163.com]
      *@Date 18/09/10 21:59
      *@Param []
-     *@Return java.util.List<com.flowingsun.article.entity.ArticleTag>
+     *@Return java.util.List<com.flowingsun.article.dto.ArticleTag>
      *@Description selectAllTag
      * 获取所有文章标签，如果Redis开启服务则从Redis中获取，失败则从数据库获取。
      */
@@ -533,13 +539,14 @@ public class ArticleServiceImpl implements ArticleService {
             Timestamp dateTime = new Timestamp(new Date().getTime());
             article.setEditDate(dateTime);
             List<ArticleTag> tags = articleMapper.selectArticleTagsByPrimarykey(articleId);
-            tags.forEach(tag->{
+            //清除该文章之前创建的所有标签
+            for(ArticleTag tag:tags){
                 executorService.execute(()->{
                     if(1==articleMapper.deleteTagRelation(articleId, tag.getTagId())&&0==articleMapper.selectTagCountByTagId(tag.getTagId())){
                         articleMapper.deleteTagByTagId(tag.getTagId());
                     }
                 });
-            });
+            }
             //给该文章逐个添加新标签
             String[] taglist = article.getArticleTags().split(",");
             for (String tag : taglist){
@@ -926,9 +933,9 @@ public class ArticleServiceImpl implements ArticleService {
         String[] tagList = tagBean.getArticleTagsStr().split(",");
         List<String> TagsList = new ArrayList(Arrays.asList(tagList));
         Integer[] idIntList = changeListFormatUtils.str2intList(idStrList);
+        //先判断tag表中是否有此tag，若checkTagExist(tag)==false表示没有此tag(此tag为新tag),数据库中没有，无需删除。
+        //若checkTagExist(tag)==true,表示数据库中有此tag,对所选文章逐个删除。
         for(String tag : TagsList){
-            //先判断tag表中是否有此tag，若checkTagExist(tag)==false表示没有此tag(此tag为新tag),数据库中没有，无需删除。
-            //若checkTagExist(tag)==true,表示数据库中有此tag,对所选文章逐个删除。
             if(checkTagExist(tag)==true){
                 for(Integer articleId : idIntList){
                     if(0==deleteArticleOneTag(articleId, tag))
@@ -970,7 +977,7 @@ public class ArticleServiceImpl implements ArticleService {
      *@Author Lyon[flowingsun007@163.com]
      *@Date 18/09/10 22:18
      *@Param [articleId]
-     *@Return com.flowingsun.article.entity.RegularRecommend
+     *@Return com.flowingsun.article.dto.RegularRecommend
      *@Description getRegularRecommendArticle
      * 浏览文章时,上一篇下一篇推荐
      */

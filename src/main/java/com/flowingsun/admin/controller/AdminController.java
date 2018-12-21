@@ -1,8 +1,8 @@
 package com.flowingsun.admin.controller;
 
-import com.flowingsun.admin.entity.AdminBlogQuery;
+import com.flowingsun.admin.dto.AdminBlogQuery;
 import com.flowingsun.article.entity.Article;
-import com.flowingsun.article.entity.ArticleTag;
+import com.flowingsun.article.dto.ArticleTag;
 import com.flowingsun.article.entity.Category;
 import com.flowingsun.article.service.ArticleService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;

@@ -18,14 +18,14 @@
     <result column="cname" property="secondCategoryName" jdbcType="VARCHAR" />
   </resultMap>
 
-  <resultMap id="regularRecommentResultMap" type="com.flowingsun.article.entity.RegularRecommend">
+  <resultMap id="regularRecommentResultMap" type="com.flowingsun.article.dto.RegularRecommend">
     <result column="id" property="articleId" jdbcType="INTEGER"/>
     <result column="previousId" property="previousArticleId" jdbcType="INTEGER"/>
     <result column="previousTitle" property="previousTitle" jdbcType="VARCHAR"/>
     <result column="nextId" property="nextArticleId" jdbcType="INTEGER"/>
     <result column="nextTitle" property="nextTitle" jdbcType="VARCHAR"/>
   </resultMap>
-  <resultMap id="articleTagResultMap" type="com.flowingsun.article.entity.ArticleTag">
+  <resultMap id="articleTagResultMap" type="com.flowingsun.article.dto.ArticleTag">
     <result column="id" property="tagId" jdbcType="INTEGER"/>
     <result column="tagName" property="tagName" jdbcType="VARCHAR"/>
   </resultMap>
@@ -40,7 +40,7 @@
   <resultMap id="articleTagsResultMap" type="java.lang.String">
     <result column="tagName" property="tagName" jdbcType="VARCHAR"/>
   </resultMap>
-  <resultMap id="InfoResultMap" type="com.flowingsun.article.entity.ArticleInfo" >
+  <resultMap id="InfoResultMap" type="com.flowingsun.article.dto.ArticleInfo" >
     <id column="id" property="articleId" jdbcType="INTEGER" />
     <result column="id" property="articleId" jdbcType="INTEGER" />
     <result column="userid" property="userid" jdbcType="INTEGER" />
@@ -83,13 +83,13 @@
   <sql id="Blob_Column_List" >
     article_content,article_content_copy
   </sql>
-  <select id="selectPreviousArticle"  parameterType="com.flowingsun.article.entity.RegularRecommend" resultMap="regularRecommentResultMap">
+  <select id="selectPreviousArticle" parameterType="com.flowingsun.article.dto.RegularRecommend" resultMap="regularRecommentResultMap">
     SELECT id AS previousId,article_title AS previousTitle
     FROM article
     WHERE (id &gt;#{articleId})
     ORDER BY id DESC LIMIT 1;
   </select>
-  <select id="selectNextArticle"  parameterType="com.flowingsun.article.entity.RegularRecommend" resultMap="regularRecommentResultMap">
+  <select id="selectNextArticle" parameterType="com.flowingsun.article.dto.RegularRecommend" resultMap="regularRecommentResultMap">
     SELECT id AS nextId,article_title AS nextTitle
     FROM article
     WHERE (id &lt;#{articleId}) LIMIT 1;
@@ -98,7 +98,7 @@
   <select id="selectTagCountByTagId"  parameterType="java.lang.Integer" resultType="INTEGER">
     SELECT COUNT(0) FROM article_tag_relation WHERE tagId=#{tagId};
   </select>
-  <select id="selectAllArticleByQueryCondition" parameterType="com.flowingsun.admin.entity.AdminBlogQuery" resultMap="categoryArticlesResultMap">
+  <select id="selectAllArticleByQueryCondition" parameterType="com.flowingsun.admin.dto.AdminBlogQuery" resultMap="categoryArticlesResultMap">
     SELECT
     article.id, article.userid, article_title, article_abstract, create_date, edit_date, article_second_id,article_main_id,
     article_main_categary.name AS mname,article_second_categary.name AS cname,
@@ -210,11 +210,11 @@
     WHERE article.id = #{id,jdbcType=INTEGER}
   </select>
 
-  <insert id="insertTagRelation" parameterType="com.flowingsun.article.entity.ArticleTag" useGeneratedKeys="true" keyProperty="id">
+  <insert id="insertTagRelation" parameterType="com.flowingsun.article.dto.ArticleTag" useGeneratedKeys="true" keyProperty="id">
     INSERT IGNORE INTO article_tag_relation (articleId, tagName, tagId, createDate)
     VALUES (#{articleId,jdbcType=INTEGER},#{tagName,jdbcType=VARCHAR},#{tagId,jdbcType=INTEGER}, #{createDate,jdbcType=TIMESTAMP})
   </insert>
-  <insert id="insertNewTag" parameterType="com.flowingsun.article.entity.ArticleTag" useGeneratedKeys="true" keyProperty="tagId">
+  <insert id="insertNewTag" parameterType="com.flowingsun.article.dto.ArticleTag" useGeneratedKeys="true" keyProperty="tagId">
     INSERT IGNORE INTO article_tag (tagName,createDate)
     VALUES (#{tagName,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP})
   </insert>

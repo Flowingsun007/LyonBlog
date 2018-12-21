@@ -1,7 +1,7 @@
 package com.flowingsun.behavior.service;
 
 import com.flowingsun.article.entity.Article;
-import com.flowingsun.article.vo.CategoryArticleQuery;
+import com.flowingsun.behavior.dto.BehaviorStatus;
 import com.flowingsun.behavior.entity.*;
 import com.flowingsun.behavior.vo.PictureQuery;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
@@ -14,19 +14,19 @@ public interface BehaviorService {
 
     String setComment(Comment commentBean, HttpServletRequest request);
 
-    String setThank(Thank thankBean,HttpServletRequest request);
+    String setThank(Thank thankBean, HttpServletRequest request);
 
     String setCommentLike(CommentLike commentLikeBean, HttpServletRequest request);
 
     boolean saveUserImage(Picture picture);
 
-    String imageUpload(MultipartHttpServletRequest request,String description);
+    String imageUpload(MultipartHttpServletRequest request, String description);
 
     PictureQuery getUserImages(PictureQuery pictureQuery) throws ParseException;
 
-    Article getUserArticleBehavior(Article article,Long userId);
+    Article getUserArticleBehavior(Article article, Long userId);
 
-    CategoryArticleQuery getUserCategoryArticleBehavior(CategoryArticleQuery categoryArticleQuery, Long userId);
+    List<Article> getUserArticleListBehavior(List<Article> articleList, Long userId);
 
     String getMoneyDonatePage(HttpServletRequest request);
 

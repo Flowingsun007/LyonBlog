@@ -3,7 +3,7 @@ package com.flowingsun.user.controller;
 import com.flowingsun.article.entity.Category;
 import com.flowingsun.article.service.ArticleService;
 import com.flowingsun.article.vo.PageNotice;
-import com.flowingsun.behavior.entity.BehaviorStatus;
+import com.flowingsun.behavior.dto.BehaviorStatus;
 import com.flowingsun.behavior.service.BehaviorService;
 import com.flowingsun.behavior.vo.PictureQuery;
 import com.flowingsun.user.entity.User;

@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 @Component
 public interface RolePermissonMapper {
 
-    Integer insertByRoleIdPermissionId(@Param("roleId") Integer roleId,@Param("permissionId") Integer permissionId);
+    Integer insertByRoleIdPermissionId(@Param("roleId") Integer roleId, @Param("permissionId") Integer permissionId);
 
     int insert(RolePermisson record);
 
