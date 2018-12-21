@@ -58,8 +58,8 @@ CREATE TABLE `blog_user`
 CREATE TABLE `collection`
 (
   `id`          int(50) NOT NULL AUTO_INCREMENT,
-  `articleId`   int(50) DEFAULT NULL,
-  `userId`      bigint(50) DEFAULT NULL,
+  `articleId`   int(50) NOT NULL,
+  `userId`      bigint(50) NOT NULL,
   `collectDate` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `uaerId-articleId_unique_key` (`userId`,`articleId`)

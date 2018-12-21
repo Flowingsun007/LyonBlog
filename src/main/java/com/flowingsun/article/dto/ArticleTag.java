@@ -1,4 +1,4 @@
-package com.flowingsun.article.entity;
+package com.flowingsun.article.dto;
 
 import java.io.Serializable;
 import java.util.Date;

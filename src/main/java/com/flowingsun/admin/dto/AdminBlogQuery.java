@@ -1,4 +1,4 @@
-package com.flowingsun.admin.entity;
+package com.flowingsun.admin.dto;
 
 import com.flowingsun.article.entity.Category;
 import com.flowingsun.common.utils.PageQueryBean;

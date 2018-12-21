@@ -1,6 +1,8 @@
 package com.flowingsun.article.entity;
 
-import com.flowingsun.behavior.entity.BehaviorStatus;
+import com.flowingsun.article.dto.ArticleTag;
+import com.flowingsun.article.dto.RegularRecommend;
+import com.flowingsun.behavior.dto.BehaviorStatus;
 import com.flowingsun.behavior.entity.Comment;
 
 import java.util.Date;

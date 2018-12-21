@@ -1,7 +1,10 @@
 package com.flowingsun.article.service;
 
-import com.flowingsun.admin.entity.AdminBlogQuery;
+import com.flowingsun.admin.dto.AdminBlogQuery;
 import com.flowingsun.article.dao.ArticleMapper;
+import com.flowingsun.article.dto.ArticleTag;
+import com.flowingsun.article.dto.BlogInfo;
+import com.flowingsun.article.dto.RegularRecommend;
 import com.flowingsun.article.entity.*;
 import com.flowingsun.article.vo.CategoryArticleQuery;
 import com.flowingsun.article.vo.TagArticleQuery;
@@ -22,7 +25,6 @@ import java.sql.Timestamp;
 import java.util.*;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 
@@ -148,7 +150,7 @@ public class ArticleServiceImpl implements ArticleService {
     /**
      *@Date 18/05/19 15:54
      *@Param [queryBean]
-     *@Return com.flowingsun.admin.entity.AdminBlogQuery
+     *@Return com.flowingsun.admin.dto.AdminBlogQuery
      *@Description getAllArticles
      * 主要用于admin后台文章管理，主要根据页面查询参数查询除主体外文章的全部信息、分类信息、标签信息
      * AdminBlogQuery 继承于PageQueryBean，主要存放pageSize，cId，pageNum等页面查询参数信息。
@@ -179,7 +181,7 @@ public class ArticleServiceImpl implements ArticleService {
      *@Author Lyon[flowingsun007@163.com]
      *@Date 18/09/10 21:59
      *@Param []
-     *@Return java.util.List<com.flowingsun.article.entity.ArticleTag>
+     *@Return java.util.List<com.flowingsun.article.dto.ArticleTag>
      *@Description selectAllTag
      * 获取所有文章标签，如果Redis开启服务则从Redis中获取，失败则从数据库获取。
      */
@@ -975,7 +977,7 @@ public class ArticleServiceImpl implements ArticleService {
      *@Author Lyon[flowingsun007@163.com]
      *@Date 18/09/10 22:18
      *@Param [articleId]
-     *@Return com.flowingsun.article.entity.RegularRecommend
+     *@Return com.flowingsun.article.dto.RegularRecommend
      *@Description getRegularRecommendArticle
      * 浏览文章时,上一篇下一篇推荐
      */

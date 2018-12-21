@@ -1,7 +1,7 @@
 package com.flowingsun.behavior.controller;
 
-import com.flowingsun.article.entity.ArticleTag;
-import com.flowingsun.article.entity.BlogInfo;
+import com.flowingsun.article.dto.ArticleTag;
+import com.flowingsun.article.dto.BlogInfo;
 import com.flowingsun.article.entity.Category;
 import com.flowingsun.article.service.ArticleService;
 import com.flowingsun.behavior.entity.*;

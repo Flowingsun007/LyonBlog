@@ -1,11 +1,13 @@
 package com.flowingsun.article.service;
 
-import com.flowingsun.admin.entity.AdminBlogQuery;
+import com.flowingsun.admin.dto.AdminBlogQuery;
+import com.flowingsun.article.dto.ArticleTag;
+import com.flowingsun.article.dto.BlogInfo;
+import com.flowingsun.article.dto.RegularRecommend;
 import com.flowingsun.article.entity.*;
 import com.flowingsun.article.vo.CategoryArticleQuery;
 import com.flowingsun.article.vo.TagArticleQuery;
 
-import java.util.Date;
 import java.util.List;
 
 public interface ArticleService {

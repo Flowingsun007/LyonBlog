@@ -1,5 +1,7 @@
-package com.flowingsun.behavior.entity;
+package com.flowingsun.behavior.dto;
 
+
+import com.flowingsun.behavior.entity.Collection;
 
 import java.util.List;
 

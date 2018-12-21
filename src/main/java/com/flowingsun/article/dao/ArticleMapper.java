@@ -1,6 +1,9 @@
 package com.flowingsun.article.dao;
 
-import com.flowingsun.admin.entity.AdminBlogQuery;
+import com.flowingsun.admin.dto.AdminBlogQuery;
+import com.flowingsun.article.dto.ArticleInfo;
+import com.flowingsun.article.dto.ArticleTag;
+import com.flowingsun.article.dto.RegularRecommend;
 import com.flowingsun.article.entity.*;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
