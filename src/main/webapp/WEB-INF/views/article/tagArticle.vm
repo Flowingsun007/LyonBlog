@@ -551,16 +551,14 @@
                             #end
                             <span>
                                 #if(!$article.getArticleCollection())
-                                            0
+                                    0
                                 #else
                                     $article.getArticleCollection()
                                 #end
                             </span>收藏
                         </a>
-                        <a href=""  style="color:#919191;" class="submitShare">
-                            <img class="icon" src="/static/image/share1.png" alt="share" width="15px;" height="15px;">
-                            分享
-                        </a>
+                        <a href=""  style="color:#919191;" class="submitShare"><img class="icon" src="/static/image/share1.png" alt="share" width="15px;" height="15px;">分享</a>
+                        <span style="visibility: hidden">$article.getId()</span>
                     </div>
 
                 </div><!-- /.blog-post -->
