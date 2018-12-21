@@ -6,17 +6,53 @@ import com.flowingsun.common.utils.PageQueryBean;
 import java.util.Date;
 
 public class AdminBlogQuery extends PageQueryBean {
+    /**
+     * 文章ID
+     */
     private Integer articleId;
+    /**
+     * 文章主分类ID
+     */
     private Integer articleMid;
+    /**
+     * 文章二级分类ID
+     */
     private Integer articleCid;
+    /**
+     * 文章标题
+     */
     private String articlTitle;
+    /**
+     * 文章创建时间
+     */
     private Date createDate;
+    /**
+     * 文章修改时间
+     */
     private Date editDate;
+    /**
+     * 分类选择
+     */
     private Category categoryChoice;
+    /**
+     * 文章标签ID
+     */
     private Integer tagId;
+    /**
+     * 文章-标签关系ID
+     */
     private Integer tagRelationId;
+    /**
+     * 标签名
+     */
     private String tagName;
+    /**
+     * 当前页数
+     */
     private Integer pageNum;
+    /**
+     * 每页显示个数
+     */
     private Integer pageSize;
 
     public Integer getTagId() {

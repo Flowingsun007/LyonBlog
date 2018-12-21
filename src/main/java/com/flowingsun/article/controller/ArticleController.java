@@ -340,6 +340,24 @@ public class ArticleController {
                              @RequestParam(value="pageNum",required=false,defaultValue = "1")Integer pageNum,
                              @RequestParam(value="pageSize",required=false,defaultValue = "10")Integer pageSize,
                              Model model){
+        Long userId = (Long)SecurityUtils.getSubject().getSession().getAttribute("userId");
+//        CategoryArticleQuery queryBean = new CategoryArticleQuery();
+//        queryBean.setPageSize(pageSize);
+//        queryBean.setPageNum(pageNum);
+//        queryBean.setcId(cId);
+//        List<Category> categorys = articleService.getCategory();
+//        List<ArticleTag> allTags = articleService.selectAllTag();
+//        BlogInfo blogInfo = articleService.selectInfomation();
+//        CategoryArticleQuery categoryArticleQuery = articleService.getCategoryArticles(cId,queryBean);
+//        model.addAttribute("categorys",categorys);
+//        model.addAttribute("allTags",allTags);
+//        model.addAttribute("blogInfo",blogInfo);
+//        model.addAttribute("pageQueryBean",categoryArticleQuery);
+//        if(userId!=null&&categoryArticleQuery.getTotal()!=0){
+//            CategoryArticleQuery result = behaviorService.getUserCategoryArticleBehavior(categoryArticleQuery,userId);
+//            model.addAttribute("pageQueryBean",result);
+//        }
+
         TagArticleQuery queryBean = new TagArticleQuery();
         queryBean.setPageSize(pageSize);
         queryBean.setPageNum(pageNum);

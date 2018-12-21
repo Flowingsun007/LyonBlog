@@ -538,12 +538,6 @@ public class ArticleServiceImpl implements ArticleService {
             article.setEditDate(dateTime);
             List<ArticleTag> tags = articleMapper.selectArticleTagsByPrimarykey(articleId);
             //清除该文章之前创建的所有标签
-//            for(int i=0; i<tags.size(); i++){
-//                ArticleTag tag = tags.get(i);
-//                if(1==articleMapper.deleteTagRelation(articleId, tag.getTagId())&&0==articleMapper.selectTagCountByTagId(tag.getTagId())){
-//                    articleMapper.deleteTagByTagId(tag.getTagId());
-//                }
-//            }
             for(ArticleTag tag:tags){
                 executorService.execute(()->{
                     if(1==articleMapper.deleteTagRelation(articleId, tag.getTagId())&&0==articleMapper.selectTagCountByTagId(tag.getTagId())){
@@ -937,9 +931,9 @@ public class ArticleServiceImpl implements ArticleService {
         String[] tagList = tagBean.getArticleTagsStr().split(",");
         List<String> TagsList = new ArrayList(Arrays.asList(tagList));
         Integer[] idIntList = changeListFormatUtils.str2intList(idStrList);
+        //先判断tag表中是否有此tag，若checkTagExist(tag)==false表示没有此tag(此tag为新tag),数据库中没有，无需删除。
+        //若checkTagExist(tag)==true,表示数据库中有此tag,对所选文章逐个删除。
         for(String tag : TagsList){
-            //先判断tag表中是否有此tag，若checkTagExist(tag)==false表示没有此tag(此tag为新tag),数据库中没有，无需删除。
-            //若checkTagExist(tag)==true,表示数据库中有此tag,对所选文章逐个删除。
             if(checkTagExist(tag)==true){
                 for(Integer articleId : idIntList){
                     if(0==deleteArticleOneTag(articleId, tag))

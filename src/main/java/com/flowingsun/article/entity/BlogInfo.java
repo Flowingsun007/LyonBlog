@@ -3,11 +3,17 @@ package com.flowingsun.article.entity;
 import java.util.Date;
 
 public class BlogInfo {
+
     private String viewCount;
+
     private String visitorCount;
+
     private String userCount;
+
     private String articleCount;
+
     private String commentCount;
+
     private String thankCount;
 
     public String getViewCount() {
