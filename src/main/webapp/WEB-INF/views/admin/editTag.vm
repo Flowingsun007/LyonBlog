@@ -708,7 +708,7 @@
                                 <td width="400px;">
                                     <div style="font-size: xx-small">
                                         ${article.id}.<a href="/article/single?articleId=$article.id" target="_blank">$article.articleTitle</a>
-                                        $article.mainCategoryName → <a href="/article/category?categoryId=$article.articleSecondId">$article.secondCategoryName</a>
+                                        $article.mainCategoryName → <a href="/article/category?cId=$article.articleSecondId" target="_blank">$article.secondCategoryName</a>
                                     </div>
                                 </td>
                                 <td class="tableTD">
