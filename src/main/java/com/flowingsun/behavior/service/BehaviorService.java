@@ -26,7 +26,7 @@ public interface BehaviorService {
 
     Article getUserArticleBehavior(Article article, Long userId);
 
-    CategoryArticleQuery getUserCategoryArticleBehavior(CategoryArticleQuery categoryArticleQuery, Long userId);
+    List<Article> getUserArticleListBehavior(List<Article> articleList, Long userId);
 
     String getMoneyDonatePage(HttpServletRequest request);
 

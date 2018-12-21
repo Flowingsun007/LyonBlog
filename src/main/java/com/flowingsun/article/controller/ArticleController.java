@@ -208,13 +208,13 @@ public class ArticleController {
                                   @RequestParam(value="pageNum",required=false,defaultValue = "1")Integer pageNum,
                                   @RequestParam(value="pageSize",required=false,defaultValue = "10")Integer pageSize,
                                   Model model) throws IOException {
+        Long userId = (Long)SecurityUtils.getSubject().getSession().getAttribute("userId");
         CategoryArticleQuery queryBean = new CategoryArticleQuery();
         queryBean.setPageSize(pageSize);
         queryBean.setPageNum(pageNum);
         queryBean.setcId(cId);
         List<Category> categorys = articleService.getCategory();
         CategoryArticleQuery categoryArticleQuery = articleService.getCategoryArticles(cId,queryBean);
-        Long userId = (Long)SecurityUtils.getSubject().getSession().getAttribute("userId");
         List<ArticleTag> allTags = articleService.selectAllTag();
         BlogInfo blogInfo = articleService.selectInfomation();
         String s1 = JSON.toJSONString(allTags);
@@ -222,8 +222,10 @@ public class ArticleController {
         String s3 = JSON.toJSONString(categoryArticleQuery);
         String s4 = JSON.toJSONString(categorys);
         if(userId!=null&&categoryArticleQuery.getTotal()!=0){
-            CategoryArticleQuery result = behaviorService.getUserCategoryArticleBehavior(categoryArticleQuery,userId);
-            s3 = JSON.toJSONString(result);
+            List<Article> articleList = (List<Article>) categoryArticleQuery.getDataList();
+            List<Article> articles = behaviorService.getUserArticleListBehavior(articleList,userId);
+            categoryArticleQuery.setDataList(articles);
+            s3 = JSON.toJSONString(categoryArticleQuery);
         }
         model.addAttribute("allTags",JSON.parseArray(s1));
         model.addAttribute("blogInfo",JSON.parseObject(s2,BlogInfo.class));
@@ -260,11 +262,12 @@ public class ArticleController {
         model.addAttribute("categorys",categorys);
         model.addAttribute("allTags",allTags);
         model.addAttribute("blogInfo",blogInfo);
-        model.addAttribute("pageQueryBean",categoryArticleQuery);
         if(userId!=null&&categoryArticleQuery.getTotal()!=0){
-            CategoryArticleQuery result = behaviorService.getUserCategoryArticleBehavior(categoryArticleQuery,userId);
-            model.addAttribute("pageQueryBean",result);
+            List<Article> articleList = (List<Article>) categoryArticleQuery.getDataList();
+            List<Article> articles = behaviorService.getUserArticleListBehavior(articleList,userId);
+            categoryArticleQuery.setDataList(articles);
         }
+        model.addAttribute("pageQueryBean",categoryArticleQuery);
         return "/article/categoryArticle";
     }
 
@@ -341,23 +344,6 @@ public class ArticleController {
                              @RequestParam(value="pageSize",required=false,defaultValue = "10")Integer pageSize,
                              Model model){
         Long userId = (Long)SecurityUtils.getSubject().getSession().getAttribute("userId");
-//        CategoryArticleQuery queryBean = new CategoryArticleQuery();
-//        queryBean.setPageSize(pageSize);
-//        queryBean.setPageNum(pageNum);
-//        queryBean.setcId(cId);
-//        List<Category> categorys = articleService.getCategory();
-//        List<ArticleTag> allTags = articleService.selectAllTag();
-//        BlogInfo blogInfo = articleService.selectInfomation();
-//        CategoryArticleQuery categoryArticleQuery = articleService.getCategoryArticles(cId,queryBean);
-//        model.addAttribute("categorys",categorys);
-//        model.addAttribute("allTags",allTags);
-//        model.addAttribute("blogInfo",blogInfo);
-//        model.addAttribute("pageQueryBean",categoryArticleQuery);
-//        if(userId!=null&&categoryArticleQuery.getTotal()!=0){
-//            CategoryArticleQuery result = behaviorService.getUserCategoryArticleBehavior(categoryArticleQuery,userId);
-//            model.addAttribute("pageQueryBean",result);
-//        }
-
         TagArticleQuery queryBean = new TagArticleQuery();
         queryBean.setPageSize(pageSize);
         queryBean.setPageNum(pageNum);
@@ -366,9 +352,14 @@ public class ArticleController {
         List<Category> categorys = articleService.getCategory();
         List<ArticleTag> allTags = articleService.selectAllTag();
         BlogInfo blogInfo = articleService.selectInfomation();
+        model.addAttribute("categorys",categorys);
         model.addAttribute("allTags",allTags);
         model.addAttribute("blogInfo",blogInfo);
-        model.addAttribute("categorys",categorys);
+        if(userId!=null&&tagArticleQuery.getTotal()!=0){
+            List<Article> articleList = (List<Article>) tagArticleQuery.getDataList();
+            List<Article> articles = behaviorService.getUserArticleListBehavior(articleList,userId);
+            tagArticleQuery.setDataList(articles);
+        }
         model.addAttribute("pageQueryBean",tagArticleQuery);
         return "/article/tagArticle";
     }
