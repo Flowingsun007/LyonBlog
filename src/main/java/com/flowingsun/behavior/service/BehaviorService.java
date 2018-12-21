@@ -1,7 +1,7 @@
 package com.flowingsun.behavior.service;
 
 import com.flowingsun.article.entity.Article;
-import com.flowingsun.article.vo.CategoryArticleQuery;
+import com.flowingsun.behavior.dto.BehaviorStatus;
 import com.flowingsun.behavior.entity.*;
 import com.flowingsun.behavior.vo.PictureQuery;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
