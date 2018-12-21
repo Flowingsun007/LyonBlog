@@ -305,6 +305,13 @@
             return false;
         });
 
+        $("#blogList").on("click",".submitComment",function(){
+            swal({
+                title:"(*^▽^*)请移步至评论区↓",
+                text:"博主比较懒，前端比较菜，此功能暂未开发...囧"
+            });
+        });
+
         $(".submitShare").click(function () {
             var theNode = $(this);
             $(theNode).children("img").attr("src","/static/image/share2.png");
@@ -450,15 +457,12 @@
                         <a class="text-dark" href="https://www.zhihu.com/question/21395276/answer/300567726" target="_blank">可以用Python编程语言做哪些神奇好玩的事情</a>
                     </h3>
                     <strong class="d-inline-block mb-2 text-primary"> 【知乎】：Lyon</strong>
-                    <div class="mb-1 text-muted">2018/06/21</div>
-                    <p class="card-text mb-auto">
-                        用Python写的第一个程序，是爬取糗事百科上的图片、自动下载到本地、自动分成文件夹保存，当时就觉得，卧糟，太NB了~第二个程序，当然还是图片爬虫，不过这次，嘿嘿，是妹纸图，你懂得~
-                    </p>
                     <a href="https://www.zhihu.com/question/21395276/answer/300567726" target="_blank">阅读全文</a>
                 </div>
                 <div>
                     <img src="/static/uploadBlogFile/image/zhihu-Zhilian1.jpg" alt="知乎Lyon.jpg" title="知乎Lyon.jpg">
                 </div>
+
             </div>
         </div>
         <div class="col-md-6">
@@ -469,7 +473,7 @@
                     </h3>
                     <strong class="d-inline-block mb-2 text-success">【知乎】：Lyon</strong>
                     <div class="mb-1 text-muted">2018/06/21</div>
-                    <p class="card-text mb-auto">直接插入排序，是算法里老生常谈的经典，这里直接先上一段原始版的直接插入排序代码，然后顺着代码理思路，最后再来一段优化版的代码。</p>
+                    <p class="card-text mb-auto">直接插入排序，是算法里老生常谈的经典，这里直接先上一段原始版的直接插入排序代码，然后顺着代码理思路...</p>
                     <a href="https://zhuanlan.zhihu.com/p/35233558" target="_blank">阅读全文</a>
                 </div>
                 <div>
@@ -528,7 +532,7 @@
                                 #end
                             </span>感谢</a>
                         <span style="visibility: hidden">$article.getId()</span>
-                        <a href="javascript:void(0)" style="margin-right:40px;color:#919191;">
+                        <a href="javascript:void(0)" style="margin-right:40px;color:#919191;" class="submitComment">
                             #if($article.getBehaviorStatus().getCommentStatus()==1)
                                 <img class="icon" src="/static/image/comment2.png" alt="comment" width="15px;" height="15px;">
                             #else
