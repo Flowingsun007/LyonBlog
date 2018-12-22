@@ -61,7 +61,6 @@ public class UserServiceImpl implements UserService {
      *@Description 用户注册
      */
     @Override
-    @Transactional
     public String UserRegister(User user,HttpServletRequest request) throws UnsupportedEncodingException, NoSuchAlgorithmException {
         String salt = new SecureRandomNumberGenerator().nextBytes().toString();
         String saltPass = user.getUserpass()+user.getTelephone()+salt;
