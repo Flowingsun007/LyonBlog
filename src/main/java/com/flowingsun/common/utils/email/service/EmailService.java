@@ -25,6 +25,7 @@ public class EmailService {
      *@Author Lyon[flowingsun007@163.com]
      *@Date 18/05/9 18:30
      *@Description 发送邮件工具，此处指定的是网易邮件发送服务器
+     * Windows和Mac上的分支用PORT25端口，部署阿里云的Server分支用465端口,SSL连接
      */
     private static JavaMailSenderImpl createMailSender() {
         JavaMailSenderImpl sender = new JavaMailSenderImpl();
@@ -44,14 +45,12 @@ public class EmailService {
 
     /**
      * 发送邮件
-     *
-     * @param toEmail 接受人
-     * @param subject 主题
-     * @param content 发送内容
+     * @param [request, toEmail, userName, randomCode, userphone]
      * @throws MessagingException 异常
      * @throws UnsupportedEncodingException 异常
+     * @detail Windows和Mac上的分支，用mailSender即可，部署阿里云的server分支需要用aliMailSender
      */
-    public static void sendHtmlMail(HttpServletRequest request,String toEmail, String userName, Integer randomCode, String userphone) throws MessagingException,UnsupportedEncodingException {
+    public static void sendHtmlMail(HttpServletRequest request, String toEmail, String userName, Integer randomCode, String userphone) throws MessagingException,UnsupportedEncodingException {
         String subject = "Lyon's Blog——注册激活";
         String content = "<html><p>亲爱的：" + userName +
                 ",感谢您注册了Lyon's Blog,"+
