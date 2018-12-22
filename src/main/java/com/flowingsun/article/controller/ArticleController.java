@@ -203,14 +203,14 @@ public class ArticleController {
     public String jsonCategoryArticle(@RequestParam("cId") Integer cId,
                                   @RequestParam(value="pageNum",required=false,defaultValue = "1")Integer pageNum,
                                   @RequestParam(value="pageSize",required=false,defaultValue = "10")Integer pageSize,
-                                  Model model) throws IOException {
+                                  Model model){
         Long userId = (Long)SecurityUtils.getSubject().getSession().getAttribute("userId");
         CategoryArticleQuery queryBean = new CategoryArticleQuery();
         queryBean.setPageSize(pageSize);
         queryBean.setPageNum(pageNum);
         queryBean.setcId(cId);
-        List<Category> categorys = articleService.getCategory();
         CategoryArticleQuery categoryArticleQuery = articleService.getCategoryArticles(cId,queryBean);
+        List<Category> categorys = articleService.getCategory();
         List<ArticleTag> allTags = articleService.selectAllTag();
         BlogInfo blogInfo = articleService.selectInfomation();
         String s1 = JSON.toJSONString(allTags);
@@ -227,8 +227,6 @@ public class ArticleController {
         model.addAttribute("blogInfo",JSON.parseObject(s2,BlogInfo.class));
         model.addAttribute("pageQueryBean",JSON.parseObject(s3,CategoryArticleQuery.class));
         model.addAttribute("categorys",JSON.parseArray(s4));
-
-
         return "/article/categoryArticle-json";
 
     }

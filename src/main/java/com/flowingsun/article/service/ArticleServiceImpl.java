@@ -33,7 +33,7 @@ public class ArticleServiceImpl implements ArticleService {
 
     private static Logger logger = LoggerFactory.getLogger(ArticleServiceImpl.class);
 
-    ExecutorService executorService = Executors.newFixedThreadPool(3);
+    ExecutorService executorService = Executors.newFixedThreadPool(4);
 
     private static final Integer SUCCESS=1;
 
@@ -106,10 +106,6 @@ public class ArticleServiceImpl implements ArticleService {
             articleList.forEach(article->{
                 article.setArticleTagList(articleMapper.selectArticleTagsByPrimarykey(article.getId()));
             });
-//            List<Article> results = articleList.parallelStream().map(article->{
-//                article.setArticleTagList(articleMapper.selectArticleTagsByPrimarykey(article.getId()));
-//                return article;
-//            }).collect(Collectors.toList());
             queryBean.setDataList(articleList);
         }else{//对应cid下没有文章
             queryBean.setTotal(0);
@@ -134,8 +130,8 @@ public class ArticleServiceImpl implements ArticleService {
             Integer pageSize = queryBean.getPageSize();
             Integer startNum = queryBean.getStartRow();
             List<Article> articleList = articleMapper.selectTagArticles(tagId,startNum,pageSize);
+            //查询文章标签，并将标签信息放入bean中
             articleList.forEach(article->{
-                //查询文章标签，并将标签信息放入bean中
                 List<ArticleTag> articleTags = articleMapper.selectArticleTagsByPrimarykey(article.getId());
                 article.setArticleTagList(articleTags);
             });
@@ -162,12 +158,14 @@ public class ArticleServiceImpl implements ArticleService {
             total = articleMapper.selectCategoryArticlesCount(queryBean.getArticleCid());
         }else if(queryBean.getArticleCid()!=null&&queryBean.getArticleCid()==0&&queryBean.getArticleMid()!=null&&queryBean.getArticleMid()!=0){
             total = articleMapper.selectMainCategoryArticlesCount(queryBean.getArticleMid());
-        }else {total = articleMapper.selectAllArticleCount();}
+        }else {
+            total = articleMapper.selectAllArticleCount();
+        }
         if(total>0){
             queryBean.setTotal(total);
             List<Article> articleList = articleMapper.selectAllArticleByQueryCondition(queryBean);
+            //查询文章标签，并将标签信息放入bean中
             articleList.forEach(article->{
-                //查询文章标签，并将标签信息放入bean中
                 List<ArticleTag> articleTags = articleMapper.selectArticleTagsByPrimarykey(article.getId());
                 article.setArticleTagList(articleTags);
             });
@@ -189,9 +187,9 @@ public class ArticleServiceImpl implements ArticleService {
     public List<ArticleTag> selectAllTag() {
         List<ArticleTag> allTags = redisDAO.getList("allTags");
         if(allTags==null||allTags.size()==0){
-            logger.warn("\n----------------------从redis获取文章标签失败!----------------------");
             allTags = articleMapper.selectAllTag();
             redisDAO.setList("allTags",allTags);
+            logger.warn("\n----------------------从redis获取文章标签失败!----------------------");
         }
         return allTags;
 
@@ -215,7 +213,6 @@ public class ArticleServiceImpl implements ArticleService {
         String s4 = redisDAO.getString("userCount");
         String s5 = redisDAO.getString("visitorCount");
         String s6 = redisDAO.getString("viewCount");
-        //logger.info("\n----------------------redis博客公共信息:----------------------\narticleCount："+s1+";commentCount："+s2+";thankCount："+s3+";userCount："+s4+";visitorCount："+s5+";viewCount："+s6);
         if(s1==null||s2==null||s3==null||s4==null||s5==null||s6==null){
             s1 = String.valueOf(articleMapper.selectAllArticleCount());
             s2 = String.valueOf(commentMapper.selectCommentCount());

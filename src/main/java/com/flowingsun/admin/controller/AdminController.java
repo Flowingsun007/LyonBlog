@@ -46,8 +46,8 @@ public class AdminController {
         queryBean.setPageNum(pageNum);
         AdminBlogQuery pageQueryBean = articleService.getAllArticles(queryBean);
         pageQueryBean.setCategoryChoice(articleService.getAllCategory());
-        model.addAttribute("pageQueryBean",pageQueryBean);
         List<Category> categorys = articleService.getCategory();
+        model.addAttribute("pageQueryBean",pageQueryBean);
         model.addAttribute("categorys",categorys);
         return "admin/editTag";
     }
@@ -108,8 +108,8 @@ public class AdminController {
         queryBean.setPageNum(pageNum);
         AdminBlogQuery pageQueryBean = articleService.getAllArticles(queryBean);
         pageQueryBean.setCategoryChoice(articleService.getAllCategory());
-        model.addAttribute("pageQueryBean",pageQueryBean);
         List<Category> categorys = articleService.getCategory();
+        model.addAttribute("pageQueryBean",pageQueryBean);
         model.addAttribute("categorys",categorys);
         return "admin/adminHome";
     }
