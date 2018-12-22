@@ -21,6 +21,7 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
 import java.io.UnsupportedEncodingException;
+import java.net.InetAddress;
 import java.security.NoSuchAlgorithmException;
 import java.util.Random;
 
@@ -79,7 +80,9 @@ public class UserServiceImpl implements UserService {
             //将根据用户注册手机号生成的随机数放入session，然后发送到用户邮箱，等待用户激活。
             request.getSession().getServletContext().setAttribute(user.getTelephone(),randomCode);
             try {
-                emailService.sendHtmlMail(user.getUseremail(),user.getUsername(),randomCode,user.getTelephone());
+                String s1 = request.getLocalAddr(); //获取服务器名称
+                int s2 = request.getLocalPort(); //获取服务器端口
+                emailService.sendHtmlMail(request,user.getUseremail(),user.getUsername(),randomCode,user.getTelephone());
                 result = "register_succ";
                 logger.warn("用户提交注册信息，激活邮件发送成功"+user.toString());
             } catch (MessagingException|UnsupportedEncodingException e) {
