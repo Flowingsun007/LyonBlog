@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
+import javax.servlet.http.HttpServletRequest;
 import java.io.UnsupportedEncodingException;
 import java.util.Iterator;
 import java.util.Map;
@@ -50,11 +51,11 @@ public class EmailService {
      * @throws MessagingException 异常
      * @throws UnsupportedEncodingException 异常
      */
-    public static void sendHtmlMail(String toEmail,String userName, Integer randomCode,String userphone) throws MessagingException,UnsupportedEncodingException {
+    public static void sendHtmlMail(HttpServletRequest request, String toEmail, String userName, Integer randomCode, String userphone) throws MessagingException,UnsupportedEncodingException {
         String subject = "Lyon's Blog——注册激活";
         String content = "<html><p>亲爱的：" + userName +
-                "感谢您注册了Lyon's Blog,"+
-                "请于30分钟内点击<a href=http://localhost:9000/user/register/activate?code="+randomCode + "&userphone="+userphone+">链接</a>以激活注册！</p></html>";
+                ",感谢您注册了Lyon's Blog,"+
+                "请于30分钟内点击<a href=" + request.getHeader("Referer") +"user/register/activate?code="+randomCode + "&userphone="+userphone+">链接</a>以激活注册！</p></html>";
         MimeMessage mimeMessage = mailSender.createMimeMessage();
         // 设置utf-8或GBK编码，否则邮件会有乱码
         MimeMessageHelper messageHelper = new MimeMessageHelper(mimeMessage, true, "UTF-8");
