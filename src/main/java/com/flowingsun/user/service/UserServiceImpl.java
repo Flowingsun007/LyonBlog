@@ -21,7 +21,6 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
 import java.io.UnsupportedEncodingException;
-import java.net.InetAddress;
 import java.security.NoSuchAlgorithmException;
 import java.util.Random;
 
@@ -62,46 +61,36 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public String UserRegister(User user,HttpServletRequest request) throws UnsupportedEncodingException, NoSuchAlgorithmException {
+        String salt = new SecureRandomNumberGenerator().nextBytes().toString();
+        String saltPass = user.getUserpass()+user.getTelephone()+salt;
+        String md5pass = MD5Utils.encryptPassword(saltPass);
+        user.setUserpass(md5pass);
+        user.setSalt(salt);
         String result = "register_fail";
-        try{
-            String salt = new SecureRandomNumberGenerator().nextBytes().toString();
-            String saltPass = user.getUserpass()+user.getTelephone()+salt;
-            String md5pass = MD5Utils.encryptPassword(saltPass);
-            user.setUserpass(md5pass);
-            user.setSalt(salt);
-            if(0==userMapper.insertByUserRegister(user)){
-                //用户插入失败，可能是手机/邮箱已存在
-                System.out.println("用户插入失败，可能是手机/邮箱已存在"+user.toString());
-                logger.warn("用户插入失败，可能是手机/邮箱已存在"+user.toString());
+        if(0==userMapper.insertByUserRegister(user)){
+            //用户插入失败，可能是手机/邮箱已存在
+            logger.warn("用户插入失败，可能是手机/邮箱已存在"+user.toString());
+            return result;
+        }
+        else{
+            Random random = new Random(Long.parseLong(user.getTelephone()));
+            Integer randomCode = random.nextInt();
+            //将根据用户注册手机号生成的随机数放入session，然后发送到用户邮箱，等待用户激活。
+            request.getSession().getServletContext().setAttribute(user.getTelephone(),randomCode);
+            try {
+                emailService.sendHtmlMail(request,user.getUseremail(),user.getUsername(),randomCode,user.getTelephone());
+                result = "register_succ";
+                logger.warn("用户提交注册信息，激活邮件发送成功"+user.toString());
+            } catch (MessagingException|UnsupportedEncodingException e) {
+                logger.error("用户提交注册信息，激活邮件发送失败",e);
+                e.printStackTrace();
+                if(0==userMapper.deleteByUserphone(user.getTelephone())){
+                    logger.warn("数据库删除用户注册信息失败，用户手机号："+user.getTelephone());
+                }
+                request.getSession().getServletContext().removeAttribute(user.getTelephone());
+            } finally {
                 return result;
             }
-            else{
-                Random random = new Random(Long.parseLong(user.getTelephone()));
-                Integer randomCode = random.nextInt();
-                //将根据用户注册手机号生成的随机数放入session，然后发送到用户邮箱，等待用户激活。
-                request.getSession().getServletContext().setAttribute(user.getTelephone(),randomCode);
-                try {
-                    emailService.sendHtmlMail(request,user.getUseremail(),user.getUsername(),randomCode,user.getTelephone());
-                    result = "register_succ";
-                    System.out.println("用户提交注册信息，激活邮件发送成功"+user.toString());
-                    logger.warn("用户提交注册信息，激活邮件发送成功"+user.toString());
-                } catch (MessagingException|UnsupportedEncodingException e) {
-                    System.out.println("用户提交注册信息，激活邮件发送失败"+e);
-                    logger.error("用户提交注册信息，激活邮件发送失败",e);
-                    e.printStackTrace();
-                    if(0==userMapper.deleteByUserphone(user.getTelephone())){
-                        System.out.println("数据库删除用户注册信息失败，用户手机号："+user.getTelephone());
-                        logger.warn("数据库删除用户注册信息失败，用户手机号："+user.getTelephone());
-                    }
-                    request.getSession().getServletContext().removeAttribute(user.getTelephone());
-                } finally {
-                    return result;
-                }
-            }
-        }catch (Exception f){
-            f.printStackTrace();
-        }finally {
-            return result;
         }
     }
 
