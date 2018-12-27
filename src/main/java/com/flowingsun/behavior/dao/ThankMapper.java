@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public interface ThankMapper {
+
     int deleteByPrimaryKey(Integer id);
 
     int insertThank(Thank record);
@@ -27,4 +28,6 @@ public interface ThankMapper {
     int selectThankCountByUserid(Long userid);
 
     int deleteByArticleId(int articleId);
+
+    void deleteByUserIdAndArticleId(@Param("userId") Long userId, @Param("articleId") Integer articleId);
 }

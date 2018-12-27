@@ -248,6 +248,7 @@
     function submitThank(){
         // a,b,c,d,e,f,g分别为文章标题，文章摘要，文章主分类id，文章二级分类id，文章HTML内容,文章markdown原文,文章标签(以tag1,tag2,...字符串形式返回))
         var articleid = $article.getId();
+        var othankNum = parseInt($.trim($("#submitThank").children("span").text()))-1;
         var thankNum = parseInt($.trim($("#submitThank").children("span").text()))+1;
         $.ajax({
             type:"POST",
@@ -259,13 +260,16 @@
                     $("#submitThank").children("img").attr("src","/static/image/thank2.png");
                     $("#submitThank").children("span").text(thankNum);
                     $("#commentNum").text(thankNum);
-                } else if(data=="setThank_fail_重复点赞"){
                     swal({
-                        title: "您已点过感谢,请勿重复❤️！",
+                        title: "点❤成功",
                         text:  data,
                         timer: 3000,
-                        showConfirmButton: false
+                        showConfirmButton: true
                     });
+                } else if(data=="removeThank_success"){
+                    $("#submitThank").children("img").attr("src","/static/image/thank1.png");
+                    $("#submitThank").children("span").text(othankNum);
+                    $("#commentNum").text(othankNum);
                 } else if(data=="setThank_fail_未登录"){
                     swal({
                         title: "亲，请先登录再点❤️哦！",
@@ -284,6 +288,7 @@
     function submitCollect(){
         // a,b,c,d,e,f,g分别为文章标题，文章摘要，文章主分类id，文章二级分类id，文章HTML内容,文章markdown原文,文章标签(以tag1,tag2,...字符串形式返回))
         var articleid = $article.getId();
+        var ocollectNum = parseInt($.trim($("#submitCollect").children("span").text()))-1;
         var collectNum = parseInt($.trim($("#submitCollect").children("span").text()))+1;
         $.ajax({
             type:"POST",
@@ -296,13 +301,10 @@
                     $("#submitCollect").children("span").text(collectNum);
                     $("#collectNum").text(collectNum);
                     swal("收藏成功😊！");
-                } else if(data=="collect_fail_重复收藏"){
-                    swal({
-                        title: "您已收藏过,请勿重复提交！",
-                        text:  data,
-                        timer: 3000,
-                        showConfirmButton: false
-                    });
+                } else if(data=="removeCollect_success"){
+                    $("#submitCollect").children("img").attr("src","/static/image/save1.png");
+                    $("#submitCollect").children("span").text(ocollectNum);
+                    $("#collectNum").text(ocollectNum);
                 } else if(data=="collect_fail_未登录"){
                     swal({
                         title: "亲，请先登录再收藏️哦！",

@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 public class ArticleInfo {
+
     private Integer articleId;
 
     private Integer userid;
@@ -30,6 +31,8 @@ public class ArticleInfo {
     private Integer articleThank;
 
     private Integer articleCollection;
+
+    private Integer articleView;
 
     private int tagId;
 
@@ -139,6 +142,14 @@ public class ArticleInfo {
 
     public void setArticleCollection(Integer articleCollection) {
         this.articleCollection = articleCollection;
+    }
+
+    public Integer getArticleView() {
+        return articleView;
+    }
+
+    public void setArticleView(Integer articleView) {
+        this.articleView = articleView;
     }
 
     public int getTagId() {

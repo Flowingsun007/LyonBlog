@@ -32,4 +32,6 @@ public interface CollectionMapper {
     List<Collection> selectCollectionsByUserid(Long userid);
 
     int deleteByArticleId(int articleId);
+
+    void deleteByUserIdAndArticleId(@Param("userId") Long userId, @Param("articleId") Integer articleId);
 }
