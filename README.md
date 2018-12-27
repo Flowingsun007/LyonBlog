@@ -45,7 +45,7 @@ MacOS系统+Idea开发+Maven构建+Git版本控制
 * windows：仅仅是为了跑起来而新建的此分支，不保证及时更新
 ### 项目标准配置：
 * 0.JDK1.8
-* 1.Mysql5.6
+* 1.Mysql5.6+
 * 2.Tomcat9(2个)
 * 3.Nginx1.14.0
 * 4.Redis4.0.10
@@ -60,6 +60,11 @@ MacOS系统+Idea开发+Maven构建+Git版本控制
 #### log4j配置
 主要是log4j.properties里修改几种类别日志存放路径
 ### 运行顺序
-Nginx和Redis先启动，然后启动项目，在Idea中可以直接启动Tomcat、或者手动打war包放入Tomcat中运行。
+#### 项目启动标准配置：
+Nginx+Redis+2个Tomcat+Elasticsearch+Logstash
+#### 项目启动最简配置：
+Nginx+Redis+1个Tomcat
+#### 启动顺序：
+Nginx和Redis先启动，然后启动Tomcat，在Idea中可以直接启动Tomcat、或者手动打war包放入Tomcat中运行。Tomcat启动完成后再启动Elastic+logstash。
 ### 文件夹结构
 ![](https://pic1.zhimg.com/80/v2-a95cec3239527b265b191c368e888e04_hd.jpg)
