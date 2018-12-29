@@ -287,6 +287,7 @@
                     if(data=="collect_success"){
                         $(theNode).children("img").attr("src","/static/image/save2.png");
                         $(theNode).children("span").text(collectionNum);
+                        swal("收藏成功😊！");
                     } else if(data=="removeCollect_success"){
                         $(theNode).children("img").attr("src","/static/image/save1.png");
                         $(theNode).children("span").text(ocollectionNum);
