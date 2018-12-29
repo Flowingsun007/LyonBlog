@@ -287,7 +287,8 @@
                     if(data=="collect_success"){
                         $(theNode).children("img").attr("src","/static/image/save2.png");
                         $(theNode).children("span").text(collectionNum);
-                    } else if(data=="removeThank_success"){
+                        swal("收藏成功😊！");
+                    } else if(data=="removeCollect_success"){
                         $(theNode).children("img").attr("src","/static/image/save1.png");
                         $(theNode).children("span").text(ocollectionNum);
                     } else if(data=="collect_fail_未登录"){
