@@ -45,7 +45,7 @@ MacOS系统+Idea开发+Maven构建+Git版本控制
 * windows：仅仅是为了跑起来而新建的此分支，不保证及时更新
 ### 项目标准配置：
 * 0.JDK1.8
-* 1.Mysql5.6+
+* 1.Mysql5.7
 * 2.Tomcat9(2个)
 * 3.Nginx1.14.0
 * 4.Redis4.0.10
