@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.flowingsun.behavior.dao.CommentMapper" >
+  <resultMap id="BaseResultMap" type="com.flowingsun.behavior.entity.Comment" >
+    <id column="commentid" property="id" jdbcType="INTEGER" />
+    <result column="articleId" property="articleid" jdbcType="INTEGER" />
+    <result column="userId" property="userid" jdbcType="BIGINT" />
+    <result column="userName" property="userName" jdbcType="VARCHAR" />
+    <result column="comment" property="comment" jdbcType="VARCHAR" />
+    <result column="commentDate" property="commentdate" jdbcType="TIMESTAMP" />
+    <result column="commentLikeNum" property="commentLikeNum" jdbcType="INTEGER" />
+    <collection property="discussionList" ofType="com.flowingsun.behavior.entity.Discussion">
+      <result column="discussId" property="id" jdbcType="INTEGER" />
+      <result column="discussUserid" property="userid" jdbcType="BIGINT" />
+      <result column="discussUsername" property="userName" jdbcType="VARCHAR" />
+      <result column="discussion" property="discussion" jdbcType="VARCHAR" />
+      <result column="discussDate" property="discussdate" jdbcType="TIMESTAMP" />
+    </collection>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, articleId, userId, comment, commentDate
+  </sql>
+  <select id="selectCommentCount" resultType="int">
+    SELECT count(0) FROM comment
+  </select>
+  <select id="selectCommentCountByUserid" resultType="int">
+    SELECT COUNT(0) FROM comment WHERE userId = #{userId,jdbcType=BIGINT}
+  </select>
+  <select id="selectCommentStatusByAidUid" resultType="INTEGER">
+    SELECT count(0) FROM comment WHERE articleId=#{articleId,jdbcType=INTEGER} AND userId = #{userId}
+  </select>
+  <select id="selectCommentsIdByArticleId" resultType="int">
+    SELECT id FROM comment WHERE articleId = #{articleId,jdbcType=INTEGER}
+  </select>
+  <select id="selectAllCommentByArticleid" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    SELECT comment.id AS commentid,comment.articleId,comment.userId,
+    blog_user.username AS userName,comment,commentDate,
+    (SELECT count(0) FROM comment_like WHERE articleId=#{articleId,jdbcType=INTEGER} AND comment_like.commentId=comment.id) AS commentLikeNum,
+    discussion.id AS discussId,discussion.userId AS discussUserid,(SELECT username FROM blog_user WHERE blog_user.id=discussion.userId) AS discussUsername,discussion.discussion,discussion.discussDate
+    FROM comment
+    INNER JOIN blog_user ON blog_user.id = userId
+    LEFT JOIN discussion ON comment.id = discussion.main_commentId
+    WHERE comment.articleId= #{articleId,jdbcType=INTEGER};
+  </select>
+  <select id="selectCommentByCommentLikeCountDesc" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    SELECT comment.id AS commentid,comment.articleId,comment.userId,
+    blog_user.username AS userName,comment,commentDate,
+    (SELECT count(0) FROM comment_like WHERE articleId=#{articleId,jdbcType=INTEGER} AND comment_like.commentId=comment.id) AS commentLikeNum,
+    discussion.id AS discussId,discussion.userId AS discussUserid,(SELECT username FROM blog_user WHERE blog_user.id=discussion.userId) AS discussUsername,discussion.discussion,discussion.discussDate
+    FROM comment
+    INNER JOIN blog_user ON blog_user.id = userId
+    LEFT JOIN discussion ON comment.id = discussion.main_commentId
+    WHERE comment.articleId= #{articleId,jdbcType=INTEGER}
+    ORDER BY commentLikeNum DESC;
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from comment
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByArticleId" parameterType="java.lang.Integer" >
+    DELETE FROM comment
+    WHERE articleId = #{articleId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from comment
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.flowingsun.behavior.entity.Comment" >
+    insert into comment (id, articleId, userId, 
+      comment, commentDate)
+    values (#{id,jdbcType=INTEGER}, #{articleid,jdbcType=INTEGER}, #{userid,jdbcType=BIGINT}, 
+      #{comment,jdbcType=VARCHAR}, #{commentdate,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.flowingsun.behavior.entity.Comment" >
+    INSERT IGNORE INTO comment
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="articleid != null" >
+        articleId,
+      </if>
+      <if test="userid != null" >
+        userId,
+      </if>
+      <if test="comment != null" >
+        comment,
+      </if>
+      <if test="commentdate != null" >
+        commentDate,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="articleid != null" >
+        #{articleid,jdbcType=INTEGER},
+      </if>
+      <if test="userid != null" >
+        #{userid,jdbcType=BIGINT},
+      </if>
+      <if test="comment != null" >
+        #{comment,jdbcType=VARCHAR},
+      </if>
+      <if test="commentdate != null" >
+        #{commentdate,jdbcType=TIMESTAMP}
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.flowingsun.behavior.entity.Comment" >
+    update comment
+    <set >
+      <if test="articleid != null" >
+        articleId = #{articleid,jdbcType=INTEGER},
+      </if>
+      <if test="userid != null" >
+        userId = #{userid,jdbcType=BIGINT},
+      </if>
+      <if test="comment != null" >
+        comment = #{comment,jdbcType=VARCHAR},
+      </if>
+      <if test="commentdate != null" >
+        commentDate = #{commentdate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.flowingsun.behavior.entity.Comment" >
+    update comment
+    set articleId = #{articleid,jdbcType=INTEGER},
+      userId = #{userid,jdbcType=BIGINT},
+      comment = #{comment,jdbcType=VARCHAR},
+      commentDate = #{commentdate,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
