@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.flowingsun.behavior.dao.CollectionMapper" >
+  <resultMap id="BaseResultMap" type="com.flowingsun.behavior.entity.Collection" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="articleId" property="articleid" jdbcType="INTEGER" />
+    <result column="userId" property="userid" jdbcType="BIGINT" />
+    <result column="collectDate" property="collectdate" jdbcType="TIMESTAMP" />
+    <result column="articleTitle" property="articleTitle" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, articleId, userId, collectDate
+  </sql>
+  <select id="selectCollectionCount" resultType="int">
+    SELECT COUNT(0) FROM collection
+  </select>
+  <select id="selectCollectionCountByUserid" resultType="int">
+    SELECT COUNT(0) FROM collection WHERE userId = #{userId,jdbcType=BIGINT}
+  </select>
+  <select id="selectCollectionStatusByAidUid" resultType="INTEGER">
+    SELECT COUNT(0) FROM collection WHERE articleId = #{articleId,jdbcType=INTEGER} AND userId = #{userId};
+  </select>
+  <select id="selectCollectionCountByCollectionbean" resultType="INTEGER" parameterType="com.flowingsun.behavior.entity.Collection" >
+    SELECT COUNT(0) FROM collection WHERE articleId = #{articleid,jdbcType=INTEGER} AND userId = #{userid}
+  </select>
+  <select id="selectCollectionsByUserid" resultMap="BaseResultMap">
+    SELECT collection.id,collection.userId AS userid,collection.articleId AS articleid,collection.collectDate AS collectdate,atc.article_title AS articleTitle
+    FROM collection
+    INNER JOIN article AS atc ON articleId = atc.id
+    WHERE collection.userId=#{userid,jdbcType=BIGINT}
+    ORDER BY collectdate DESC;
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from collection
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from collection
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByArticleId" parameterType="java.lang.Integer" >
+    DELETE FROM collection
+    WHERE articleId = #{articleId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByUserIdAndArticleId">
+    DELETE FROM collection
+    WHERE userId = #{userId} AND articleId = #{articleId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insertCollection" parameterType="com.flowingsun.behavior.entity.Collection" >
+    INSERT IGNORE INTO collection (articleId, userId,collectDate)
+    VALUES (#{articleid,jdbcType=INTEGER}, #{userid,jdbcType=BIGINT},#{collectdate,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.flowingsun.behavior.entity.Collection" >
+    insert into collection
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="articleid != null" >
+        articleId,
+      </if>
+      <if test="userid != null" >
+        userId,
+      </if>
+      <if test="collectdate != null" >
+        collectDate,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="articleid != null" >
+        #{articleid,jdbcType=INTEGER},
+      </if>
+      <if test="userid != null" >
+        #{userid,jdbcType=BIGINT},
+      </if>
+      <if test="collectdate != null" >
+        #{collectdate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.flowingsun.behavior.entity.Collection" >
+    update collection
+    <set >
+      <if test="articleid != null" >
+        articleId = #{articleid,jdbcType=INTEGER},
+      </if>
+      <if test="userid != null" >
+        userId = #{userid,jdbcType=BIGINT},
+      </if>
+      <if test="collectdate != null" >
+        collectDate = #{collectdate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.flowingsun.behavior.entity.Collection" >
+    update collection
+    set articleId = #{articleid,jdbcType=INTEGER},
+      userId = #{userid,jdbcType=BIGINT},
+      collectDate = #{collectdate,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

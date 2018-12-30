@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.flowingsun.user.dao.PermissionMapper" >
+  <resultMap id="BaseResultMap" type="com.flowingsun.user.entity.Permission" >
+    <id column="permissionid" property="permissionid" jdbcType="TINYINT" />
+    <result column="permission" property="permission" jdbcType="VARCHAR" />
+    <result column="description" property="description" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    permissionid, permission, description
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Byte" >
+    select 
+    <include refid="Base_Column_List" />
+    from permission
+    where permissionid = #{permissionid,jdbcType=TINYINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Byte" >
+    delete from permission
+    where permissionid = #{permissionid,jdbcType=TINYINT}
+  </delete>
+  <insert id="insert" parameterType="com.flowingsun.user.entity.Permission" >
+    insert into permission (permissionid, permission, description
+      )
+    values (#{permissionid,jdbcType=TINYINT}, #{permission,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.flowingsun.user.entity.Permission" >
+    insert into permission
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="permissionid != null" >
+        permissionid,
+      </if>
+      <if test="permission != null" >
+        permission,
+      </if>
+      <if test="description != null" >
+        description,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="permissionid != null" >
+        #{permissionid,jdbcType=TINYINT},
+      </if>
+      <if test="permission != null" >
+        #{permission,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        #{description,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.flowingsun.user.entity.Permission" >
+    update permission
+    <set >
+      <if test="permission != null" >
+        permission = #{permission,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where permissionid = #{permissionid,jdbcType=TINYINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.flowingsun.user.entity.Permission" >
+    update permission
+    set permission = #{permission,jdbcType=VARCHAR},
+      description = #{description,jdbcType=VARCHAR}
+    where permissionid = #{permissionid,jdbcType=TINYINT}
+  </update>
+</mapper>
