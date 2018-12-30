@@ -1,10 +1,10 @@
 INSERT INTO `article_main_categary` (`id`, `name`)
 VALUES
-  (1, 'Java'),
-  (2, 'Python和数据'),
-  (3, '数据库服务器'),
-  (4, '计算机相关'),
-  (5, '诗和远方');
+	(1, 'Java'),
+	(2, 'Python和数据'),
+	(3, '数据库服务器'),
+	(4, '计算机相关'),
+	(5, '诗和远方');
 
 
 INSERT INTO `article_second_categary` (`id`, `mainId`, `name`)
@@ -36,6 +36,8 @@ VALUES
   (25, 4, 'Web前端');
 
 
+
+
 INSERT INTO `permission` (`permissionid`, `permission`, `description`)
 VALUES
   (1, 'admin:delete', '删除文章操作'),
@@ -62,6 +64,7 @@ VALUES
   (4, 'register', '注册用户'),
   (5, 'register_unchecked', '未激活注册用户'),
   (6, 'staff', '普通游客');
+
 
 
 INSERT INTO `role_permission` (`role_id`, `permission_id`)
@@ -118,3 +121,4 @@ VALUES
   (6, 10),
   (6, 11),
   (6, 12);
+
