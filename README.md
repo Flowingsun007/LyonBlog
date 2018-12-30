@@ -41,11 +41,11 @@ MacOS系统+Idea开发+Maven构建+Git版本控制
 由于项目是在Mac上开发的，所以对Linux系统比较友好。Github地址：Flowingsun007/LyonBlog ，欢迎点赞~
 有三个分支：
 * master：本地mac上开发，同步更新的分支
-* server：用于部署服务器的分支
+* centOS：用于在阿里云服务器上的分支，基本和master分支类似
 * windows：仅仅是为了跑起来而新建的此分支，不保证及时更新
 ### 项目标准配置：
 * 0.JDK1.8
-* 1.Mysql5.6+
+* 1.Mysql5.7
 * 2.Tomcat9(2个)
 * 3.Nginx1.14.0
 * 4.Redis4.0.10
