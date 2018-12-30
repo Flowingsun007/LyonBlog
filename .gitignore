@@ -3,3 +3,6 @@
 
 # ignore all .iml file
 *.iml
+
+# ignore all target file
+/target
