@@ -19,6 +19,7 @@ import com.flowingsun.user.dao.UserMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import java.sql.Timestamp;
@@ -213,19 +214,22 @@ public class ArticleServiceImpl implements ArticleService {
         String s4 = redisDAO.getString("userCount");
         String s5 = redisDAO.getString("visitorCount");
         String s6 = redisDAO.getString("viewCount");
-        if(s1==null||s2==null||s3==null||s4==null||s5==null||s6==null){
+        String s7 = redisDAO.getString("collectionCount");
+        if(s1==null||s2==null||s3==null||s4==null||s5==null||s6==null||s7==null){
             s1 = String.valueOf(articleMapper.selectAllArticleCount());
             s2 = String.valueOf(commentMapper.selectCommentCount());
             s3 = String.valueOf(thankMapper.selectThankCount());
             s4 = String.valueOf(userMapper.selectUserCount());
             s5 = String.valueOf(blogVisitorMapper.selectVisitorCount());
             s6 = String.valueOf(blogVisitorMapper.selectViewCount());
+            s7 = String.valueOf(collectionMapper.selectCollectionCount());
             redisDAO.setString("articleCount",s1);
             redisDAO.setString("commentCount",s2);
             redisDAO.setString("thankCount",s3);
             redisDAO.setString("userCount",s4);
             redisDAO.setString("visitorCount",s5);
             redisDAO.setString("viewCount",s6);
+            redisDAO.setString("collectionCount",s7);
         }
         blogInfo.setArticleCount(s1);
         blogInfo.setCommentCount(s2);
@@ -233,6 +237,7 @@ public class ArticleServiceImpl implements ArticleService {
         blogInfo.setUserCount(s4);
         blogInfo.setVisitorCount(s5);
         blogInfo.setViewCount(s6);
+        blogInfo.setCollectionCount(s7);
         return blogInfo;
     }
 
@@ -293,8 +298,7 @@ public class ArticleServiceImpl implements ArticleService {
             deleteArticleRelations(articleId);
             //后面可能添加的功能：给所有收藏此文章的人发送一封通知邮件
             if(1==articleMapper.deleteByPrimaryKey(articleId)){
-                String s = String.valueOf(articleMapper.selectAllArticleCount());
-                redisDAO.setString("articleCount",s);
+                this.updateBlogCount();
                 return "delete_success";
             }
         }catch (Exception e){
@@ -498,9 +502,8 @@ public class ArticleServiceImpl implements ArticleService {
                 }
             }
             if(status==0){
-                updateAllTag();
-                String s = String.valueOf(articleMapper.selectAllArticleCount());
-                redisDAO.setString("articleCount",s);
+                this.updateAllTag();
+                this.updateBlogCount();
                 return "article_write_succ";
             }
             return "article_write_fail";
@@ -1147,6 +1150,12 @@ public class ArticleServiceImpl implements ArticleService {
             flag = true;
         }
         return flag;
+    }
+
+    @Async
+    public void updateBlogCount(){
+        String s = String.valueOf(articleMapper.selectAllArticleCount());
+        redisDAO.setString("articleCount",s);
     }
 
 
