@@ -16,6 +16,7 @@ import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.crypto.SecureRandomNumberGenerator;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import javax.mail.MessagingException;
@@ -79,6 +80,7 @@ public class UserServiceImpl implements UserService {
             request.getSession().getServletContext().setAttribute(user.getTelephone(),randomCode);
             try {
                 emailService.sendHtmlMail(request,user.getUseremail(),user.getUsername(),randomCode,user.getTelephone());
+                this.updateBlogUserCount();
                 result = "register_succ";
                 logger.warn("用户提交注册信息，激活邮件发送成功"+user.toString());
             } catch (MessagingException|UnsupportedEncodingException e) {
@@ -250,6 +252,13 @@ public class UserServiceImpl implements UserService {
             }
         }
         return user;
+    }
+
+
+    @Async
+    public void updateBlogUserCount(){
+        String s = String.valueOf(userMapper.selectUserCount());
+        redisDAO.setString("userCount",s);
     }
 
 

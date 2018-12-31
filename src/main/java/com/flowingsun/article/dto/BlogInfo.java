@@ -16,6 +16,8 @@ public class BlogInfo {
 
     private String thankCount;
 
+    private String collectionCount;
+
     public String getViewCount() {
         return viewCount;
     }
@@ -62,5 +64,13 @@ public class BlogInfo {
 
     public void setThankCount(String thankCount) {
         this.thankCount = thankCount;
+    }
+
+    public String getCollectionCount() {
+        return collectionCount;
+    }
+
+    public void setCollectionCount(String collectionCount) {
+        this.collectionCount = collectionCount;
     }
 }
