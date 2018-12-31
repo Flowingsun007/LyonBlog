@@ -24,10 +24,10 @@ public class EmailService {
     private static JavaMailSenderImpl mailSender = createAliMailSender();
     
     /**
-      @author lyon
-      @date   2018/12/22 13:43
-      @return org.springframework.mail.javamail.JavaMailSenderImpl
-      @detail 阿里云服务器禁用了25端口，所以此处需要设置465端口
+     * @author lyon
+     * @date   2018/12/22 13:43
+     * @return org.springframework.mail.javamail.JavaMailSenderImpl
+     * @detail 阿里云服务器禁用了25端口，所以此处需要设置465端口
      */
     private static JavaMailSenderImpl createAliMailSender() {
         JavaMailSenderImpl sender = new JavaMailSenderImpl();
