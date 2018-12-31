@@ -654,6 +654,7 @@
                     <li style="margin:5px;">文章数:<span>$blogInfo.getArticleCount()</span></li>
                     <li style="margin:5px;">评论数:<span>$blogInfo.getCommentCount()</span></li>
                     <li style="margin:5px;">感谢数:<span>$blogInfo.getThankCount()</span></li>
+                    <li style="margin:5px;">收藏数:<span>$blogInfo.getCollectionCount()</span></li>
                 </ol>
             </div>
 
