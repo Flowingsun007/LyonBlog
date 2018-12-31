@@ -20,6 +20,8 @@
     <!--包扫描-->
     <context:component-scan base-package="com.flowingsun"/>
     <context:property-placeholder location="classpath:jdbc.properties"/>
+    <!-- 支持异步方法执行 -->
+    <task:annotation-driven />
 
     <!--Spring-session-redis配置-->
     <bean class="org.springframework.session.data.redis.config.annotation.web.http.RedisHttpSessionConfiguration" />
