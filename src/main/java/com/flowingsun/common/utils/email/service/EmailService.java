@@ -54,7 +54,7 @@ public class EmailService {
         String subject = "Lyon's Blog——注册激活";
         String content = "<html><p>亲爱的：" + userName +
                 ",感谢您注册了Lyon's Blog,"+
-                "请于30分钟内点击<a href=" + request.getHeader("Origin") +"user/register/activate?code="+randomCode + "&userphone="+userphone+">链接</a>以激活注册！</p></html>";
+                "请于30分钟内点击<a href=" + request.getHeader("Origin") +"/user/register/activate?code="+randomCode + "&userphone="+userphone+">链接</a>以激活注册！</p></html>";
         MimeMessage mimeMessage = mailSender.createMimeMessage();
         // 设置utf-8或GBK编码，否则邮件会有乱码
         MimeMessageHelper messageHelper = new MimeMessageHelper(mimeMessage, true, "UTF-8");
