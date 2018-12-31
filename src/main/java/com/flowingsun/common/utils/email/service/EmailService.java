@@ -22,7 +22,7 @@ public class EmailService {
     private static final String PASSWORD = "wy920726zly";
     private static final String EMAILFORM = "flowingsun007@163.com";
     private static JavaMailSenderImpl mailSender = createAliMailSender();
-    
+
     /**
      * @author lyon
      * @date   2018/12/22 13:43
@@ -35,12 +35,12 @@ public class EmailService {
         sender.setPort(ALI_PORT);
         sender.setUsername(USERNAME);
         sender.setPassword(PASSWORD);
-        sender.setDefaultEncoding(“Utf-8”);
+        sender.setDefaultEncoding("Utf-8");
         Properties prop = new Properties();
-        prop.setProperty(“mail.smtp.port”,ALI_PORT.toString());
-        prop.setProperty(“mail.smtp.socketFactory.class”,“javax.net.ssl.SSLSocketFactory”);
-        prop.setProperty(“mail.smtp.socketFactory.fallback”,“false”);
-        prop.setProperty(“mail.smtp.socketFactory.port”,ALI_PORT.toString());
+        prop.setProperty("mail.smtp.port",ALI_PORT.toString());
+        prop.setProperty("mail.smtp.socketFactory.class","javax.net.ssl.SSLSocketFactory");
+        prop.setProperty("mail.smtp.socketFactory.fallback","false");
+        prop.setProperty("mail.smtp.socketFactory.port",ALI_PORT.toString());
         sender.setJavaMailProperties(prop);
         return sender;
     }
