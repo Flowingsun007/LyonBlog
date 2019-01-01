@@ -85,7 +85,7 @@ public class ArticleController {
      * content   +   key
      */
     //@RequiresPermissions("behavior:elasticSearch")
-    @PostMapping("/elastic/category")
+    @RequestMapping("/elastic/category")
     public String elasticCategorySearch(Model model,@RequestParam(value="keywords")String keywords)throws IOException{
         RestHighLevelClient client = new RestHighLevelClient(
                 RestClient.builder(
