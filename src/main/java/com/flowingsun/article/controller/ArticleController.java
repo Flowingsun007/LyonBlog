@@ -82,10 +82,10 @@ public class ArticleController {
      * 可以通过搜索关键字中添加"+"来控制搜索范围，以下三种模式分别支持在标题中、在摘要中、在正文中查找关键字为key的内容。
      * title     +   key
      * abstract  +   key
-     * content  +    key
+     * content   +   key
      */
     //@RequiresPermissions("behavior:elasticSearch")
-    @GetMapping("/elastic/category")
+    @PostMapping("/elastic/category")
     public String elasticCategorySearch(Model model,@RequestParam(value="keywords")String keywords)throws IOException{
         RestHighLevelClient client = new RestHighLevelClient(
                 RestClient.builder(
