@@ -21,7 +21,7 @@ velocity
 #### 开源弹框组件：
 sweetalert
 #### Markdown编辑器：
-百度Editor.md
+Editor.md
 ### 容器：
 Tomcat9
 #### 权限：
