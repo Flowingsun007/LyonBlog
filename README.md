@@ -33,16 +33,17 @@ Spring+SpringMVC+Mybatis+Mysql+Druid
 目前配置了2个Tomcat，Nginx采取默认的轮训处理请求。
 ### ElasticSearch：
 ElasticSearch是流行的全文检索服务器，主要用于博客搜索。Logstash设定了简单的增量导入，从Mysql中定时查询文章内容放入Elasticsearch中，从而提供博客文章全文检索的功能，避免直接查数据库带来较大的开销。
-开发环境：
-MacOS系统+Idea开发+Maven构建+Git版本控制
+### 开发环境：
+Win10系统+Idea开发+Maven构建+Git版本控制
 ### 架构图：
 ![](https://pic3.zhimg.com/80/v2-72fae8ab4a314f253d214dcb3f70d80e_hd.jpg)
 ## 3.项目部署
-由于项目是在Mac上开发的，所以对Linux系统比较友好。Github地址：Flowingsun007/LyonBlog ，欢迎点赞~
+由于主项目是在Mac上开发的，所以对Linux系统比较友好。Github地址：Flowingsun007/LyonBlog ，欢迎点赞~
 有三个分支：
 * master：本地mac上开发，同步更新的分支
 * centOS：用于在阿里云服务器上的分支，基本和master分支类似，有个别配置如jdbc.properties、log4j.properties、EmailService.java(发送注册邮件)有些许不同
 * windows：仅仅是为了跑起来而新建的此分支，不保证及时更新
+BTW:我发现mac上看的前端效果比较好看，到windows上就比较丑了....我也很无奈~
 ### 项目标准配置：
 * 0.JDK1.8
 * 1.Mysql5.7
@@ -65,6 +66,7 @@ Nginx+Redis+2个Tomcat+Elasticsearch+Logstash
 #### 项目启动最简配置：
 Nginx+Redis+1个Tomcat
 #### 启动顺序：
-Nginx和Redis先启动，然后启动Tomcat，在Idea中可以直接启动Tomcat、或者手动打war包放入Tomcat中运行。Tomcat启动完成后再启动Elastic+logstash。
+Nginx和Redis先启动，然后启动Tomcat，在Idea中可以直接启动Tomcat、或者手动打war包放入Tomcat中运行。
+##### Tomcat启动完成后再启动Elasticsearch+logstash。Elasticsearch+logstash是可选项，可以不启动。
 ### 文件夹结构
 ![](https://pic1.zhimg.com/80/v2-a95cec3239527b265b191c368e888e04_hd.jpg)
