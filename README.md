@@ -61,6 +61,8 @@ ElasticSearch是流行的全文检索服务器，主要用于博客搜索。Logs
 主要是log4j.properties里修改几种类别日志存放路径
 #### 静态资源配置
 由于项目用的是Nginx，动静分离的，所以静态资源全部放置在Nginx下的html文件夹下，可以在百度网盘下载：
+链接：https://pan.baidu.com/s/1K2Ahz_L4cYR04YtgdCmSGA 
+提取码：bdbb 
 ### 【启动和运行】
 #### 项目启动标准配置：
 Nginx+Redis+2个Tomcat+Elasticsearch+Logstash
