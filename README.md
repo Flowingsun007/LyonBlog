@@ -22,18 +22,18 @@ velocity
 sweetalert
 #### Markdown编辑器：
 Editor.md
-### 容器：
+#### 容器：
 Tomcat9
 #### 权限：
 Apache Shrio
 #### 后端：
 Spring+SpringMVC+Mybatis+Mysql+Druid
-#### Redis：
-由于2个Tomcat可能部署在不同的服务器上，故涉及到session共享的问题，此处用redis来管理所有session,同时redis兼缓存一些文章分类信息、标签信息等。
-#### Nginx：
-反向代理+动静分离。Nginx作为统一入口，静态资源请求如js、图片、css文件等直接由nginx处理，动态请求转发至Tomcat中处理。
+#### 缓存+session管理：
+Redis。由于2个Tomcat可能部署在不同的服务器上，故涉及到session共享的问题，此处用redis来管理所有session,同时redis兼缓存一些文章分类信息、标签信息等。
+#### 反向代理+动静分离：
+Nginx。Nginx作为统一入口，静态资源请求如js、图片、css文件等直接由nginx处理，动态请求转发至Tomcat中处理。
 目前配置了2个Tomcat，Nginx采取默认的轮训处理请求。
-#### ElasticSearch：
+#### 全文检索：
 ElasticSearch是流行的全文检索服务器，主要用于博客搜索。Logstash设定了简单的增量导入，从Mysql中定时查询文章内容放入Elasticsearch中，从而提供博客文章全文检索的功能，避免直接查数据库带来较大的开销。
 #### 架构图：
 ![](https://pic3.zhimg.com/80/v2-72fae8ab4a314f253d214dcb3f70d80e_hd.jpg)
@@ -55,10 +55,10 @@ ElasticSearch是流行的全文检索服务器，主要用于博客搜索。Logs
 * b.数据库的sql包括ddl和dml，放在项目resources文件夹下。
 #### Tomcat配置
 只需要改server.xml文件中的几个地方即可，这里提供我本地的配置文件做参考。
-#### Nginx、Redis配置
-同样，提供本地参考，所有的关键配置文件都放在resources/conf文件夹下。
 #### log4j配置
 主要是log4j.properties里修改几种类别日志存放路径
+#### Nginx、Redis配置
+同样，提供本地参考，所有的关键配置文件都放在resources/conf文件夹下。
 #### 静态资源配置
 由于项目用的是Nginx，动静分离的，所以静态资源全部放置在Nginx下的html文件夹下，可以在百度网盘下载：
 链接：https://pan.baidu.com/s/1K2Ahz_L4cYR04YtgdCmSGA 
