@@ -16,6 +16,7 @@ import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.crypto.SecureRandomNumberGenerator;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import javax.mail.MessagingException;
@@ -79,6 +80,7 @@ public class UserServiceImpl implements UserService {
             request.getSession().getServletContext().setAttribute(user.getTelephone(),randomCode);
             try {
                 emailService.sendHtmlMail(request,user.getUseremail(),user.getUsername(),randomCode,user.getTelephone());
+                this.updateBlogUserCount();
                 result = "register_succ";
                 logger.warn("用户提交注册信息，激活邮件发送成功"+user.toString());
             } catch (MessagingException|UnsupportedEncodingException e) {
@@ -103,36 +105,36 @@ public class UserServiceImpl implements UserService {
      * 主要登录验证的规则以及角色及权限校验在common/inteceptor/MyRealm类中
      * 和common/security/CustomCredentialsMatcher类中定义
      */
-     @Override
-     public String UserLogin(User user,HttpServletRequest request){
-         String username="";
-         if(user.getTelephone()!=null){
-             if(loginCheckUtils.checkMobileNumber(user.getTelephone())==true){
-                 logger.log(INFO,"用户输入的是手机号，使用手机号+密码登录"+user.toString());
-                 user.setTelephone(user.getTelephone());
-                 username = user.getTelephone();
-             }
-         }else if(user.getUseremail()!=null){
-             if(loginCheckUtils.checkEmail(user.getUseremail())==true){
-                 logger.log(INFO,"用户输入的是邮箱号，使用邮箱号+密码登录"+user.toString());
-                 user.setUseremail(user.getUseremail());
-                 username = user.getUseremail();
-             }
-         }
-         UsernamePasswordToken token = new UsernamePasswordToken(username, user.getUserpass());
-         //token.setRememberMe(true);
-         Subject subject = SecurityUtils.getSubject();
-         try {
-             subject.login(token);
-             SecurityUtils.getSubject().getSession().setTimeout(1800000);
-             //取用户给文章点赞评论信息存入session...
-             return "login_succ";
-         } catch (Exception e) {
-             SecurityUtils.getSubject().getSession().removeAttribute("userId");
-             logger.warn("UserLogin(User user,HttpServletRequest request):login_fail登录失败");
-             return "login_fail";
-         }
-     }
+    @Override
+    public String UserLogin(User user,HttpServletRequest request){
+        String username="";
+        if(user.getTelephone()!=null){
+            if(loginCheckUtils.checkMobileNumber(user.getTelephone())==true){
+                logger.log(INFO,"用户输入的是手机号，使用手机号+密码登录"+user.toString());
+                user.setTelephone(user.getTelephone());
+                username = user.getTelephone();
+            }
+        }else if(user.getUseremail()!=null){
+            if(loginCheckUtils.checkEmail(user.getUseremail())==true){
+                logger.log(INFO,"用户输入的是邮箱号，使用邮箱号+密码登录"+user.toString());
+                user.setUseremail(user.getUseremail());
+                username = user.getUseremail();
+            }
+        }
+        UsernamePasswordToken token = new UsernamePasswordToken(username, user.getUserpass());
+        //token.setRememberMe(true);
+        Subject subject = SecurityUtils.getSubject();
+        try {
+            subject.login(token);
+            SecurityUtils.getSubject().getSession().setTimeout(1800000);
+            //取用户给文章点赞评论信息存入session...
+            return "login_succ";
+        } catch (Exception e) {
+            SecurityUtils.getSubject().getSession().removeAttribute("userId");
+            logger.warn("UserLogin(User user,HttpServletRequest request):login_fail登录失败");
+            return "login_fail";
+        }
+    }
 
     /**
      *@Author Lyon[flowingsun007@163.com]
@@ -250,6 +252,13 @@ public class UserServiceImpl implements UserService {
             }
         }
         return user;
+    }
+
+
+    @Async
+    public void updateBlogUserCount(){
+        String s = String.valueOf(userMapper.selectUserCount());
+        redisDAO.setString("userCount",s);
     }
 
 
