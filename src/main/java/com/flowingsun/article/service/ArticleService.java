@@ -32,8 +32,6 @@ public interface ArticleService {
 
     List<ArticleTag> selectAllTag();
 
-    void updateAllTag();
-
     void deleteArticleRelations(int articleId);
 
     String editArticle(Article article);
