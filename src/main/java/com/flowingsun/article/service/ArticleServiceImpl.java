@@ -102,10 +102,16 @@ public class ArticleServiceImpl implements ArticleService {
             queryBean.setTotal(total);
             Integer pageSize = queryBean.getPageSize();
             Integer startNum = queryBean.getStartRow();
-            List<Article> articleList = articleMapper.selectCategoryArticles(cId,startNum,pageSize);
-            articleList.forEach(article->{
-                article.setArticleTagList(articleMapper.selectArticleTagsByPrimarykey(article.getId()));
-            });
+            String key = "catagoryArticles:"+cId+startNum+pageSize;
+            List<Article> articleList = redisDAO.getList(key);
+            if(articleList.size()==0||articleList==null){
+                articleList = articleMapper.selectCategoryArticles(cId,startNum,pageSize);
+                articleList.forEach(article->{
+                    article.setArticleTagList(articleMapper.selectArticleTagsByPrimarykey(article.getId()));
+                });
+                //存redis，并设置键的过期时间60秒
+                redisDAO.setList(key,articleList,60);
+            }
             queryBean.setDataList(articleList);
         }else{//对应cid下没有文章
             queryBean.setTotal(0);
