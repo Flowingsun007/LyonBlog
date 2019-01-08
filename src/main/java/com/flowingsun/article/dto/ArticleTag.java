@@ -1,11 +1,16 @@
 package com.flowingsun.article.dto;
 
 import java.io.Serializable;
+import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
 public class ArticleTag implements Serializable {
+
+    public ArticleTag(){
+        this.createDate = new Timestamp(new Date().getTime());
+    }
 
     private Integer articleId;
 
