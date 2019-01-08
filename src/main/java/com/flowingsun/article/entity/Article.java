@@ -5,10 +5,14 @@ import com.flowingsun.article.dto.RegularRecommend;
 import com.flowingsun.behavior.dto.BehaviorStatus;
 import com.flowingsun.behavior.entity.Comment;
 
+import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
 
 public class Article {
+    public Article(){
+        this.createDate = new Timestamp(new Date().getTime());
+    }
     /**
      * 文章id
      */
