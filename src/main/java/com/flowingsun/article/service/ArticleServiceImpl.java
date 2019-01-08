@@ -32,14 +32,6 @@ import java.util.stream.Collectors;
 @Service("articleService")
 public class ArticleServiceImpl implements ArticleService {
 
-    private static Logger logger = LoggerFactory.getLogger(ArticleServiceImpl.class);
-
-    ExecutorService executorService = Executors.newFixedThreadPool(4);
-
-    private static final Integer SUCCESS=1;
-
-    private static final Integer FAIL=0;
-
     @Autowired
     private BlogVisitorMapper blogVisitorMapper;
 
@@ -66,6 +58,14 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Autowired
     private RedisDAO redisDAO;
+
+    private static Logger logger = LoggerFactory.getLogger(ArticleServiceImpl.class);
+
+    ExecutorService executorService = Executors.newFixedThreadPool(4);
+
+    private  final Integer SUCCESS=1;
+
+    private  final Integer FAIL=0;
 
     /**
      *@Param [mId]
@@ -136,12 +136,19 @@ public class ArticleServiceImpl implements ArticleService {
             queryBean.setTotal(total);
             Integer pageSize = queryBean.getPageSize();
             Integer startNum = queryBean.getStartRow();
-            List<Article> articleList = articleMapper.selectTagArticles(tagId,startNum,pageSize);
-            //查询文章标签，并将标签信息放入bean中
-            articleList.forEach(article->{
-                List<ArticleTag> articleTags = articleMapper.selectArticleTagsByPrimarykey(article.getId());
-                article.setArticleTagList(articleTags);
-            });
+            String key = "tagArticles:"+tagId+startNum+pageSize;
+            List<Article> articleList = redisDAO.getList(key);
+            //==null的判空要放在前面，否则会报错
+            if(articleList==null||articleList.size()==0){
+                articleList = articleMapper.selectTagArticles(tagId,startNum,pageSize);
+                //查询文章标签，并将标签信息放入bean中
+                articleList.forEach(article->{
+                    List<ArticleTag> articleTags = articleMapper.selectArticleTagsByPrimarykey(article.getId());
+                    article.setArticleTagList(articleTags);
+                });
+                //存redis，并设置键的过期时间60秒
+                redisDAO.setList(key,articleList,60);
+            }
             queryBean.setDataList(articleList);
         }else{
             //对应cid下没有文章
@@ -247,13 +254,6 @@ public class ArticleServiceImpl implements ArticleService {
         return blogInfo;
     }
 
-    @Override
-    public void updateAllTag() {
-        List<ArticleTag> allTags = articleMapper.selectAllTag();
-        if(allTags!=null&&allTags.size()>0)
-            redisDAO.setList("allTags",allTags);
-    }
-
     /**
      *@Author Lyon[flowingsun007@163.com]
      *@Date 18/11/7 22:26
@@ -338,7 +338,7 @@ public class ArticleServiceImpl implements ArticleService {
             for (int i = 0; i < idIntList.length; i++) {
                 deleteOneArticle(idIntList[i]);
             }
-            updateAllTag();
+            this.updateAllTag();
             String s = String.valueOf(articleMapper.selectAllArticleCount());
             redisDAO.setString("articleCount",s);
             return "delete_batch_succ";
@@ -347,7 +347,7 @@ public class ArticleServiceImpl implements ArticleService {
         }
         return "delete_batch_fail";
     }
-    
+
 
     /**
      *@Author Lyon[flowingsun007@163.com]
@@ -478,7 +478,6 @@ public class ArticleServiceImpl implements ArticleService {
         //此处默认的用户id为1，即目前只有管理员可以写文章
         article.setUserid(1);
         Timestamp dateTime = new Timestamp(new Date().getTime());
-        article.setCreateDate(dateTime);
         article.setEditDate(dateTime);
         String[] taglist = article.getArticleTags().split(",");
         if(articleMapper.insertNewArticle(article)!=0){
@@ -488,7 +487,6 @@ public class ArticleServiceImpl implements ArticleService {
             for (String tag : taglist){
                 ArticleTag articleTag = new ArticleTag();
                 articleTag.setTagName(tag);
-                articleTag.setCreateDate(dateTime);
                 int tagId=0;
                 if (articleMapper.insertNewTag(articleTag)==0){
                     //表示article_tag表中已存在此标签或新标签创建失败,则需要根据标签来名查询标签id
@@ -502,7 +500,6 @@ public class ArticleServiceImpl implements ArticleService {
                     articleTag.setArticleId(articleId);
                     articleTag.setTagName(tag);
                     articleTag.setTagId(tagId);
-                    articleTag.setCreateDate(dateTime);
                     if(articleMapper.insertTagRelation(articleTag)==0)
                         status = 1;
                 }
@@ -542,8 +539,6 @@ public class ArticleServiceImpl implements ArticleService {
     public String editArticle(Article article) {
         try{
             Integer articleId = article.getId();
-            Timestamp dateTime = new Timestamp(new Date().getTime());
-            article.setEditDate(dateTime);
             List<ArticleTag> tags = articleMapper.selectArticleTagsByPrimarykey(articleId);
             //清除该文章之前创建的所有标签
             for(ArticleTag tag:tags){
@@ -558,7 +553,6 @@ public class ArticleServiceImpl implements ArticleService {
             for (String tag : taglist){
                 ArticleTag articletag = new ArticleTag();
                 articletag.setTagName(tag);
-                articletag.setCreateDate(dateTime);
                 int tagId=0;
                 if (articleMapper.insertNewTag(articletag)==0){
                     tagId = articleMapper.selectTagIdByTagName(tag);
@@ -570,14 +564,13 @@ public class ArticleServiceImpl implements ArticleService {
                 articletag.setArticleId(articleId);
                 articletag.setTagName(tag);
                 articletag.setTagId(tagId);
-                articletag.setCreateDate(dateTime);
                 if(articleMapper.insertTagRelation(articletag)==1){
                     logger.info("\n--------------------------------------给文章添加标签:" + tag + "成功！--------------------------------------\n");
                 }
             }
             //插入更新后的文章
             if(1==articleMapper.updateByPrimaryKeySelective(article)){
-                updateAllTag();
+                this.updateAllTag();
                 return "edit_blog_success";
             }
         }catch (Exception e){
@@ -634,14 +627,10 @@ public class ArticleServiceImpl implements ArticleService {
             //也不会抛异常，而且随后到来的for()循环遍历也不用异常捕捉，oldTags为空会自动跳过......
             for(int i=0; i<oldTags.size(); i++){
                 String oldTag = oldTags.get(i);
-                if(newTags.contains(oldTag)){
+                if(newTags.contains(oldTag))
                     newTags.remove(oldTag);
-                }else{
-                    //else表示需要删除此条标签关系
-                    if(0==deleteArticleOneTag(articleId, oldTag)){
-                        return "reset_tag_fail";
-                    }
-                }
+                else
+                    deleteArticleOneTag(articleId, oldTag);
             }
 
             for(int j=0; j<newTags.size(); j++){
@@ -654,14 +643,14 @@ public class ArticleServiceImpl implements ArticleService {
                 if(tagId!=0&&(0==addArticleTagQuick(articleId, tagId, newTag)))
                     return "reset_tag_fail";
             }
-            updateAllTag();
+            this.updateAllTag();
             return "reset_tag_succ";
         }catch (Exception e){
             logger.error("resetArticleTag(ArticleTag tagBean)执行Error：",e);
             return "reset_tag_fail";
         }
     }
-    
+
     /**
      *@Author Lyon[flowingsun007@163.com]
      *@Date 18/05/25 15:09
@@ -711,33 +700,27 @@ public class ArticleServiceImpl implements ArticleService {
                 idIntList[i] = Integer.parseInt(idStrList[i]);
             }
             for(Integer articleId : idIntList){
-                List<String> newTags = new ArrayList<String>();
-                for(String item : TagsList){
-                    newTags.add(item);
-                }
+                List<String> newTags = TagsList;
                 List<String> oldTags = articleMapper.selectTagsNameByPrimarykey(articleId);
-                //由于有的文章没有标签故此条select语句会抛出异常？？？？？？？？！！！！！！！！但是奇怪的是并不会抛异常，mybatis封装的oldTags即使是空
-                //也不会抛异常，而且随后到来的for()循环遍历也不用异常捕捉，oldTags为空会自动跳过......
-                for(int i=0; i<oldTags.size(); i++){
-                    String oldTag = oldTags.get(i);
-                    if(newTags.contains(oldTag)){
-                        newTags.remove(oldTag);
-                    }else{//else表示需要删除此条标签关系
-                        if(0==deleteArticleOneTag(articleId, oldTag)){ return "batchReset_tags_fail"; }
-                    }
-                }
-                for(int j=0; j<newTags.size(); j++){
-                    String newTag = newTags.get(j);
-                    Integer tagId=0;
-                    if(checkTagExist(newTag)==true)
-                        tagId = articleMapper.selectTagIdByTagName(newTag);
+                oldTags.parallelStream().map(e->{
+                    if(newTags.contains(e))
+                        newTags.remove(e);
                     else
-                        tagId = createOneTag(newTag);
-                    if(tagId!=0&&(0==addArticleTagQuick(articleId, tagId, newTag)))
+                        deleteArticleOneTag(articleId,e);
+                    return null;
+                });
+                newTags.parallelStream().map(f->{
+                    Integer tagId=0;
+                    if(checkTagExist(f)==true)
+                        tagId = articleMapper.selectTagIdByTagName(f);
+                    else
+                        tagId = createOneTag(f);
+                    if(tagId!=0&&(0==addArticleTagQuick(articleId, tagId, f)))
                         return "batchReset_tags_fail";
-                }
+                    return null;
+                });
             }
-            updateAllTag();
+            this.updateAllTag();
             return "batchReset_tags_succ";
         } catch (NumberFormatException e){
             logger.error("batchResetArticleTag()>>Integer.parseInt(idStrList[i])方法执行Error：",e);
@@ -768,7 +751,7 @@ public class ArticleServiceImpl implements ArticleService {
             tagRelationId = createOneTagRelation(articleId, tagId, tagName);
         else
             tagRelationId = 1;
-        updateAllTag();
+        this.updateAllTag();
         return tagRelationId;
     }
 
@@ -785,12 +768,12 @@ public class ArticleServiceImpl implements ArticleService {
      */
     @Override
     public Integer addArticleTagQuick(Integer articleId, Integer tagId, String tagName){
-        int tagRelationId = 0;
+        int tagRelationId;
         if (checkTagRelationExist(articleId, tagId) == false)
             tagRelationId = createOneTagRelation(articleId, tagId, tagName);
         else
             tagRelationId = 1;
-        updateAllTag();
+        this.updateAllTag();
         return tagRelationId;
     }
 
@@ -826,7 +809,7 @@ public class ArticleServiceImpl implements ArticleService {
                 tagRelationId = 1;
             }
         }
-        updateAllTag();
+        this.updateAllTag();
         return tagRelationId;
     }
 
@@ -874,7 +857,7 @@ public class ArticleServiceImpl implements ArticleService {
                     }
                 }
             }
-            updateAllTag();
+            this.updateAllTag();
             return "batch_addTag_succ";
         } catch (NumberFormatException e) {
             logger.error("batchAddArticleTag()>>Integer.parseInt(idStrList[i])方法执行Error：",e);
@@ -896,7 +879,7 @@ public class ArticleServiceImpl implements ArticleService {
                 if(deleteArticleOneTag(articleId,tag)==FAIL){
                     return "delete_allTag_fail";}
             }
-            updateAllTag();
+            this.updateAllTag();
             return "delete_allTag_succ";
         }catch (Exception e){
             logger.error("deleteArticleAllTag(ArticleTag tagBean)方法执行Error：",e);
@@ -915,7 +898,7 @@ public class ArticleServiceImpl implements ArticleService {
                         return FAIL;
                     }
                 }
-                updateAllTag();
+                this.updateAllTag();
             }
             return SUCCESS;
         }catch (Exception e){
@@ -949,7 +932,7 @@ public class ArticleServiceImpl implements ArticleService {
                 }
             }
         }
-        updateAllTag();
+        this.updateAllTag();
         return "batch_deleteTag_succ";
     }
 
@@ -968,7 +951,7 @@ public class ArticleServiceImpl implements ArticleService {
                     return "batch_deleteAllTag_fail";
                 }
             }
-            updateAllTag();
+            this.updateAllTag();
             return "batch_deleteAllTag_succ";
         } catch (NumberFormatException e) {
             logger.error("batchDeleteArticleAllTag()>>Integer.parseInt(idStrList[i])方法执行Error：",e);
@@ -1031,7 +1014,7 @@ public class ArticleServiceImpl implements ArticleService {
                 }else
                     return FAIL;
             }
-            updateAllTag();
+            this.updateAllTag();
             return SUCCESS;
         }catch (Exception e){
             logger.error("deleteArticleOneTag(Integer articleId,String tagName)执行Error：",e);
@@ -1058,7 +1041,7 @@ public class ArticleServiceImpl implements ArticleService {
     public Integer deleteOneTag(Integer tagId) {
         Integer flag = articleMapper.deleteTagByTagId(tagId);
         if(1==flag)
-            updateAllTag();
+            this.updateAllTag();
         return flag;
     }
 
@@ -1070,7 +1053,7 @@ public class ArticleServiceImpl implements ArticleService {
     @Override
     public Integer createOneTag(ArticleTag tagBean) {
         if(1==articleMapper.insertNewTag(tagBean)){
-            updateAllTag();
+            this.updateAllTag();
             return tagBean.getTagId();
         }
         return FAIL;
@@ -1084,12 +1067,9 @@ public class ArticleServiceImpl implements ArticleService {
     @Override
     public Integer createOneTag(String tagName) {
         ArticleTag tagBean = new ArticleTag();
-        Date date = new Date();
-        Timestamp dateTime = new Timestamp(date.getTime());
-        tagBean.setCreateDate(dateTime);
         tagBean.setTagName(tagName);
         if(1==articleMapper.insertNewTag(tagBean)){
-            updateAllTag();
+            this.updateAllTag();
             return tagBean.getTagId();
         }
         return FAIL;
@@ -1112,9 +1092,6 @@ public class ArticleServiceImpl implements ArticleService {
     @Override
     public Integer createOneTagRelation(Integer articleId, Integer tagId, String tagName) {
         ArticleTag tagBean = new ArticleTag();
-        Date date = new Date();
-        Timestamp dateTime = new Timestamp(date.getTime());
-        tagBean.setCreateDate(dateTime);
         tagBean.setArticleId(articleId);
         tagBean.setTagName(tagName);
         tagBean.setTagId(tagId);
@@ -1163,6 +1140,16 @@ public class ArticleServiceImpl implements ArticleService {
         String s = String.valueOf(articleMapper.selectAllArticleCount());
         redisDAO.setString("articleCount",s);
     }
+
+
+    @Async
+    public void updateAllTag() {
+        List<ArticleTag> allTags = articleMapper.selectAllTag();
+        if(allTags!=null&&allTags.size()>0)
+            redisDAO.setList("allTags",allTags);
+    }
+
+
 
 
 }
