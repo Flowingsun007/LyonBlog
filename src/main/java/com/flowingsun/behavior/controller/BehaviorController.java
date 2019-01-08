@@ -6,19 +6,24 @@ import com.flowingsun.article.entity.Category;
 import com.flowingsun.article.service.ArticleService;
 import com.flowingsun.behavior.entity.*;
 import com.flowingsun.behavior.service.BehaviorService;
+import org.apache.commons.io.FileUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.File;
+import java.io.OutputStream;
 import java.util.List;
 
 
@@ -108,6 +113,18 @@ public class BehaviorController {
         return "forward:/user/manageCenter";
     }
 
+    @RequestMapping("/screenShot")
+    public String getScreenShot(@RequestParam(value="url") String url, HttpServletResponse response)throws Exception{
+        String imgagePath = behaviorService.getScreenShot(url);
+        File imageLocal = new File(imgagePath);
+        byte[] imgdata = FileUtils.readFileToByteArray(imageLocal);
+        response.setContentType("image/png");
+        OutputStream os = response.getOutputStream();
+        os.write(imgdata);
+        os.flush();
+        os.close();
+        return "success";
+    }
 
 
 

@@ -46,9 +46,10 @@ public class SessionInterceptor implements HandlerInterceptor {
             if(articleId!=null&&articleId!=""){
                 blogVisitor.setArticleid(Integer.parseInt(articleId));
             }
-            blogVisitorMapper.insertSelective(blogVisitor);
+            //blogVisitorMapper.insertSelective(blogVisitor);
             this.updateBlogViewCount();
             this.updateBlogVisitorCount();
+            System.out.println("\n---------------------------访客信息统计---------------------------\n"+blogVisitor.toString());
             logger.log(INFO,"\n---------------------------访客信息统计---------------------------\n"+blogVisitor.toString());
             return true;
         }
