@@ -113,6 +113,12 @@ public class BehaviorController {
         return "forward:/user/manageCenter";
     }
 
+    /**
+     * @date   2019/1/8 20:54
+     * @detail 根据给定url，生成网页截图存服务器
+     * (原理：调用phantomjs访问指定url的网站，并截图)
+     * 截图尺寸默认全屏：width: 1920, height: 1080，在phantomjs文件夹下rasterize.js中设定
+     */
     @RequestMapping("/screenShot")
     public String getScreenShot(@RequestParam(value="url") String url, HttpServletResponse response)throws Exception{
         String imgagePath = behaviorService.getScreenShot(url);
