@@ -104,7 +104,8 @@ public class ArticleServiceImpl implements ArticleService {
             Integer startNum = queryBean.getStartRow();
             String key = "catagoryArticles:"+cId+startNum+pageSize;
             List<Article> articleList = redisDAO.getList(key);
-            if(articleList.size()==0||articleList==null){
+            //==null的判空要放在前面，否则会报错
+            if(articleList==null||articleList.size()==0){
                 articleList = articleMapper.selectCategoryArticles(cId,startNum,pageSize);
                 articleList.forEach(article->{
                     article.setArticleTagList(articleMapper.selectArticleTagsByPrimarykey(article.getId()));
