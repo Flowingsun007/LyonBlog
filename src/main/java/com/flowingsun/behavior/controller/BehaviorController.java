@@ -116,14 +116,18 @@ public class BehaviorController {
     @RequestMapping("/screenShot")
     public String getScreenShot(@RequestParam(value="url") String url, HttpServletResponse response)throws Exception{
         String imgagePath = behaviorService.getScreenShot(url);
-        File imageLocal = new File(imgagePath);
-        byte[] imgdata = FileUtils.readFileToByteArray(imageLocal);
-        response.setContentType("image/png");
-        OutputStream os = response.getOutputStream();
-        os.write(imgdata);
-        os.flush();
-        os.close();
-        return "success";
+        if(imgagePath!=null&&imgagePath.length()>0){
+            File imageLocal = new File(imgagePath);
+            byte[] imgdata = FileUtils.readFileToByteArray(imageLocal);
+            response.setContentType("image/png");
+            OutputStream os = response.getOutputStream();
+            os.write(imgdata);
+            os.flush();
+            os.close();
+            return "success:截图成功";
+        }else{
+            return "fail:图片失败";
+        }
     }
 
 
