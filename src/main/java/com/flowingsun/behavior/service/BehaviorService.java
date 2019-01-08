@@ -44,4 +44,6 @@ public interface BehaviorService {
      * @detail 根据url截图网页快照
      */
     String getScreenShot(String url);
+
+    UrlCollection collectUrl(UrlCollection bean)throws Exception;
 }

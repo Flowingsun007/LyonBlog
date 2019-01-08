@@ -6,6 +6,8 @@ import com.flowingsun.article.entity.Category;
 import com.flowingsun.article.service.ArticleService;
 import com.flowingsun.behavior.entity.*;
 import com.flowingsun.behavior.service.BehaviorService;
+import com.flowingsun.common.dto.ResponseDto;
+import com.flowingsun.common.utils.ResultUtils;
 import org.apache.commons.io.FileUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -133,6 +135,17 @@ public class BehaviorController {
             return "success:截图成功";
         }else{
             return "fail:图片失败";
+        }
+    }
+
+    @PostMapping("/collectUrl")
+    @ResponseBody
+    public ResponseDto collectUrl(@RequestBody UrlCollection bean){
+        try{
+            UrlCollection result = behaviorService.collectUrl(bean);
+            return ResultUtils.getResult(result);
+        }catch (Exception e){
+            return ResultUtils.getResultEx(e);
         }
     }
 
