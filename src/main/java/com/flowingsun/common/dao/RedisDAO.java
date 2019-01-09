@@ -1,20 +1,16 @@
 package com.flowingsun.common.dao;
 
 import com.flowingsun.common.utils.SerializeUtils;
-import com.flowingsun.user.entity.Role;
 import com.flowingsun.user.entity.User;
-import com.sun.tools.internal.xjc.reader.xmlschema.bindinfo.BIConversion;
 import io.protostuff.LinkedBuffer;
 import io.protostuff.ProtobufIOUtil;
 import io.protostuff.ProtostuffIOUtil;
-import io.protostuff.Schema;
 import io.protostuff.runtime.RuntimeSchema;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 
-import java.util.Arrays;
 import java.util.List;
 
 
