@@ -2,6 +2,7 @@ package com.flowingsun.behavior.controller;
 
 import com.flowingsun.article.dto.ArticleTag;
 import com.flowingsun.article.dto.BlogInfo;
+import com.flowingsun.article.entity.Article;
 import com.flowingsun.article.entity.Category;
 import com.flowingsun.article.service.ArticleService;
 import com.flowingsun.behavior.entity.*;
@@ -144,6 +145,23 @@ public class BehaviorController {
         try{
             UrlCollection result = behaviorService.collectUrl(bean);
             return ResultUtils.getResult(result);
+        }catch (Exception e){
+            return ResultUtils.getResultEx(e);
+        }
+    }
+
+    @GetMapping("/writeBlog")
+    public String writeArticle(Model model){
+        Category categoryChoice = articleService.getAllCategory();
+        model.addAttribute("categoryChoice",categoryChoice);
+        return "user/writeBlog";
+    }
+
+    @PostMapping("/writeBlog/submit")
+    @ResponseBody
+    public ResponseDto submitArticle(@RequestBody Article article){
+        try{
+            return articleService.createUserArticle(article);
         }catch (Exception e){
             return ResultUtils.getResultEx(e);
         }

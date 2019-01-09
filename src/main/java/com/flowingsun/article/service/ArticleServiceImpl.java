@@ -13,9 +13,12 @@ import com.flowingsun.behavior.entity.Comment;
 import com.flowingsun.common.dao.BlogVisitorMapper;
 import com.flowingsun.common.dao.RedisDAO;
 import com.flowingsun.common.annotation.MethodExcuteTimeLog;
+import com.flowingsun.common.dto.ResponseDto;
 import com.flowingsun.common.utils.InfoCountUtils;
 import com.flowingsun.common.utils.changeListFormatUtils;
 import com.flowingsun.user.dao.UserMapper;
+import com.flowingsun.user.entity.User;
+import org.apache.shiro.SecurityUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -475,8 +478,15 @@ public class ArticleServiceImpl implements ArticleService {
      */
     @Override
     public String createArticle(Article article){
-        //此处默认的用户id为1，即目前只有管理员可以写文章
-        article.setUserid(1);
+        Long userId = (Long)SecurityUtils.getSubject().getSession().getAttribute("userId");
+        if (userId != null) {
+            User user = redisDAO.getRedisUser(userId);
+            //缓存未命中，从数据库读user}
+            if(user==null){user = userMapper.selectByPrimaryKey(userId);}
+            article.setUserid(userId.intValue());
+        }else{
+            return "用户未登录！";
+        }
         Timestamp dateTime = new Timestamp(new Date().getTime());
         article.setEditDate(dateTime);
         String[] taglist = article.getArticleTags().split(",");
@@ -511,7 +521,60 @@ public class ArticleServiceImpl implements ArticleService {
             }
             return "article_write_fail";
         }
+
         return "article_write_fail";
+    }
+
+    @Override
+    public ResponseDto createUserArticle(Article article)throws Exception{
+        ResponseDto responseDto = new ResponseDto();
+        //此处默认的用户id为1，即目前只有管理员可以写文章
+        Long userId = (Long)SecurityUtils.getSubject().getSession().getAttribute("userId");
+        if (userId != null) {
+            User user = redisDAO.getRedisUser(userId);
+            //缓存未命中，从数据库读user}
+            if(user==null){user = userMapper.selectByPrimaryKey(userId);}
+            article.setUserid(userId.intValue());
+        }else{
+            throw new Exception("用户未登录！");
+        }
+        Timestamp dateTime = new Timestamp(new Date().getTime());
+        article.setEditDate(dateTime);
+        String[] taglist = article.getArticleTags().split(",");
+        if(articleMapper.insertNewArticle(article)!=0){
+            //！=0表示文章插入成功，插入成功后文章主键id可通过getter直接获取。
+            int articleId = article.getId();
+            int status = 0;
+            for (String tag : taglist){
+                ArticleTag articleTag = new ArticleTag();
+                articleTag.setTagName(tag);
+                int tagId=0;
+                if (articleMapper.insertNewTag(articleTag)==0){
+                    //表示article_tag表中已存在此标签或新标签创建失败,则需要根据标签来名查询标签id
+                    tagId = articleMapper.selectTagIdByTagName(tag);
+                }else{
+                    //表示标签已成功创建并插入article_tag表中(插入同时返回标签主键id，直接getter可取出标签id）
+                    tagId = articleTag.getTagId();
+                }
+                if(tagId!=0){
+                    //将标签、文章id、标签id、时间四个键值插入article_tag_ralation表中
+                    articleTag.setArticleId(articleId);
+                    articleTag.setTagName(tag);
+                    articleTag.setTagId(tagId);
+                    if(articleMapper.insertTagRelation(articleTag)==0)
+                        status = 1;
+                }
+            }
+            if(status==0){
+                this.updateAllTag();
+                this.updateBlogCount();
+                responseDto.setMsg("article_write_succ");
+            }
+            responseDto.setData(article);
+            responseDto.setMsg("article_write_fail");
+        }
+
+        return responseDto;
     }
 
     /**
