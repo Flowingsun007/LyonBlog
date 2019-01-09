@@ -145,7 +145,7 @@
                     $.ajax({
                         type:"POST",
                         contentType: "application/json",
-                        url:"/user/writeBlog/submit",
+                        url:"/behavior/writeBlog/submit",
                         data:JSON.stringify({"articleTitle":a,"articleAbstract":b,"articleMainId":c,"articleSecondId":d,"articleContent":e,"articleContentCopy":f,"articleTags":g}),
                         success:function (data) {
                             if(data=="article_write_succ"){
