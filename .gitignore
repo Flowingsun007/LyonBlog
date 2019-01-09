@@ -1,6 +1,9 @@
 # ignore all .idea dir
 /.idea
 
+# ignore all META-INF dir
+/META-INF
+
 # ignore all .iml file
 *.iml
 
