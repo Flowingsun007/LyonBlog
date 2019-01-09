@@ -127,7 +127,7 @@
             if(options1.val()!=0){
                 $.ajax({
                     cache:true,
-                    type:"POST",
+                    type:"GET",
                     url:"/admin/categorySelect",
                     async: false,
                     data:{
@@ -146,7 +146,7 @@
                             var cidName = alist[1];
                             select2.append('<option value="'+articleCid+'">'+cidName+'</option>');
                         }
-                        select2.append('<option value="0">全部</option>');
+                        //select2.append('<option value="0">全部</option>');
                     }
                 });
             }
@@ -160,7 +160,7 @@
             if(options1.val()!=0){
                 $.ajax({
                     cache:true,
-                    type:"POST",
+                    type:"GET",
                     url:"/admin/categorySelect",
                     async: false,
                     data:{
@@ -548,7 +548,7 @@
             if(options1.val()!=0){
                 $.ajax({
                     cache:true,
-                    type:"POST",
+                    type:"GET",
                     url:"/admin/categorySelect",
                     async: false,
                     data:{

@@ -140,7 +140,7 @@
 
         });
 
-            $('#selectMid').change(function(){
+        $('#selectMid').change(function(){
             var select1 = $('#selectMid');
             var select2 = $('#selectCid');
             var options1 = $('#selectMid option:selected');
