@@ -127,7 +127,7 @@
             if(options1.val()!=0){
                 $.ajax({
                     cache:true,
-                    type:"POST",
+                    type:"GET",
                     url:"/admin/categorySelect",
                     async: false,
                     data:{
