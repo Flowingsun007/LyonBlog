@@ -10,3 +10,6 @@
 # ignore all target file
 /target
 
+# ignore all out dir
+/out
+
