@@ -536,7 +536,7 @@
                 #end
 
             </ul>
-            <form class="form-inline mt-2 mt-md-0" id="navSearch" action="/article/elastic/category" method="get">
+            <form class="form-inline mt-2 mt-md-0" id="navSearch" action="/article/elastic/category" method="post">
                 <input class="form-control mr-sm-2" type="text" placeholder="🔍搜" aria-label="Search" name="keywords">
                 <button class="btn btn-outline-success my-2 my-sm-0" type="submit" id="searchSubmit">Search</button>
             </form>
@@ -961,7 +961,6 @@
                         <li style="margin:5px;">文章数:<span>$blogInfo.getArticleCount()</span></li>
                         <li style="margin:5px;">评论数:<span>$blogInfo.getCommentCount()</span></li>
                         <li style="margin:5px;">感谢数:<span>$blogInfo.getThankCount()</span></li>
-                        <li style="margin:5px;">收藏数:<span>$blogInfo.getCollectionCount()</span></li>
                     </ol>
                 </div>
 
@@ -983,7 +982,7 @@
     <!-- FOOTER -->
     <footer class="container">
         <p class="float-right"><a href="#">返回顶部↑</a></p>
-        <p>&copy; CopyRight 2018-2019 <a href="#">www.flowingbit.com</a> Inc All Rights Reserved 苏ICP备19001062号-1<a href="#">Email: </a>Flowingsun007@163.com</p>
+        <p>&copy; CopyRight 2018-2019 <a href="#">www.flowingsun.com</a> Inc All Rights Reserved 皖ICP备17013223号<a href="#">Email: </a>Flowingsun007@163.com</p>
     </footer>
 
 

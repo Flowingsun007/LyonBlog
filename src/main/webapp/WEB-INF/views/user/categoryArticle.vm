@@ -42,8 +42,8 @@
                 if(data!=null){
                     if(data.userstatus==1){
                         $("#navLoginButton").html(data.username);
-                        var url = "/behavior/category"+window.location.search
-                        var anode = '<a href="'+ url+ '" class="btn btn-outline-success" target="_blank">只看我的文章</a>';
+                        var url = "/article/category"+window.location.search
+                        var anode = '<a href="'+ url+ '" class="btn btn-outline-success" target="_blank">查看公共文章</a>';
                         $("#blogList").prepend(anode);
                     }else{
                         var str = data.username + ":未激活";
@@ -332,27 +332,9 @@
             }
         });
 
-        $("#viewPersonal").click(function(){
-            $.ajax({
-                type:"GET",
-                url:"/user/userInfo",
-                dataType:"json",
-                contentType:"application/json",
-                success:function (data) {
-                    if(data!=null){
-                        if(data.userstatus==1){
-                            return true;
-                        }else{
-                            alert("请先登录！");
-                            return false;
-                        }
-                    }
-                }
-            });
-        });
-
     });
 </script>
+
 
 
 <header>
@@ -372,7 +354,7 @@
                             #foreach($secondCat in ${category.getSecondCategorys()})
                                 #foreach($item in ${secondCat.entrySet()})
                                     #foreach($item in ${secondCat.entrySet()})
-                                        <a class="dropdown-item" href="/article/category?cId=$item.key" target="_blank">$item.value</a>
+                                        <a class="dropdown-item" href="/behavior/category?cId=$item.key" target="_blank">$item.value</a>
                                     #end
                                 #end
                             #end
@@ -511,11 +493,11 @@
 #if(!$pageQueryBean.getDataList())
 <main role="main" class="container">
     <div class="row">
-        <div class="col-md-9 blog-main">
+        <div class="col-md-9 blog-main" id="blogList">
             <div class="blog-post">
-                <h1>囧o(╯□╰)o)</h1>
+                <h1>亲，您在该分类下没有创作文章！</h1>
                 <h3>
-                    <a class="text-dark" href="#">亲，该分类下没有文章内容!</a>
+                    <a class="text-dark" href="#">赶紧创作一篇吧(*^▽^*))</a>
                 </h3>
             </div>
         </div>
@@ -524,7 +506,6 @@
 #else
 <main role="main" class="container">
     <div class="row">
-
         <div class="col-md-8 blog-main" id="blogList">
             #foreach($article in $!{pageQueryBean.dataList})
                 <div class="blog-post">
@@ -544,7 +525,7 @@
                             <p>Lyon 创建于：<span> $!date.format('yyyy-MM-dd HH:mm',$!article.getCreateDate())</span></p>
                             <p><span style="color:#66CDAA;">文章分类:</span>
                                 <span>$article.getMainCategoryName()>></span>
-                                <a  href="/article/category?cId=$article.getArticleSecondId()" target="_blank">$article.getSecondCategoryName()</a>
+                                <a  href="/behavior/category?cId=$article.getArticleSecondId()" target="_blank">$article.getSecondCategoryName()</a>
                             </p>
                         </div>
                         <hr>
@@ -621,20 +602,20 @@
                 <nav aria-label="..." style="text-align:right">
                     <ul class="pagination justify-content-center">
                         <li class="page-item">
-                            <a class="page-link" href="/article/category?cId=$pageQueryBean.cId&pageNum=1&pageSize=$pageQueryBean.pageSize"><span aria-hidden="true">&laquo;</span></a>
+                            <a class="page-link" href="/behavior/category?cId=$pageQueryBean.cId&pageNum=1&pageSize=$pageQueryBean.pageSize"><span aria-hidden="true">&laquo;</span></a>
                         </li>
                         #set($pageNum0 = $pageQueryBean.pageNum - 1)
                         #if($pageNum0>0)
                         <li class="page-item">
                         #else
                         <li class="page-item disabled">
-                        #end<a class="page-link" href="/article/category?cId=$pageQueryBean.cId&pageNum=$pageNum0&pageSize=$pageQueryBean.pageSize" aria-label="Previous">上页</a></li>
+                        #end<a class="page-link" href="/behavior/category?cId=$pageQueryBean.cId&pageNum=$pageNum0&pageSize=$pageQueryBean.pageSize" aria-label="Previous">上页</a></li>
                         <li class="page-item active"><a class="page-link">$pageQueryBean.pageNum</a></li>
                         #set($pagelist=[2,3,4,5])
                         #foreach($item in $pagelist)
                             #set($page = $pageNum0 + $item)
                             #if($page <= $pageQueryBean.pageCount)
-                                <li class="page-item"><a class="page-link" href="/article/category?cId=$pageQueryBean.cId&pageNum=$page&pageSize=$pageQueryBean.pageSize">$page</a></li>
+                                <li class="page-item"><a class="page-link" href="/behavior/category?cId=$pageQueryBean.cId&pageNum=$page&pageSize=$pageQueryBean.pageSize">$page</a></li>
                             #end
                         #end
                         #set($pageNum2 = $pageNum0+2)
@@ -642,10 +623,10 @@
                         <li class="page-item">
                         #else
                         <li class="page-item disabled">
-                        #end<a class="page-link" href="/article/category?cId=$pageQueryBean.cId&pageNum=$pageNum2&pageSize=$pageQueryBean.pageSize" aria-label="Next">下页</a></li>
-                        <li class="page-item"><a class="page-link" href="/article/category?cId=$pageQueryBean.cId&pageNum=$pageQueryBean.pageCount&pageSize=$pageQueryBean.pageSize"><span aria-hidden="true">&raquo;</span></a></li>
+                        #end<a class="page-link" href="/behavior/category?cId=$pageQueryBean.cId&pageNum=$pageNum2&pageSize=$pageQueryBean.pageSize" aria-label="Next">下页</a></li>
+                        <li class="page-item"><a class="page-link" href="/behavior/category?cId=$pageQueryBean.cId&pageNum=$pageQueryBean.pageCount&pageSize=$pageQueryBean.pageSize"><span aria-hidden="true">&raquo;</span></a></li>
                     </ul>
-                    <form class="form-inline mt-2 mt-md-0"  style="float:right" action="/article/category?>
+                    <form class="form-inline mt-2 mt-md-0"  style="float:right" action="/behavior/category?>
                                 <label style="float: right">第<span id="page">$pageQueryBean.pageNum</span>/$pageQueryBean.pageCount页(共$pageQueryBean.total条),每页</label>
                     <input id="psize" name="pageSize" class="form-control mr-sm-1" type="text" placeholder=$pageQueryBean.pageSize aria-label="Search" maxlength="3" size="3">
                     <input type="hidden"  id="pcId" name="cId" >
@@ -707,6 +688,7 @@
 
 </main>
 #end
+
 
     <!-- FOOTER -->
     <footer class="container">
