@@ -147,11 +147,17 @@
                         contentType: "application/json",
                         url:"/behavior/writeBlog/submit",
                         data:JSON.stringify({"articleTitle":a,"articleAbstract":b,"articleMainId":c,"articleSecondId":d,"articleContent":e,"articleContentCopy":f,"articleTags":g}),
+                        dataType:"json",//指定返回格式，不指定则返回字符串
                         success:function (data) {
-                            if(data=="article_write_succ"){
+                            if(data.code=="200"){
                                 swal("文章发布成功😊！");
-                            } else if(data=="article_write_fail"){
-                                swal("文章发布失败😶！");
+                            } else{
+                                swal({
+                                    title: "文章发布失败😶！",
+                                    text:data.msg,
+                                    timer: 1000,
+                                    showConfirmButton: true
+                                });
                             }
                         }
                     });

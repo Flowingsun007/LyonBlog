@@ -48,6 +48,7 @@ public class ResultUtils {
     public static ResponseDto getResult(Object obj) {
         ResponseDto result = getResult();
         result.setData(obj);
+        result.setCode("200");
         return result;
     }
 

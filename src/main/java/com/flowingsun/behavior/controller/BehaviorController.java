@@ -163,7 +163,8 @@ public class BehaviorController {
     @ResponseBody
     public ResponseDto submitArticle(@RequestBody Article article){
         try{
-            return articleService.createUserArticle(article);
+            ResponseDto result = articleService.createUserArticle(article);
+            return ResultUtils.getResult(result);
         }catch (Exception e){
             return ResultUtils.getResultEx(e);
         }
@@ -175,25 +176,28 @@ public class BehaviorController {
             @RequestParam(value="pageNum",required=false,defaultValue = "1")Integer pageNum,
             @RequestParam(value="pageSize",required=false,defaultValue = "10")Integer pageSize,
             Model model){
-        Long userId = (Long) SecurityUtils.getSubject().getSession().getAttribute("userId");
-        CategoryArticleQuery queryBean = new CategoryArticleQuery();
-        queryBean.setPageSize(pageSize);
-        queryBean.setPageNum(pageNum);
-        queryBean.setcId(cId);
+        Long userId = (Long)SecurityUtils.getSubject().getSession().getAttribute("userId");
         List<Category> categorys = articleService.getCategory();
         List<ArticleTag> allTags = articleService.selectAllTag();
         BlogInfo blogInfo = articleService.selectInfomation();
-        CategoryArticleQuery categoryArticleQuery = articleService.getUserCategoryArticles(cId,queryBean,userId);
         model.addAttribute("categorys",categorys);
         model.addAttribute("allTags",allTags);
         model.addAttribute("blogInfo",blogInfo);
-        if(userId!=null&&categoryArticleQuery.getTotal()!=0){
+        if(userId!=null){
+            CategoryArticleQuery queryBean = new CategoryArticleQuery();
+            queryBean.setPageSize(pageSize);
+            queryBean.setPageNum(pageNum);
+            queryBean.setcId(cId);
+            CategoryArticleQuery categoryArticleQuery = new CategoryArticleQuery();
+            categoryArticleQuery = articleService.getUserCategoryArticles(cId,queryBean,userId);
             List<Article> articleList = (List<Article>) categoryArticleQuery.getDataList();
-            List<Article> articles = behaviorService.getUserArticleListBehavior(articleList,userId);
-            categoryArticleQuery.setDataList(articles);
+            if(articleList!=null){
+                List<Article> articles = behaviorService.getUserArticleListBehavior(articleList,userId);
+                categoryArticleQuery.setDataList(articles);
+            }
+            model.addAttribute("pageQueryBean",categoryArticleQuery);
         }
-        model.addAttribute("pageQueryBean",categoryArticleQuery);
-        return "/article/categoryArticle";
+        return "/user/categoryArticle";
     }
 
 

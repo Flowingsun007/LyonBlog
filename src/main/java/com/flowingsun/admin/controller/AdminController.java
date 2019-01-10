@@ -115,7 +115,6 @@ public class AdminController {
         return "admin/adminHome";
     }
 
-    @RequiresPermissions("admin:home")
     @GetMapping("/categorySelect")
     @ResponseBody
     public String submitArticle(@RequestParam("mId") Integer mId){
