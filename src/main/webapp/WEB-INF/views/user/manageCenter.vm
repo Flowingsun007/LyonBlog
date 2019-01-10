@@ -65,7 +65,10 @@
                         $("#navLoginButton").html(str);
                         $("#headerUsername").html(str);
                     }
-                    var logoutHtml = '<div class="dropdown-menu" id="navLogout" aria-labelledby="navbarDropdownMenuLink">'+ '<a class="dropdown-item" id="behaviorCenter" href="/user/manageCenter">个人中心</a><a class="dropdown-item" id="logoutButton" href="#">'+'退出登录</a></div>';
+                    var logoutHtml = '<div class="dropdown-menu" id="navLogout" aria-labelledby="navbarDropdownMenuLink">'
+                            //+ '<a class="dropdown-item" id="behaviorCenter" href="/user/manageCenter">个人中心</a><a class="dropdown-item" id="logoutButton" href="#">'
+                            + '<a class="dropdown-item" id="behaviorCenter" href="/behavior/writeBlog" target="_blank">写篇Blog</a><a class="dropdown-item"  id="logoutButton" href="#">'
+                            +'退出登录</a></div>';
                     var userHeadImg = '<ul class="navbar-nav mr-sm-0" id="navUserHead">'+ '<li class="nav-item" id="navLogin">'+
                             '<a class="nav-link" href="#"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">'
                             +'<img src="/static/image/userHead/header.png" class="user-image" alt="User Image" style="width:25px;height:25px;border-radius:50%;"></a> </li></ul>';
@@ -817,7 +820,7 @@
 <!-- FOOTER -->
 <footer class="container">
     <p class="float-right"><a href="#">返回顶部↑</a></p>
-    <p>&copy; CopyRight 2018-2019 <a href="#">www.flowingbit.com</a> Inc All Rights Reserved 苏ICP备19001062号-1<a href="#">Email: </a>Flowingsun007@163.com</p>
+    <p>&copy; CopyRight 2018-2019 <a href="#">www.flowingsun.com</a> Inc All Rights Reserved 皖ICP备17013223号<a href="#">Email: </a>Flowingsun007@163.com</p>
 </footer>
 
 
