@@ -5,10 +5,15 @@ import com.flowingsun.article.dto.RegularRecommend;
 import com.flowingsun.behavior.dto.BehaviorStatus;
 import com.flowingsun.behavior.entity.Comment;
 
+import java.io.Serializable;
+import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
 
-public class Article {
+public class Article implements Serializable {
+    public Article(){
+        this.createDate = new Timestamp(new Date().getTime());
+    }
     /**
      * 文章id
      */

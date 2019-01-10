@@ -1,20 +1,16 @@
 package com.flowingsun.common.dao;
 
 import com.flowingsun.common.utils.SerializeUtils;
-import com.flowingsun.user.entity.Role;
 import com.flowingsun.user.entity.User;
-import com.sun.tools.internal.xjc.reader.xmlschema.bindinfo.BIConversion;
 import io.protostuff.LinkedBuffer;
 import io.protostuff.ProtobufIOUtil;
 import io.protostuff.ProtostuffIOUtil;
-import io.protostuff.Schema;
 import io.protostuff.runtime.RuntimeSchema;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 
-import java.util.Arrays;
 import java.util.List;
 
 
@@ -186,6 +182,25 @@ public class RedisDAO {
             try{
                 byte[] listInfo = SerializeUtils.serialize(list);
                 result = jedis.set(key.getBytes(), listInfo);
+            }finally {
+                jedis.close();
+                return result;
+            }
+        } catch (Exception e) {
+            logger.error("Set key error : "+e);
+            return result;
+        }
+    }
+
+    public <T> String setList(String key ,List<T> list,int seconds){
+        String result="setList_fail";
+        try {
+            Jedis jedis = jedisPool.getResource();
+            try{
+                byte[] listInfo = SerializeUtils.serialize(list);
+                result = jedis.set(key.getBytes(), listInfo);
+                //设置键的过期时间为seconds秒
+                jedis.expire(key,seconds);
             }finally {
                 jedis.close();
                 return result;

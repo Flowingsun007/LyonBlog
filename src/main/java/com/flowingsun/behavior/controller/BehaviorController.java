@@ -2,23 +2,33 @@ package com.flowingsun.behavior.controller;
 
 import com.flowingsun.article.dto.ArticleTag;
 import com.flowingsun.article.dto.BlogInfo;
+import com.flowingsun.article.entity.Article;
 import com.flowingsun.article.entity.Category;
 import com.flowingsun.article.service.ArticleService;
+import com.flowingsun.article.vo.CategoryArticleQuery;
 import com.flowingsun.behavior.entity.*;
 import com.flowingsun.behavior.service.BehaviorService;
+import com.flowingsun.common.dto.ResponseDto;
+import com.flowingsun.common.utils.ResultUtils;
+import org.apache.commons.io.FileUtils;
+import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.File;
+import java.io.OutputStream;
 import java.util.List;
 
 
@@ -108,6 +118,87 @@ public class BehaviorController {
         return "forward:/user/manageCenter";
     }
 
+    /**
+     * @date   2019/1/8 20:54
+     * @detail 根据给定url，生成网页截图存服务器
+     * (原理：调用phantomjs访问指定url的网站，并截图)
+     * 截图尺寸默认全屏：width: 1920, height: 1080，在phantomjs文件夹下rasterize.js中设定
+     */
+    @RequestMapping("/screenShot")
+    public String getScreenShot(@RequestParam(value="url") String url, HttpServletResponse response)throws Exception{
+        String imgagePath = behaviorService.getScreenShot(url);
+        if(imgagePath!=null&&imgagePath.length()>0){
+            File imageLocal = new File(imgagePath);
+            byte[] imgdata = FileUtils.readFileToByteArray(imageLocal);
+            response.setContentType("image/png");
+            OutputStream os = response.getOutputStream();
+            os.write(imgdata);
+            os.flush();
+            os.close();
+            return "success:截图成功";
+        }else{
+            return "fail:图片失败";
+        }
+    }
+
+    @PostMapping("/collectUrl")
+    @ResponseBody
+    public ResponseDto collectUrl(@RequestBody UrlCollection bean){
+        try{
+            UrlCollection result = behaviorService.collectUrl(bean);
+            return ResultUtils.getResult(result);
+        }catch (Exception e){
+            return ResultUtils.getResultEx(e);
+        }
+    }
+
+    @GetMapping("/writeBlog")
+    public String writeArticle(Model model){
+        Category categoryChoice = articleService.getAllCategory();
+        model.addAttribute("categoryChoice",categoryChoice);
+        return "user/writeBlog";
+    }
+
+    @PostMapping("/writeBlog/submit")
+    @ResponseBody
+    public ResponseDto submitArticle(@RequestBody Article article){
+        try{
+            ResponseDto result = articleService.createUserArticle(article);
+            return ResultUtils.getResult(result);
+        }catch (Exception e){
+            return ResultUtils.getResultEx(e);
+        }
+    }
+
+    @GetMapping("/category")
+    public String categoryArticle(
+            @RequestParam("cId") Integer cId,
+            @RequestParam(value="pageNum",required=false,defaultValue = "1")Integer pageNum,
+            @RequestParam(value="pageSize",required=false,defaultValue = "10")Integer pageSize,
+            Model model){
+        Long userId = (Long)SecurityUtils.getSubject().getSession().getAttribute("userId");
+        List<Category> categorys = articleService.getCategory();
+        List<ArticleTag> allTags = articleService.selectAllTag();
+        BlogInfo blogInfo = articleService.selectInfomation();
+        model.addAttribute("categorys",categorys);
+        model.addAttribute("allTags",allTags);
+        model.addAttribute("blogInfo",blogInfo);
+        if(userId!=null){
+            CategoryArticleQuery queryBean = new CategoryArticleQuery();
+            queryBean.setPageSize(pageSize);
+            queryBean.setPageNum(pageNum);
+            queryBean.setcId(cId);
+            CategoryArticleQuery categoryArticleQuery = new CategoryArticleQuery();
+            categoryArticleQuery = articleService.getUserCategoryArticles(cId,queryBean,userId);
+            List<Article> articleList = (List<Article>) categoryArticleQuery.getDataList();
+            if(articleList!=null){
+                List<Article> articles = behaviorService.getUserArticleListBehavior(articleList,userId);
+                categoryArticleQuery.setDataList(articles);
+            }
+            model.addAttribute("pageQueryBean",categoryArticleQuery);
+        }
+        return "/user/categoryArticle";
+    }
 
 
 
