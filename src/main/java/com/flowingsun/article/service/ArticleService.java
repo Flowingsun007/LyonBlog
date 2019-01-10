@@ -29,6 +29,8 @@ public interface ArticleService {
 
     CategoryArticleQuery getCategoryArticles(Integer cId, CategoryArticleQuery categoryArticleQuery);
 
+    CategoryArticleQuery getUserCategoryArticles(Integer cId, CategoryArticleQuery categoryArticleQuery,Long userId);
+
     TagArticleQuery getTagArticles(TagArticleQuery queryBean);
 
     AdminBlogQuery getAllArticles(AdminBlogQuery queryBean);

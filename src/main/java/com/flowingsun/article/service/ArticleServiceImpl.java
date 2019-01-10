@@ -123,6 +123,24 @@ public class ArticleServiceImpl implements ArticleService {
         return queryBean;
     }
 
+    @Override
+    public CategoryArticleQuery getUserCategoryArticles(Integer cId, CategoryArticleQuery queryBean,Long userId) {
+        int total = articleMapper.selectUserCategoryArticlesCount(cId,userId.intValue());
+        if(total>0){
+            queryBean.setTotal(total);
+            Integer pageSize = queryBean.getPageSize();
+            Integer startNum = queryBean.getStartRow();
+            List<Article> articleList = articleMapper.selectUserCategoryArticles(cId,Integer.valueOf(userId.intValue()),startNum,pageSize);
+            articleList.forEach(article->{
+                article.setArticleTagList(articleMapper.selectArticleTagsByPrimarykey(article.getId()));
+            });
+            queryBean.setDataList(articleList);
+        }else{//对应cid下没有文章
+            queryBean.setTotal(0);
+        }
+        return queryBean;
+    }
+
     /**
      *@Author Lyon[flowingsun007@163.com]
      *@Date 18/09/10 21:57

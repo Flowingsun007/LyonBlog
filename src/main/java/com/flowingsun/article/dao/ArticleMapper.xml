@@ -123,8 +123,11 @@
   <select id="selectArticleCountById" resultType="INTEGER" parameterType="INTEGER">
     SELECT COUNT(0) FROM article WHERE id=#{articleId};
   </select>
-  <select id="selectCategoryArticlesCount" resultType="INTEGER" parameterType="INTEGER">
-    SELECT COUNT(0) FROM article WHERE article_second_id=#{cId};
+  <select id="selectCategoryArticlesCount" resultType="INTEGER" >
+    SELECT COUNT(0) FROM article WHERE article_second_id=#{cId} AND public_status=1;
+  </select>
+  <select id="selectUserCategoryArticlesCount" resultType="int">
+    SELECT COUNT(0) FROM article WHERE article_second_id=#{cId} AND userid=#{userid};
   </select>
   <select id="selectMainCategoryArticlesCount" resultType="INTEGER" parameterType="INTEGER">
     SELECT COUNT(0) FROM article WHERE article_main_id=#{mId};
@@ -145,6 +148,21 @@
     WHERE article_second_id=#{cId}
     ORDER BY article.id DESC
     LIMIT #{startNum},#{pageSize};
+  </select>
+  <select id="selectUserCategoryArticles" resultMap="categoryArticlesResultMap" >
+    SELECT
+      article.id, article.userid, article_title, article_abstract, create_date, edit_date, article_second_id,article_main_id,
+      article_main_categary.name AS mname,article_second_categary.name AS cname,
+      (SELECT COUNT(0) FROM thank WHERE thank.articleid=article.id) AS articleThank,
+      (SELECT COUNT(0) FROM comment WHERE comment.articleid=article.id) AS articleComment,
+      (SELECT COUNT(0) FROM collection WHERE collection.articleid=article.id) AS articleCollection
+    FROM article
+           INNER JOIN article_main_categary ON article.article_main_id = article_main_categary.id
+           INNER JOIN article_second_categary ON article.article_second_id = article_second_categary.id
+    WHERE article_second_id=#{cId}
+    AND userid=#{userid}
+    ORDER BY article.id DESC
+             LIMIT #{startNum},#{pageSize};
   </select>
   <select id="selectTagArticles" resultMap="categoryArticlesResultMap" >
     SELECT
