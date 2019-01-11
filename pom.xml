@@ -256,7 +256,14 @@
       <artifactId>log4j-core</artifactId>
       <version>2.11.1</version>
     </dependency>
+    <!--图片处理类开源库Thumbnailator -->
+    <dependency>
+      <groupId>net.coobird</groupId>
+      <artifactId>thumbnailator</artifactId>
+      <version>0.4.8</version>
+    </dependency>
   </dependencies>
+
 
 
 
