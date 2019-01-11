@@ -42,14 +42,18 @@
                 if(data!=null){
                     if(data.userstatus==1){
                         $("#navLoginButton").html(data.username);
+                        var url = "/behavior/category"+window.location.search
+                        var anode = '<div style="margin-bottom: 10px"><a href="'+ url+ '" class="btn btn-outline-success" target="_blank">只看我的文章</a></div>';
+                        $("#blogList").prepend(anode);
                     }else{
                         var str = data.username + ":未激活";
                         $("#navLoginButton").html(str);
                     }
                     var logoutHtml = '<div class="dropdown-menu" id="navLogout" aria-labelledby="navbarDropdownMenuLink">'+ '<a class="dropdown-item" id="behaviorCenter" href="/user/manageCenter">个人中心</a><a class="dropdown-item" id="logoutButton" href="#">'+'退出登录</a> </div>';
-                    var userHeadImg = '<ul class="navbar-nav mr-sm-0" id="navUserHead">'+ '<li class="nav-item" id="navLogin">'+
-                            '<a class="nav-link" href="#"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">'
-                            +'<img src="/static/image/userHead/header.png" class="user-image" alt="User Image" style="width:25px;height:25px;border-radius:50%;"></a> </li></ul>';
+                    var userHeadImg = '<ul class="navbar-nav mr-sm-0" id="navUserHead"><li class="nav-item" id="navLogin">'
+                            + '<a class="nav-link" href="#"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">'
+                            +'<img src="'+data.headImage+'" class="user-image"'
+                            +'alt="User Image" style="width:25px;height:25px;border-radius:50%;"></a> </li></ul>';
                     $("#navLogin").append(logoutHtml);
                     $("#navbarCollapse").append(userHeadImg);
                 }
@@ -329,9 +333,27 @@
             }
         });
 
+        $("#viewPersonal").click(function(){
+            $.ajax({
+                type:"GET",
+                url:"/user/userInfo",
+                dataType:"json",
+                contentType:"application/json",
+                success:function (data) {
+                    if(data!=null){
+                        if(data.userstatus==1){
+                            return true;
+                        }else{
+                            alert("请先登录！");
+                            return false;
+                        }
+                    }
+                }
+            });
+        });
+
     });
 </script>
-
 
 
 <header>
@@ -486,190 +508,206 @@
         </div>
     </div>
 </div>
-        <main role="main" class="container">
-            <div class="row">
-                <div class="col-md-8 blog-main" id="blogList">
-                #foreach($article in $!{pageQueryBean.dataList})
-                        <div class="blog-post">
-                            <div>
-                                <h3 class="blog-post-meta" style="font-family: Vincent;"><a href="/article/single?articleId=$article.getId()" target="_blank" style="color: #000000">$article.getArticleTitle()</a></h3>
-                                <div>
-                                    <h4 class="font-italic" style="color:#9F79EE;font-size:15px">
-                                        #set($tags = $article.getArticleTagList())
-                                        #foreach($tag in $!{tags})
-                                            <a class="anewTag" href="/article/tag?tagId=$tag.tagId" target="_blank">
-                                                <span class="badge badge-success btn-sm">$tag.tagName</span>
-                                            </a>
-                                        #end
-                                    </h4>
-                                </div>
-                                <div style="font-family:Vincent;font-weight:600;">
-                                    <p>Lyon 创建于：<span> $!date.format('yyyy-MM-dd HH:mm',$!article.getCreateDate())</span></p>
-                                    <p><span style="color:#66CDAA;">文章分类:</span>
-                                        <span>$article.getMainCategoryName()>></span>
-                                        <a  href="/article/category?cId=$article.getArticleSecondId()" target="_blank">$article.getSecondCategoryName()</a>
-                                    </p>
-                                </div>
-                                <hr>
-                                <h5 class="pb-3 mb-4 font-italic border-bottom">
-                                    $article.getArticleAbstract()
-                                </h5>
-                            </div>
 
-                            <div class="linkandshare-mainarticle">
-                                <a href="javascript:void(0)"  style="margin-right:20px;color:#919191;" class="submitThank">
-                                    #if($article.getBehaviorStatus().getThankStatus()==1)
-                                        <img class="icon" src="/static/image/thank2.png" alt="thank" width="15px;" height="15px;">
-                                    #else
-                                        <img class="icon" src="/static/image/thank1.png" alt="thank" width="15px;" height="15px;">
-                                    #end
-                                    <span>
-                                        #if(!$article.getArticleThank())
-                                            0
-                                        #else
-                                            $article.getArticleThank()
-                                        #end
-                                    </span>感谢</a>
-                                <span style="visibility: hidden">$article.getId()</span>
-                                <a href="javascript:void(0)"  style="margin-right:40px;color:#919191;" class="submitComment">
-                                    #if($article.getBehaviorStatus().getCommentStatus()==1)
-                                        <img class="icon" src="/static/image/comment2.png" alt="comment" width="15px;" height="15px;">
-                                    #else
-                                        <img class="icon" src="/static/image/comment1.png" alt="comment" width="15px;" height="15px;">
-                                    #end
-                                    #if(!$article.getArticleComment())
-                                        0
-                                    #else
-                                        $article.getArticleComment()
-                                    #end</span>评论</a>
-                                <a href="javascript:void(0)"  style="margin-right:40px;color:#919191;" class="submitCollect">
-                                    #if($article.getBehaviorStatus().getCollectStatus()==1)
-                                        <img class="icon" src="/static/image/save2.png" alt="star" width="17px;" height="17px;">
-                                    #else
-                                        <img class="icon" src="/static/image/save1.png" alt="star" width="17px;" height="17px;">
-                                    #end
-                                    <span>
-                                        #if(!$article.getArticleCollection())
-                                            0
-                                        #else
-                                            $article.getArticleCollection()
-                                        #end
-                                    </span>收藏
-                                </a>
-                                <a href=""  style="color:#919191;" class="submitShare"><img class="icon" src="/static/image/share1.png" alt="share" width="15px;" height="15px;">分享</a>
-                                <span style="visibility: hidden">$article.getId()</span>
-                            </div>
+#if(!$pageQueryBean.getDataList())
+<main role="main" class="container">
+    <div class="row">
+        <div class="col-md-9 blog-main">
+            <div class="blog-post">
+                <h1>囧o(╯□╰)o)</h1>
+                <h3>
+                    <a class="text-dark" href="#">亲，该分类下没有文章内容!</a>
+                </h3>
+            </div>
+        </div>
+    </div>
+</main>
+#else
+<main role="main" class="container">
+    <div class="row">
 
-                        </div><!-- /.blog-post -->
-                #end
-                    <script>
-                        $(function(){
-                            $(".disabled").on("click",function(){
-                                return false;
-                            });
-                            $("#submitpsize").on("click",function(){
-                                var psize = document.getElementById("psize").value;
-                                if(psize!=""){
-                                    $("#pcId").val($pageQueryBean.cId);
-                                    return true;
-                                }else{
-                                    alert("亲，请输入每页要显示的数目🙂");
-                                    return false;
-                                }
-                            });
-                        });
-                    </script>
-
-                    <div class="pageDiv" >
-                        <nav aria-label="..." style="text-align:right">
-                            <ul class="pagination justify-content-center">
-                            <li class="page-item">
-                                <a class="page-link" href="/article/category?cId=$pageQueryBean.cId&pageNum=1&pageSize=$pageQueryBean.pageSize"><span aria-hidden="true">&laquo;</span></a>
-                            </li>
-                                #set($pageNum0 = $pageQueryBean.pageNum - 1)
-                                #if($pageNum0>0)
-                                    <li class="page-item">
-                                #else
-                                    <li class="page-item disabled">
-                                #end<a class="page-link" href="/article/category?cId=$pageQueryBean.cId&pageNum=$pageNum0&pageSize=$pageQueryBean.pageSize" aria-label="Previous">上页</a></li>
-                            <li class="page-item active"><a class="page-link">$pageQueryBean.pageNum</a></li>
-                                #set($pagelist=[2,3,4,5])
-                                #foreach($item in $pagelist)
-                                    #set($page = $pageNum0 + $item)
-                                    #if($page <= $pageQueryBean.pageCount)
-                                        <li class="page-item"><a class="page-link" href="/article/category?cId=$pageQueryBean.cId&pageNum=$page&pageSize=$pageQueryBean.pageSize">$page</a></li>
-                                    #end
+        <div class="col-md-8 blog-main" id="blogList">
+            #foreach($article in $!{pageQueryBean.dataList})
+                <div class="blog-post">
+                    <div>
+                        <h3 class="blog-post-meta" style="font-family: Vincent;"><a href="/article/single?articleId=$article.getId()" target="_blank" style="color: #000000">$article.getArticleTitle()</a></h3>
+                        <div>
+                            <h4 class="font-italic" style="color:#9F79EE;font-size:15px">
+                                #set($tags = $article.getArticleTagList())
+                                #foreach($tag in $!{tags})
+                                    <a class="anewTag" href="/article/tag?tagId=$tag.tagId" target="_blank">
+                                        <span class="badge badge-success btn-sm">$tag.tagName</span>
+                                    </a>
                                 #end
-                                #set($pageNum2 = $pageNum0+2)
-                                #if($pageNum2 <= $pageQueryBean.pageCount)
-                                    <li class="page-item">
-                                #else
-                                    <li class="page-item disabled">
-                                #end<a class="page-link" href="/article/category?cId=$pageQueryBean.cId&pageNum=$pageNum2&pageSize=$pageQueryBean.pageSize" aria-label="Next">下页</a></li>
-                            <li class="page-item"><a class="page-link" href="/article/category?cId=$pageQueryBean.cId&pageNum=$pageQueryBean.pageCount&pageSize=$pageQueryBean.pageSize"><span aria-hidden="true">&raquo;</span></a></li>
-                            </ul>
-                            <form class="form-inline mt-2 mt-md-0"  style="float:right" action="/article/category?>
-                                <label style="float: right">第<span id="page">$pageQueryBean.pageNum</span>/$pageQueryBean.pageCount页(共$pageQueryBean.total条),每页</label>
-                                <input id="psize" name="pageSize" class="form-control mr-sm-1" type="text" placeholder=$pageQueryBean.pageSize aria-label="Search" maxlength="3" size="3">
-                                <input type="hidden"  id="pcId" name="cId" >
-                                <label>条</label>
-                                <button id="submitpsize"class="btn btn-success">确定</button>
-                            </form>
-                        </nav>
-                    </div><!--class="pageDiv" >-->
-
-                </div><!-- /.blog-main -->
-                <aside class="col-md-4 blog-sidebar">
-                    <div class="p-3 mb-3 bg-light rounded" style="font-family:Brush Script MT;color:#66CDAA;">
-                        <h2 class="font-italic" style="color:#9F79EE;font-size:25px;">About</h2>
-                        <p style="font-size:20px;font-family:fantasy;">《When you are old》</p>
-                        <p style="font-size:18px;font-family:Brush Script MT"><em>————William Butler Yeats. </em></p>
-                        <p style="font-size:15px;font-family:Vincent;font-weight:100">When you are old and grey and full of sleep,
-                            And nodding by the fire，take down this book,And slowly read,and dream of the soft look,
-                            Your eyes had once,and of their shadows deep;How many loved your moments of glad grace,
-                            And loved your beauty with love false or true, But one man loved the pilgrim Soul in you
-                            And loved the sorrows of your changing face; And bending down beside the glowing bars,
-                            Murmur,a little sadly,how Love fled And paced upon the mountains overhead And hid his face amid a crowd of stars.
-                        </p>
+                            </h4>
+                        </div>
+                        <div style="font-family:Vincent;font-weight:600;">
+                            <p>Lyon 创建于：<span> $!date.format('yyyy-MM-dd HH:mm',$!article.getCreateDate())</span></p>
+                            <p><span style="color:#66CDAA;">文章分类:</span>
+                                <span>$article.getMainCategoryName()>></span>
+                                <a  href="/article/category?cId=$article.getArticleSecondId()" target="_blank">$article.getSecondCategoryName()</a>
+                            </p>
+                        </div>
+                        <hr>
+                        <h5 class="pb-3 mb-4 font-italic border-bottom">
+                            $article.getArticleAbstract()
+                        </h5>
                     </div>
 
-                    <div class="p-3">
-                        <h3 style="font-size:35px;color:#9F79EE;font-weight: 300;">Tags</h3>
-                        <ol class="list-unstyled mb-0">
-                            #foreach($tag in $!{allTags})
-                                <li><a href="/article/tag?tagId=$tag.getTagId()" target="_blank" class="btn btn-outline-secondary" style="border-color: transparent">
-                                    <span class="badge badge-info">$tag.getTagName()</span>
-                                </a></li>
+                    <div class="linkandshare-mainarticle">
+                        <a href="javascript:void(0)"  style="margin-right:20px;color:#919191;" class="submitThank">
+                            #if($article.getBehaviorStatus().getThankStatus()==1)
+                                <img class="icon" src="/static/image/thank2.png" alt="thank" width="15px;" height="15px;">
+                            #else
+                                <img class="icon" src="/static/image/thank1.png" alt="thank" width="15px;" height="15px;">
                             #end
-                        </ol>
+                            <span>
+                                #if(!$article.getArticleThank())
+                                            0
+                                #else
+                                    $article.getArticleThank()
+                                #end
+                            </span>感谢</a>
+                        <span style="visibility: hidden">$article.getId()</span>
+                        <a href="javascript:void(0)"  style="margin-right:40px;color:#919191;" class="submitComment">
+                            #if($article.getBehaviorStatus().getCommentStatus()==1)
+                                <img class="icon" src="/static/image/comment2.png" alt="comment" width="15px;" height="15px;">
+                            #else
+                                <img class="icon" src="/static/image/comment1.png" alt="comment" width="15px;" height="15px;">
+                            #end
+                            #if(!$article.getArticleComment())
+                                0
+                            #else
+                                $article.getArticleComment()
+                            #end</span>评论</a>
+                        <a href="javascript:void(0)"  style="margin-right:40px;color:#919191;" class="submitCollect">
+                            #if($article.getBehaviorStatus().getCollectStatus()==1)
+                                <img class="icon" src="/static/image/save2.png" alt="star" width="17px;" height="17px;">
+                            #else
+                                <img class="icon" src="/static/image/save1.png" alt="star" width="17px;" height="17px;">
+                            #end
+                            <span>
+                                #if(!$article.getArticleCollection())
+                                            0
+                                #else
+                                    $article.getArticleCollection()
+                                #end
+                            </span>收藏
+                        </a>
+                        <a href=""  style="color:#919191;" class="submitShare"><img class="icon" src="/static/image/share1.png" alt="share" width="15px;" height="15px;">分享</a>
+                        <span style="visibility: hidden">$article.getId()</span>
                     </div>
 
-                    <div class="p-3">
-                        <h3 style="font-size:35px;color:#9F79EE;font-weight: 300;">Info</h3>
-                        <ol class="list-unstyled">
-                            <li style="margin:5px;">浏览次数:<span>$blogInfo.getViewCount()</span></li>
-                            <li style="margin:5px;">访客人数:<span>$blogInfo.getVisitorCount()</span></li>
-                            <li style="margin:5px;">用户人数:<span>$blogInfo.getUserCount()</span></li>
-                            <li style="margin:5px;">文章数:<span>$blogInfo.getArticleCount()</span></li>
-                            <li style="margin:5px;">评论数:<span>$blogInfo.getCommentCount()</span></li>
-                            <li style="margin:5px;">感谢数:<span>$blogInfo.getThankCount()</span></li>
-                            <li style="margin:5px;">收藏数:<span>$blogInfo.getCollectionCount()</span></li>
-                        </ol>
-                    </div>
+                </div><!-- /.blog-post -->
+            #end
+            <script>
+                $(function(){
+                    $(".disabled").on("click",function(){
+                        return false;
+                    });
+                    $("#submitpsize").on("click",function(){
+                        var psize = document.getElementById("psize").value;
+                        if(psize!=""){
+                            $("#pcId").val($pageQueryBean.cId);
+                            return true;
+                        }else{
+                            alert("亲，请输入每页要显示的数目🙂");
+                            return false;
+                        }
+                    });
+                });
+            </script>
 
-                    <div class="p-3">
-                        <h3 style="font-size:35px;color:#9F79EE;font-weight: 300;">Other</h3>
-                        <ol class="list-unstyled">
-                            <li style="margin:5px;"><a href="https://www.zhihu.com/people/better-man007/activities">知乎-Lyon</a></li>
-                            <li style="margin:5px;"><a href="#">微信公众号-阳光流淌007</a></li>
-                            <li style="margin:5px;"><a href="https://github.com/Flowingsun007">GitHub-Flowingsun007</a></li>
-                        </ol>
-                    </div>
-                </aside><!-- /.blog-sidebar -->
+            <div class="pageDiv" >
+                <nav aria-label="..." style="text-align:right">
+                    <ul class="pagination justify-content-center">
+                        <li class="page-item">
+                            <a class="page-link" href="/article/category?cId=$pageQueryBean.cId&pageNum=1&pageSize=$pageQueryBean.pageSize"><span aria-hidden="true">&laquo;</span></a>
+                        </li>
+                        #set($pageNum0 = $pageQueryBean.pageNum - 1)
+                        #if($pageNum0>0)
+                        <li class="page-item">
+                        #else
+                        <li class="page-item disabled">
+                        #end<a class="page-link" href="/article/category?cId=$pageQueryBean.cId&pageNum=$pageNum0&pageSize=$pageQueryBean.pageSize" aria-label="Previous">上页</a></li>
+                        <li class="page-item active"><a class="page-link">$pageQueryBean.pageNum</a></li>
+                        #set($pagelist=[2,3,4,5])
+                        #foreach($item in $pagelist)
+                            #set($page = $pageNum0 + $item)
+                            #if($page <= $pageQueryBean.pageCount)
+                                <li class="page-item"><a class="page-link" href="/article/category?cId=$pageQueryBean.cId&pageNum=$page&pageSize=$pageQueryBean.pageSize">$page</a></li>
+                            #end
+                        #end
+                        #set($pageNum2 = $pageNum0+2)
+                        #if($pageNum2 <= $pageQueryBean.pageCount)
+                        <li class="page-item">
+                        #else
+                        <li class="page-item disabled">
+                        #end<a class="page-link" href="/article/category?cId=$pageQueryBean.cId&pageNum=$pageNum2&pageSize=$pageQueryBean.pageSize" aria-label="Next">下页</a></li>
+                        <li class="page-item"><a class="page-link" href="/article/category?cId=$pageQueryBean.cId&pageNum=$pageQueryBean.pageCount&pageSize=$pageQueryBean.pageSize"><span aria-hidden="true">&raquo;</span></a></li>
+                    </ul>
+                    <form class="form-inline mt-2 mt-md-0"  style="float:right" action="/article/category?>
+                                <label style="float: right">第<span id="page">$pageQueryBean.pageNum</span>/$pageQueryBean.pageCount页(共$pageQueryBean.total条),每页</label>
+                    <input id="psize" name="pageSize" class="form-control mr-sm-1" type="text" placeholder=$pageQueryBean.pageSize aria-label="Search" maxlength="3" size="3">
+                    <input type="hidden"  id="pcId" name="cId" >
+                    <label>条</label>
+                    <button id="submitpsize"class="btn btn-success">确定</button>
+                    </form>
+                </nav>
+            </div><!--class="pageDiv" >-->
 
-            </div><!-- /.row -->
+        </div><!-- /.blog-main -->
+        <aside class="col-md-4 blog-sidebar">
+            <div class="p-3 mb-3 bg-light rounded" style="font-family:Brush Script MT;color:#66CDAA;">
+                <h2 class="font-italic" style="color:#9F79EE;font-size:25px;">About</h2>
+                <p style="font-size:20px;font-family:fantasy;">《When you are old》</p>
+                <p style="font-size:18px;font-family:Brush Script MT"><em>————William Butler Yeats. </em></p>
+                <p style="font-size:15px;font-family:Vincent;font-weight:100">When you are old and grey and full of sleep,
+                    And nodding by the fire，take down this book,And slowly read,and dream of the soft look,
+                    Your eyes had once,and of their shadows deep;How many loved your moments of glad grace,
+                    And loved your beauty with love false or true, But one man loved the pilgrim Soul in you
+                    And loved the sorrows of your changing face; And bending down beside the glowing bars,
+                    Murmur,a little sadly,how Love fled And paced upon the mountains overhead And hid his face amid a crowd of stars.
+                </p>
+            </div>
 
-        </main>
+            <div class="p-3">
+                <h3 style="font-size:35px;color:#9F79EE;font-weight: 300;">Tags</h3>
+                <ol class="list-unstyled mb-0">
+                    #foreach($tag in $!{allTags})
+                        <li><a href="/article/tag?tagId=$tag.getTagId()" target="_blank" class="btn btn-outline-secondary" style="border-color: transparent">
+                            <span class="badge badge-info">$tag.getTagName()</span>
+                        </a></li>
+                    #end
+                </ol>
+            </div>
+
+            <div class="p-3">
+                <h3 style="font-size:35px;color:#9F79EE;font-weight: 300;">Info</h3>
+                <ol class="list-unstyled">
+                    <li style="margin:5px;">浏览次数:<span>$blogInfo.getViewCount()</span></li>
+                    <li style="margin:5px;">访客人数:<span>$blogInfo.getVisitorCount()</span></li>
+                    <li style="margin:5px;">用户人数:<span>$blogInfo.getUserCount()</span></li>
+                    <li style="margin:5px;">文章数:<span>$blogInfo.getArticleCount()</span></li>
+                    <li style="margin:5px;">评论数:<span>$blogInfo.getCommentCount()</span></li>
+                    <li style="margin:5px;">感谢数:<span>$blogInfo.getThankCount()</span></li>
+                </ol>
+            </div>
+
+            <div class="p-3">
+                <h3 style="font-size:35px;color:#9F79EE;font-weight: 300;">Other</h3>
+                <ol class="list-unstyled">
+                    <li style="margin:5px;"><a href="https://www.zhihu.com/people/better-man007/activities">知乎-Lyon</a></li>
+                    <li style="margin:5px;"><a href="#">微信公众号-阳光流淌007</a></li>
+                    <li style="margin:5px;"><a href="https://github.com/Flowingsun007">GitHub-Flowingsun007</a></li>
+                </ol>
+            </div>
+        </aside><!-- /.blog-sidebar -->
+
+    </div><!-- /.row -->
+
+</main>
+#end
 
     <!-- FOOTER -->
     <footer class="container">
