@@ -5,6 +5,7 @@ import com.flowingsun.behavior.dto.BehaviorStatus;
 import com.flowingsun.behavior.entity.*;
 import com.flowingsun.behavior.vo.PictureQuery;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import javax.servlet.http.HttpServletRequest;
@@ -46,4 +47,8 @@ public interface BehaviorService {
     String getScreenShot(String url);
 
     UrlCollection collectUrl(UrlCollection bean)throws Exception;
+    /**
+     *  设置用户头像
+     */
+    String setUserHeadImage(MultipartFile multipartFile, HttpServletRequest request);
 }

@@ -23,6 +23,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 
@@ -215,6 +216,14 @@ public class BehaviorController {
             model.addAttribute("pageQueryBean",categoryArticleQuery);
         }
         return "/user/categoryArticle";
+    }
+
+    //@RequiresPermissions("behavior:uploadImage")
+    @PostMapping("/headImage")
+    public String setUserHeadImage(@RequestParam("file") MultipartFile multipartFile, HttpServletRequest request){
+        String resultInfo = behaviorService.setUserHeadImage(multipartFile, request);
+        request.setAttribute("resultInfo",resultInfo);
+        return "forward:/user/manageCenter";
     }
 
 
