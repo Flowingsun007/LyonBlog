@@ -18,7 +18,7 @@ import static org.apache.log4j.Level.INFO;
 
 public class SessionInterceptor implements HandlerInterceptor {
 
-    private static Logger logger = Logger.getLogger(BehaviorServiceImpl.class);
+    private static Logger logger = Logger.getLogger(SessionInterceptor.class);
 
     @Autowired
     private BlogVisitorMapper blogVisitorMapper;
@@ -49,7 +49,6 @@ public class SessionInterceptor implements HandlerInterceptor {
             //blogVisitorMapper.insertSelective(blogVisitor);
             this.updateBlogViewCount();
             this.updateBlogVisitorCount();
-            System.out.println("\n---------------------------访客信息统计---------------------------\n"+blogVisitor.toString());
             logger.log(INFO,"\n---------------------------访客信息统计---------------------------\n"+blogVisitor.toString());
             return true;
         }

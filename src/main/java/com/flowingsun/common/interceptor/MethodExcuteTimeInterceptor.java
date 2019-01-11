@@ -17,7 +17,6 @@ public class MethodExcuteTimeInterceptor {
 
     @Pointcut("@annotation(com.flowingsun.common.annotation.MethodExcuteTimeLog)")
     public void logMethodTimePointcut() {
-
     }
 
     @Around("logMethodTimePointcut()")

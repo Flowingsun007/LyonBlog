@@ -168,15 +168,12 @@ public class InfoCountUtils {
 //            String headerValue = request.getHeader(headerName);
 //            System.out.println(headerName+":"+headerValue);
 //        }
-        long startTime = System.currentTimeMillis();
         BlogVisitor blogVisitor = new BlogVisitor();
         blogVisitor.setBrowser(getBrowser(request));
         blogVisitor.setSourceurl(request.getHeader("Referer"));
         blogVisitor.setTargeturl(request.getRequestURI());
         blogVisitor.setIp(getIp(request));
         blogVisitor.setOs(getSysInfo(request));
-        long endTime = System.currentTimeMillis();
-        System.out.println("---------------------------【方法执行时间统计】--------------------------\nInfoCountUtils.getVisitorInfo():"+(endTime-startTime)+"(ms)\n");
         return blogVisitor;
     }
 }

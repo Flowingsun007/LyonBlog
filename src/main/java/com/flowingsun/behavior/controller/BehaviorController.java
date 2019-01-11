@@ -10,6 +10,8 @@ import com.flowingsun.behavior.entity.*;
 import com.flowingsun.behavior.service.BehaviorService;
 import com.flowingsun.common.dto.ResponseDto;
 import com.flowingsun.common.utils.ResultUtils;
+import net.coobird.thumbnailator.Thumbnails;
+import net.coobird.thumbnailator.name.Rename;
 import org.apache.commons.io.FileUtils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
@@ -25,9 +27,13 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 
 
+import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.OutputStream;
 import java.util.List;
 
@@ -127,6 +133,17 @@ public class BehaviorController {
     @RequestMapping("/screenShot")
     public String getScreenShot(@RequestParam(value="url") String url, HttpServletResponse response)throws Exception{
         String imgagePath = behaviorService.getScreenShot(url);
+        //不按原图比例，对图片进行处理，处理后尺寸固定为640*480
+        Thumbnails.of(new File(imgagePath))
+                .size(640, 480)
+                .keepAspectRatio(false)
+                .outputQuality(1.0)
+                .toFile(imgagePath+"thumbnail.jpg");
+//        //按照原图的比例对图片进行缩放，保证缩放后尺寸不超过640*480
+//        Thumbnails.of(new File(imgagePath))
+//                .size(640, 480)
+//                .outputQuality(1.0)
+//                .toFile(imgagePath+"thumbnail.jpg");
         if(imgagePath!=null&&imgagePath.length()>0){
             File imageLocal = new File(imgagePath);
             byte[] imgdata = FileUtils.readFileToByteArray(imageLocal);
