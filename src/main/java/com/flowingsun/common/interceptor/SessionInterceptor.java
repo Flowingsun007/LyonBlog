@@ -1,6 +1,5 @@
 package com.flowingsun.common.interceptor;
 
-import com.flowingsun.behavior.service.BehaviorServiceImpl;
 import com.flowingsun.common.dao.BlogVisitorMapper;
 import com.flowingsun.common.dao.RedisDAO;
 import com.flowingsun.common.entity.BlogVisitor;
@@ -18,7 +17,7 @@ import static org.apache.log4j.Level.INFO;
 
 public class SessionInterceptor implements HandlerInterceptor {
 
-    private static Logger logger = Logger.getLogger(BehaviorServiceImpl.class);
+    private static Logger logger = Logger.getLogger(SessionInterceptor.class);
 
     @Autowired
     private BlogVisitorMapper blogVisitorMapper;

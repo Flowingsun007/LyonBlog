@@ -10,17 +10,16 @@ import com.flowingsun.behavior.entity.*;
 import com.flowingsun.behavior.service.BehaviorService;
 import com.flowingsun.common.dto.ResponseDto;
 import com.flowingsun.common.utils.ResultUtils;
+import net.coobird.thumbnailator.Thumbnails;
+import net.coobird.thumbnailator.name.Rename;
 import org.apache.commons.io.FileUtils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 
@@ -127,6 +126,17 @@ public class BehaviorController {
     @RequestMapping("/screenShot")
     public String getScreenShot(@RequestParam(value="url") String url, HttpServletResponse response)throws Exception{
         String imgagePath = behaviorService.getScreenShot(url);
+        //不按原图比例，对图片进行处理，处理后尺寸固定为640*480
+        Thumbnails.of(new File(imgagePath))
+                .size(640, 480)
+                .keepAspectRatio(false)
+                .outputQuality(1.0)
+                .toFile(imgagePath+"thumbnail.jpg");
+//        //按照原图的比例对图片进行缩放，保证缩放后尺寸不超过640*480
+//        Thumbnails.of(new File(imgagePath))
+//                .size(640, 480)
+//                .outputQuality(1.0)
+//                .toFile(imgagePath+"thumbnail.jpg");
         if(imgagePath!=null&&imgagePath.length()>0){
             File imageLocal = new File(imgagePath);
             byte[] imgdata = FileUtils.readFileToByteArray(imageLocal);
@@ -198,6 +208,14 @@ public class BehaviorController {
             model.addAttribute("pageQueryBean",categoryArticleQuery);
         }
         return "/user/categoryArticle";
+    }
+
+    //@RequiresPermissions("behavior:uploadImage")
+    @PostMapping("/headImage")
+    public String setUserHeadImage(@RequestParam("file") MultipartFile multipartFile, HttpServletRequest request){
+        String resultInfo = behaviorService.setUserHeadImage(multipartFile, request);
+        request.setAttribute("resultInfo",resultInfo);
+        return "forward:/user/manageCenter";
     }
 
 
