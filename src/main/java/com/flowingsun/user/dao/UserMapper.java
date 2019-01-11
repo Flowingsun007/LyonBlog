@@ -25,6 +25,8 @@ public interface UserMapper {
 
     Integer updateUserStatusByUserphone(@Param("userstatus") int userstatus, @Param("userphone") String userphone);
 
+    int updateUserHeadImage(@Param("userId") Long userId,@Param("headImage") String headImage);
+
     Integer deleteByUserphone(String userphone);
 
     int deleteByPrimaryKey(Long id);

@@ -44,7 +44,7 @@ public interface BehaviorService {
      * @date   2019/1/8 20:51
      * @detail 根据url截图网页快照
      */
-    String getScreenShot(String url);
+    String getScreenShot(String url)throws Exception;
 
     UrlCollection collectUrl(UrlCollection bean)throws Exception;
     /**
