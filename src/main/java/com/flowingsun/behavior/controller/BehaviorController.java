@@ -215,7 +215,8 @@ public class BehaviorController {
     public String setUserHeadImage(@RequestParam("file") MultipartFile multipartFile, HttpServletRequest request){
         String resultInfo = behaviorService.setUserHeadImage(multipartFile, request);
         request.setAttribute("resultInfo",resultInfo);
-        return "forward:/user/manageCenter";
+        return resultInfo;
+        //return "forward:/user/manageCenter";
     }
 
 
