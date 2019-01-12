@@ -1,11 +1,13 @@
 package com.flowingsun.behavior.entity;
 
+import java.sql.Timestamp;
 import java.util.Date;
 
 public class UrlCollection {
 
     public UrlCollection(){
-        this.createDate = new Date();
+        this.createDate = new Timestamp(new Date().getTime());
+        this.editDate = new Timestamp(new Date().getTime());
     }
 
     private Integer id;
