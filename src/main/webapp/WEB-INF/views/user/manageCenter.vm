@@ -327,6 +327,45 @@
             }
         });
 
+        $('#uploadHeadImageButton').click(function(){
+            var options =
+                    {
+                        url: "/behavior/headImage",
+                        type: 'post',
+                        contentType:"multipart/form-data", //"text/xml",
+                        cache:false,//cache设置为false，上传文件不需要缓存。
+                        success: function (data) {
+                            if("fileUpload_succ"==data.message){
+                                alert("图片上传成功！");
+                                return true;
+                            }else{
+                                // $.messager.alert('提示', data.message);
+                                alert("图片上传失败");
+                            }
+                        },
+                        resetForm: true
+                    };
+            if(confirm("亲，确定提交么？")){
+                $("#uploadHeadImageForm").ajaxSubmit(options);
+                return true;
+            }else{
+                return false;
+            }
+        });
+
+        $('#widget-user-image').click(function(){
+            var css = $("#avatarSlect").css('display');
+            if(css=='none'){
+                $('#avatarSlect').css('margin-left', '92px');
+                $('#avatarSlect').css('margin-top', '-34px');
+                $('#avatarSlect').css('display', 'block');
+                $('#uploadHeadImageButton').css('margin-right', '160px');
+                $("#uploadHeadImageButton").css('display', 'block');
+            }else{
+                //$('#avatarSlect').css('display', 'none');
+            }
+        });
+
     });
 </script>
 ##<script type="application/javascript">
@@ -494,6 +533,12 @@
             </div>
             <div class="widget-user-image" id="widget-user-image">
             </div>
+            <form  method="post" id="uploadHeadImageForm" enctype="multipart/form-data" action="/behavior/headImage" style="display: flex;justify-content: center;">
+                <div class="widget-user-image" id="widget-user-image">
+                    <input id="avatarSlect" type="file" name="userHeadImage" style="display: none">
+                </div>
+                <button type="submit" class="btn btn-primary" style="display: none;margin-right: 160px;" id="uploadHeadImageButton">提交</button>
+            </form>
             <div class="box-footer">
                 <div class="row">
                     <div class="col-sm-4 border-right">

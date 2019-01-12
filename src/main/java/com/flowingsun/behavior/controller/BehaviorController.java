@@ -212,7 +212,7 @@ public class BehaviorController {
 
     //@RequiresPermissions("behavior:uploadImage")
     @PostMapping("/headImage")
-    public String setUserHeadImage(@RequestParam("file") MultipartFile multipartFile, HttpServletRequest request){
+    public String setUserHeadImage(@RequestParam("userHeadImage") MultipartFile multipartFile, HttpServletRequest request){
         String resultInfo = behaviorService.setUserHeadImage(multipartFile, request);
         request.setAttribute("resultInfo",resultInfo);
         return resultInfo;
