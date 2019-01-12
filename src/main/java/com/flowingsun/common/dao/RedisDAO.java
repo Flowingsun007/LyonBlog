@@ -1,5 +1,6 @@
 package com.flowingsun.common.dao;
 
+import com.flowingsun.common.annotation.MethodExcuteTimeLog;
 import com.flowingsun.common.utils.SerializeUtils;
 import com.flowingsun.user.entity.User;
 import io.protostuff.LinkedBuffer;
