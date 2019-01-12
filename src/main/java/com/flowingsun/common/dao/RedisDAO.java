@@ -52,7 +52,6 @@ public class RedisDAO {
                 if(bytes != null){
                     //schema创建的空User对象，将字节数组中的信息反序列化到User对象上
                     ProtostuffIOUtil.mergeFrom(bytes,userInfo,schema);
-                    System.out.println("userInfo:"+userInfo.toString());
                     return userInfo;
                 }
             }finally{
