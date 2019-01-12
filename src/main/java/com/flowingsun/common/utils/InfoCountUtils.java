@@ -150,6 +150,12 @@ public class InfoCountUtils {
             systenInfo = "SunOS";
         }
         if("".equals(systenInfo)){
+            String str = System.getProperty("os.name");
+            if(str.startsWith("Windows")||str.startsWith("win")){
+                systenInfo = "Windows";
+            }
+        }
+        if("".equals(systenInfo)){
             StringTokenizer st = new StringTokenizer(agent, "(;)");
             int i=0;
             while(st.hasMoreElements()&&i<=1){
