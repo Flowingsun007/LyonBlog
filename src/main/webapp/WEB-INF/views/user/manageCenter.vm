@@ -357,7 +357,7 @@
             var css = $("#avatarSlect").css('display');
             if(css=='none'){
                 $('#avatarSlect').css('margin-left', '92px');
-                $('#avatarSlect').css('margin-top', '-34px');
+                $('#avatarSlect').css('margin-top', '65px');
                 $('#avatarSlect').css('display', 'block');
                 $('#uploadHeadImageButton').css('margin-right', '160px');
                 $("#uploadHeadImageButton").css('display', 'block');
