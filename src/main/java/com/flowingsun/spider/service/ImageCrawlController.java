@@ -64,12 +64,10 @@ public class ImageCrawlController {
         BasicHeader h1 = new BasicHeader("Accept-Encoding","gzip, deflate, br");
         BasicHeader h2 = new BasicHeader("Accept-Language","zh-CN,zh;q=0.9");
         BasicHeader h3 = new BasicHeader("User-Agent","Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.110 Safari/537.36");
-        BasicHeader h4 = new BasicHeader("Cookie","Hm_lvt_dbc355aef238b6c32b43eacbbf161c3c=1547304754,1547384704,1547390052; Hm_lpvt_dbc355aef238b6c32b43eacbbf161c3c=1547390136");
         headers.add(h0);
         headers.add(h1);
         headers.add(h2);
         headers.add(h3);
-        headers.add(h4);
         config.setDefaultHeaders(headers);
 
         config.setCrawlStorageFolder(rootFolder);

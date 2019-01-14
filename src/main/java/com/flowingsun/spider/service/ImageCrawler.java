@@ -105,36 +105,40 @@ public class ImageCrawler extends WebCrawler {
 
 
         // We are only interested in processing images which are bigger than 10k
-        if (!imgPatterns.matcher(url).matches() ||
-                !((page.getParseData() instanceof BinaryParseData) ||
-                        (page.getContentData().length < (10 * 1024)))) {
+        if (!imgPatterns.matcher(url).matches() || !((page.getParseData() instanceof BinaryParseData))) {
             return;
         }
+        if(page.getContentData().length < (10 * 1024)){
+            return;
+        } else{
+            // get a unique name for storing this image
+            String extension = url.substring(url.lastIndexOf('.'));
+            String hashedName = UUID.randomUUID() + extension;
+            // store image
+            String filename = storageFolder.getAbsolutePath() + "/" + hashedName;
+            System.out.println("---------------------------filename:------------------------------" + LINE_SEPARATOR + filename);
 
-        // get a unique name for storing this image
-        String extension = url.substring(url.lastIndexOf('.'));
-        String hashedName = UUID.randomUUID() + extension;
+            try {
+                Files.write(page.getContentData(), new File(filename));
+                System.out.println("爬取图片的url:"+url);
+                //WebCrawler.logger.info("Stored: {}", url);
+            } catch (IOException iox) {
+                //WebCrawler.logger.error("Failed to write file: " + filename, iox);
+            }
 
-        // store image
-        String filename = storageFolder.getAbsolutePath() + "/" + hashedName;
-        System.out.println("---------------------------filename:------------------------------"+LINE_SEPARATOR+filename);
-
-
-        try {
-            Files.write(page.getContentData(), new File(filename));
-            System.out.println("爬取图片的url:"+url);
-            //WebCrawler.logger.info("Stored: {}", url);
-        } catch (IOException iox) {
-            //WebCrawler.logger.error("Failed to write file: " + filename, iox);
+            System.out.println("-------------------------------imagePath:-------------------------------"+LINE_SEPARATOR+filename);
+            String s = storageFolder.getAbsolutePath() + FILE_SEPARATOR + "imagePath.txt";
+            // 打开一个写文件器，true表示以追加的形式写文件,false表示覆盖
+            try(FileWriter writer = new FileWriter(s, true)){
+                writer.write(filename + "图像大小：" + page.getContentData().length + LINE_SEPARATOR);
+            }catch (Exception e){
+                e.printStackTrace();
+            }
         }
 
-        System.out.println("-------------------------------imagePath:-------------------------------"+LINE_SEPARATOR+filename);
-        String s = storageFolder.getAbsolutePath() + FILE_SEPARATOR + "imagePath.txt";
-        // 打开一个写文件器，true表示以追加的形式写文件,false表示覆盖
-        try(FileWriter writer = new FileWriter(s, true)){
-            writer.write(filename + LINE_SEPARATOR);
-        }catch (Exception e){
-            e.printStackTrace();
-        }
+
+
+
+
     }
 }
