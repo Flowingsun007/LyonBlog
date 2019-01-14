@@ -1,6 +1,5 @@
 package com.flowingsun.common.interceptor;
 
-import com.flowingsun.behavior.service.BehaviorServiceImpl;
 import com.flowingsun.common.dao.BlogVisitorMapper;
 import com.flowingsun.common.dao.RedisDAO;
 import com.flowingsun.common.entity.BlogVisitor;
@@ -30,26 +29,25 @@ public class SessionInterceptor implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         //访问目的url
         String uri = request.getRequestURI();
-        if(uri.indexOf("user/userInfo")>=0){
-            return true;
-        }
-        if(uri.indexOf("spider")>=0){
-            return true;
-        }
-        //获取请求详细信息
-        BlogVisitor blogVisitor = InfoCountUtils.getVisitorInfo(request);
         //用户id信息
         Long userId = (Long)request.getSession().getAttribute("userId");
-        if(userId!=null&&userId!=0){
-            blogVisitor.setUserid(userId);
+        if((uri.indexOf("admin")>=0)||uri.indexOf("user/userInfo")>=0||uri.indexOf("spider")>=0){
+            if(userId!=null){ return true; }
+            response.sendRedirect("/user/login");
+            return false;
         }
         //访问文章信息
         if((uri.indexOf("article")>=0) || (uri.indexOf("user")>=0) || (uri.indexOf("behavior")>=0)){
+            //获取请求详细信息
+            BlogVisitor blogVisitor = InfoCountUtils.getVisitorInfo(request);
+            if(userId!=null&&userId!=0){
+                blogVisitor.setUserid(userId);
+            }
             String articleId = request.getParameter("articleId");
             if(articleId!=null&&articleId!=""){
                 blogVisitor.setArticleid(Integer.parseInt(articleId));
             }
-            //blogVisitorMapper.insertSelective(blogVisitor);
+            blogVisitorMapper.insertSelective(blogVisitor);
             this.updateBlogViewCount();
             this.updateBlogVisitorCount();
             logger.log(INFO,"\n---------------------------访客信息统计---------------------------\n"+blogVisitor.toString());
@@ -59,11 +57,8 @@ public class SessionInterceptor implements HandlerInterceptor {
             request.getRequestDispatcher("user/login").forward(request,response);
             return false;
         }
-        if((uri.indexOf("admin")>=0)){
-            if(userId!=null){ return true; }
-            response.sendRedirect("/user/login");
-            return false;
-        }
+
+
 
         request.getRequestDispatcher("/user/login").forward(request,response);
         return false;
