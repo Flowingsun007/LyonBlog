@@ -57,7 +57,9 @@ public class ImageCrawler extends WebCrawler {
 
     private static File storageFolder;
     private static String[] crawlDomains;
-    //添加了文件分隔符和换行符，屏蔽win和linux差异
+    /**
+     * 添加了文件分隔符和换行符，屏蔽win和linux差异
+     */
     private static final String FILE_SEPARATOR  = System.getProperty("file.separator");
     private static final String LINE_SEPARATOR  = System.lineSeparator();
 
@@ -93,9 +95,9 @@ public class ImageCrawler extends WebCrawler {
     public void visit(Page page) {
         String url = page.getWebURL().getURL();
         System.out.println("-------------------------------visiturl:-------------------------------" + LINE_SEPARATOR + url);
-        String name = storageFolder.getAbsolutePath() + FILE_SEPARATOR + "visiturl.txt";
-        // 打开一个写文件器，true表示以追加的形式写文件,false表示覆盖
-        try(FileWriter writer = new FileWriter(name, true)){
+        String filePath = storageFolder.getAbsolutePath() + FILE_SEPARATOR + "visiturl.txt";
+        // 存储visit过的页面url，true表示以追加的形式写文件,false表示覆盖
+        try(FileWriter writer = new FileWriter(filePath, true)){
             writer.write(url+LINE_SEPARATOR);
         }catch (Exception e){
             e.printStackTrace();
@@ -103,14 +105,14 @@ public class ImageCrawler extends WebCrawler {
 
 
 
-
         // We are only interested in processing images which are bigger than 10k
+        // 但是我发现，并没有什么卵用？！
         if (!imgPatterns.matcher(url).matches() ||
                 !((page.getParseData() instanceof BinaryParseData) ||
                         (page.getContentData().length < (10 * 1024)))) {
             return;
         }
-
+        
         // get a unique name for storing this image
         String extension = url.substring(url.lastIndexOf('.'));
         String hashedName = UUID.randomUUID() + extension;
@@ -118,8 +120,6 @@ public class ImageCrawler extends WebCrawler {
         // store image
         String filename = storageFolder.getAbsolutePath() + "/" + hashedName;
         System.out.println("---------------------------filename:------------------------------"+LINE_SEPARATOR+filename);
-
-
         try {
             Files.write(page.getContentData(), new File(filename));
             System.out.println("爬取图片的url:"+url);
@@ -130,7 +130,7 @@ public class ImageCrawler extends WebCrawler {
 
         System.out.println("-------------------------------imagePath:-------------------------------"+LINE_SEPARATOR+filename);
         String s = storageFolder.getAbsolutePath() + FILE_SEPARATOR + "imagePath.txt";
-        // 打开一个写文件器，true表示以追加的形式写文件,false表示覆盖
+        // 存储下载的图片路径，true表示以追加的形式写文件,false表示覆盖
         try(FileWriter writer = new FileWriter(s, true)){
             writer.write(filename + LINE_SEPARATOR);
         }catch (Exception e){
