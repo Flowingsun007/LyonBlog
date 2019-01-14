@@ -49,7 +49,7 @@ public class SpiderController {
         //爬取内容的存放路径
         s2[2] = "C:\\Users\\flowi\\Desktop\\Heatmap3D\\data\\image";
         //要爬取的目标网址
-        s2[3] = "https://www.ibm.com/developerworks/cn/java";
+        s2[3] = "https://www.zhihu.com/explore";
         try{
             imageCrawlController.main(s2);
         }catch (Exception e){

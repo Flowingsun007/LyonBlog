@@ -64,13 +64,17 @@ public class ImageCrawlController {
         BasicHeader h1 = new BasicHeader("Accept-Encoding","gzip, deflate, br");
         BasicHeader h2 = new BasicHeader("Accept-Language","zh-CN,zh;q=0.9");
         BasicHeader h3 = new BasicHeader("User-Agent","Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.110 Safari/537.36");
+        BasicHeader h4 = new BasicHeader("Host","");
+        BasicHeader h5 = new BasicHeader("Cookie","");
         headers.add(h0);
         headers.add(h1);
         headers.add(h2);
         headers.add(h3);
+        headers.add(h4);
+        headers.add(h5);
         config.setDefaultHeaders(headers);
-
         config.setCrawlStorageFolder(rootFolder);
+        config.setUserAgentString("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.110 Safari/537.36");
 
         /*
          * Since images are binary content, we need to set this parameter to
