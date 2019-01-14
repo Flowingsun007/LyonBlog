@@ -112,7 +112,7 @@ public class ImageCrawler extends WebCrawler {
                         (page.getContentData().length < (10 * 1024)))) {
             return;
         }
-        
+
         // get a unique name for storing this image
         String extension = url.substring(url.lastIndexOf('.'));
         String hashedName = UUID.randomUUID() + extension;
