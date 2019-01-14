@@ -33,6 +33,9 @@ public class SessionInterceptor implements HandlerInterceptor {
         if(uri.indexOf("user/userInfo")>=0){
             return true;
         }
+        if(uri.indexOf("spider")>=0){
+            return true;
+        }
         //获取请求详细信息
         BlogVisitor blogVisitor = InfoCountUtils.getVisitorInfo(request);
         //用户id信息
