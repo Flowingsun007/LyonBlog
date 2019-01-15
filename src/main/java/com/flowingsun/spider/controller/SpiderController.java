@@ -3,6 +3,8 @@ package com.flowingsun.spider.controller;
 
 import com.flowingsun.spider.service.BasicCrawlController;
 import com.flowingsun.spider.service.ImageCrawlController;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Controller;
 
 import org.springframework.web.bind.annotation.*;
@@ -13,49 +15,53 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("spider")
 public class SpiderController {
 
+    @Autowired ImageCrawlController imageCrawlService;
+
+    @Autowired BasicCrawlController basicCrawlService;
+
     @GetMapping("/crawlHtml")
     @ResponseBody
-    public void crawlHtml(){
-        System.out.println("开始crawlHtml...........");
-        BasicCrawlController crawlController = new BasicCrawlController();
-        String[] s1 = new String[4];
+    public String crawlHtml(){
+        String[] s = new String[3];
+        String[] crawlDomains = new String[2];
         //项目配置存放路径(运行后会自动生成配置，存放在路径下的frontier文件夹中)
-        s1[0] = "C:\\Users\\flowi\\Desktop\\Heatmap3D\\data";
+        s[0] = "C:\\Users\\flowi\\Desktop\\Heatmap3D\\data";
         //爬虫线程数
-        s1[1] = "4";
+        s[1] = "4";
         //爬取内容的存放路径
-        s1[2] = "C:\\Users\\flowi\\Desktop\\Heatmap3D\\data\\html";
+        s[2] = "C:\\Users\\flowi\\Desktop\\Heatmap3D\\data\\html";
         //要爬取的目标网址
-        s1[3] = "https://www.ibm.com/developerworks/cn/java";
+        crawlDomains[0] = "https://github.com/search";
+        crawlDomains[1] = "https://github.com/search?p=1&q=todo&type=Repositories";
         try{
-            crawlController.main(s1);
+            basicCrawlService.crawlHtml(s,crawlDomains);
         }catch (Exception e){
             e.printStackTrace();
         }
-        System.out.println("结束crawlHtml...........");
+        return "正在爬取中ing...";
     }
 
     @GetMapping("/crawlImage")
     @ResponseBody
-    public void crawlImage(){
+    public String crawlImage(){
         //参数：项目配置存放路径；爬虫线程数；内容存储路径；目标网址
-        System.out.println("开始crawlImage...........");
-        ImageCrawlController imageCrawlController = new ImageCrawlController();
-        String[] s2 = new String[4];
+        String[] s = new String[3];
+        String[] crawlDomains = new String[2];
         //项目配置存放路径(运行后会自动生成配置，存放在路径下的frontier文件夹中)
-        s2[0] = "C:\\Users\\flowi\\Desktop\\Heatmap3D\\data\\";
+        s[0] = "C:\\Users\\flowi\\Desktop\\Heatmap3D\\data\\";
         //爬虫线程数
-        s2[1] = "4";
+        s[1] = "4";
         //爬取内容的存放路径
-        s2[2] = "C:\\Users\\flowi\\Desktop\\Heatmap3D\\data\\image";
-        //要爬取的目标网址
-        s2[3] = "https://www.zhihu.com/explore";
+        s[2] = "C:\\Users\\flowi\\Desktop\\Heatmap3D\\data\\image";
+        //设置要爬取的目标网址
+        crawlDomains[0] = "http://www.umei.cc/bizhitupian/meinvbizhi/186528.htm";
+        crawlDomains[1] = "http://www.umei.cc/bizhitupian/meinvbizhi";
         try{
-            imageCrawlController.main(s2);
+            imageCrawlService.crawlImage(s,crawlDomains);
         }catch (Exception e){
             e.printStackTrace();
         }
-        System.out.println("结束crawlImage...........");
+        return "正在爬取中ing...";
     }
 
 

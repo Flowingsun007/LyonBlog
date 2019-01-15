@@ -53,7 +53,7 @@ public class ImageCrawler extends WebCrawler {
             ".*(\\.(css|js|mid|mp2|mp3|mp4|wav|avi|mov|mpeg|ram|m4v|pdf" +
                     "|rm|smil|wmv|swf|wma|zip|rar|gz))$");
 
-    private static final Pattern imgPatterns = Pattern.compile(".*(\\.(bmp|gif|jpe?g|png|tiff?))$");
+    private static final Pattern imgPatterns = Pattern.compile(".*(\\.(bmp|gif|jpeg|jpg|png|tiff?))$");
 
     private static File storageFolder;
     private static String[] crawlDomains;
@@ -70,6 +70,13 @@ public class ImageCrawler extends WebCrawler {
         }
     }
 
+    /**
+     * @author lyon
+     * @date   2019/1/15 18:43
+     * @detail 判断一个url链接是否需要被访问
+     * 如果页面后缀在filters中，则不访问；如果页面是图片则访问；剩下的遍历crawlDomains中的网址，
+     *
+     */
     @Override
     public boolean shouldVisit(Page referringPage, WebURL url) {
         String href = url.getURL().toLowerCase();
