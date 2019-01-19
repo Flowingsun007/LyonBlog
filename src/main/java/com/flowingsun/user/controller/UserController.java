@@ -6,6 +6,7 @@ import com.flowingsun.article.vo.PageNotice;
 import com.flowingsun.behavior.dto.BehaviorStatus;
 import com.flowingsun.behavior.service.BehaviorService;
 import com.flowingsun.behavior.vo.PictureQuery;
+import com.flowingsun.user.dto.UserDto;
 import com.flowingsun.user.entity.User;
 import com.flowingsun.user.service.UserService;
 import org.apache.shiro.authz.annotation.Logical;
@@ -43,6 +44,12 @@ public class UserController {
     @ResponseBody
     public User getUserInfo(HttpServletRequest request){
         return userService.getUserInfo(request);
+    }
+
+    @RequestMapping("/displayImages")
+    @ResponseBody
+    public UserDto getDisplayImages(HttpServletRequest request){
+        return userService.getDisplayImages(request);
     }
 
     @RequestMapping(value={"/login","/logout","/register"})

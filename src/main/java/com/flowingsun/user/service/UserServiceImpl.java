@@ -7,6 +7,7 @@ import com.flowingsun.common.utils.MD5Utils;
 import com.flowingsun.common.utils.email.service.EmailService;
 import com.flowingsun.common.utils.loginCheckUtils;
 import com.flowingsun.user.dao.*;
+import com.flowingsun.user.dto.UserDto;
 import com.flowingsun.user.entity.Permission;
 import com.flowingsun.user.entity.User;
 import com.flowingsun.user.entity.UserRole;
@@ -252,6 +253,16 @@ public class UserServiceImpl implements UserService {
             }
         }
         return user;
+    }
+
+    @Override
+    public UserDto getDisplayImages(HttpServletRequest request) {
+        UserDto userDto = null;
+        User user = this.getUserInfo(request);
+        if(user!=null){
+            userDto.setUser(user);
+        }
+        return userDto;
     }
 
 

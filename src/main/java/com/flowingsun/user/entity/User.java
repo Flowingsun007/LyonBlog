@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.List;
 
 public class User implements Serializable {
+
     private Long id;
 
     private String telephone;
