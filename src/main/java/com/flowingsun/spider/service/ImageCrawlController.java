@@ -42,7 +42,7 @@ import java.util.HashSet;
 public class ImageCrawlController {
     private static final Logger logger = LoggerFactory.getLogger(ImageCrawlController.class);
 
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args, String[] crawlDomains) throws Exception {
         if (args.length < 3) {
             logger.info("Needed parameters: ");
             logger.info("\t rootFolder (it will contain intermediate crawl data)");
@@ -68,19 +68,29 @@ public class ImageCrawlController {
         headers.add(h1);
         headers.add(h2);
         headers.add(h3);
+        //遵守网站的禁止爬虫提示？false
+        config.setRespectNoIndex(false);
+        config.setRespectNoFollow(false);
+        //设置默认请求头(但是没什么用，源码发请求时没用到)
         config.setDefaultHeaders(headers);
-
+        //设置内容存储文件夹
         config.setCrawlStorageFolder(rootFolder);
+        //设置请求头user-angent
+        config.setUserAgentString("Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.71 Safari/537.36");
 
         /*
          * Since images are binary content, we need to set this parameter to
          * true to make sure they are included in the crawl.
          */
+        //是否提取页面二进制数据(图像、视频)
         config.setIncludeBinaryContentInCrawling(true);
+        //爬取请求延时1秒
+        config.setPolitenessDelay(1000);
+//        //最大爬取深度：10
+//        config.setMaxDepthOfCrawling(10);
+        //设置最大页面爬取数量
+        config.setMaxPagesToFetch(5000);
 
-//        String[] crawlDomains = {"http://www.flowingbit.com"};
-        String[] crawlDomains = new String[1];
-        crawlDomains[0] = args[3];
 
         PageFetcher pageFetcher = new PageFetcher(config);
         RobotstxtConfig robotstxtConfig = new RobotstxtConfig();
@@ -88,10 +98,9 @@ public class ImageCrawlController {
         RobotstxtServer robotstxtServer = new RobotstxtServer(robotstxtConfig, pageFetcher);
         CrawlController controller = new CrawlController(config, pageFetcher, robotstxtServer);
 
-//        for (String domain : crawlDomains) {
-//            controller.addSeed(domain);
-//        }
-        controller.addSeed(crawlDomains[0]);
+        for (String domain : crawlDomains) {
+            controller.addSeed(domain);
+        }
 
         ImageCrawler.configure(crawlDomains, storageFolder);
 
