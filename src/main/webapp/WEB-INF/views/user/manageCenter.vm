@@ -79,7 +79,8 @@
                             +'alt="User Image" style="width:25px;height:25px;border-radius:50%;"></a> </li></ul>';
                     $("#navLogin").append(logoutHtml);
                     $("#navbarCollapse").append(userHeadImg);
-                    $("#widget-user-image").prepend(bigHeadImage);
+                    var bigHead = '<img class="img-circle" src="' + bigHeadImage + '" alt="User Avatar">';
+                    $('#widget-user-image').append(bigHead);
                 }
             }
         });
