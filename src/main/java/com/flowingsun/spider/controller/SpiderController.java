@@ -41,7 +41,8 @@ public class SpiderController {
         //参数：项目配置存放路径；爬虫线程数；内容存储路径；目标网址
         System.out.println("开始crawlImage...........");
         ImageCrawlController imageCrawlController = new ImageCrawlController();
-        String[] s = new String[4];
+        String[] s = new String[3];
+        String[] crawlDomains = new String[2];
         //项目配置存放路径(运行后会自动生成配置，存放在路径下的frontier文件夹中)
         s[0] = "/usr/local/data/LyonBlog/spider/image";
         //爬虫线程数
@@ -49,9 +50,10 @@ public class SpiderController {
         //爬取内容的存放路径
         s[2] = "/usr/local/data/LyonBlog/spider/image/developerworks";
         //要爬取的目标网址
-        s[3] = "https://www.ibm.com/developerworks/cn/java";
+        crawlDomains[0] = "https://www.ibm.com/developerworks/cn/java";
+        crawlDomains[1] = "https://www.ibm.com/developerworks/cn";
         try{
-            imageCrawlController.main(s);
+            imageCrawlController.main(s,crawlDomains);
         }catch (Exception e){
             e.printStackTrace();
         }
