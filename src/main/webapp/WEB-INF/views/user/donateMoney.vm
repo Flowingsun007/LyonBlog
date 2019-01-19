@@ -372,15 +372,8 @@
         <div class="row mb-2">
             <div class="col-md-6">
                 <div class="card flex-md-row mb-4 box-shadow h-md-250">
-                    <div class="card-body d-flex flex-column align-items-start">
-                        <h3 class="mb-0">
-                            <a class="text-dark" href="https://www.zhihu.com/question/21395276/answer/300567726" target="_blank">可以用Python编程语言做哪些神奇好玩的事情</a>
-                        </h3>
-                        <strong class="d-inline-block mb-2 text-primary"> 【知乎】：Lyon</strong>
-                        <a href="https://www.zhihu.com/question/21395276/answer/300567726" target="_blank">阅读全文</a>
-                    </div>
                     <div>
-                        <img src="/static/uploadBlogFile/image/zhihu-Zhilian1.jpg" alt="知乎Lyon.jpg" title="知乎Lyon.jpg">
+                        <img src="/static/uploadBlogFile/image/zhihu-Zhilian1.jpg" alt="知乎Lyon.jpg" title="知乎Lyon.jpg" width="550px" height="250px">
                     </div>
 
                 </div>
@@ -388,7 +381,7 @@
             <div class="col-md-6">
                 <div class="card flex-md-row mb-4 box-shadow h-md-250">
                     <div>
-                        <img src="/static/uploadBlogFile/image/zhihu-1.jpg" alt="11.jpg" title="11.jpg" >
+                        <img src="/static/uploadBlogFile/image/zhihu-1.jpg" alt="11.jpg" title="11.jpg" width="750px" height="250px">
                     </div>
                 </div>
             </div>

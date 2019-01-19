@@ -458,7 +458,7 @@
         <div class="col-md-6">
             <div class="card flex-md-row mb-4 box-shadow h-md-250">
                 <div>
-                    <img src="/static/uploadBlogFile/image/zhihu-Zhilian1.jpg" alt="知乎Lyon.jpg" title="知乎Lyon.jpg">
+                    <img src="/static/uploadBlogFile/image/zhihu-Zhilian1.jpg" alt="知乎Lyon.jpg" title="知乎Lyon.jpg" width="550px" height="250px">
                 </div>
 
             </div>
@@ -466,7 +466,7 @@
         <div class="col-md-6">
             <div class="card flex-md-row mb-4 box-shadow h-md-250">
                 <div>
-                    <img src="/static/uploadBlogFile/image/zhihu-1.jpg" alt="11.jpg" title="11.jpg" >
+                    <img src="/static/uploadBlogFile/image/zhihu-1.jpg" alt="11.jpg" title="11.jpg" width="750px" height="250px">
                 </div>
             </div>
         </div>
