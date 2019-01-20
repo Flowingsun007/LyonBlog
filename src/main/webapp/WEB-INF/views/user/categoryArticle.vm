@@ -43,8 +43,8 @@
                     var headImage = "/static/image/userHead/header.png";
                     if(data.userstatus==1){
                         $("#navLoginButton").html(data.username);
-                        var url = "/behavior/category"+window.location.search
-                        var anode = '<div style="margin-bottom: 10px"><a href="'+ url+ '" class="btn btn-outline-success" target="_blank">只看我的文章</a></div>';
+                        var url = "/article/category"+window.location.search
+                        var anode = '<div style="margin-bottom: 10px"><a href="'+ url+ '" class="btn btn-outline-success" target="_blank">返回公共文章</a></div>';
                         $("#blogList").prepend(anode);
                     }else{
                         var str = data.username + ":未激活";
