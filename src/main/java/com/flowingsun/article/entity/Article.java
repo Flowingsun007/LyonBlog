@@ -75,6 +75,10 @@ public class Article implements Serializable {
      */
     private String articleContentCopy;
     /**
+     * 文章访问权限(0表示仅自己可见，1表示公开可见)
+     */
+    private Integer publicPermission;
+    /**
      * 文章字数统计
      */
     private Integer characterCount;
@@ -263,6 +267,14 @@ public class Article implements Serializable {
         this.articleContentCopy = articleContentCopy;
     }
 
+    public Integer getPublicPermission() {
+        return publicPermission;
+    }
+
+    public void setPublicPermission(Integer publicPermission) {
+        this.publicPermission = publicPermission;
+    }
+
     public Integer getCharacterCount() {
         return characterCount;
     }
@@ -279,29 +291,4 @@ public class Article implements Serializable {
         this.articleTagBean = articleTagBean;
     }
 
-    @Override
-    public String toString() {
-        return "Article{" +
-                "id=" + id +
-                ", userid=" + userid +
-                ", articleTitle='" + articleTitle + '\'' +
-                ", articleAbstract='" + articleAbstract + '\'' +
-                ", createDate=" + createDate +
-                ", editDate=" + editDate +
-                ", articleSecondId=" + articleSecondId +
-                ", articleMainId=" + articleMainId +
-                ", mainCategoryName='" + mainCategoryName + '\'' +
-                ", secondCategoryName='" + secondCategoryName + '\'' +
-                ", articleComment=" + articleComment +
-                ", articleThank=" + articleThank +
-                ", articleCollection=" + articleCollection +
-                ", characterCount=" + characterCount +
-                ", articleTags='" + articleTags + '\'' +
-                ", articleTagBean=" + articleTagBean +
-                ", articleTagList=" + articleTagList +
-                ", articleCommentList=" + articleCommentList +
-                ", regularRecommend=" + regularRecommend +
-                ", behaviorStatus=" + behaviorStatus +
-                '}';
-    }
 }
