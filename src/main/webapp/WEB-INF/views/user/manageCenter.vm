@@ -82,7 +82,7 @@
                     $("#navLogin").append(logoutHtml);
                     $("#navbarCollapse").append(userHeadImg);
                     var bigHead = '<img class="img-circle" src="' + bigHeadImage + '" alt="User Avatar">';
-                    $('#widget-user-image').append(bigHead);
+                    $('#widget-user-image').prepend(bigHead);
                 }
             }
         });
