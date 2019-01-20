@@ -23,6 +23,10 @@ public class Article implements Serializable {
      */
     private Integer userid;
     /**
+     * 用户id
+     */
+    private String userName;
+    /**
      * 文章标题
      */
     private String articleTitle;
@@ -161,6 +165,14 @@ public class Article implements Serializable {
 
     public void setUserid(Integer userid) {
         this.userid = userid;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
     public String getArticleTitle() {

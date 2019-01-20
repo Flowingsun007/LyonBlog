@@ -459,6 +459,8 @@ public class ArticleServiceImpl implements ArticleService {
                 //查询文章主分类、二级分类名称
                 String mname = articleMapper.selectMainCategoryNameById(article.getArticleMainId());
                 String cname = articleMapper.selectSecondCategoryNameById(article.getArticleSecondId());
+                User user = userMapper.selectByPrimaryKey(article.getUserid().longValue());
+                article.setUserName(user.getUsername());
                 article.setMainCategoryName(mname);
                 article.setSecondCategoryName(cname);
                 //查询文章标签，并将标签信息放入bean中
@@ -508,6 +510,7 @@ public class ArticleServiceImpl implements ArticleService {
         Timestamp dateTime = new Timestamp(new Date().getTime());
         article.setEditDate(dateTime);
         String[] taglist = article.getArticleTags().split(",");
+        article.setPublicPermission(1);
         if(articleMapper.insertNewArticle(article)!=0){
             //！=0表示文章插入成功，插入成功后文章主键id可通过getter直接获取。
             int articleId = article.getId();
