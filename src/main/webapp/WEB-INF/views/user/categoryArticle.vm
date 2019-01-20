@@ -510,7 +510,7 @@
                             </h4>
                         </div>
                         <div style="font-family:Vincent;font-weight:600;">
-                            <p>Lyon 创建于：<span> $!date.format('yyyy-MM-dd HH:mm',$!article.getCreateDate())</span></p>
+                            <p>$article.getUserName() 创建于：<span> $!date.format('yyyy-MM-dd HH:mm',$!article.getCreateDate())</span></p>
                             <p><span style="color:#66CDAA;">文章分类:</span>
                                 <span>$article.getMainCategoryName()>></span>
                                 <a  href="/behavior/category?cId=$article.getArticleSecondId()" target="_blank">$article.getSecondCategoryName()</a>
