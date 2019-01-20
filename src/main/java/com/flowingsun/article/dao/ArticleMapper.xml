@@ -124,7 +124,7 @@
     SELECT COUNT(0) FROM article WHERE id=#{articleId};
   </select>
   <select id="selectCategoryArticlesCount" resultType="INTEGER" >
-    SELECT COUNT(0) FROM article WHERE article_second_id=#{cId} AND public_status=1;
+    SELECT COUNT(0) FROM article WHERE article_second_id=#{cId} AND public_permission=1;
   </select>
   <select id="selectUserCategoryArticlesCount" resultType="int">
     SELECT COUNT(0) FROM article WHERE article_second_id=#{cId} AND userid=#{userid};
@@ -146,6 +146,7 @@
     INNER JOIN article_main_categary ON article.article_main_id = article_main_categary.id
     INNER JOIN article_second_categary ON article.article_second_id = article_second_categary.id
     WHERE article_second_id=#{cId}
+    AND public_permission=1
     ORDER BY article.id DESC
     LIMIT #{startNum},#{pageSize};
   </select>

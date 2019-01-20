@@ -546,7 +546,6 @@ public class ArticleServiceImpl implements ArticleService {
     @Override
     public ResponseDto createUserArticle(Article article)throws Exception{
         ResponseDto responseDto = new ResponseDto();
-        //此处默认的用户id为1，即目前只有管理员可以写文章
         Long userId = (Long)SecurityUtils.getSubject().getSession().getAttribute("userId");
         if (userId != null) {
             User user = redisDAO.getRedisUser(userId);

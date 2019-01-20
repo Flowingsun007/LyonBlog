@@ -75,6 +75,10 @@ public class Article implements Serializable {
      */
     private String articleContentCopy;
     /**
+     * 文章访问权限(0表示仅自己可见，1表示公开可见)
+     */
+    private Integer publicPermission;
+    /**
      * 文章字数统计
      */
     private Integer characterCount;
@@ -261,6 +265,14 @@ public class Article implements Serializable {
 
     public void setArticleContentCopy(String articleContentCopy) {
         this.articleContentCopy = articleContentCopy;
+    }
+
+    public Integer getPublicPermission() {
+        return publicPermission;
+    }
+
+    public void setPublicPermission(Integer publicPermission) {
+        this.publicPermission = publicPermission;
     }
 
     public Integer getCharacterCount() {

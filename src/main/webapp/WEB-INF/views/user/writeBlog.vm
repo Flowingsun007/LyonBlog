@@ -114,6 +114,7 @@
         var b = $('#blogSubtitle').val();
         var c = $('#blogMainCat option:selected').val();
         var d = $('#blogSecondCat option:selected').val();
+        var dd = $('#blogPublicPermission option:selected').val();
         var e = testEditor.getPreviewedHTML();          // 获取右侧预览区里的渲染过效果的HTML(直接提交此内容存储到数据库中作为文章主体内容，下次取出后可直接在前台显示))。
         var f = $(".editormd-markdown-textarea").val(); // 获取左侧编辑区里markdown格式的内容
         //var xxx = $(".editormd-html-textarea").val(); // 获取Textarea中保存的——正常效果的HTML内容（在引入editor.md的页面中可以正常显示出markdown效果，但是代码高亮效果无法显示）
@@ -146,7 +147,7 @@
                         type:"POST",
                         contentType: "application/json",
                         url:"/behavior/writeBlog/submit",
-                        data:JSON.stringify({"articleTitle":a,"articleAbstract":b,"articleMainId":c,"articleSecondId":d,"articleContent":e,"articleContentCopy":f,"articleTags":g}),
+                        data:JSON.stringify({"articleTitle":a,"articleAbstract":b,"articleMainId":c,"articleSecondId":d,"publicPermission":dd,"articleContent":e,"articleContentCopy":f,"articleTags":g}),
                         dataType:"json",//指定返回格式，不指定则返回字符串
                         success:function (data) {
                             if(data.code=="200"){
@@ -178,7 +179,7 @@
             <div class="col-md-12 blog-main">
                 <div class="blog-post">
 
-                    <form id="submitForm" action="/article/submit">
+                    <form id="submitForm" action="/behavior/writeBlog/submit" method="post">
                         <div class="form-group">
                             <p style='font-family: STXingkai,"Playfair Display", Georgia, "Times New Roman", serif;font-size: 25px;font-weight: lighter'>文章标题</p>
                             <input type="text" class="form-control" id="blogTitle" placeholder="Article Title" style="background-color:#E6E6FA">
@@ -188,10 +189,10 @@
                             <input type="text" class="form-control" id="blogSubtitle" placeholder="Article Abstract" style="background-color:#E6E6FA">
                         </div>
 
-                        <div class="form-row">
-                            <label for="staticEmail" class="col-sm-2 col-form-label" style='font-family: STXingkai;font-size: 16px;'>主分类</label>
-                            <div class="form-group col-md-4">
-                                <select id="blogMainCat" class="form-control" style="background-color:#E0EEEE;margin-left: -80px;">
+                        <div class="form-row" style="display: flex;flex-direction: row;justify-content: center;">
+                            <label for="staticEmail" class="col-sm-1 col-form-label" style='font-family: STXingkai;font-size: 16px;'>主分类</label>
+                            <div class="form-group col-md-2" style="margin-right: 140px">
+                                <select id="blogMainCat" class="form-control" style="background-color:#E0EEEE;">
                                     #foreach($maincat in $!categoryChoice.getMainCategorys())
                                         #foreach($item in ${maincat.entrySet()})
                                             <option selected value="$item.key">$item.value</option>
@@ -199,14 +200,21 @@
                                     #end
                                 </select>
                             </div>
-                            <label for="staticEmail" class="col-sm-2 col-form-label" style='font-family: STXingkai;font-size: 16px;'>二级分类</label>
-                            <div class="form-group col-md-4">
+                            <label for="staticEmail" class="col-sm-1 col-form-label" style='font-family: STXingkai;font-size: 16px;'>二级分类</label>
+                            <div class="form-group col-md-2" style="margin-right: 140px">
                                 <select id="blogSecondCat" class="form-control" style="background-color:#E0EEEE;">
                                     #foreach($secondcat in $!categoryChoice.getSecondCategorys())
                                         #foreach($item2 in ${secondcat.entrySet()})
                                             <option selected value="$item2.key">$item2.value</option>
                                         #end
                                     #end
+                                </select>
+                            </div>
+                            <label for="staticEmail" class="col-sm-1 col-form-label" style='font-family: STXingkai;font-size: 16px;'>文章权限</label>
+                            <div class="form-group col-md-2"">
+                                <select id="blogPublicPermission" class="form-control" style="background-color:#E0EEEE;">
+                                    <option selected value="1">公开</option>
+                                    <option value="0">私有</option>
                                 </select>
                             </div>
                         </div>
