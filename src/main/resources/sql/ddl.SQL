@@ -171,6 +171,7 @@ CREATE TABLE `article`
   `article_second_id`    int(10) DEFAULT NULL,
   `article_main_id`      int(5) DEFAULT NULL,
   `article_content_copy` text,
+  `public_permission` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY                    `fk_article_categary` (`article_second_id`),
   KEY                    `fk_article_maincat` (`article_main_id`),
