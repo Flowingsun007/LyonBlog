@@ -30,7 +30,8 @@ public class MethodExcuteTimeInterceptor {
             logger.error(e.getMessage(), e);
             throw new RuntimeException(e);
         }
-        System.out.println("\n---------------------------【方法执行时间统计】--------------------------\nmethod："+pjp.getSignature().getDeclaringTypeName() + "." + pjp.getSignature().getName()+"\nexecute time： " + (System.currentTimeMillis() - startTime) + "(ms)\n");
+
+        logger.info("\n---------------------------【方法执行时间统计】--------------------------\nmethod："+pjp.getSignature().getDeclaringTypeName() + "." + pjp.getSignature().getName()+"\nexecute time： " + (System.currentTimeMillis() - startTime) + "(ms)\n");
         return result;
     }
 }

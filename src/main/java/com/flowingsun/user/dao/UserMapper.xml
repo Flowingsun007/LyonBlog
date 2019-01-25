@@ -58,8 +58,9 @@
   </select>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap">
     SELECT
-    <include refid="Base_Column_List" />,<include refid="Role_Column_List" />,
-    <include refid="Permission_Column_List" />
+           <include refid="Base_Column_List" />,
+           <include refid="Role_Column_List" />,
+           <include refid="Permission_Column_List" />
     FROM blog_user u
     LEFT JOIN user_role ur ON  ur.user_id=u.id
     LEFT JOIN role r ON ur.role_id=r.roleid
@@ -152,5 +153,10 @@
     UPDATE blog_user
     SET userstatus = #{userstatus}
     WHERE telephone = #{userphone,jdbcType=VARCHAR}
+  </update>
+  <update id="updateUserHeadImage">
+    UPDATE blog_user
+    SET headImage = #{headImage}
+    WHERE id = #{userId,jdbcType=BIGINT}
   </update>
 </mapper>

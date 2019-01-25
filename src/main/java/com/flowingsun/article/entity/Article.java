@@ -5,10 +5,15 @@ import com.flowingsun.article.dto.RegularRecommend;
 import com.flowingsun.behavior.dto.BehaviorStatus;
 import com.flowingsun.behavior.entity.Comment;
 
+import java.io.Serializable;
+import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
 
-public class Article {
+public class Article implements Serializable {
+    public Article(){
+        this.createDate = new Timestamp(new Date().getTime());
+    }
     /**
      * 文章id
      */
@@ -17,6 +22,10 @@ public class Article {
      * 用户id
      */
     private Integer userid;
+    /**
+     * 用户id
+     */
+    private String userName;
     /**
      * 文章标题
      */
@@ -69,6 +78,10 @@ public class Article {
      * 文章内容备份
      */
     private String articleContentCopy;
+    /**
+     * 文章访问权限(0表示仅自己可见，1表示公开可见)
+     */
+    private Integer publicPermission;
     /**
      * 文章字数统计
      */
@@ -152,6 +165,14 @@ public class Article {
 
     public void setUserid(Integer userid) {
         this.userid = userid;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
     public String getArticleTitle() {
@@ -258,6 +279,14 @@ public class Article {
         this.articleContentCopy = articleContentCopy;
     }
 
+    public Integer getPublicPermission() {
+        return publicPermission;
+    }
+
+    public void setPublicPermission(Integer publicPermission) {
+        this.publicPermission = publicPermission;
+    }
+
     public Integer getCharacterCount() {
         return characterCount;
     }
@@ -273,30 +302,5 @@ public class Article {
     public void setArticleTagBean(ArticleTag articleTagBean) {
         this.articleTagBean = articleTagBean;
     }
-
-    @Override
-    public String toString() {
-        return "Article{" +
-                "id=" + id +
-                ", userid=" + userid +
-                ", articleTitle='" + articleTitle + '\'' +
-                ", articleAbstract='" + articleAbstract + '\'' +
-                ", createDate=" + createDate +
-                ", editDate=" + editDate +
-                ", articleSecondId=" + articleSecondId +
-                ", articleMainId=" + articleMainId +
-                ", mainCategoryName='" + mainCategoryName + '\'' +
-                ", secondCategoryName='" + secondCategoryName + '\'' +
-                ", articleComment=" + articleComment +
-                ", articleThank=" + articleThank +
-                ", articleCollection=" + articleCollection +
-                ", characterCount=" + characterCount +
-                ", articleTags='" + articleTags + '\'' +
-                ", articleTagBean=" + articleTagBean +
-                ", articleTagList=" + articleTagList +
-                ", articleCommentList=" + articleCommentList +
-                ", regularRecommend=" + regularRecommend +
-                ", behaviorStatus=" + behaviorStatus +
-                '}';
-    }
+    
 }

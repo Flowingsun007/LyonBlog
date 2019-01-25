@@ -1,20 +1,16 @@
 package com.flowingsun.common.dao;
 
 import com.flowingsun.common.utils.SerializeUtils;
-import com.flowingsun.user.entity.Role;
 import com.flowingsun.user.entity.User;
-import com.sun.tools.internal.xjc.reader.xmlschema.bindinfo.BIConversion;
 import io.protostuff.LinkedBuffer;
 import io.protostuff.ProtobufIOUtil;
 import io.protostuff.ProtostuffIOUtil;
-import io.protostuff.Schema;
 import io.protostuff.runtime.RuntimeSchema;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 
-import java.util.Arrays;
 import java.util.List;
 
 
@@ -46,24 +42,22 @@ public class RedisDAO {
      */
     public User getRedisUser(Long userId){
         User userInfo = null;
+        Jedis jedis = jedisPool.getResource();
         try{
-            Jedis jedis = jedisPool.getResource();
-            try{
-                userInfo = schema.newMessage();
-                String key = "userId:" + userId;
-                //从redis上取key为userId的对象——相应的用户User的字节数组byte[]
-                byte[] bytes = jedis.get(key.getBytes());
-                if(bytes != null){
-                    //schema创建的空User对象，将字节数组中的信息反序列化到User对象上
-                    ProtostuffIOUtil.mergeFrom(bytes,userInfo,schema);
-                    System.out.println("userInfo:"+userInfo.toString());
-                    return userInfo;
-                }
-            }finally{
-                jedis.close();
+            userInfo = schema.newMessage();
+            String key = "userId:" + userId;
+            //从redis上取key为userId的对象——相应的用户User的字节数组byte[]
+            byte[] bytes = jedis.get(key.getBytes());
+            if(bytes != null){
+                //schema创建的空User对象，将字节数组中的信息反序列化到User对象上
+                ProtostuffIOUtil.mergeFrom(bytes,userInfo,schema);
+                System.out.println("userInfo:"+userInfo.toString());
+                return userInfo;
             }
         } catch (Exception e){
             logger.error(e.getMessage(), e);
+        } finally {
+            jedis.close();
         }
         return userInfo;
     }
@@ -78,23 +72,21 @@ public class RedisDAO {
      */
     public String setRedisUser(User user){
         String result=null;
+        Jedis jedis = jedisPool.getResource();
         try{
-            Jedis jedis = jedisPool.getResource();
-            try{
-                System.out.println(user.toString());
-                String key = "userId:"+user.getId();
-                byte[] userInfo = ProtobufIOUtil.toByteArray(user, schema,
-                        LinkedBuffer.allocate(LinkedBuffer.DEFAULT_BUFFER_SIZE));
-                String s = new String(userInfo);
-                System.out.println(s);
-                int timeout = 60 * 60;
-                result = jedis.setex(key.getBytes(), timeout, userInfo);
-                return result;
-            }finally {
-                jedis.close();
-            }
+            System.out.println(user.toString());
+            String key = "userId:"+user.getId();
+            byte[] userInfo = ProtobufIOUtil.toByteArray(user, schema,
+                    LinkedBuffer.allocate(LinkedBuffer.DEFAULT_BUFFER_SIZE));
+            String s = new String(userInfo);
+            System.out.println(s);
+            int timeout = 60 * 60;
+            result = jedis.setex(key.getBytes(), timeout, userInfo);
+            return result;
         } catch(Exception e){
             logger.error(e.getMessage(), e);
+        } finally {
+            jedis.close();
         }
         return result;
     }
@@ -109,23 +101,21 @@ public class RedisDAO {
      */
     public User getRedisRole(Long userId){
         User roleInfo = schema.newMessage();
+        Jedis jedis = jedisPool.getResource();
         try{
-            Jedis jedis = jedisPool.getResource();
-            try{
-                String key = "userRole:" + userId;
-                //从redis上取key为userRoleInfo+userId —相应的用户User的字节数组byte[]
-                byte[] bytes = jedis.get(key.getBytes());
-                if(bytes != null){
-                    //schema创建的空User对象，将字节数组中的信息反序列化到User对象上
-                    ProtostuffIOUtil.mergeFrom(bytes,roleInfo,schema);
-                    System.out.println("roleInfo:"+roleInfo.toString());
-                    return roleInfo;
-                }
-            }finally{
-                jedis.close();
+            String key = "userRole:" + userId;
+            //从redis上取key为userRoleInfo+userId —相应的用户User的字节数组byte[]
+            byte[] bytes = jedis.get(key.getBytes());
+            if(bytes != null){
+                //schema创建的空User对象，将字节数组中的信息反序列化到User对象上
+                ProtostuffIOUtil.mergeFrom(bytes,roleInfo,schema);
+                System.out.println("roleInfo:"+roleInfo.toString());
+                return roleInfo;
             }
         } catch (Exception e){
             logger.error(e.getMessage(), e);
+        } finally{
+            jedis.close();
         }
         return roleInfo;
     }
@@ -140,108 +130,106 @@ public class RedisDAO {
      */
     public String setRedisRole(User userRole){
         String result="set_userRole_fail";
+        Jedis jedis = jedisPool.getResource();
         try{
-            Jedis jedis = jedisPool.getResource();
-            try{
-                System.out.println(userRole.toString());
-                String key = "userRole:"+userRole.getId();
-                byte[] roleInfo = ProtobufIOUtil.toByteArray(userRole, schema,
-                        LinkedBuffer.allocate(LinkedBuffer.DEFAULT_BUFFER_SIZE));
-                int timeout = 60 * 60;
-                result = jedis.setex(key.getBytes(), timeout, roleInfo);
-                return result;
-            }finally {
-                jedis.close();
-            }
+            String key = "userRole:"+userRole.getId();
+            byte[] roleInfo = ProtobufIOUtil.toByteArray(userRole, schema,
+                    LinkedBuffer.allocate(LinkedBuffer.DEFAULT_BUFFER_SIZE));
+            int timeout = 60 * 60;
+            result = jedis.setex(key.getBytes(), timeout, roleInfo);
+            return result;
         } catch(Exception e){
             logger.error(e.getMessage(), e);
+        } finally {
+            jedis.close();
         }
         return result;
     }
 
     public boolean removeUser(Long userId){
         boolean flag = false;
+        Jedis jedis = jedisPool.getResource();
         try{
-            Jedis jedis = jedisPool.getResource();
-            try{
-                String key = "userId:"+userId;
-                Long result = jedis.del(key);
-                if(result.equals(new Long(1))){
-                    flag=true;
-                }
-            }finally {
-                jedis.close();
-                return flag;
+            String key = "userId:"+userId;
+            Long result = jedis.del(key);
+            if(result.equals(new Long(1))){
+                flag=true;
             }
         } catch(Exception e){
             logger.error(e.getMessage(), e);
-            return flag;
+        } finally {
+            jedis.close();
         }
+        return flag;
     }
 
     public <T> String setList(String key ,List<T> list){
         String result="setList_fail";
+        Jedis jedis = jedisPool.getResource();
         try {
-            Jedis jedis = jedisPool.getResource();
-            try{
-                byte[] listInfo = SerializeUtils.serialize(list);
-                result = jedis.set(key.getBytes(), listInfo);
-            }finally {
-                jedis.close();
-                return result;
-            }
+            byte[] listInfo = SerializeUtils.serialize(list);
+            result = jedis.set(key.getBytes(), listInfo);
         } catch (Exception e) {
             logger.error("Set key error : "+e);
-            return result;
+        } finally {
+            jedis.close();
         }
+        return result;
+    }
+
+    public <T> String setList(String key ,List<T> list,int seconds){
+        String result="setList_fail";
+        Jedis jedis = jedisPool.getResource();
+        try {
+            byte[] listInfo = SerializeUtils.serialize(list);
+            result = jedis.set(key.getBytes(), listInfo);
+            //设置键的过期时间为seconds秒
+            jedis.expire(key,seconds);
+        } catch (Exception e) {
+            logger.error("Set key error : "+e);
+        } finally {
+            jedis.close();
+        }
+        return result;
     }
 
     public <T> List<T> getList(String key){
         List<T> list = null;
+        Jedis jedis = jedisPool.getResource();
         try {
-            Jedis jedis = jedisPool.getResource();
-            try{
-                byte[] in = jedis.get(key.getBytes());
-                list = (List<T>) SerializeUtils.unserialize(in);
-            }finally {
-                jedis.close();
-                return list;
-            }
+            byte[] in = jedis.get(key.getBytes());
+            list = (List<T>) SerializeUtils.unserialize(in);
         } catch (Exception e) {
             logger.error("Set key error : "+e);
-            return list;
+        } finally {
+            jedis.close();
         }
+        return list;
     }
 
     public String setString(String key ,String value){
         String result=null;
+        Jedis jedis = jedisPool.getResource();
         try {
-            Jedis jedis = jedisPool.getResource();
-            try{
-                result = jedis.set(key,value);
-            }finally {
-                jedis.close();
-                return result;
-            }
+            result = jedis.set(key,value);
         } catch (Exception e) {
             logger.error("RedisDAO setString error : "+e);
-            return result;
+        } finally {
+            jedis.close();
         }
+        return result;
     }
 
     public String getString(String key){
-        String result=null;
+        String result = null;
+        Jedis jedis = jedisPool.getResource();
         try {
-            Jedis jedis = jedisPool.getResource();
-            try{
-                result = jedis.get(key);
-            }finally {
-                jedis.close();
-                return result;
-            }
+            result = jedis.get(key);
         } catch (Exception e) {
             logger.error("RedisDAO getString error : "+e);
-            return result;
+        } finally {
+            jedis.close();
         }
+        return result;
     }
 }

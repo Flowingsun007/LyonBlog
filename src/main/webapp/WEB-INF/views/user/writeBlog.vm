@@ -1,0 +1,361 @@
+<!doctype html>
+<html lang="zh">
+<head>
+    <!-- Meta-Tags -->
+    <meta charset="utf-8">
+
+    <title>阳光流淌的个人博客</title>
+    <!-- Bootstrap core CSS -->
+    <link href="/static/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom styles for this template -->
+    <link href="/static/css/blogHome.css" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/writeBlog.css" />
+    <!-- This is what you need -->
+    <script src="/static/js/sweetalert-dev.js"></script>
+    <link rel="stylesheet" href="/static/css/sweetalert.css">
+    <!--Editormd-->
+    <link rel="stylesheet" href="/static/Editormd/css/editormd.min.css" />
+    <link rel="shortcut icon" href="https://pandao.github.io/editor.md/favicon.ico" type="image/x-icon" />
+    <!-- Bootstrap related Jquery -->
+    <script src="/static/jquery/jquery-2.2.3.min.js" ></script>
+    <!-- Bootstrap core JavaScript-->
+    <!--================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script>window.jQuery || document.write('<script src="/static/bootstrap/assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
+    <script src="/static/bootstrap/assets/js/vendor/popper.min.js"></script>
+    <script src="/static/bootstrap/dist/js/bootstrap.min.js"></script>
+
+</head>
+<body>
+<script type="text/javascript">
+    $(function(){
+        $("#inputnewTag").keyup(function(e){
+            if(e.keyCode == 13){
+                var value = $("#inputnewTag").val();
+                $("#addnewTag").click();
+            }
+        });
+
+        $("#tagDiv").on("click","#addnewTag",function() {
+            var tagName = $('#inputnewTag').val();
+            if (tagName==''){
+                swal("请输入标签内容😶！");
+                return false;
+            }else{
+                $('#inputnewTag').val('');
+                var newTag = document.createElement("a");
+                var farther = document.getElementById('tagDiv');
+                newTag.setAttribute("class", "anewTag");
+                newTag.setAttribute("title", tagName);
+                newTag.setAttribute("style", "margin-left: 8px;");
+                newTag.innerHTML = '<span type="button" class="btn btn-success btn-sm" style="font-size: 13px;background-color:#555;">'+tagName+'</span><button type="button" id="closeTag" style="display: none"  class="close" aria-label="Close"><span aria-hidden="true" style="color: #FF0000">&times;</span></button>';
+                farther.appendChild(newTag);
+            }
+        });
+
+
+        $('#tagDiv').on("mouseenter",".anewTag",function(){
+            var a = $(this).children('span');
+            var b = $(this).children('button');
+            a.css("color","#8175ff");
+            a.css("background-color","");
+            b.css("display","block");
+        });
+        $('#tagDiv').on("mouseleave",".anewTag",function(){
+            var a = $(this).children('span');
+            var b = $(this).children('button');
+            a.css("color","#f6fffc");
+            a.css("background-color","#555");
+            b.css("display","none");
+        });
+        $('#tagDiv').on("click","#closeTag",function(){
+            var mother = $(this).parents('.anewTag');
+            mother.remove();
+        });
+
+        $('#blogMainCat').change(function(){
+            var select1 = $('#blogMainCat');
+            var select2 = $('#blogSecondCat');
+            var options1 = $('#blogMainCat option:selected');
+            var options2 = $('#blogSecondCat option:selected');
+            if(options1.val()!=0){
+                $.ajax({
+                    cache:true,
+                    type:"GET",
+                    url:"/admin/categorySelect",
+                    async: false,
+                    data:{
+                        'mId':options1.val()
+                    },
+                    dataType:'text',
+                    error:function(request){
+                        alert("💔登录失败：Connection error:"+request.error);
+                    },
+                    success:function(data) {
+                        select2.children().remove();
+                        var result = data.split(";");
+                        for(var i=0;i<result.length;i++){
+                            var alist = result[i].split(":");
+                            var cId = alist[0];
+                            var cidName = alist[1];
+                            select2.append('<option value="'+cId+'">'+cidName+'</option>');
+                        }
+                    }
+                });
+            }
+        });
+
+    })
+</script>
+<script type="text/javascript">
+    function submitCheck(){
+        // a,b,c,d,e,f,g分别为文章标题，文章摘要，文章主分类id，文章二级分类id，文章HTML内容,文章markdown原文,文章标签(以tag1,tag2,...字符串形式返回))
+        var a = $('#blogTitle').val();
+        var b = $('#blogSubtitle').val();
+        var c = $('#blogMainCat option:selected').val();
+        var d = $('#blogSecondCat option:selected').val();
+        var dd = $('#blogPublicPermission option:selected').val();
+        var e = testEditor.getPreviewedHTML();          // 获取右侧预览区里的渲染过效果的HTML(直接提交此内容存储到数据库中作为文章主体内容，下次取出后可直接在前台显示))。
+        var f = $(".editormd-markdown-textarea").val(); // 获取左侧编辑区里markdown格式的内容
+        //var xxx = $(".editormd-html-textarea").val(); // 获取Textarea中保存的——正常效果的HTML内容（在引入editor.md的页面中可以正常显示出markdown效果，但是代码高亮效果无法显示）
+        //var xxx = testEditor.getHTML();               // editor.md直接提供的JS函数，可以直接获取正常效果的HTML代码，(和从Textarea获取到的内容一样)
+        //var xxx = testEditor.getMarkdown();           // editor.md直接提供的JS函数，可以直接获取左侧编辑窗口中的Markdown代码。（存储到数据库中以方便下次修改编辑时直接取出到左侧编辑区，重新编辑）
+        var taglist = [];
+        var tags = document.getElementsByClassName("anewTag");
+        for(var i = 0; i < tags.length; i++){
+            taglist.push(tags[i].getAttribute('title'));
+        }
+        if ((a=='')||(b=='')||(taglist.length==0)){
+            swal("文章标题、摘要、标签均不能为空！！！");
+            return false;
+        }else{
+            var g = taglist.join();
+            var tt = "您创建了"+taglist.length+"个标签：";
+            swal({
+                title: tt,
+                text: g,
+                timer: 5000,
+                showConfirmButton: false
+            });
+            //alert("您创建了"+taglist.length+"个标签：" + g);
+            if (e==''||f==''){
+                swal("亲，请填写文章内容，不能提交空文章！！！")
+                return false;
+            }else{
+                if(confirm('确定提交文章么？')) {
+                    $.ajax({
+                        type:"POST",
+                        contentType: "application/json",
+                        url:"/behavior/writeBlog/submit",
+                        data:JSON.stringify({"articleTitle":a,"articleAbstract":b,"articleMainId":c,"articleSecondId":d,"publicPermission":dd,"articleContent":e,"articleContentCopy":f,"articleTags":g}),
+                        dataType:"json",//指定返回格式，不指定则返回字符串
+                        success:function (data) {
+                            if(data.code=="200"){
+                                swal("文章发布成功😊！");
+                            } else{
+                                swal({
+                                    title: "文章发布失败😶！",
+                                    text:data.msg,
+                                    timer: 1000,
+                                    showConfirmButton: true
+                                });
+                            }
+                        }
+                    });
+                    return false;
+                }else{
+                    return false;
+                }
+            }
+        }
+    }
+</script>
+
+<h1>新增博客文章</h1>
+
+<div id="layout">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 blog-main">
+                <div class="blog-post">
+
+                    <form id="submitForm" action="/behavior/writeBlog/submit" method="post">
+                        <div class="form-group">
+                            <p style='font-family: STXingkai,"Playfair Display", Georgia, "Times New Roman", serif;font-size: 25px;font-weight: lighter'>文章标题</p>
+                            <input type="text" class="form-control" id="blogTitle" placeholder="Article Title" style="background-color:#E6E6FA">
+                        </div>
+                        <div class="form-group">
+                            <p style='font-family: STXingkai,"Playfair Display", Georgia, "Times New Roman", serif;font-size: 25px;font-weight: lighter'>摘要</p>
+                            <input type="text" class="form-control" id="blogSubtitle" placeholder="Article Abstract" style="background-color:#E6E6FA">
+                        </div>
+
+                        <div class="form-row" style="display: flex;flex-direction: row;justify-content: center;">
+                            <label for="staticEmail" class="col-sm-1 col-form-label" style='font-family: STXingkai;font-size: 16px;'>主分类</label>
+                            <div class="form-group col-md-2" style="margin-right: 140px">
+                                <select id="blogMainCat" class="form-control" style="background-color:#E0EEEE;">
+                                    #foreach($maincat in $!categoryChoice.getMainCategorys())
+                                        #foreach($item in ${maincat.entrySet()})
+                                            <option selected value="$item.key">$item.value</option>
+                                        #end
+                                    #end
+                                </select>
+                            </div>
+                            <label for="staticEmail" class="col-sm-1 col-form-label" style='font-family: STXingkai;font-size: 16px;'>二级分类</label>
+                            <div class="form-group col-md-2" style="margin-right: 140px">
+                                <select id="blogSecondCat" class="form-control" style="background-color:#E0EEEE;">
+                                    #foreach($secondcat in $!categoryChoice.getSecondCategorys())
+                                        #foreach($item2 in ${secondcat.entrySet()})
+                                            <option selected value="$item2.key">$item2.value</option>
+                                        #end
+                                    #end
+                                </select>
+                            </div>
+                            <label for="staticEmail" class="col-sm-1 col-form-label" style='font-family: STXingkai;font-size: 16px;'>文章权限</label>
+                            <div class="form-group col-md-2"">
+                                <select id="blogPublicPermission" class="form-control" style="background-color:#E0EEEE;">
+                                    <option selected value="1">公开</option>
+                                    <option value="0">私有</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="form-check">
+                                <button type="submit" class="btn btn-primary " id="submitBlog" style="color: #ffffff;background-color: #FF0000;float: right" onclick="return submitCheck()">🙂提交文章</button>
+                            </div>
+                        </div>
+                    </form>
+
+                    <div class="form-row" id="tagDiv" >
+                        <label for="staticEmail" class="col-sm-2 col-form-label" style='font-family: STXingkai;font-size: 16px;'>标 签</label>
+                        <div class="form-group col-md-3">
+                            <input type="text"  name="tags"  class="form-control" id="inputnewTag"  placeholder="Tags" style="background-color:#E0EEEE;margin-left: -62px;">
+                        </div>
+                        <a href="javascript:void(0);"  id="addnewTag" class="btn btn-primary btn-group-lg" name="addnewTag" style="height:35px;width:60px;background-color: #1A8BE8;margin-left: -50px;">新  增</a>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="btns">
+        ##<button id="goto-line-btn">跳转至90行</button>
+        <button id="show-btn">显示编辑器</button>
+        <button id="hide-btn">隐藏编辑器</button>
+        ##<button id="get-md-btn">获取Markdown</button>
+        ##<button id="get-html-btn">获取Html</button>
+        <button id="watch-btn">编辑+预览</button>
+        <button id="unwatch-btn">编辑模式</button>
+        <button id="preview-btn">预览模式</button>
+        <button id="fullscreen-btn">全屏预览</button>
+        <button id="show-toolbar-btn">显示工具栏</button>
+        <button id="close-toolbar-btn">隐藏工具栏</button>
+        ##<button id="toc-menu-btn">折叠目录</button>
+        ##<button id="toc-default-btn">展开目录</button>
+    </div>
+
+    <div id="test-editormd">
+
+        <textarea class="editormd-markdown-textarea" name="test-editormd-markdown-doc"></textarea>
+        <!-- 第二个隐藏文本域，用来构造生成的HTML代码，方便表单POST提交，这里的name可以任意取，后台接受时以这个name键为准 -->
+        <textarea class="editormd-html-textarea" name="text"></textarea>
+
+    </div>
+</div>
+
+<script src="/static/Editormd/examples/js/jquery.min.js"></script>
+<script src="/static/Editormd/editormd.min.js"></script>
+<script src="/static/Editormd/editormd.js" ></script>
+<script type="text/javascript">
+    var testEditor;
+
+    $(function() {
+        testEditor = editormd({
+            id      : "test-editormd",
+            width   : "90%",
+            height  : 640,
+            syncScrolling : "single",
+            path    : "/static/Editormd/lib/",
+            imageUpload : true,
+            imageFormats : ["jpg", "jpeg", "gif", "png", "bmp", "webp"],
+            imageUploadURL : "/article/uploadBlogFile",
+            previewTheme: "dark",
+            // markdown : md,
+            codeFold : true,//没搞清楚这个什么意思？代码包裹？
+            saveHTMLToTextarea : true,    //将html存入第二个textarea中以方便提交表单
+            emoji : true,
+            taskList : true,
+            tocm: true,                   // Using [TOCM]自动生成左侧内容导航栏
+            tex : true,                   // 开启科学公式TeX语言支持，默认关闭
+            flowChart : true,             // 开启流程图支持，默认关闭
+            sequenceDiagram : true,       // 开启时序/序列图支持，默认关闭,
+        });
+        //editor.md期望得到一个json格式的上传后的返回值，格式是这样的：
+        /*
+        {
+            success : 0 | 1,           // 0 表示上传失败，1 表示上传成功
+            message : "提示的信息，上传成功或上传失败及错误信息等。",
+            url     : "图片地址"        // 上传成功时才返回
+        }
+        */
+
+        $("#goto-line-btn").bind("click", function(){
+            testEditor.gotoLine(90);
+        });
+
+        $("#show-btn").bind('click', function(){
+            testEditor.show();
+        });
+
+        $("#hide-btn").bind('click', function(){
+            testEditor.hide();
+        });
+
+        $("#get-md-btn").bind('click', function(){
+            alert(testEditor.getMarkdown());
+        });
+
+        $("#get-html-btn").bind('click', function() {
+            alert(testEditor.getHTML());
+        });
+
+        $("#watch-btn").bind('click', function() {
+            testEditor.watch();
+        });
+
+        $("#unwatch-btn").bind('click', function() {
+            testEditor.unwatch();
+        });
+
+        $("#preview-btn").bind('click', function() {
+            testEditor.previewing();
+        });
+
+        $("#fullscreen-btn").bind('click', function() {
+            testEditor.fullscreen();
+        });
+
+        $("#show-toolbar-btn").bind('click', function() {
+            testEditor.showToolbar();
+        });
+
+        $("#close-toolbar-btn").bind('click', function() {
+            testEditor.hideToolbar();
+        });
+
+        $("#toc-menu-btn").click(function(){
+            testEditor.config({
+                tocDropdown   : true,
+                tocTitle      : "目录 Table of Contents",
+            });
+        });
+
+        $("#toc-default-btn").click(function() {
+            testEditor.config("tocDropdown", false);
+        });
+    });
+</script>
+
+
+</body>
+</html>

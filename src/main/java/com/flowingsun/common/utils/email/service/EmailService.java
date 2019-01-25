@@ -17,29 +17,31 @@ import java.util.Properties;
 public class EmailService {
     private static final String HOST = "smtp.163.com";
     private static final Integer PORT = 25;
+    private static final Integer ALI_PORT = 465;
     private static final String USERNAME = "flowingsun007@163.com";
     private static final String PASSWORD = "wy920726zly";
     private static final String EMAILFORM = "flowingsun007@163.com";
-    private static JavaMailSenderImpl mailSender = createMailSender();
+    private static JavaMailSenderImpl mailSender = createAliMailSender();
+
     /**
-     *@Author Lyon[flowingsun007@163.com]
-     *@Date 18/05/9 18:30
-     *@Description 发送邮件工具，此处指定的是网易邮件发送服务器
-     * Windows和Mac上的分支用PORT25端口，部署阿里云的Server分支用465端口,SSL连接
+     * @author lyon
+     * @date   2018/12/22 13:43
+     * @return org.springframework.mail.javamail.JavaMailSenderImpl
+     * @detail 阿里云服务器禁用了25端口，所以此处需要设置465端口
      */
-    private static JavaMailSenderImpl createMailSender() {
+    private static JavaMailSenderImpl createAliMailSender() {
         JavaMailSenderImpl sender = new JavaMailSenderImpl();
         sender.setHost(HOST);
-        sender.setPort(PORT);
+        sender.setPort(ALI_PORT);
         sender.setUsername(USERNAME);
         sender.setPassword(PASSWORD);
         sender.setDefaultEncoding("Utf-8");
-        Properties p = new Properties();
-        //网上找的模板东平西凑，实际上不需要设置这么多属性.....坑爹！
-        p.setProperty("mail.smtp.starttls.enable","true");
-        p.setProperty("mail.smtp.timeout", "25000");
-        p.setProperty("mail.smtp.auth", "false");
-        sender.setJavaMailProperties(p);
+        Properties prop = new Properties();
+        prop.setProperty("mail.smtp.port",ALI_PORT.toString());
+        prop.setProperty("mail.smtp.socketFactory.class","javax.net.ssl.SSLSocketFactory");
+        prop.setProperty("mail.smtp.socketFactory.fallback","false");
+        prop.setProperty("mail.smtp.socketFactory.port",ALI_PORT.toString());
+        sender.setJavaMailProperties(prop);
         return sender;
     }
 

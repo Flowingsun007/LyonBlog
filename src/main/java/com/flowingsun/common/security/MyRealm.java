@@ -1,9 +1,7 @@
 package com.flowingsun.common.security;
 
 import com.flowingsun.common.dao.RedisDAO;
-import com.flowingsun.common.utils.MD5Utils;
 import com.flowingsun.common.utils.loginCheckUtils;
-import com.flowingsun.user.dao.UserMapper;
 import com.flowingsun.user.entity.Permission;
 import com.flowingsun.user.entity.Role;
 import com.flowingsun.user.entity.User;
@@ -15,8 +13,6 @@ import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.springframework.beans.factory.annotation.Autowired;
-
-import java.util.List;
 
 public class MyRealm extends AuthorizingRealm {
     @Autowired

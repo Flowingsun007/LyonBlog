@@ -79,6 +79,10 @@ public interface ArticleMapper {
      */
     List<Article> selectCategoryArticles(@Param("cId") Integer cId, @Param("startNum") Integer pageNum, @Param("pageSize") Integer pageSize);
     /**
+     * 根据cId,userId查用户分类文章
+     */
+    List<Article> selectUserCategoryArticles(@Param("cId") Integer cId, @Param("userid") Integer userid, @Param("startNum") Integer pageNum, @Param("pageSize") Integer pageSize);
+    /**
      * 根据tagId查分类文章
      */
     List<Article> selectTagArticles(@Param("tagId") Integer tagId, @Param("startNum") Integer pageNum, @Param("pageSize") Integer pageSize);
@@ -90,6 +94,10 @@ public interface ArticleMapper {
      * 根据cId查文章总数
      */
     Integer selectCategoryArticlesCount(Integer cId);
+    /**
+     * 根据cId查用户创作的文章总数
+     */
+    int selectUserCategoryArticlesCount(@Param("cId") Integer cId, @Param("userid") Integer userid);
     /**
      * 根据mId查文章总数
      */

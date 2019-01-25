@@ -7,6 +7,7 @@ import com.flowingsun.article.dto.RegularRecommend;
 import com.flowingsun.article.entity.*;
 import com.flowingsun.article.vo.CategoryArticleQuery;
 import com.flowingsun.article.vo.TagArticleQuery;
+import com.flowingsun.common.dto.ResponseDto;
 
 import java.util.List;
 
@@ -24,15 +25,17 @@ public interface ArticleService {
 
     String createArticle(Article article);
 
+    ResponseDto createUserArticle(Article article)throws Exception;
+
     CategoryArticleQuery getCategoryArticles(Integer cId, CategoryArticleQuery categoryArticleQuery);
+
+    CategoryArticleQuery getUserCategoryArticles(Integer cId, CategoryArticleQuery categoryArticleQuery, Long userId);
 
     TagArticleQuery getTagArticles(TagArticleQuery queryBean);
 
     AdminBlogQuery getAllArticles(AdminBlogQuery queryBean);
 
     List<ArticleTag> selectAllTag();
-
-    void updateAllTag();
 
     void deleteArticleRelations(int articleId);
 

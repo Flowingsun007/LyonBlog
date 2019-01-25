@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.flowingsun.behavior.dao.UrlCollectionMapper" >
+  <resultMap id="BaseResultMap" type="com.flowingsun.behavior.entity.UrlCollection" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="userId" property="userid" jdbcType="BIGINT" />
+    <result column="url" property="url" jdbcType="VARCHAR" />
+    <result column="description" property="description" jdbcType="VARCHAR" />
+    <result column="createDate" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="editDate" property="editDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, userId, url, description, createDate, editDate
+  </sql>
+
+  <insert id="insertSelective" parameterType="com.flowingsun.behavior.entity.UrlCollection" >
+    insert into collection
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="userId != null" >
+        userId,
+      </if>
+      <if test="url != null" >
+        url,
+      </if>
+      <if test="description != null" >
+        description,
+      </if>
+      <if test="createDate != null" >
+        createDate,
+      </if>
+      <if test="editDate != null" >
+        editDate,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="url != null" >
+        #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="editDate != null" >
+        #{editDate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+
+  <select id="selectUrlCollectionCountByUserId" resultType="int">
+    SELECT COUNT(0) FROM url_collection WHERE userId = #{userId,jdbcType=BIGINT}
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM url_collection
+    WHERE id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectUrlCollectionsByUserId" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM url_collection WHERE userId = #{userId,jdbcType=BIGINT}
+  </select>
+  <select id="selectUrlCollectionsByIdAndUserId" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM url_collection WHERE id = #{id,jdbcType=INTEGER} AND userId = #{userId,jdbcType=BIGINT}
+  </select>
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.flowingsun.behavior.entity.UrlCollection" >
+    UPDATE url_collection
+    <set >
+      <if test="userId != null" >
+        userId = #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="url != null" >
+        url = #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        createDate = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="editDate != null" >
+        editDate = #{editDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    WHERE id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from collection
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByurlCollectionIdAndUserId">
+    DELETE FROM collection
+    WHERE id = #{urlCollectionId} AND userId = #{userId,jdbcType=BIGINT}
+  </delete>
+
+</mapper>
