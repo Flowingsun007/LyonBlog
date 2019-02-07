@@ -193,24 +193,6 @@ public class RedisDAO {
         return result;
     }
 
-    public <T> String setList(String key ,List<T> list,int seconds){
-        String result="setList_fail";
-        try {
-            Jedis jedis = jedisPool.getResource();
-            try{
-                byte[] listInfo = SerializeUtils.serialize(list);
-                result = jedis.set(key.getBytes(), listInfo);
-                //设置键的过期时间为seconds秒
-                jedis.expire(key,seconds);
-            }finally {
-                jedis.close();
-                return result;
-            }
-        } catch (Exception e) {
-            logger.error("Set key error : "+e);
-            return result;
-        }
-    }
 
     public <T> List<T> getList(String key){
         List<T> list = null;
@@ -252,3 +234,4 @@ public class RedisDAO {
         return result;
     }
 }
+
