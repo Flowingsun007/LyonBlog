@@ -23,6 +23,10 @@ public class AdminBlogQuery extends PageQueryBean {
      */
     private String articlTitle;
     /**
+     * 文章创建者Id
+     */
+    private Integer userId;
+    /**
      * 文章创建时间
      */
     private Date createDate;
@@ -138,6 +142,14 @@ public class AdminBlogQuery extends PageQueryBean {
         this.articlTitle = articlTitle;
     }
 
+    public Integer getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Integer userId) {
+        this.userId = userId;
+    }
+
     public Date getCreateDate() {
         return createDate;
     }
@@ -154,18 +166,4 @@ public class AdminBlogQuery extends PageQueryBean {
         this.editDate = editDate;
     }
 
-    @Override
-    public String toString() {
-        return "AdminBlogQuery{" +
-                "articleId=" + articleId +
-                ", articleMid=" + articleMid +
-                ", articleCid=" + articleCid +
-                ", articlTitle='" + articlTitle + '\'' +
-                ", createDate=" + createDate +
-                ", editDate=" + editDate +
-                ", categoryChoice=" + categoryChoice +
-                ", pageNum=" + pageNum +
-                ", pageSize=" + pageSize +
-                '}';
-    }
 }
