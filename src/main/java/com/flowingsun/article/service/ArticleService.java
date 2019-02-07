@@ -35,6 +35,8 @@ public interface ArticleService {
 
     AdminBlogQuery getAllArticles(AdminBlogQuery queryBean);
 
+    AdminBlogQuery getUserAllArticles(AdminBlogQuery queryBean);
+
     List<ArticleTag> selectAllTag();
 
     void deleteArticleRelations(int articleId);

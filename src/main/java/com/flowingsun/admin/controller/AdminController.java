@@ -106,7 +106,9 @@ public class AdminController {
         queryBean.setArticleMid(articleMid);
         queryBean.setPageSize(pageSize);
         queryBean.setPageNum(pageNum);
-        AdminBlogQuery pageQueryBean = articleService.getAllArticles(queryBean);
+        //原方法用于管理员查看所有文章AdminBlogQuery pageQueryBean = articleService.getAllArticles(queryBean);
+        //改进后getUserAllArticles则只查看当前登录用户下所有文章
+        AdminBlogQuery pageQueryBean = articleService.getUserAllArticles(queryBean);
         pageQueryBean.setCategoryChoice(articleService.getAllCategory());
         List<Category> categorys = articleService.getCategory();
         model.addAttribute("pageQueryBean",pageQueryBean);

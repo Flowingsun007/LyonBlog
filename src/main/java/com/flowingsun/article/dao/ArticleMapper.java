@@ -97,11 +97,15 @@ public interface ArticleMapper {
     /**
      * 根据cId查用户创作的文章总数
      */
-    int selectUserCategoryArticlesCount(@Param("cId") Integer cId, @Param("userid") Integer userid);
+    Integer selectUserCategoryArticlesCount(@Param("cId") Integer cId, @Param("userId") Integer userId);
     /**
      * 根据mId查文章总数
      */
     Integer selectMainCategoryArticlesCount(Integer mId);
+    /**
+     * 根据mId,userId查文章总数
+     */
+    Integer selectUserMainCategoryArticlesCount(@Param("mId") Integer mId, @Param("userId") Integer userId);
     /**
      * 检测articleId下的文章是否存在
      */
@@ -111,9 +115,17 @@ public interface ArticleMapper {
      */
     Integer selectAllArticleCount();
     /**
+     * 查询所有用户文章数量
+     */
+    Integer selectUserAllArticleCount(Integer userId);
+    /**
      * 根据查询条件查询相应文章
      */
     List<Article> selectAllArticleByQueryCondition(AdminBlogQuery adminBlogQuery);
+    /**
+     * 根据查询条件查询相应用户文章
+     */
+    List<Article> selectUserAllArticleByQueryCondition(AdminBlogQuery adminBlogQuery);
     /**
      * 根据tagId查询拥有此标签的文章数
      */

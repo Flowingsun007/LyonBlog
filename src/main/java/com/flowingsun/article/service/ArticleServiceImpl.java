@@ -210,6 +210,38 @@ public class ArticleServiceImpl implements ArticleService {
 
     }
 
+    @Override
+    public AdminBlogQuery getUserAllArticles(AdminBlogQuery queryBean) {
+        Long userId = (Long)SecurityUtils.getSubject().getSession().getAttribute("userId");
+        if (userId != null) {
+            User user = redisDAO.getRedisUser(userId);
+            //缓存未命中，从数据库读user}
+            if(user==null){
+                user = userMapper.selectByPrimaryKey(userId);
+            }
+            queryBean.setUserId(Integer.valueOf(userId.intValue()));
+            Integer total = 0;
+            if(queryBean.getArticleCid()!=null&&queryBean.getArticleCid()!=0){
+                total = articleMapper.selectUserCategoryArticlesCount(queryBean.getArticleCid(),Integer.valueOf(userId.intValue()));
+            }else if(queryBean.getArticleCid()!=null&&queryBean.getArticleCid()==0&&queryBean.getArticleMid()!=null&&queryBean.getArticleMid()!=0){
+                total = articleMapper.selectUserMainCategoryArticlesCount(queryBean.getArticleMid(),userId.intValue());
+            }else {
+                total = articleMapper.selectUserAllArticleCount(userId.intValue());
+            }
+            if(total>0){
+                queryBean.setTotal(total);
+                List<Article> articleList = articleMapper.selectUserAllArticleByQueryCondition(queryBean);
+                //查询文章标签，并将标签信息放入bean中
+                articleList.forEach(article->{
+                    List<ArticleTag> articleTags = articleMapper.selectArticleTagsByPrimarykey(article.getId());
+                    article.setArticleTagList(articleTags);
+                });
+                queryBean.setDataList(articleList);
+            }
+        }
+        return queryBean;
+    }
+
     /**
      *@Author Lyon[flowingsun007@163.com]
      *@Date 18/09/10 21:59

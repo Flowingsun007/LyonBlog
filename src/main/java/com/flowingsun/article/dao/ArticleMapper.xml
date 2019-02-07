@@ -117,8 +117,31 @@
     ORDER BY article.id DESC
     LIMIT #{startRow},#{pageSize};
   </select>
+  <select id="selectUserAllArticleByQueryCondition" parameterType="com.flowingsun.admin.dto.AdminBlogQuery" resultMap="categoryArticlesResultMap">
+    SELECT
+    article.id, article.userid, article_title, article_abstract, create_date, edit_date, article_second_id,article_main_id,
+    article_main_categary.name AS mname,article_second_categary.name AS cname,
+    (SELECT COUNT(0) FROM thank WHERE thank.articleid=article.id) AS articleThank,
+    (SELECT COUNT(0) FROM comment WHERE comment.articleid=article.id) AS articleComment,
+    (SELECT COUNT(0) FROM collection WHERE collection.articleid=article.id) AS articleCollection
+    FROM article
+    INNER JOIN article_main_categary ON article.article_main_id = article_main_categary.id
+    INNER JOIN article_second_categary ON article.article_second_id = article_second_categary.id
+    WHERE article.userid=#{userId}
+    <if test="articleMid != null and articleMid !=0 and articleCid ==0" >
+      AND article.article_main_id=#{articleMid}
+    </if>
+    <if test="articleCid != null and articleCid !=0" >
+      AND article.article_second_id=#{articleCid}
+    </if>
+    ORDER BY article.id DESC
+    LIMIT #{startRow},#{pageSize};
+  </select>
   <select id="selectAllArticleCount" resultType="int">
     SELECT COUNT(0) FROM article;
+  </select>
+  <select id="selectUserAllArticleCount" resultType="int">
+    SELECT COUNT(0) FROM article WHERE userid=#{userId};
   </select>
   <select id="selectArticleCountById" resultType="INTEGER" parameterType="INTEGER">
     SELECT COUNT(0) FROM article WHERE id=#{articleId};
@@ -127,10 +150,13 @@
     SELECT COUNT(0) FROM article WHERE article_second_id=#{cId} AND public_permission=1;
   </select>
   <select id="selectUserCategoryArticlesCount" resultType="int">
-    SELECT COUNT(0) FROM article WHERE article_second_id=#{cId} AND userid=#{userid};
+    SELECT COUNT(0) FROM article WHERE article_second_id=#{cId} AND userid=#{userId};
   </select>
   <select id="selectMainCategoryArticlesCount" resultType="INTEGER" parameterType="INTEGER">
     SELECT COUNT(0) FROM article WHERE article_main_id=#{mId};
+  </select>
+  <select id="selectUserMainCategoryArticlesCount" resultType="INTEGER">
+    SELECT COUNT(0) FROM article WHERE article_main_id=#{mId} AND userId=#{userId};
   </select>
   <select id="selectTagArticlesCount" resultType="INTEGER" parameterType="INTEGER">
     SELECT COUNT(0) FROM article_tag_relation WHERE article_main_id=#{mId};
