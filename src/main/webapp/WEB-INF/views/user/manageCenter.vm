@@ -73,7 +73,7 @@
                     }
                     var logoutHtml = '<div class="dropdown-menu" id="navLogout" aria-labelledby="navbarDropdownMenuLink">'
                             //+ '<a class="dropdown-item" id="behaviorCenter" href="/user/manageCenter">个人中心</a><a class="dropdown-item" id="logoutButton" href="#">'
-                            + '<a class="dropdown-item" id="behaviorCenter" href="/behavior/writeBlog" target="_blank">写篇Blog</a><a class="dropdown-item"  id="logoutButton" href="#">'
+                            + '<a class="dropdown-item" id="behaviorCenter" href="/admin" target="_blank">后台管理</a><a class="dropdown-item"  id="logoutButton" href="#">'
                             +'退出登录</a></div>';
                     var userHeadImg = '<ul class="navbar-nav mr-sm-0" id="navUserHead"><li class="nav-item" id="navLogin">'
                             + '<a class="nav-link" href="#"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">'
