@@ -162,12 +162,6 @@ public class BehaviorController {
         }
     }
 
-    @GetMapping("/writeBlog")
-    public String writeArticle(Model model){
-        Category categoryChoice = articleService.getAllCategory();
-        model.addAttribute("categoryChoice",categoryChoice);
-        return "user/writeBlog";
-    }
 
     @PostMapping("/writeBlog/submit")
     @ResponseBody
