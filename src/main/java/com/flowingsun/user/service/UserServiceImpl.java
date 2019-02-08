@@ -254,6 +254,20 @@ public class UserServiceImpl implements UserService {
         return user;
     }
 
+    @Override
+    public User getUserInfo() {
+        User user = null;
+        Long userId = (Long)SecurityUtils.getSubject().getSession().getAttribute("userId");
+        if (userId != null) {
+            user = redisDAO.getRedisUser(userId);
+            //缓存未命中，从数据库读user}
+            if(user==null){
+                user = userMapper.selectByPrimaryKey(userId);
+            }
+        }
+        return user;
+    }
+
 
     @Async
     public void updateBlogUserCount(){

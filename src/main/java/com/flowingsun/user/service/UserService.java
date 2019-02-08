@@ -27,4 +27,6 @@ public interface UserService {
 
     User getUserInfo(HttpServletRequest request);
 
+    User getUserInfo();
+
 }

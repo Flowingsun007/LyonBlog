@@ -35,7 +35,7 @@ public interface ArticleService {
 
     AdminBlogQuery getAllArticles(AdminBlogQuery queryBean);
 
-    AdminBlogQuery getUserAllArticles(AdminBlogQuery queryBean);
+    AdminBlogQuery getUserAllArticles(AdminBlogQuery queryBean, Long userId);
 
     List<ArticleTag> selectAllTag();
 
