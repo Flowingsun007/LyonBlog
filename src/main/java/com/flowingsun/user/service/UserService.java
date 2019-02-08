@@ -26,5 +26,7 @@ public interface UserService {
     boolean setDefaultUserRole(String userphone);
 
     User getUserInfo(HttpServletRequest request);
+    
+    User getUserInfo();
 
 }
