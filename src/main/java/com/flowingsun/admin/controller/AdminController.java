@@ -102,18 +102,21 @@ public class AdminController {
                             @RequestParam(value="articleCid",required=false,defaultValue = "0")Integer articleCid,
                             @RequestParam(value="articleMid",required=false,defaultValue = "0")Integer articleMid,
                             Model model){
-        AdminBlogQuery queryBean = new AdminBlogQuery();
-        queryBean.setArticleCid(articleCid);
-        queryBean.setArticleMid(articleMid);
-        queryBean.setPageSize(pageSize);
-        queryBean.setPageNum(pageNum);
-        //原方法用于管理员查看所有文章AdminBlogQuery pageQueryBean = articleService.getAllArticles(queryBean);
-        //改进后getUserAllArticles则只查看当前登录用户下所有文章
-        AdminBlogQuery pageQueryBean = articleService.getUserAllArticles(queryBean);
-        pageQueryBean.setCategoryChoice(articleService.getAllCategory());
-        List<Category> categorys = articleService.getCategory();
-        model.addAttribute("pageQueryBean",pageQueryBean);
-        model.addAttribute("categorys",categorys);
+        Long userId = (Long) SecurityUtils.getSubject().getSession().getAttribute("userId");
+        if(userId!=null){
+            AdminBlogQuery queryBean = new AdminBlogQuery();
+            queryBean.setArticleCid(articleCid);
+            queryBean.setArticleMid(articleMid);
+            queryBean.setPageSize(pageSize);
+            queryBean.setPageNum(pageNum);
+            //原方法用于管理员查看所有文章AdminBlogQuery pageQueryBean = articleService.getAllArticles(queryBean);
+            //改进后getUserAllArticles则只查看当前登录用户下所有文章
+            AdminBlogQuery pageQueryBean = articleService.getUserAllArticles(queryBean, userId);
+            pageQueryBean.setCategoryChoice(articleService.getAllCategory());
+            List<Category> categorys = articleService.getCategory();
+            model.addAttribute("pageQueryBean",pageQueryBean);
+            model.addAttribute("categorys",categorys);
+        }
         return "admin/adminHome";
     }
 
