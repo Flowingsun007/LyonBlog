@@ -5,11 +5,8 @@ import com.flowingsun.article.entity.Article;
 import com.flowingsun.article.dto.ArticleTag;
 import com.flowingsun.article.entity.Category;
 import com.flowingsun.article.service.ArticleService;
-import com.flowingsun.user.entity.User;
-import com.flowingsun.user.service.UserService;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authz.annotation.Logical;
-import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -29,9 +26,6 @@ public class AdminController {
 
     @Autowired
     private ArticleService articleService;
-
-    @Autowired
-    private UserService userService;
 
     @RequiresRoles(value={"blogAdmin","blogManager","consumer","register"},logical = Logical.OR)
     @GetMapping("")
