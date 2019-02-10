@@ -766,14 +766,14 @@
                         <nav class="blog-pagination">
                             #set($Recommend = $article.getRegularRecommend())
                             #if($Recommend.getPreviousArticleId()==0)
-                                <a class="btn btn-outline-dark">木有上一篇了😶</a>
+                                <a class="btn btn-outline-danger">木有上一篇了😶</a>
                                 <a>$Recommend.getPreviousTitle()</a>
                             #else
                                 <a href="/article/single?articleId=$Recommend.getPreviousArticleId()" class="btn btn-outline-success">上一篇</a>
                                 <a href="/article/single?articleId=$Recommend.getPreviousArticleId()">$Recommend.getPreviousTitle()</a>
                             #end
                             #if($Recommend.getNextArticleId()==0)
-                                <a class="btn btn-outline-info">木有下一篇了😶</a>
+                                <a class="btn btn-outline-danger">木有下一篇了😶</a>
                                 <a>$Recommend.getNextTitle()</a>
                             #else
                                 <a href="/article/single?articleId=$Recommend.getNextArticleId()" class="btn btn-outline-info">下一篇</a>
