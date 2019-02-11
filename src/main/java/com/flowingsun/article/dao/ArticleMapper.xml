@@ -369,6 +369,9 @@
       <if test="articleContentCopy != null" >
         article_content_copy = #{articleContentCopy,jdbcType=LONGVARCHAR},
       </if>
+      <if test="publicPermission != null" >
+        public_permission = #{publicPermission,jdbcType=INTEGER},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
