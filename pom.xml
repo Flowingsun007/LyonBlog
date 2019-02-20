@@ -259,6 +259,7 @@
             <version>2.11.1</version>
         </dependency>
         <!--图片处理类开源库Thumbnailator -->
+        <!--SS-->
         <dependency>
             <groupId>net.coobird</groupId>
             <artifactId>thumbnailator</artifactId>
