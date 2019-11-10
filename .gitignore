@@ -1,0 +1,15 @@
+# ignore all .idea dir
+/.idea
+
+# ignore all META-INF dir
+/META-INF
+
+# ignore all .iml file
+*.iml
+
+# ignore all target file
+/target
+
+# ignore all out dir
+/out
+

@@ -1,0 +1,896 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Meta-Tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="/static/bootstrap/favicon.ico">
+
+    <title>阳光流淌的个人博客</title>
+    <!-- Bootstrap core CSS -->
+    <link href="/static/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom styles for this template -->
+##    <link href="/static/css/blogHome.css" rel="stylesheet">
+    <!--登录注册框样式-->
+##    <link href="/static/css/loginStyle.css" rel="stylesheet" type="text/css" media="all">
+    <!--blogTemplate Style-->
+    <link href="/static/css/font/googleapis.css" rel="stylesheet">
+    <link href="/static/css/templateBlog.css" rel="stylesheet">
+    <!--博客模板来源于bootstarp4.0：https://getbootstrap.com/docs/4.0/examples/blog-->
+    <!-- Bootstrap related Jquery --><!--slim版本的貌似不支持Ajax-->
+    <script src="/static/jquery/jquery-3.2.1.slim.min.js"  crossorigin="anonymous"></script>
+    <script src="/static/jquery/jquery-2.2.3.min.js" ></script>
+    <!-- Bootstrap core JavaScript-->
+    <!--================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script>window.jQuery || document.write('<script src="/static/bootstrap/assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
+    <script src="/static/bootstrap/assets/js/vendor/popper.min.js"></script>
+    <script src="/static/bootstrap/dist/js/bootstrap.min.js"></script>
+</head>
+<body>
+<script type="application/javascript">
+    $(document).ready(function () {
+        $("#selectAll").click(function(){
+            if($(this).is(':checked')){
+                $(":checkbox").prop("checked",true);
+            }else{
+                $(":checkbox").prop("checked",false);
+            }
+        });
+    })
+</script>
+<script type="application/javascript">
+    $(function(){
+        $.ajax({
+            type:"GET",
+            url:"/user/userInfo",
+            dataType:"json",
+            contentType:"application/json",
+            error:function(data){//请求失败之后的操作
+                alert("请求失败，此账号没有更改标签权限！");
+            },
+            success:function (data) {
+                if(data!=null){
+                    $("#navLoginButton").html(data.username);
+                    var logoutHtml = '<div class="dropdown-menu" id="navLogout" aria-labelledby="navbarDropdownMenuLink">'+ '<a class="dropdown-item" id="logoutButton" href="#">'+'退出登录</a> </div>';
+                    var userHeadImg = '<ul class="navbar-nav mr-sm-0" id="navUserHead">'+ '<li class="nav-item" id="navLogin">'+
+                            '<a class="nav-link" href="#"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">'
+                            +'<img src="/static/image/userHead/header.png" class="user-image" alt="User Image" style="width:25px;height:25px;border-radius:50%;"></a> </li></ul>';
+                    $("#navLogin").append(logoutHtml);
+                    $("#navbarCollapse").append(userHeadImg);
+                }
+            }
+        });
+        $("#navLogin").on('click',"#logoutButton",function(){
+            if(confirm("确定退出登录？")){
+                $.ajax({
+                    type:"GET",
+                    url:"/user/logout/check",
+                    contentType:"text/html",
+                    success:function (data) {
+                        if(data=="logout_succ"){
+                            window.location.reload();
+                        }else{alert("退出登录失败！");}
+                    }
+                });
+            }else{
+                return false;
+            }
+        });
+        var content = $("#navLoginButton").text();
+        $("#navLoginButton").click(function(){
+            var css = $('#loginDiv').css('display');
+            if(css=='block'){
+                $('#loginDiv').css('display','none');
+                $("#navLoginButton").text(content);
+            }else{
+                if($("#navLoginButton").text()=="登录注册"){
+                    $('#loginDiv').css('display','block');
+                    $("#navLoginButton").text("关闭×");
+                }else{
+                    return true;
+                }
+            }
+        });
+    });
+</script>
+<script type="application/javascript">
+    $(function () {
+        var re1 = /^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/;
+        $("#userLogin").click(function () {
+            alert("登录失败😊，请至非管理员页面登录！");
+        });
+
+        $("#userRegister").click(function () {
+            alert("注册失败😊,请至非管理员页面注册！");
+        });
+
+        $('#changeAllCategory').click(function () {
+            var test = $("input[name='checkArticle']:checked");
+            var checkBoxValue = "";
+            test.each(function(){
+                checkBoxValue += $(this).val()+",";
+            })
+            checkBoxValue = checkBoxValue.substring(0,checkBoxValue.length-1);
+
+        });
+
+        $('#selectMid').change(function(){
+            var select1 = $('#selectMid');
+            var select2 = $('#selectCid');
+            var options1 = $('#selectMid option:selected');
+            var options2 = $('#selectCid option:selected');
+            if(options1.val()!=0){
+                $.ajax({
+                    cache:true,
+                    type:"GET",
+                    url:"/admin/categorySelect",
+                    async: false,
+                    data:{
+                        'mId':options1.val()
+                    },
+                    dataType:'text',
+                    error:function(request){
+                        alert("💔登录失败：Connection error:"+request.error);
+                    },
+                    success:function(data) {
+                        select2.children().remove();
+                        var result = data.split(";");
+                        for(var i=0;i<result.length;i++){
+                            var alist = result[i].split(":");
+                            var articleCid = alist[0];
+                            var cidName = alist[1];
+                            select2.append('<option value="'+articleCid+'">'+cidName+'</option>');
+                        }
+                        select2.append('<option value="0">全部</option>');
+                    }
+                });
+            }
+        });
+
+        $('#articleMid').change(function(){
+            var select1 = $('#articleMid');
+            var select2 = $('#articleCid');
+            var options1 = $('#articleMid option:selected');
+            var options2 = $('#articleCid option:selected');
+            if(options1.val()!=0){
+                $.ajax({
+                    cache:true,
+                    type:"GET",
+                    url:"/admin/categorySelect",
+                    async: false,
+                    data:{
+                        'mId':options1.val()
+                    },
+                    dataType:'text',
+                    error:function(request){
+                        alert("💔登录失败：Connection error:"+request.error);
+                    },
+                    success:function(data) {
+                        select2.children().remove();
+                        var result = data.split(";");
+                        for(var i=0;i<result.length;i++){
+                            var alist = result[i].split(":");
+                            var articleCid = alist[0];
+                            var cidName = alist[1];
+                            select2.append('<option value="'+articleCid+'">'+cidName+'</option>');
+                        }
+                        select2.append('<option value="0">全部</option>');
+                    }
+                });
+            }
+        });
+
+    });
+</script>
+<script>
+    function batchResetBlogTag(){
+        var inputArea = $("#inputTags");
+        if($("#batchResetButton").text()=="批量更改"){
+            $("#batchResetButton").text("提交");
+            $(inputArea).css("visibility","visible");
+        }else{
+            var test = $("input[name='checkArticle']:checked");
+            var articlIdStr = "";
+            var tags = $("#tagsSubmitDiv").children(".anewTag").children("span");
+            var tagList = new Array();
+            $.each(tags,function(){
+                tagList.push($(this).text());
+            });
+            var articleTagsStr = tagList.join();
+            test.each(function(){
+                articlIdStr += $(this).val()+",";
+            })
+            articlIdStr = articlIdStr.substring(0,articlIdStr.length-1);
+            if(articlIdStr==""){
+                if($("#batchResetButton").text()=="提交"){
+                    alert("请先选中要批量更改标签的文章！");
+                    return false;
+                }
+            }
+            if($("#tagsSubmitDiv").children("a").length==0){
+                alert("请勿提交空标签内容！");
+                return false;
+            }else{
+                $("#batchResetButton").text("批量更改");
+                $(inputArea).css("visibility","hidden");
+                if(confirm("确认批量更改标签么？")){
+                    alert(articlIdStr);
+                    alert(articleTagsStr);
+                    $.ajax({
+                        type:"POST",
+                        url:"/admin/editTag/batchReset",
+                        dataType:"json",
+                        contentType:"application/json",
+                        data:JSON.stringify({"articleIdStr":articlIdStr,"articleTagsStr":articleTagsStr}),
+                        error:function(data){//请求失败之后的操作
+                            alert("请求失败，此账号没有更改标签权限！");
+                        },
+                        success:function (data) {
+                            if(data=="batchReset_tags_succ"){
+                                alert(data+"更改文章标签成功");
+                                window.location.reload();
+                            }else{
+                                alert(data+"更改文章标签失败，😶！");
+                            }
+                        }
+                    });
+                }else{
+                    return false;
+                }
+            }
+        }
+
+    };
+
+    function batchAddBlogTag(){
+        var inputArea = $("#inputTags");
+        if($("#batchAddButton").text()=="批量新增"){
+            $("#batchAddButton").text("提交");
+            $(inputArea).css("visibility","visible");
+        }else{
+            var test = $("input[name='checkArticle']:checked");
+            var articlIdStr = "";
+            var tags = $("#tagsSubmitDiv").children(".anewTag").children("span");
+            var tagList = new Array();
+            $.each(tags,function(){
+                tagList.push($(this).text());
+            });
+            var articleTagsStr = tagList.join();
+            test.each(function(){
+                articlIdStr += $(this).val()+",";
+            })
+            articlIdStr = articlIdStr.substring(0,articlIdStr.length-1);
+            if(articlIdStr==""){
+                if($("#batchAddButton").text()=="提交"){
+                    alert("请先选中要批量新增标签的文章！");
+                    return false;
+                }
+            }
+            if($("#tagsSubmitDiv").children("a").length==0){
+                alert("请勿提交空标签内容！");
+                return false;
+            }else{
+                $("#batchResetButton").text("批量新增");
+                $(inputArea).css("visibility","hidden");
+                if(confirm("确认批量新增标签么？")){
+                    alert("文章id:" + articlIdStr + "新增标签:" + articleTagsStr);
+                    $.ajax({
+                        type:"POST",
+                        url:"/admin/editTag/batchAdd",
+                        dataType:"json",
+                        contentType:"application/json",
+                        data:JSON.stringify({"articleIdStr":articlIdStr,"articleTagsStr":articleTagsStr}),
+                        error:function(data){//请求失败之后的操作
+                            alert("请求失败，此账号没有更改标签权限！");
+                        },
+                        success:function (data) {
+                            if(data=="batch_addTag_succ"){
+                                alert(data+"批量新增文章标签成功");
+                                window.location.reload();
+                            }else{
+                                alert(data+"批量新增文章标签失败，😶！");
+                            }
+                        }
+                    });
+                }else{
+                    return false;
+                }
+            }
+        }
+
+    };
+
+    function batchDeleteBlogTag(){
+        var inputArea = $("#inputTags");
+        if($("#batchDeleteButton").text()=="批量删除"){
+            $("#batchDeleteButton").text("提交");
+            $(inputArea).css("visibility","visible");
+        }else{
+            var test = $("input[name='checkArticle']:checked");
+            var articlIdStr = "";
+            var tags = $("#tagsSubmitDiv").children(".anewTag").children("span");
+            var tagList = new Array();
+            $.each(tags,function(){
+                tagList.push($(this).text());
+            });
+            var articleTagsStr = tagList.join();
+            test.each(function(){
+                articlIdStr += $(this).val()+",";
+            })
+            articlIdStr = articlIdStr.substring(0,articlIdStr.length-1);
+            if(articlIdStr==""){
+                if($("#batchDeleteButton").text()=="提交"){
+                    alert("请先选中要批量删除标签的文章！");
+                    return false;
+                }
+            }
+            if($("#tagsSubmitDiv").children("a").length==0){
+                alert("请勿提交空标签内容！");
+                return false;
+            }else{
+                $("#batchDeleteButton").text("批量删除");
+                $(inputArea).css("visibility","hidden");
+                if(confirm("确认批量删除标签么？")){
+                    alert("文章id:" + articlIdStr + "删除标签:" + articleTagsStr);
+                    $.ajax({
+                        type:"POST",
+                        url:"/admin/editTag/batchDelete",
+                        dataType:"json",
+                        contentType:"application/json",
+                        data:JSON.stringify({"articleIdStr":articlIdStr,"articleTagsStr":articleTagsStr}),
+                        error:function(data){//请求失败之后的操作
+                            alert("请求失败，此账号没有更改标签权限！");
+                        },
+                        success:function (data) {
+                            if(data=="batch_deleteTag_succ"){
+                                alert("😊，批量删除文章标签成功！");
+                                window.location.reload();
+                            }else{
+                                alert("批量删除文章标签失败，😶！"+data);
+                            }
+                        }
+                    });
+                }else{
+                    return false;
+                }
+            }
+        }
+
+    };
+
+    function deleteAllTag(value){
+        if(confirm("确认清空所有标签么？")){
+            $.ajax({
+                type:"POST",
+                url:"/admin/editTag/article/deleteAll",
+                dataType:"json",
+                contentType:"application/json",
+                data:JSON.stringify({"articleId":value}),
+                error:function(data){//请求失败之后的操作
+                    alert("请求失败，此账号没有更改标签权限！");
+                },
+                success:function (data) {
+                    if(data=="delete_allTag_succ"){
+                        alert(data+"清空文章标签成功");
+                        window.location.reload();
+                    }else{
+                        alert(data+"清空文章标签失败，😶！");
+                    }
+                }
+            });
+        }else{
+            return false;
+        }
+    };
+
+    function batchDeleteAllTag(){
+        if(confirm("确认清空所有标签么？")){
+            var test = $("input[name='checkArticle']:checked");
+            var articlIdStr = "";
+            test.each(function(){
+                articlIdStr += $(this).val()+",";
+            })
+            articlIdStr = articlIdStr.substring(0,articlIdStr.length-1);
+            $.ajax({
+                type:"POST",
+                url:"/admin/editTag/article/batchDeleteAll",
+                dataType:"json",
+                contentType:"application/json",
+                data:JSON.stringify({"articleIdStr":articlIdStr}),
+                error:function(data){//请求失败之后的操作
+                    alert("请求失败，此账号没有更改标签权限！");
+                },
+                success:function (data) {
+                    if(data=="batch_deleteAllTag_succ"){
+                        alert("😊,批量清空文章标签成功！");
+                        window.location.reload();
+                    }else{
+                        alert(data+"批量清空文章标签失败，😶！");
+                    }
+                }
+            });
+        }else{
+            return false;
+        }
+    };
+</script>
+
+<script type="text/javascript">
+    $(function(){
+        $('.tableRow').on("click","#addnewTag",function() {
+            var inputBox = $(this).parents("#addTagDiv").children("input");
+            var tagDiv = $(this).parents("#addTagDiv").parents(".tableRow").children(".tableTD").children(".tagDiv");
+            var tags = $(tagDiv).children(".anewTag").children("span");
+            var articleId = $(this).attr('value');
+            if(this.text=="更改"){
+                $(inputBox).css("visibility","visible");
+                $(this).text('提交');
+            }else{
+                if($(tagDiv).children().length==0){
+                    alert('请勿提交空标签！');
+                }else{
+                    var tagList = new Array();
+                    $.each(tags,function(){
+                        tagList.push($(this).text());
+                    });
+                    if(confirm("😊您将要提交如下标签：\n"+tagList.join())){
+                        $.ajax({
+                            type:"POST",
+                            url:"/admin/editTag/reset",
+                            dataType:"json",
+                            contentType:"application/json",
+                            data:JSON.stringify({"articleId":articleId,"articleTagsStr":tagList.join()}),
+                            error:function(data){//请求失败之后的操作
+                                alert("请求失败，此账号没有更改标签权限！");
+                            },
+                            success:function (data) {
+                                if(data=="reset_tag_succ"){
+                                    alert("😊,更改文章标签成功！");
+                                    window.location.reload();
+                                }else{
+                                    alert("更改文章标签失败，😶！"+data);
+                                }
+                            }
+                        });
+                    }
+                }
+                $(this).text('更改');
+                $(inputBox).css("visibility","hidden");
+            }
+
+        });
+
+        $('#inputTags').keyup(function(e){
+            if(e.keyCode == 13){
+                var tagName = $(this).val();
+                var father = $(this).parents("#tagsSubmitDiv");
+                if(tagName==''){
+                    alert("您输入的标签为空！！！");
+                }else{
+                    var newTag = document.createElement("a");
+                    newTag.setAttribute("class", "anewTag");
+                    newTag.setAttribute("title", tagName);
+                    newTag.innerHTML ='<span type="text" class="btn btn-dark-outline btn-sm" style="color: #ffffff;background-color:rgb(85, 85, 85); ">'
+                            +tagName+'</span><button type="button" id="closeTag" style="float:none;visibility: hidden" class="close" aria-label="Close">'
+                            +'<span aria-hidden="true" style="color: #FF0000;" >&times;</span></button>';
+                    father.append(newTag);
+                    $(this).val('');
+                }
+            }
+        });
+        $('#tagsSubmitDiv').on("mouseenter",".anewTag",function(){
+            var a = $(this).children('span');
+            var b = $(this).children('button');
+            a.css("color","#8175ff");
+            a.css("background-color","");
+            b.css("visibility","visible");
+        });
+        $('#tagsSubmitDiv').on("mouseleave",".anewTag",function(){
+            var a = $(this).children('span');
+            var b = $(this).children('button');
+            a.css("color","#f6fffc");
+            a.css("background-color","#555");
+            b.css("visibility","hidden");
+        });
+        $('#tagsSubmitDiv').on("click","#closeTag",function(){
+            var mother = $(this).parents('.anewTag');
+            mother.remove();
+        });
+
+        $('.inputnewTag').keyup(function(e){
+            if(e.keyCode == 13){
+                var tagName = $(this).val();
+                var father = $(this).parents(".tableRow").children(".tableTD").children('.tagDiv');
+                if(tagName==''){
+                    alert("您输入的标签为空！！！");
+                }else{
+                    var newTag = document.createElement("a");
+                    newTag.setAttribute("class", "anewTag");
+                    newTag.setAttribute("title", tagName);
+                    newTag.innerHTML ='<span type="text" class="btn btn-dark-outline btn-sm" style="color: #ffffff;background-color:rgb(85, 85, 85); ">'
+                            +tagName+'</span><button type="button" id="closeTag" style="float:none;visibility: hidden" class="close" aria-label="Close">'
+                            +'<span aria-hidden="true" style="color: #FF0000;" >&times;</span></button>';
+                    father.append(newTag);
+                    $(this).val('');
+                }
+            }
+        });
+
+        $('#tableBody').on("mouseenter",".anewTag",function(){
+            var a = $(this).children('span');
+            var b = $(this).children('button');
+            a.css("color","#8175ff");
+            a.css("background-color","");
+            b.css("visibility","visible");
+        });
+        $('#tableBody').on("mouseleave",".anewTag",function(){
+            var a = $(this).children('span');
+            var b = $(this).children('button');
+            a.css("color","#f6fffc");
+            a.css("background-color","#555");
+            b.css("visibility","hidden");
+        });
+        $('#tableBody').on("click","#closeTag",function(){
+            var mother = $(this).parents('.anewTag');
+            mother.remove();
+        });
+
+        $('#blogMainCat').change(function(){
+            var select1 = $('#blogMainCat');
+            var select2 = $('#blogSecondCat');
+            var options1 = $('#blogMainCat option:selected');
+            var options2 = $('#blogSecondCat option:selected');
+            if(options1.val()!=0){
+                $.ajax({
+                    cache:true,
+                    type:"GET",
+                    url:"/admin/categorySelect",
+                    async: false,
+                    data:{
+                        'mId':options1.val()
+                    },
+                    dataType:'text',
+                    error:function(request){
+                        alert("💔登录失败：Connection error:"+request.error);
+                    },
+                    success:function(data) {
+                        select2.children().remove();
+                        var result = data.split(";");
+                        for(var i=0;i<result.length;i++){
+                            var alist = result[i].split(":");
+                            var cId = alist[0];
+                            var cidName = alist[1];
+                            select2.append('<option value="'+cId+'">'+cidName+'</option>');
+                        }
+                        select2.append('<option value="0">全部</option>');
+                    }
+                });
+            }
+        });
+
+    })
+</script>
+
+<header>
+    <nav id="navBlog" class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+        <a class="navbar-brand" href="/admin/home" target="_blank">博客后台管理系统</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        管理列表
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <a class="dropdown-item" href="/admin/writeBlog" target="_blank">新增文章</a>
+                        <a class="dropdown-item" href="/admin/editTag" target="_blank">标签管理</a>
+                        <a class="dropdown-item" href="#" target="_blank">评论管理</a>
+                        <a class="dropdown-item" href="#" target="_blank">用户管理</a>
+                    </div>
+                </li>
+                #foreach($category in ${categorys})
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            ${category.getMainCategoryName()}
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                            #foreach($secondCat in ${category.getSecondCategorys()})
+                                #foreach($item in ${secondCat.entrySet()})
+                                    <a class="dropdown-item" href="/article/category?cId=$item.key" target="_blank">$item.value</a>
+                                #end
+                            #end
+                        </div>
+                    </li>
+                #end
+
+            </ul>
+            <form class="form-inline mt-2 mt-md-0" id="navSearch">
+                <input class="form-control mr-sm-2" type="text" placeholder="🔍搜" aria-label="Search">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+            </form>
+            <ul class="navbar-nav mr-sm-0">
+                <li class="nav-item dropdown" id="navLogin">
+                    <a class="nav-link dropdown-toggle" href="#" id="navLoginButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">登录注册</a>
+                </li>
+            </ul>后台管理
+        </div>
+    </nav>
+</header>
+
+
+<div id="loginDiv" class="Logincontainer w3layouts agileits" style="position:absolute;z-index: 99;left:25%;width:55%;height:auto;display:block;margin-top:80px;padding:20px 10px 30px 35px;display: none;">
+    <div class="login w3layouts agileits">
+        <h2>登 录</h2>
+        <div id="loginArea" class="send-button w3layouts agileits">
+            <input type="text"     id="usertoken" placeholder="手机号/邮箱" style="padding: 10px;">
+            <input type="password" id="userpass" placeholder="密码" style="padding: 10px;">
+            <p id="loginAlert" style="display: none;color:#ff0000;float: right">囧！账号/密码错误！</p>
+            <input type="submit"   id="userLogin" value="登 录" style="margin-top:50px;">
+            <input type="checkbox" id="brand1" value="" style="margin-left: 15px;">
+            <label for="brand1"><span></span>记住我</label>
+        </div>
+        <div class="social-icons w3layouts agileits">
+            <p style="margin-bottom: 5px;">- 其他方式登录 -</p>
+            <ul>
+                <li class="qq"><a href="#">
+                    <span class="icons w3layouts agileits"></span>
+                    <span class="text w3layouts agileits">QQ</span></a>
+                </li>
+                <li class="weixin w3ls"><a href="#">
+                    <span class="icons w3layouts"></span>
+                    <span class="text w3layouts agileits">微信</span></a>
+                </li>
+                <li class="weibo aits"><a href="#">
+                    <span class="icons agileits"></span>
+                    <span class="text w3layouts agileits">微博</span></a>
+                </li>
+            </ul>
+        </div>
+
+    </div>
+    <div class="register w3layouts agileits">
+        <h2>注 册</h2>
+        <div id="registerArea" class="send-button w3layouts agileits" style="margin-top: 20px;">
+            <input type="text" id="username" placeholder="用户名" style="padding: 10px;">
+            <input type="text" id="useremail" placeholder="邮箱" style="padding: 10px;">
+            <input type="password" id="password" placeholder="密码" style="padding: 10px;">
+            <input type="text" id="telephone" placeholder="手机号码" style="padding: 10px;">
+            <p id="registerAlert" style="display: none;color:#ff0000;float: left">囧！注册信息有误！</p>
+            <input id="userRegister" type="submit" value="免费注册" style="padding: 10px;margin-top: 30px;">
+        </div>
+    </div>
+
+</div>
+
+<main role="main">
+
+    <main role="main" class="container">
+        <div class="row">
+            <div class="col-md-12 blog-main">
+                <h1>博客文章管理</h1>
+                <div>
+                    <table class="table table-striped table-hover">
+                        <thead>
+                        <tr class="alert-success">
+                            <th>
+                                <div class="form-check"><input class="form-check-input" type="checkbox" value="$article.id" id="selectAll"></div>>
+                            </th>
+                            <th>文章标题/分类</th>
+                            <th>文章标签</th>
+                            <th>
+                                <div id="tagsSubmitDiv">
+                                    <button type="submit"  id="batchResetButton" class="btn btn-outline-info" onclick="batchResetBlogTag()">批量更改</button>
+                                    <button type="submit"  id="batchAddButton" class="btn btn-outline-success" onclick="batchAddBlogTag()">批量新增</button>
+                                    <button type="submit"  id="batchDeleteButton" class="btn btn-outline-dark" onclick="batchDeleteBlogTag()">批量删除</button>
+                                    <button type="submit" class="btn btn-outline-danger" onclick="batchDeleteAllTag()">批量清空</button>
+                                    <input type="text"  name="tags" id="inputTags"  placeholder="按回车新增" style="visibility: hidden;">
+                                </div>
+                            </th>
+                            <th>
+                            </th>
+                        </tr>
+                        </thead>
+                        <tbody id="tableBody">
+                            #foreach($article in $!{pageQueryBean.dataList})
+                            <tr class="tableRow">
+                                <td>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="$article.id" name="checkArticle">
+                                    </div>
+                                </td>
+                                <td width="400px;">
+                                    <div style="font-size: xx-small">
+                                        ${article.id}.<a href="/article/single?articleId=$article.id" target="_blank">$article.articleTitle</a>
+                                        $article.mainCategoryName → <a href="/article/category?cId=$article.articleSecondId" target="_blank">$article.secondCategoryName</a>
+                                    </div>
+                                </td>
+                                <td class="tableTD">
+                                    <div class="tagDiv">
+                                        #set($tags = $article.getArticleTagList())
+                                        #foreach($tag in $!{tags})
+                                            <a class="anewTag" title=$tag.tagName>
+                                                <span type="text" class="btn btn-dark-outline btn-sm" style="color: #ffffff;background-color:rgb(85, 85, 85); ">$tag.tagName</span>
+                                                <button type="button" id="closeTag" style="float:none;visibility: hidden" class="close" aria-label="Close">
+                                                    <span aria-hidden="true" style="color: #FF0000;" >&times;</span>
+                                                </button>
+                                            </a>
+                                        #end
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        <div class="input-group mb-3" id="addTagDiv">
+                                            <div class="input-group-prepend">
+                                                <a href="javascript:void(0);" onclick="function()" class="btn btn-outline-primary" value="$article.id" id="addnewTag">更改</a>
+                                            </div>
+                                            <input type="text"  name="tags" class="inputnewTag"  placeholder="按回车新增Tag" style="visibility: hidden">
+                                        </div>
+                                    </div>
+                                </td>
+                                <td><button type="submit"   value="$article.id" class="btn btn-outline-danger" onclick="deleteAllTag(value)">清空</button></td>
+                            </tr>
+                            #end
+                        </tbody>
+                    </table>
+                </div>
+
+
+                <script>
+                    $(function(){
+                        $(".disabled").on("click",function(){
+                            return false;
+                        });
+                        $("#submitpsize").on("click",function(){
+                            var pageSize = document.getElementById("psize").value;
+                            var articleMid = $("#articleMid").val();
+                            var articleCid = $("#articleCid").val();
+                            var pageNum = 1;
+                            var url = "/admin/editTag?"+ "pageSize="+pageSize+"&pageNum="+pageNum+"&articleCid="+articleCid+"&articleMid="+articleMid;
+                            window.location.href=url;
+
+                        });
+
+                        $("#submitcatsQuery").on("click",function(){
+                            var pageSize = ${pageQueryBean.pageSize};
+                            var articleMid = $("#articleMid").val();
+                            var articleCid = $("#articleCid").val();
+                            var pageNum = 1;
+                            var url = "/admin/editTag?"+ "pageSize="+pageSize+"&pageNum="+pageNum+"&articleCid="+articleCid+"&articleMid="+articleMid;
+                            window.location.href=url;
+                        })
+                    });
+                </script>
+
+                <div class="pageDiv" >
+                    <nav aria-label="..." style="text-align:right">
+                        <ul class="pagination justify-content-center">
+                            <li class="page-item">
+                                <a class="page-link" href="/admin/editTag?pageNum=1&pageSize=${pageQueryBean.pageSize}&articleMid=${pageQueryBean.articleMid}&articleCid=${pageQueryBean.articleCid}"><span aria-hidden="true">&laquo;</span></a>
+                            </li>
+                            #set($pageNum0 = $pageQueryBean.pageNum - 1)
+                            #if($pageNum0>0)
+                            <li class="page-item">
+                            #else
+                            <li class="page-item disabled">
+                            #end<a class="page-link" href="/admin/editTag?pageNum=$pageNum0&pageSize=$pageQueryBean.pageSize&articleMid=${pageQueryBean.articleMid}&articleCid=${pageQueryBean.articleCid}" aria-label="Previous">上页</a></li>
+                            <li class="page-item active"><a class="page-link">$pageQueryBean.pageNum</a></li>
+                            #set($pagelist=[2,3,4,5])
+                            #foreach($item in $pagelist)
+                                #set($page = $pageNum0 + $item)
+                                #if($page <= $pageQueryBean.pageCount)
+                                    <li class="page-item"><a class="page-link" href="/admin/editTag?pageNum=$page&pageSize=$pageQueryBean.pageSize&articleMid=${pageQueryBean.articleMid}&articleCid=${pageQueryBean.articleCid}">$page</a></li>
+                                #end
+                            #end
+                            #set($pageNum2 = $pageNum0+2)
+                            #if($pageNum2 <= $pageQueryBean.pageCount)
+                            <li class="page-item">
+                            #else
+                            <li class="page-item disabled">
+                            #end<a class="page-link" href="/admin/editTag?pageNum=$pageNum2&pageSize=$pageQueryBean.pageSize&articleMid=${pageQueryBean.articleMid}&articleCid=${pageQueryBean.articleCid}" aria-label="Next">下页</a></li>
+                            <li class="page-item"><a class="page-link" href="/admin/editTag?pageNum=$pageQueryBean.pageCount&pageSize=$pageQueryBean.pageSize&articleMid=${pageQueryBean.articleMid}&articleCid=${pageQueryBean.articleCid}"><span aria-hidden="true">&raquo;</span></a></li>
+                        </ul>
+                        <form class="form-inline mt-2 mt-md-0" id="navSearch" style="float:right" action="/admin/editTag?">
+                            <label style="float: right">第<span id="page">$pageQueryBean.pageNum</span>/$pageQueryBean.pageCount页(共$pageQueryBean.total条),每页</label>
+                            <input id="psize" name="pageSize" class="form-control mr-sm-1" type="text" placeholder=$pageQueryBean.pageSize aria-label="Search" maxlength="3" size="3">
+                            <input name="articleMid" style="display: none" value=${pageQueryBean.articleMid}>
+                            <input name="articleCid" style="display: none" value=${pageQueryBean.articleCid}>
+                            <label>条</label>
+                            <button id="submitpsize"class="btn btn-success">确定</button>
+                        </form>
+                    </nav>
+                </div><!--class="pageDiv" >-->
+
+
+
+
+
+
+                <div id="categarySearch"  style="width:400px;text-align:center;margin:10px auto;border-color: #faebcc;display: block;box-sizing:border-box;">
+                    <div class="panel-heading" style="font-size:18px;color: #ef1e32;padding:20px;">按 分 类 查 找</div>
+                    <div class="panel-body" style="color: black;background-color:#eeecf1;border:0px  transparent;padding:10px;border-radius: 15px;">
+
+                        <table class="addTable" style="border:0;width:380px;">
+                            <tr style="height: 40px;">
+                                <td style="border-style:none;font-size:16px;">主分类</td>
+                                <td style="width:300px;border-style:none">
+                                    <select class="form-control" id="articleMid" name="articleMid">
+                                        #if(0==$pageQueryBean.articleMid)
+                                            <option selected="selected" value="0">全部</option>
+                                        #else
+                                            <option value="0">全部</option>
+                                        #end
+                                        #set($categorys2 = $pageQueryBean.categoryChoice)
+                                        #foreach($maincat in $!categorys2.getMainCategorys())
+                                            #foreach($item in ${maincat.entrySet()})
+                                                #if($item.key==$pageQueryBean.articleMid)
+                                                    <option selected="selected" value="$item.key">$item.value</option>
+                                                #else
+                                                    <option value="$item.key">$item.value</option>
+                                                #end
+                                            #end
+                                        #end
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="border-style:none;font-size:16px;">二级分类</td>
+                                <td style="border-style:none">
+                                    <select class="form-control" id="articleCid" name="articleCid">
+                                        #if(0==$pageQueryBean.articleCid)
+                                            <option selected="selected" value="0">全部</option>
+                                        #else
+                                            <option value="0">全部</option>
+                                        #end
+                                        #foreach($secondcat in $!categorys2.getSecondCategorys())
+                                            #foreach($item2 in ${secondcat.entrySet()})
+                                                #if($item2.key==$pageQueryBean.articleCid)
+                                                    <option selected="selected" value="$item2.key">$item2.value</option>
+                                                #else
+                                                    <option value="$item2.key">$item2.value</option>
+                                                #end
+                                            #end
+                                        #end
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr class="submitTR">
+                                <td style="border-style:none;" colspan="2" align="center">
+                                    <button  id="submitcatsQuery" class="btn btn-success" style="width:80px;font-size:18px;padding:0px;margin-top: 10px;background-color: #17a2b8;">确 定</button>
+                                </td>
+                            </tr>
+
+                        </table>
+
+                    </div>
+                </div>
+
+
+
+
+
+
+            </div><!-- /.blog-main -->
+        </div><!-- /.row -->
+    </main>
+
+##    <footer class="container">
+##        <p class="float-right"><a href="#">返回顶部↑</a></p>
+##        <p>&copy; CopyRight 2018-2019 <a href="#">www.flowingsun.com</a> Inc All Rights Reserved 皖ICP备17013223号<a href="#">Email: </a>Flowingsun007@163.com</p>
+##    </footer>
+
+    <div id=footer style="background-color: #7373B9;color:#434343;text-align:center;padding:15px;margin-bottom:0px;bottom:0px;font-size:90%;border:0;clear:right;">
+        <p>© CopyRight 2018-2019 www.flowingsun.com Inc All Rights Reserved 皖ICP备17013223号 &copy;<br> Email: Flowingsun007@163.com</p>
+    </div>
+    <!-- FOOTER -->
+
+
+</body>
+</html>
+

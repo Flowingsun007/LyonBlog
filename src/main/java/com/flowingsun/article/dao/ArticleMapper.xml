@@ -1,0 +1,421 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.flowingsun.article.dao.ArticleMapper" >
+  <resultMap id="categoryArticlesResultMap" type="com.flowingsun.article.entity.Article" >
+    <id column="article_second_id" property="articleSecondId" jdbcType="INTEGER" />
+    <result column="id" property="id" jdbcType="INTEGER" />
+    <result column="userid" property="userid" jdbcType="INTEGER" />
+    <result column="article_title" property="articleTitle" jdbcType="VARCHAR" />
+    <result column="article_abstract" property="articleAbstract" jdbcType="VARCHAR" />
+    <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="edit_date" property="editDate" jdbcType="TIMESTAMP" />
+    <result column="article_second_id" property="articleSecondId" jdbcType="INTEGER" />
+    <result column="article_main_id" property="articleMainId" jdbcType="INTEGER" />
+    <result column="articleComment" property="articleComment" jdbcType="INTEGER" />
+    <result column="articleThank" property="articleThank" jdbcType="INTEGER" />
+    <result column="articleCollection" property="articleCollection" jdbcType="INTEGER" />
+    <result column="mname" property="mainCategoryName" jdbcType="VARCHAR" />
+    <result column="cname" property="secondCategoryName" jdbcType="VARCHAR" />
+      <result column="userName" property="userName" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="regularRecommentResultMap" type="com.flowingsun.article.dto.RegularRecommend">
+    <result column="id" property="articleId" jdbcType="INTEGER"/>
+    <result column="previousId" property="previousArticleId" jdbcType="INTEGER"/>
+    <result column="previousTitle" property="previousTitle" jdbcType="VARCHAR"/>
+    <result column="nextId" property="nextArticleId" jdbcType="INTEGER"/>
+    <result column="nextTitle" property="nextTitle" jdbcType="VARCHAR"/>
+  </resultMap>
+  <resultMap id="articleTagResultMap" type="com.flowingsun.article.dto.ArticleTag">
+    <result column="id" property="tagId" jdbcType="INTEGER"/>
+    <result column="tagName" property="tagName" jdbcType="VARCHAR"/>
+  </resultMap>
+  <resultMap id="catagoryResultMap" type="com.flowingsun.article.entity.Category">
+    <result column="id" property="mainCategoryId" jdbcType="INTEGER"/>
+    <result column="name" property="mainCategoryName" jdbcType="VARCHAR"/>
+  </resultMap>
+  <resultMap id="secondCatagoryResultMap" type="com.flowingsun.article.entity.Category">
+    <result column="id" property="secondCategoryId" jdbcType="INTEGER"/>
+    <result column="name" property="secondCategoryName" jdbcType="VARCHAR"/>
+  </resultMap>
+  <resultMap id="articleTagsResultMap" type="java.lang.String">
+    <result column="tagName" property="tagName" jdbcType="VARCHAR"/>
+  </resultMap>
+  <resultMap id="InfoResultMap" type="com.flowingsun.article.dto.ArticleInfo" >
+    <id column="id" property="articleId" jdbcType="INTEGER" />
+    <result column="id" property="articleId" jdbcType="INTEGER" />
+    <result column="userid" property="userid" jdbcType="INTEGER" />
+    <result column="article_title" property="articleTitle" jdbcType="VARCHAR" />
+    <result column="article_abstract" property="articleSubtitle" jdbcType="VARCHAR" />
+    <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="edit_date" property="editDate" jdbcType="TIMESTAMP" />
+    <result column="article_second_id" property="articleSecondId" jdbcType="INTEGER" />
+    <result column="article_main_id" property="articleMainId" jdbcType="INTEGER" />
+    <result column="articleComment" property="articleComment" jdbcType="INTEGER" />
+    <result column="articleThank" property="articleThank" jdbcType="INTEGER" />
+    <result column="articleCollection" property="articleCollection" jdbcType="INTEGER" />
+    <result column="name" property="articleMainName" jdbcType="VARCHAR" />
+    <result column="name2" property="articleSecondName" jdbcType="VARCHAR" />
+  </resultMap>
+
+  <resultMap id="BaseResultMap" type="com.flowingsun.article.entity.Article" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="userid" property="userid" jdbcType="INTEGER" />
+    <result column="article_title" property="articleTitle" jdbcType="VARCHAR" />
+    <result column="article_abstract" property="articleAbstract" jdbcType="VARCHAR" />
+    <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="edit_date" property="editDate" jdbcType="TIMESTAMP" />
+    <result column="article_second_id" property="articleSecondId" jdbcType="INTEGER" />
+    <result column="article_main_id" property="articleMainId" jdbcType="INTEGER" />
+    <result column="articleComment" property="articleComment" jdbcType="INTEGER" />
+    <result column="articleThank" property="articleThank" jdbcType="INTEGER" />
+    <result column="articleCollection" property="articleCollection" jdbcType="INTEGER" />
+  </resultMap>
+
+  <resultMap id="ResultMapWithBLOBs" type="com.flowingsun.article.entity.Article" extends="BaseResultMap" >
+    <result column="article_content" property="articleContent" jdbcType="LONGVARCHAR" />
+    <result column="article_content_copy" property="articleContentCopy" jdbcType="LONGVARCHAR" />
+  </resultMap>
+
+  <sql id="Base_Column_List" >
+    article.id, article.userid, article_title, article_abstract, create_date, edit_date, article_second_id,
+    article_main_id
+  </sql>
+  <sql id="Blob_Column_List" >
+    article_content,article_content_copy
+  </sql>
+  <select id="selectPreviousArticle" parameterType="com.flowingsun.article.dto.RegularRecommend" resultMap="regularRecommentResultMap">
+    SELECT id AS previousId,article_title AS previousTitle
+    FROM article
+    WHERE (id &gt;#{articleId})
+    ORDER BY id DESC LIMIT 1;
+  </select>
+  <select id="selectNextArticle" parameterType="com.flowingsun.article.dto.RegularRecommend" resultMap="regularRecommentResultMap">
+    SELECT id AS nextId,article_title AS nextTitle
+    FROM article
+    WHERE (id &lt;#{articleId}) LIMIT 1;
+  </select>
+
+  <select id="selectTagCountByTagId"  parameterType="java.lang.Integer" resultType="INTEGER">
+    SELECT COUNT(0) FROM article_tag_relation WHERE tagId=#{tagId};
+  </select>
+  <select id="selectAllArticleByQueryCondition" parameterType="com.flowingsun.admin.dto.AdminBlogQuery" resultMap="categoryArticlesResultMap">
+    SELECT
+    article.id, article.userid, article_title, article_abstract, create_date, edit_date, article_second_id,article_main_id,
+    article_main_categary.name AS mname,article_second_categary.name AS cname,
+    (SELECT COUNT(0) FROM thank WHERE thank.articleid=article.id) AS articleThank,
+    (SELECT COUNT(0) FROM comment WHERE comment.articleid=article.id) AS articleComment,
+    (SELECT COUNT(0) FROM collection WHERE collection.articleid=article.id) AS articleCollection
+    FROM article
+    INNER JOIN article_main_categary ON article.article_main_id = article_main_categary.id
+    INNER JOIN article_second_categary ON article.article_second_id = article_second_categary.id
+    <if test="articleMid != null and articleMid !=0 and articleCid ==0" >
+      WHERE article.article_main_id=#{articleMid}
+    </if>
+    <if test="articleCid != null and articleCid !=0" >
+      WHERE article.article_second_id=#{articleCid}
+    </if>
+    ORDER BY article.id DESC
+    LIMIT #{startRow},#{pageSize};
+  </select>
+  <select id="selectUserAllArticleByQueryCondition" parameterType="com.flowingsun.admin.dto.AdminBlogQuery" resultMap="categoryArticlesResultMap">
+    SELECT
+    article.id, article.userid, article_title, article_abstract, create_date, edit_date, article_second_id,article_main_id,
+    article_main_categary.name AS mname,article_second_categary.name AS cname,
+    (SELECT COUNT(0) FROM thank WHERE thank.articleid=article.id) AS articleThank,
+    (SELECT COUNT(0) FROM comment WHERE comment.articleid=article.id) AS articleComment,
+    (SELECT COUNT(0) FROM collection WHERE collection.articleid=article.id) AS articleCollection
+    FROM article
+    INNER JOIN article_main_categary ON article.article_main_id = article_main_categary.id
+    INNER JOIN article_second_categary ON article.article_second_id = article_second_categary.id
+    WHERE article.userid=#{userId}
+    <if test="articleMid != null and articleMid !=0 and articleCid ==0" >
+      AND article.article_main_id=#{articleMid}
+    </if>
+    <if test="articleCid != null and articleCid !=0" >
+      AND article.article_second_id=#{articleCid}
+    </if>
+    ORDER BY article.id DESC
+    LIMIT #{startRow},#{pageSize};
+  </select>
+  <select id="selectAllArticleCount" resultType="int">
+    SELECT COUNT(0) FROM article;
+  </select>
+  <select id="selectUserAllArticleCount" resultType="int">
+    SELECT COUNT(0) FROM article WHERE userid=#{userId};
+  </select>
+  <select id="selectArticleCountById" resultType="INTEGER" parameterType="INTEGER">
+    SELECT COUNT(0) FROM article WHERE id=#{articleId};
+  </select>
+  <select id="selectCategoryArticlesCount" resultType="INTEGER" >
+    SELECT COUNT(0) FROM article WHERE article_second_id=#{cId} AND public_permission=1;
+  </select>
+  <select id="selectUserCategoryArticlesCount" resultType="int">
+    SELECT COUNT(0) FROM article WHERE article_second_id=#{cId} AND userid=#{userId};
+  </select>
+  <select id="selectMainCategoryArticlesCount" resultType="INTEGER" parameterType="INTEGER">
+    SELECT COUNT(0) FROM article WHERE article_main_id=#{mId};
+  </select>
+  <select id="selectUserMainCategoryArticlesCount" resultType="INTEGER">
+    SELECT COUNT(0) FROM article WHERE article_main_id=#{mId} AND userId=#{userId};
+  </select>
+  <select id="selectTagArticlesCount" resultType="INTEGER" parameterType="INTEGER">
+    SELECT COUNT(0) FROM article_tag_relation WHERE article_main_id=#{mId};
+  </select>
+  <select id="selectCategoryArticles" resultMap="categoryArticlesResultMap" >
+    SELECT
+    article.id, article.userid, article_title, article_abstract, create_date, edit_date, article_second_id,article_main_id,
+    article_main_categary.name AS mname,article_second_categary.name AS cname,blog_user.username AS userName,
+    (SELECT COUNT(0) FROM thank WHERE thank.articleid=article.id) AS articleThank,
+    (SELECT COUNT(0) FROM comment WHERE comment.articleid=article.id) AS articleComment,
+    (SELECT COUNT(0) FROM collection WHERE collection.articleid=article.id) AS articleCollection
+    FROM article
+    INNER JOIN article_main_categary ON article.article_main_id = article_main_categary.id
+    INNER JOIN article_second_categary ON article.article_second_id = article_second_categary.id
+    INNER JOIN blog_user ON article.userid = blog_user.id
+    WHERE article_second_id=#{cId}
+    AND public_permission=1
+    ORDER BY article.id DESC
+    LIMIT #{startNum},#{pageSize};
+  </select>
+  <select id="selectUserCategoryArticles" resultMap="categoryArticlesResultMap" >
+    SELECT
+      article.id, article.userid, article_title, article_abstract, create_date, edit_date, article_second_id,article_main_id,
+      article_main_categary.name AS mname,article_second_categary.name AS cname,blog_user.username AS userName,
+      (SELECT COUNT(0) FROM thank WHERE thank.articleid=article.id) AS articleThank,
+      (SELECT COUNT(0) FROM comment WHERE comment.articleid=article.id) AS articleComment,
+      (SELECT COUNT(0) FROM collection WHERE collection.articleid=article.id) AS articleCollection
+    FROM article
+           INNER JOIN article_main_categary ON article.article_main_id = article_main_categary.id
+           INNER JOIN article_second_categary ON article.article_second_id = article_second_categary.id
+           INNER JOIN blog_user ON article.userid = blog_user.id
+    WHERE article_second_id=#{cId}
+    AND userid=#{userid}
+    ORDER BY article.id DESC
+             LIMIT #{startNum},#{pageSize};
+  </select>
+  <select id="selectTagArticles" resultMap="categoryArticlesResultMap" >
+    SELECT
+    article.id, article.userid, article_title, article_abstract, create_date, edit_date, article_second_id,article_main_id,
+    article_main_categary.name AS mname,article_second_categary.name AS cname,blog_user.username AS userName,
+    (SELECT COUNT(0) FROM thank WHERE thank.articleid=article.id) AS articleThank,
+    (SELECT COUNT(0) FROM comment WHERE comment.articleid=article.id) AS articleComment,
+    (SELECT COUNT(0) FROM collection WHERE collection.articleid=article.id) AS articleCollection
+    FROM article
+    JOIN article_main_categary ON article.article_main_id = article_main_categary.id
+    JOIN article_second_categary ON article.article_second_id = article_second_categary.id
+    INNER JOIN blog_user ON article.userid = blog_user.id
+    WHERE article.id IN (SELECT articleId FROM article_tag_relation WHERE tagId=#{tagId})
+    LIMIT #{startNum},#{pageSize};
+  </select>
+  <select id="selectMainCategoryNameById" resultType="string">
+    SELECT name FROM article_main_categary WHERE id=#{id};
+  </select>
+  <select id="selectSecondCategoryNameById" resultType="string">
+    SELECT name FROM article_second_categary WHERE id=#{id};
+  </select>
+  <select id="selectTagRelationByTagIdArticleId" parameterType="java.lang.Integer" resultType="int">
+    SELECT IFNULL(MAX(id),0) AS id FROM article_tag_relation WHERE articleId=#{articleId} AND tagId=#{tagId};
+  </select>
+  <select id="selectAllTag" resultMap="articleTagResultMap">
+    SELECT id,TagName FROM article_tag;
+  </select>
+  <select id="selectArticleTagsByPrimarykey" resultMap="articleTagResultMap">
+    SELECT tagId,tagName FROM article_tag_relation WHERE articleId=#{id};
+  </select>
+  <select id="selectSecondCatogoryByMid" resultMap="secondCatagoryResultMap">
+    SELECT id,name FROM article_second_categary WHERE mainId=#{mId};
+  </select>
+  <select id="selectMainCategory"  resultMap="catagoryResultMap">
+    SELECT id,name FROM article_main_categary;
+  </select>
+  <select id="selectTagIdByTagName"  parameterType="java.lang.String" resultType="int">
+    SELECT IFNULL(MAX(id),0) AS id FROM article_tag WHERE tagName=#{tagName};
+  </select>
+  <select id="selectTagsNameByPrimarykey" resultMap="articleTagsResultMap" parameterType="java.lang.Integer" >
+    SELECT tagName FROM article_tag_relation WHERE articleId=#{id};
+  </select>
+  <select id="selectInfoByPrimaryKey" resultMap="InfoResultMap" parameterType="java.lang.Integer" >
+    SELECT
+    article.id, userid, article_title, article_abstract, create_date, edit_date, article_second_id,article_main_id,
+    article_main_categary.name,article_second_categary.name AS name2,
+    (SELECT COUNT(0) FROM thank WHERE thank.articleid=article.id) AS articleThank,
+    (SELECT COUNT(0) FROM comment WHERE comment.articleid=article.id) AS articleComment,
+    (SELECT COUNT(0) FROM collection WHERE collection.articleid=article.id) AS articleCollection
+    FROM article
+    INNER JOIN article_main_categary ON article.id = article_main_categary.id
+    INNER JOIN article_second_categary ON article.id = article_second_categary.id
+    WHERE article.id=#{articleId};
+  </select>
+
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    SELECT
+    <include refid="Base_Column_List" />,
+    <include refid="Blob_Column_List" />,
+    (SELECT COUNT(0) FROM thank WHERE thank.articleid=article.id) AS articleThank,
+    (SELECT COUNT(0) FROM comment WHERE comment.articleid=article.id) AS articleComment,
+    (SELECT COUNT(0) FROM collection WHERE collection.articleid=article.id) AS articleCollection
+    FROM article
+    WHERE article.id = #{id,jdbcType=INTEGER}
+  </select>
+
+  <insert id="insertTagRelation" parameterType="com.flowingsun.article.dto.ArticleTag" useGeneratedKeys="true" keyProperty="id">
+    INSERT IGNORE INTO article_tag_relation (articleId, tagName, tagId, createDate)
+    VALUES (#{articleId,jdbcType=INTEGER},#{tagName,jdbcType=VARCHAR},#{tagId,jdbcType=INTEGER}, #{createDate,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertNewTag" parameterType="com.flowingsun.article.dto.ArticleTag" useGeneratedKeys="true" keyProperty="tagId">
+    INSERT IGNORE INTO article_tag (tagName,createDate)
+    VALUES (#{tagName,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertNewArticle"  parameterType="com.flowingsun.article.entity.Article" useGeneratedKeys="true" keyProperty="id">
+    INSERT INTO article (userid, article_title,
+      article_abstract, article_content, create_date, edit_date,
+      article_second_id, article_main_id,article_content_copy,public_permission)
+    VALUES (#{userid,jdbcType=INTEGER}, #{articleTitle,jdbcType=VARCHAR},
+      #{articleAbstract,jdbcType=VARCHAR}, #{articleContent,jdbcType=LONGVARCHAR},
+      #{createDate,jdbcType=TIMESTAMP}, #{editDate,jdbcType=TIMESTAMP},
+      #{articleSecondId,jdbcType=INTEGER}, #{articleMainId,jdbcType=INTEGER},#{articleContentCopy,jdbcType=LONGVARCHAR},#{publicPermission,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.flowingsun.article.entity.Article" >
+    INSERT INTO article
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="userid != null" >
+        userid,
+      </if>
+      <if test="articleTitle != null" >
+        article_title,
+      </if>
+      <if test="articleAbstract != null" >
+        article_abstract,
+      </if>
+      <if test="createDate != null" >
+        create_date,
+      </if>
+      <if test="editDate != null" >
+        edit_date,
+      </if>
+      <if test="articleSecondId != null" >
+        article_second_id,
+      </if>
+      <if test="articleMainId != null" >
+        article_main_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="userid != null" >
+        #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="articleTitle != null" >
+        #{articleTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="articleAbstract != null" >
+        #{articleAbstract,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="editDate != null" >
+        #{editDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="articleSecondId != null" >
+        #{articleSecondId,jdbcType=INTEGER},
+      </if>
+      <if test="articleMainId != null" >
+        #{articleMainId,jdbcType=INTEGER},
+      </if>
+      <if test="articleComment != null" >
+        #{articleComment,jdbcType=INTEGER},
+      </if>
+      <if test="articleThank != null" >
+        #{articleThank,jdbcType=INTEGER},
+      </if>
+      <if test="articleContent != null" >
+        #{articleContent,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.flowingsun.article.entity.Article" >
+    update article
+    <set >
+      <if test="userid != null" >
+        userid = #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="articleTitle != null" >
+        article_title = #{articleTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="articleAbstract != null" >
+        article_abstract = #{articleAbstract,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="editDate != null" >
+        edit_date = #{editDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="articleSecondId != null" >
+        article_second_id = #{articleSecondId,jdbcType=INTEGER},
+      </if>
+      <if test="articleMainId != null" >
+        article_main_id = #{articleMainId,jdbcType=INTEGER},
+      </if>
+      <if test="articleContent != null" >
+        article_content = #{articleContent,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="articleContentCopy != null" >
+        article_content_copy = #{articleContentCopy,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="publicPermission != null" >
+        public_permission = #{publicPermission,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.flowingsun.article.entity.Article" >
+    update article
+    set userid = #{userid,jdbcType=INTEGER},
+      article_title = #{articleTitle,jdbcType=VARCHAR},
+      article_abstract = #{articleAbstract,jdbcType=VARCHAR},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      edit_date = #{editDate,jdbcType=TIMESTAMP},
+      article_second_id = #{articleSecondId,jdbcType=INTEGER},
+      article_main_id = #{articleMainId,jdbcType=INTEGER},
+      article_content = #{articleContent,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.flowingsun.article.entity.Article" >
+    update article
+    set userid = #{userid,jdbcType=INTEGER},
+      article_title = #{articleTitle,jdbcType=VARCHAR},
+      article_abstract = #{articleAbstract,jdbcType=VARCHAR},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      edit_date = #{editDate,jdbcType=TIMESTAMP},
+      article_second_id = #{articleSecondId,jdbcType=INTEGER},
+      article_main_id = #{articleMainId,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="changeArticleCategoryById" parameterType="com.flowingsun.article.entity.Category">
+    update article
+    set
+    article_second_id = #{secondCategoryId,jdbcType=INTEGER},
+    article_main_id = #{mainCategoryId,jdbcType=INTEGER}
+    where id IN
+    <foreach collection="idIntList" item="item" index="index" open="(" close=")" separator=",">
+      #{item}
+    </foreach>
+  </update>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    DELETE FROM article WHERE article.id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteTagRelation" parameterType="java.lang.Integer" >
+    DELETE FROM article_tag_relation WHERE articleId = #{articleId,jdbcType=INTEGER} AND tagId = #{tagId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteTagByTagId" parameterType="java.lang.Integer" >
+    DELETE FROM article_tag WHERE id = #{tagId,jdbcType=INTEGER}
+  </delete>
+</mapper>

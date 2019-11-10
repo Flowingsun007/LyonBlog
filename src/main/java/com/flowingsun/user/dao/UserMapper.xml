@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.flowingsun.user.dao.UserMapper" >
+  <resultMap id="BaseResultMap" type="com.flowingsun.user.entity.User" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="telephone" property="telephone" jdbcType="VARCHAR" />
+    <result column="useremail" property="useremail" jdbcType="VARCHAR" />
+    <result column="username" property="username" jdbcType="VARCHAR" />
+    <result column="userpass" property="userpass" jdbcType="VARCHAR" />
+    <result column="headImage" property="headImage" jdbcType="VARCHAR" />
+    <result column="salt" property="salt" jdbcType="VARCHAR" />
+    <result column="userstatus" property="userstatus" jdbcType="INTEGER" />
+    <collection property="roleList" resultMap="RoleResultMap"/>
+  </resultMap>
+  <resultMap id="RoleResultMap" type="com.flowingsun.user.entity.Role" >
+    <id column="roleid" property="roleid" jdbcType="BIGINT" />
+    <result column="role" property="role" jdbcType="VARCHAR" />
+    <result column="rd" property="description" jdbcType="VARCHAR" />
+    <collection property="permissionList" resultMap="PermissionResultMap"/>
+  </resultMap>
+  <resultMap id="PermissionResultMap" type="com.flowingsun.user.entity.Permission" >
+    <id column="permissionid" property="permissionid" jdbcType="BIGINT" />
+    <result column="permission" property="permission" jdbcType="VARCHAR" />
+    <result column="pd" property="description" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, telephone, useremail, username, userpass, headImage,salt,userstatus
+  </sql>
+  <sql id="Role_Column_List" >
+    roleid, role, r.description rd
+  </sql>
+  <sql id="Permission_Column_List" >
+    permissionid, permission, p.description pd
+  </sql>
+
+  <select id="selectUserCount" resultType="int">
+    SELECT COUNT(0) FROM blog_user
+  </select>
+  <select id="selectUseridByUserphone" resultType="java.lang.Long">
+    SELECT id FROM blog_user WHERE telephone = #{userphone,jdbcType=VARCHAR}
+  </select>
+  <select id="selectByUserToken" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List" />,<include refid="Role_Column_List" />,
+    <include refid="Permission_Column_List" />
+    FROM blog_user u
+    LEFT JOIN user_role ur ON  ur.user_id=u.id
+    LEFT JOIN role r ON ur.role_id=r.roleid
+    LEFT JOIN role_permission rp ON rp.role_id=r.roleid
+    LEFT JOIN permission p ON p.permissionid=rp.permission_id
+    WHERE
+    <if test="telephone != null" >
+      telephone = #{telephone}
+    </if>
+    <if test="useremail != null" >
+      useremail = #{useremail}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap">
+    SELECT
+           <include refid="Base_Column_List" />,
+           <include refid="Role_Column_List" />,
+           <include refid="Permission_Column_List" />
+    FROM blog_user u
+    LEFT JOIN user_role ur ON  ur.user_id=u.id
+    LEFT JOIN role r ON ur.role_id=r.roleid
+    LEFT JOIN role_permission rp ON rp.role_id=r.roleid
+    LEFT JOIN permission p ON p.permissionid=rp.permission_id
+    WHERE u.id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey">
+    delete from blog_user
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByUserphone">
+    DELETE FROM blog_user
+    WHERE telephone = #{telephone,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insertByUserRegister" parameterType="com.flowingsun.user.entity.User" useGeneratedKeys="true" keyProperty="id">
+    INSERT IGNORE INTO blog_user
+    (telephone, useremail,username, userpass,salt)
+    VALUES (
+      #{telephone,jdbcType=VARCHAR},
+      #{useremail,jdbcType=VARCHAR},
+      #{username,jdbcType=VARCHAR},
+      #{userpass,jdbcType=VARCHAR},
+      #{salt,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" >
+    insert into blog_user
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="telephone != null" >
+        telephone,
+      </if>
+      <if test="useremail != null" >
+        useremail,
+      </if>
+      <if test="username != null" >
+        username,
+      </if>
+      <if test="userpass != null" >
+        userpass,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="telephone != null" >
+        #{telephone,jdbcType=VARCHAR},
+      </if>
+      <if test="useremail != null" >
+        #{useremail,jdbcType=VARCHAR},
+      </if>
+      <if test="username != null" >
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="userpass != null" >
+        #{userpass,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.flowingsun.user.entity.User" >
+    update blog_user
+    <set >
+      <if test="telephone != null" >
+        telephone = #{telephone,jdbcType=VARCHAR},
+      </if>
+      <if test="useremail != null" >
+        useremail = #{useremail,jdbcType=VARCHAR},
+      </if>
+      <if test="username != null" >
+        username = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="userpass != null" >
+        userpass = #{userpass,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.flowingsun.user.entity.User" >
+    update blog_user
+    set telephone = #{telephone,jdbcType=VARCHAR},
+      useremail = #{useremail,jdbcType=VARCHAR},
+      username = #{username,jdbcType=VARCHAR},
+      userpass = #{userpass,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateUserStatusByUserphone">
+    UPDATE blog_user
+    SET userstatus = #{userstatus}
+    WHERE telephone = #{userphone,jdbcType=VARCHAR}
+  </update>
+  <update id="updateUserHeadImage">
+    UPDATE blog_user
+    SET headImage = #{headImage}
+    WHERE id = #{userId,jdbcType=BIGINT}
+  </update>
+</mapper>

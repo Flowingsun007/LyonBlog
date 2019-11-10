@@ -1,0 +1,485 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="/static/bootstrap/favicon.ico">
+
+    <title>阳光流淌的个人博客</title>
+    <!--slim版本的貌似不支持Ajax-->
+    <script src="/static/jquery/jquery-3.2.1.slim.min.js"  crossorigin="anonymous"></script>
+    <script src="/static/jquery/jquery-2.2.3.min.js" ></script>
+    <!-- Bootstrap core CSS -->
+    <link href="/static/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom styles for this template -->
+    <link href="/static/css/blogHome.css" rel="stylesheet">
+    <!--登录注册框样式-->
+    <!-- This is what you need -->
+    <script src="/static/js/sweetalert-dev.js"></script>
+    <link rel="stylesheet" href="/static/css/sweetalert.css">
+    <!--.......................-->
+    <!-- Meta-Tags -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+    <link href="/static/css/loginStyle.css" rel="stylesheet" type="text/css" media="all">
+
+</head>
+<body>
+
+<script type="application/javascript">
+    $(function(){
+        $.ajax({
+            type:"GET",
+            url:"/user/userInfo",
+            dataType:"json",
+            contentType:"application/json",
+            success:function (data) {
+                if(data!=null){
+                    var headImage = "/static/image/userHead/header.png";
+                    if(data.userstatus==1){
+                        $("#navLoginButton").html(data.username);
+                        var url = "/behavior/category"+window.location.search
+                        var anode = '<div style="margin-bottom: 10px"><a href="'+ url+ '" class="btn btn-outline-success" target="_blank">只看我的文章</a></div>';
+                        $("#blogList").prepend(anode);
+                    }else{
+                        var str = data.username + ":未激活";
+                        $("#navLoginButton").html(str);
+                    }
+                    if(data.headImage!== undefined){
+                        headImage = data.headImage
+                    }
+                    var logoutHtml = '<div class="dropdown-menu" id="navLogout" aria-labelledby="navbarDropdownMenuLink">'+ '<a class="dropdown-item" id="behaviorCenter" href="/user/manageCenter">个人中心</a><a class="dropdown-item" id="logoutButton" href="#">'+'退出登录</a> </div>';
+                    var userHeadImg = '<ul class="navbar-nav mr-sm-0" id="navUserHead"><li class="nav-item" id="navLogin">'
+                            + '<a class="nav-link" href="#"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">'
+                            +'<img src="' + headImage + '" class="user-image"'
+                            +'alt="User Image" style="width:25px;height:25px;border-radius:50%;"></a> </li></ul>';
+                    $("#navLogin").append(logoutHtml);
+                    $("#navbarCollapse").append(userHeadImg);
+                }
+            }
+        });
+        $("#navLogin").on('click',"#logoutButton",function(){
+            swal({
+                        title: "确定退出登录？💔",
+                        type: "warning",
+                        showCancelButton: true,
+                        confirmButtonColor: "#DD6B55",
+                        confirmButtonText: "狠心退出！",
+                        closeOnConfirm: false
+                    },
+                    function(){
+                        $.ajax({
+                            type:"GET",
+                            url:"/user/logout/check",
+                            contentType:"text/html",
+                            success:function (data) {
+                                if(data=="logout_succ"){
+                                    window.location.reload();
+                                    swal({
+                                        title: "您已退出登录！",
+                                        timer: 3000,
+                                        showConfirmButton: false
+                                    });
+                                }else{alert("退出登录失败！");}
+                            }
+                        });
+                    });
+        });
+        var content = $("#navLoginButton").text();
+        $("#navLoginButton").click(function(){
+            var css = $('#loginDiv').css('display');
+            if(css=='block'){
+                $('#loginDiv').css('display','none');
+                $("#navLoginButton").text(content);
+            }else{
+                if($("#navLoginButton").text()=="登录注册"){
+                    $('#loginDiv').css('display','block');
+                    $("#navLoginButton").text("关闭×");
+                }else{
+                    return true;
+                }
+            }
+        });
+    });
+</script>
+<script type="application/javascript">
+    $(function () {
+        var re1 = /^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/;
+        $("#userLogin").click(function () {
+            var usertoken = $("#usertoken").val();
+            var userpass = $('#userpass').val();
+            var loginAlert = ""
+            if(usertoken=="" || $.trim(usertoken).length==0 ||userpass=="" || $.trim(userpass).length == 0){
+                loginAlert = "账号/密码不能为空";
+                $("#loginAlert").text(loginAlert);
+                $("#loginAlert").css('display','block');
+                return false;
+            }else{
+                if(/^\d+$/.test(usertoken)==true){
+                    if(!(/^\d{11,12}$/.test(usertoken))){
+                        loginAlert += "请输入11~12位的手机号！"
+                    }
+                }else if(!(re1.test(usertoken))){
+                    loginAlert += "请输入正确格式的邮箱地址！";
+                }
+                if(!(/^[0-9a-zA-Z-=.]{8,16}$/.test(userpass))){
+                    loginAlert += "密码必须是8~16位！"
+                }
+            }
+            if(loginAlert!=""){
+                $("#loginAlert").text(loginAlert);
+                $("#loginAlert").css('display','block');
+                return false;
+            }else{
+                if(/^\d+$/.test(usertoken)==true){
+                    //ajax提交表单
+                    $.ajax({
+                        type:"POST",
+                        contentType: "application/json",
+                        url:"/user/login/check",
+                        data:JSON.stringify({"telephone":usertoken,"userpass":userpass}),
+                        success:function (result) {
+                            if(result=="login_succ"){
+                                swal({
+                                    title: "登录成功😊！",
+                                    text: "3秒后自动关闭。",
+                                    timer: 5000,
+                                    showConfirmButton: false
+                                });
+                                window.location.href="/index";
+                            } else if(result=="login_fail"){
+                                swal("登录失败😶！", result)
+                            }
+                        }
+                    });
+                }else{
+                    //ajax提交表单
+                    $.ajax({
+                        type:"POST",
+                        contentType: "application/json",
+                        url:"/user/login/check",
+                        data:JSON.stringify({"useremail":usertoken,"userpass":userpass}),
+                        success:function (result) {
+                            if(result=="login_succ"){
+                                swal({
+                                    title: "登录成功😊！",
+                                    text: "3秒后自动关闭。",
+                                    timer: 5000,
+                                    showConfirmButton: false
+                                });
+                                window.location.href="/index";
+                            } else if(result=="login_fail"){
+                                swal("登录失败😶！", result)
+                            }
+                        }
+                    });
+                }
+            }
+        });
+
+        $("#searchSubmit").click(function () {
+            var text = $("#navSearch").children("input").val();
+            if(text==""){
+                swal("请输入搜索关键词！");
+                return false;
+            }
+        });
+
+        $("#userRegister").click(function () {
+            var username = $("#username").val();
+            var password = $('#password').val();
+            var useremail = $('#useremail').val();
+            var telephone = $('#telephone').val();
+            var registerAlert = "";
+            if(username==""||$.trim(username).length==0||password==""||$.trim(password).length==0||useremail==""||$.trim(useremail).length==0||telephone==""||$.trim(telephone).length==0){
+                registerAlert = "用户名/邮箱/密码/手机号为必填项，均不能为空！";
+                $("#registerAlert").text(registerAlert);
+                $("#registerAlert").css('display','block');
+                return false;
+            }else{
+                if(/^\d+$/.test(telephone)==true){
+                    if(!(/^\d{11,12}$/.test(telephone))){
+                        registerAlert += "您输入的手机号位数有误(请输入11~12位)!";
+                    }
+                }else{
+                    registerAlert += "您输入手机号格式有误(必须全为数字)!)"
+                }
+                if(!(re1.test(useremail))){
+                    registerAlert += "请输入正确格式的邮箱地址！";
+                }
+                if(!(/^[0-9a-zA-Z-=.]{8,16}$/.test(password))){
+                    registerAlert += "密码必须是8~16位！"
+                }
+            }
+            if(registerAlert!=""){
+                $("#registerAlert").text(registerAlert);
+                $("#registerAlert").css('display','block');
+                return false;
+            }else{
+                alert("恭喜你，提交的注册信息格式正确！");
+                //ajax提交表单
+                $.ajax({
+                    type:"POST",
+                    contentType: "application/json",
+                    url:"/user/register/check",
+                    data:JSON.stringify({"username":username,"userpass":password,"useremail":useremail,"telephone":telephone}),
+                    success:function (data) {
+                        if(data=="register_succ"){
+                            swal({
+                                title: "恭喜你，注册成功😊！",
+                                text: "3秒后自动关闭。",
+                                timer: 5000,
+                                showConfirmButton: false
+                            });
+                        } else if(data=="register_fail"){
+                            swal("矮油，注册失败😶！", data)
+                        }
+                    }
+                });
+            }
+        });
+
+    });
+</script>
+<script type="application/javascript">
+    swal({
+        title:
+            #if($pageNotice.status==1)
+                "亲，赶紧登陆吧😊",
+            #else
+                "宝宝心里苦💔",
+            #end
+        text: "$pageNotice.notice",
+        showConfirmButton: true
+    });
+</script>
+
+
+<header>
+    <nav id="navBlog" class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+        <a class="navbar-brand" href="/index">Lyon's Blog</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav mr-auto">
+                #foreach($category in ${categorys})
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            ${category.getMainCategoryName()}
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                            #foreach($secondCat in ${category.getSecondCategorys()})
+                                #foreach($item in ${secondCat.entrySet()})
+                                    <a class="dropdown-item" href="/article/category?cId=$item.key">$item.value</a>
+                                #end
+                            #end
+                        </div>
+                    </li>
+                #end
+
+            </ul>
+            <form class="form-inline mt-2 mt-md-0" id="navSearch" action="/article/elastic/category">
+                <input class="form-control mr-sm-2" type="text" placeholder="🔍搜" aria-label="Search" name="keywords">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit" id="searchSubmit">Search</button>
+            </form>
+            <ul class="navbar-nav mr-sm-0">
+                <li class="nav-item dropdown" id="navLogin">
+                    <a class="nav-link dropdown-toggle" href="#" id="navLoginButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">登录注册</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</header>
+
+<div id="loginDiv" class="Logincontainer w3layouts agileits" style="position:absolute;z-index: 99;left:25%;width:55%;height:auto;display:block;margin-top:80px;padding:20px 10px 30px 35px;display: none;">
+
+    <div class="login w3layouts agileits">
+        <h2>登 录</h2>
+        <div id="loginArea" class="send-button w3layouts agileits">
+            <input type="text"     id="usertoken" placeholder="手机号/邮箱" style="padding: 10px;">
+            <input type="password" id="userpass" placeholder="密码" style="padding: 10px;">
+            <p id="loginAlert" style="display: none;color:#ff0000;float: right">囧！账号/密码错误！</p>
+            <input type="submit"   id="userLogin" value="登 录" style="margin-top:50px;">
+            <input type="checkbox" id="brand1" value="" style="margin-left: 15px;">
+            <label for="brand1"><span></span>记住我</label>
+        </div>
+        <div class="social-icons w3layouts agileits">
+            <p style="margin-bottom: 5px;">- 其他方式登录 -</p>
+            <ul>
+                <li class="qq"><a href="#">
+                    <span class="icons w3layouts agileits"></span>
+                    <span class="text w3layouts agileits">QQ</span></a>
+                </li>
+                <li class="weixin w3ls"><a href="#">
+                    <span class="icons w3layouts"></span>
+                    <span class="text w3layouts agileits">微信</span></a>
+                </li>
+                <li class="weibo aits"><a href="#">
+                    <span class="icons agileits"></span>
+                    <span class="text w3layouts agileits">微博</span></a>
+                </li>
+            </ul>
+        </div>
+
+    </div>
+    <div class="register w3layouts agileits">
+        <h2>注 册</h2>
+        <div id="registerArea" class="send-button w3layouts agileits" style="margin-top: 20px;">
+            <input type="text" id="username" placeholder="用户名" style="padding: 10px;">
+            <input type="text" id="useremail" placeholder="邮箱" style="padding: 10px;">
+            <input type="password" id="password" placeholder="密码" style="padding: 10px;">
+            <input type="text" id="telephone" placeholder="手机号码" style="padding: 10px;">
+            <p id="registerAlert" style="display: none;color:#ff0000;float: left">囧！注册信息有误！</p>
+            <input id="userRegister" type="submit" value="免费注册" style="padding: 10px;margin-top: 30px;">
+        </div>
+    </div>
+
+</div>
+
+<main role="main">
+    <div id="myCarousel" class="carousel slide" data-ride="carousel">
+        <ol class="carousel-indicators">
+            <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+            <li data-target="#myCarousel" data-slide-to="1"></li>
+            <li data-target="#myCarousel" data-slide-to="2"></li>
+        </ol>
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img class="first-slide" src="/static/image/headerwrap.jpg" alt="First slide">
+                <div class="container">
+                    <div class="carousel-caption text-left">
+                        <h1>Example headline.</h1>
+                        <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+                        <p><a class="btn btn-lg btn-primary" href="#" role="button">Sign up today</a></p>
+                    </div>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <img class="second-slide" src="/static/image/headerwrap_2.jpg" alt="Second slide">
+                <div class="container">
+                    <div class="carousel-caption">
+                        <h1>Another example headline.</h1>
+                        <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+                        <p><a class="btn btn-lg btn-primary" href="#" role="button">Learn more</a></p>
+                    </div>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <img class="third-slide" src="/static/image/headerwrap_3.jpg" alt="Third slide">
+                <div class="container">
+                    <div class="carousel-caption text-right">
+                        <h1>One more for good measure.</h1>
+                        <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+                        <p><a class="btn btn-lg btn-primary" href="#" role="button">Browse gallery</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <a class="carousel-control-prev" href="#myCarousel" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+        </a>
+        <a class="carousel-control-next" href="#myCarousel" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+        </a>
+    </div>
+
+
+    <!-- Marketing messaging and featurettes
+    ================================================== -->
+    <!-- Wrap the rest of the page in another container to center all the content. -->
+
+    <div class="container marketing">
+
+        <!-- Three columns of text below the carousel -->
+        <div class="row">
+            <div class="col-lg-4">
+                <img class="rounded-circle" src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="Generic placeholder image" width="140" height="140">
+                <h2>Heading</h2>
+                <p>Donec sed odio dui. Etiam porta sem malesuada magna mollis euismod. Nullam id dolor id nibh ultricies vehicula ut id elit. Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Praesent commodo cursus magna.</p>
+                <p><a class="btn btn-secondary" href="#" role="button">View details &raquo;</a></p>
+            </div><!-- /.col-lg-4 -->
+            <div class="col-lg-4">
+                <img class="rounded-circle" src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="Generic placeholder image" width="140" height="140">
+                <h2>Heading</h2>
+                <p>Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Cras mattis consectetur purus sit amet fermentum. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh.</p>
+                <p><a class="btn btn-secondary" href="#" role="button">View details &raquo;</a></p>
+            </div><!-- /.col-lg-4 -->
+            <div class="col-lg-4">
+                <img class="rounded-circle" src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="Generic placeholder image" width="140" height="140">
+                <h2>Heading</h2>
+                <p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
+                <p><a class="btn btn-secondary" href="#" role="button">View details &raquo;</a></p>
+            </div><!-- /.col-lg-4 -->
+        </div><!-- /.row -->
+
+
+        <!-- START THE FEATURETTES -->
+
+        <hr class="featurette-divider">
+
+        <div class="row featurette">
+            <div class="col-md-7">
+                <h2 class="featurette-heading">First featurette heading. <span class="text-muted">It'll blow your mind.</span></h2>
+                <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
+            </div>
+            <div class="col-md-5">
+                <img class="featurette-image img-fluid mx-auto" data-src="holder.js/500x500/auto" alt="Generic placeholder image">
+            </div>
+        </div>
+
+        <hr class="featurette-divider">
+
+        <div class="row featurette">
+            <div class="col-md-7 order-md-2">
+                <h2 class="featurette-heading">Oh yeah, it's that good. <span class="text-muted">See for yourself.</span></h2>
+                <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
+            </div>
+            <div class="col-md-5 order-md-1">
+                <img class="featurette-image img-fluid mx-auto" data-src="holder.js/500x500/auto" alt="Generic placeholder image">
+            </div>
+        </div>
+
+        <hr class="featurette-divider">
+
+        <div class="row featurette">
+            <div class="col-md-7">
+                <h2 class="featurette-heading">And lastly, this one. <span class="text-muted">Checkmate.</span></h2>
+                <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
+            </div>
+            <div class="col-md-5">
+                <img class="featurette-image img-fluid mx-auto" data-src="holder.js/500x500/auto" alt="Generic placeholder image">
+            </div>
+        </div>
+
+        <hr class="featurette-divider">
+
+        <!-- /END THE FEATURETTES -->
+
+    </div><!-- /.container -->
+
+
+    <!-- FOOTER -->
+    <footer class="container">
+        <p class="float-right"><a href="#">Back to top</a></p>
+        <p>&copy; 2018-2019 苏ICP备19001062号-1. &middot; <a href="#">Privacy</a> &middot; <a href="#">Terms</a></p>
+    </footer>
+</main>
+
+</body>
+</html>
+
+
+<!-- Bootstrap core JavaScript
+    <!--================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script>window.jQuery || document.write('<script src="/static/bootstrap/assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
+<script src="/static/bootstrap/assets/js/vendor/popper.min.js"></script>
+<script src="/static/bootstrap/dist/js/bootstrap.min.js"></script>
+<!-- Just to make our placeholder images work. Don't actually copy the next line! -->
+<script src="/static/bootstrap/assets/js/vendor/holder.min.js"></script>

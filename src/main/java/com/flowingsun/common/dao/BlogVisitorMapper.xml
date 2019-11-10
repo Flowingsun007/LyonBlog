@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.flowingsun.common.dao.BlogVisitorMapper" >
+  <resultMap id="BaseResultMap" type="com.flowingsun.common.entity.BlogVisitor" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="userId" property="userid" jdbcType="BIGINT" />
+    <result column="articleId" property="articleid" jdbcType="INTEGER" />
+    <result column="os" property="os" jdbcType="VARCHAR" />
+    <result column="browser" property="browser" jdbcType="VARCHAR" />
+    <result column="ip" property="ip" jdbcType="VARCHAR" />
+    <result column="sourceUrl" property="sourceurl" jdbcType="VARCHAR" />
+    <result column="targetUrl" property="targeturl" jdbcType="VARCHAR" />
+    <result column="dateTime" property="datetime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, userId, articleId, os, browser, ip, sourceUrl, targetUrl, dateTime
+  </sql>
+  <select id="selectVisitorCount" resultType="int">
+    SELECT COUNT(DISTINCT ip) FROM visitor_info
+  </select>
+  <select id="selectViewCount" resultType="int">
+    SELECT COUNT(0) FROM visitor_info
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from visitor_info
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from visitor_info
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.flowingsun.common.entity.BlogVisitor" >
+    insert into visitor_info (id, userId, articleId, 
+      os, browser, ip, sourceUrl, 
+      targetUrl, dateTime)
+    values (#{id,jdbcType=BIGINT}, #{userid,jdbcType=BIGINT}, #{articleid,jdbcType=INTEGER}, 
+      #{os,jdbcType=VARCHAR}, #{browser,jdbcType=VARCHAR}, #{ip,jdbcType=VARCHAR}, #{sourceurl,jdbcType=VARCHAR}, 
+      #{targeturl,jdbcType=VARCHAR}, #{datetime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.flowingsun.common.entity.BlogVisitor" >
+    insert into visitor_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="userid != null" >
+        userId,
+      </if>
+      <if test="articleid != null" >
+        articleId,
+      </if>
+      <if test="os != null" >
+        os,
+      </if>
+      <if test="browser != null" >
+        browser,
+      </if>
+      <if test="ip != null" >
+        ip,
+      </if>
+      <if test="sourceurl != null" >
+        sourceUrl,
+      </if>
+      <if test="targeturl != null" >
+        targetUrl,
+      </if>
+      <if test="datetime != null" >
+        dateTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="userid != null" >
+        #{userid,jdbcType=BIGINT},
+      </if>
+      <if test="articleid != null" >
+        #{articleid,jdbcType=INTEGER},
+      </if>
+      <if test="os != null" >
+        #{os,jdbcType=VARCHAR},
+      </if>
+      <if test="browser != null" >
+        #{browser,jdbcType=VARCHAR},
+      </if>
+      <if test="ip != null" >
+        #{ip,jdbcType=VARCHAR},
+      </if>
+      <if test="sourceurl != null" >
+        #{sourceurl,jdbcType=VARCHAR},
+      </if>
+      <if test="targeturl != null" >
+        #{targeturl,jdbcType=VARCHAR},
+      </if>
+      <if test="datetime != null" >
+        #{datetime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.flowingsun.common.entity.BlogVisitor" >
+    update visitor_info
+    <set >
+      <if test="userid != null" >
+        userId = #{userid,jdbcType=BIGINT},
+      </if>
+      <if test="articleid != null" >
+        articleId = #{articleid,jdbcType=INTEGER},
+      </if>
+      <if test="os != null" >
+        os = #{os,jdbcType=VARCHAR},
+      </if>
+      <if test="browser != null" >
+        browser = #{browser,jdbcType=VARCHAR},
+      </if>
+      <if test="ip != null" >
+        ip = #{ip,jdbcType=VARCHAR},
+      </if>
+      <if test="sourceurl != null" >
+        sourceUrl = #{sourceurl,jdbcType=VARCHAR},
+      </if>
+      <if test="targeturl != null" >
+        targetUrl = #{targeturl,jdbcType=VARCHAR},
+      </if>
+      <if test="datetime != null" >
+        dateTime = #{datetime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.flowingsun.common.entity.BlogVisitor" >
+    update visitor_info
+    set userId = #{userid,jdbcType=BIGINT},
+      articleId = #{articleid,jdbcType=INTEGER},
+      os = #{os,jdbcType=VARCHAR},
+      browser = #{browser,jdbcType=VARCHAR},
+      ip = #{ip,jdbcType=VARCHAR},
+      sourceUrl = #{sourceurl,jdbcType=VARCHAR},
+      targetUrl = #{targeturl,jdbcType=VARCHAR},
+      dateTime = #{datetime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>
