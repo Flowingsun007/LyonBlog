@@ -676,6 +676,8 @@ public class ArticleServiceImpl implements ArticleService {
                 }
             }
             //插入更新后的文章
+            article.setCreateDate(null);
+            article.setEditDate(new Timestamp(new Date().getTime()));
             if(1==articleMapper.updateByPrimaryKeySelective(article)){
                 this.updateAllTag();
                 return "edit_blog_success";
