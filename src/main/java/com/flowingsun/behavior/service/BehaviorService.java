@@ -51,4 +51,8 @@ public interface BehaviorService {
      *  设置用户头像
      */
     String setUserHeadImage(MultipartFile multipartFile, HttpServletRequest request);
+
+    String onlineUtils(HttpServletRequest request);
+
+    List<String> detectImage(MultipartHttpServletRequest request, String description);
 }

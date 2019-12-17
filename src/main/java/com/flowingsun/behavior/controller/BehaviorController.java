@@ -112,7 +112,6 @@ public class BehaviorController {
         }
         MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
         String resultInfo = behaviorService.imageUpload(multipartRequest,description);
-        System.out.println(resultInfo);
         request.setAttribute("resultInfo",resultInfo);
         return "forward:/user/manageCenter";
     }
@@ -210,6 +209,44 @@ public class BehaviorController {
         String resultInfo = behaviorService.setUserHeadImage(multipartFile, request);
         request.setAttribute("resultInfo",resultInfo);
         return "forward:/user/manageCenter";
+    }
+
+
+    @RequestMapping("/onlineUtils")
+    public String onlineUtils(HttpServletRequest request,Model model){
+        List<Category> categorys = articleService.getCategory();
+        List<ArticleTag> allTags = articleService.selectAllTag();
+        BlogInfo blogInfo = articleService.selectInfomation();
+        model.addAttribute("blogInfo",blogInfo);
+        model.addAttribute("allTags",allTags);
+        model.addAttribute("categorys",categorys);
+        model.addAttribute("resultInfo",request.getAttribute("resultInfo"));
+        model.addAttribute("detectedImagePath",request.getAttribute("detectedImagePath"));
+        return behaviorService.onlineUtils(request);
+    }
+
+
+    @RequiresPermissions("behavior:uploadImage")
+    @RequestMapping("/detectImage")
+    public String detectImage(HttpServletRequest request, @RequestParam(value="description",required = false) String description){
+        //MultipartHttpServletRequest
+        CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver(request.getSession().getServletContext());
+        if (multipartResolver.isMultipart(request)) {
+            System.out.println("is-Multipart");
+        }else{
+            System.out.println("not-Multipart");
+        }
+        MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
+
+
+        List<String> resultInfo = behaviorService.detectImage(multipartRequest,description);
+        if(resultInfo.size()==2){
+            request.setAttribute("resultInfo",resultInfo.get(1));
+            request.setAttribute("detectedImagePath",resultInfo.get(0));
+        }else if(resultInfo.size()==1){
+            request.setAttribute("resultInfo",resultInfo.get(0));
+        }
+        return "forward:/behavior/onlineUtils";
     }
 
 
