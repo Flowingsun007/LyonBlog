@@ -445,17 +445,52 @@
                                 <input type="file" name="oneImage"> <br>
 ##                                <label>批量上传:</label>
 ##                                <input type="file" name="batchImage" multiple="">
-                                <button type="submit" class="btn btn-primary" style="float: right" id="uploadImage">上传图片</button>
+                                <button type="submit" class="btn btn-primary" style="float: right" id="uploadImage">上传</button>
                             </div>
                         </form>
                     </div>
                 </div>
                 <!-- /.box -->
+                #if($detectedImagePath)
+                    <img src="$detectedImagePath.toString()" alt="$detectedImagePath.toString()">
+                #end
             </div>
 
-            #if($detectedImagePath)
-                <img src="$detectedImagePath.toString()" alt="">
-            #end
+
+
+            <div class="col-md-9">
+                <!-- general form elements -->
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">视频下载#if($resultInfo)<label style="font-size: xx-small">$resultInfo.toString()</label>#end
+                        </h3>
+                    </div>
+                    <div class="box-body">
+                        <form role="form" method="get" id="uploadImageForm" enctype="multipart/form-data" action="/behavior/video/download">
+                            <div class="form-group">
+                                <textarea class="form-control" rows="3" placeholder="请输入视频url...目前仅mp4格式的视频支持浏览器播放预览" name="url"></textarea>
+                                <button type="submit" class="btn btn-primary" style="float: right" id="downloadVideo">提交</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <!-- /.box -->
+
+                #if($videoPaths)
+                    #foreach($item in ${videoPaths})
+                        <video width="500" height="300" controls>
+                            <source src="$item" type="video/mp4">
+                            <source src="$item" type="video/ogg">
+                            <source src="$item" type="video/webm">
+                            <object data="$item" width="500" height="300">
+                                <embed src="$item" width="500" height="300">
+                            </object>
+                        </video>
+                    #end
+                #end
+            </div>
+
+
 
 
 

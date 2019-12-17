@@ -13,6 +13,7 @@ import com.flowingsun.common.utils.ResultUtils;
 import net.coobird.thumbnailator.Thumbnails;
 import net.coobird.thumbnailator.name.Rename;
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.lang.StringUtils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -212,6 +213,30 @@ public class BehaviorController {
     }
 
 
+    /**
+     * @date 下午7:07 2019/12/17
+     * @description 此页面(onlineUtils)集合了以下小工具：
+     * 1.图片目标检测
+     * 2.视频下载器
+     * 3.网页转图片/pdf
+     *
+     * 1.图片目标检测器
+     * 底层用到的组件：opencv;darknet
+     * https://github.com/pjreddie/darknet
+     * 原理，将上传的图片用darknet训练好的模型yolov3进行检测，支持对ImageNet数据集上的80种目标检测
+     * 并利用opencv框出检测出的目标框（只显示置信度>80%的框），最后将画出检测框的图片返回前端显示
+     *
+     * 2.视频下载器
+     * 底层需要用到的组件：ffmpeg,python3,github上开源的视频下载项目：annie和Video-Downloader
+     * 需要将ffmpeg、annie、python3加入PATH
+     * https://github.com/iawia002/annie
+     * https://github.com/CharlesPikachu/Video-Downloader
+     *
+     * 3.网页转图片/pdf
+     * 将给定url网页的html转化成pdf或者图片保存,底层用到的组件：wkhtmltopdf
+     * 需要将wkhtmltopdf加入PATH
+     * https://github.com/wkhtmltopdf/wkhtmltopdf
+     **/
     @RequestMapping("/onlineUtils")
     public String onlineUtils(HttpServletRequest request,Model model){
         List<Category> categorys = articleService.getCategory();
@@ -222,10 +247,15 @@ public class BehaviorController {
         model.addAttribute("categorys",categorys);
         model.addAttribute("resultInfo",request.getAttribute("resultInfo"));
         model.addAttribute("detectedImagePath",request.getAttribute("detectedImagePath"));
+        model.addAttribute("videoPaths",request.getAttribute("videoPaths"));
         return behaviorService.onlineUtils(request);
     }
 
 
+    /**
+     * @date 下午7:22 2019/12/17
+     * @description 图片目标检测器
+     **/
     @RequiresPermissions("behavior:uploadImage")
     @RequestMapping("/detectImage")
     public String detectImage(HttpServletRequest request, @RequestParam(value="description",required = false) String description){
@@ -249,6 +279,19 @@ public class BehaviorController {
         return "forward:/behavior/onlineUtils";
     }
 
+
+    /**
+     * @date 下午7:23 2019/12/17
+     * @description 视频下载器
+     **/
+    @GetMapping("/video/download")
+    public String downloadVideo(HttpServletRequest request, @RequestParam(value="url",required = true) String url)throws Exception{
+        List<String> results = behaviorService.downloadVideo(url);
+        if(results!=null&&results.size()>=1){
+            request.setAttribute("videoPaths",results);
+        }
+        return "forward:/behavior/onlineUtils";
+    }
 
 
 

@@ -55,4 +55,8 @@ public interface BehaviorService {
     String onlineUtils(HttpServletRequest request);
 
     List<String> detectImage(MultipartHttpServletRequest request, String description);
+
+    String shellExec(String command) throws Exception;
+
+    List<String> downloadVideo(String url);
 }
