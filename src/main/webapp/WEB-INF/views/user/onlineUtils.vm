@@ -427,35 +427,29 @@
     <main role="main" class="container">
         <div class="row">
 
+
             <div class="col-md-9">
-                <img src="/static/image/predictions.jpg" alt="predictions.jpg">
                 <!-- general form elements -->
                 <div class="box box-primary">
                     <div class="box-header with-border">
-                        <h3 class="box-title">图片目标检测#if($resultInfo)<label style="font-size: xx-small">$resultInfo.toString()</label>#end
+                        <h3 class="box-title">网页长截图#if($resultInfo)<label style="font-size: xx-small">$resultInfo.toString()</label>#end
                         </h3>
                     </div>
                     <div class="box-body">
-                        <form role="form" method="post" id="uploadImageForm" enctype="multipart/form-data" action="/behavior/detectImage">
+                        <form role="form" method="get" id="uploadImageForm" enctype="multipart/form-data" action="/behavior/screenShot">
                             <div class="form-group">
-                                <textarea class="form-control" rows="3" placeholder="使采用yolo-v3模型，可以识别VOC数据集中20类物体..." name="description"></textarea>
-                            </div>
-                            <div class="form-group">
-                                <label>单个上传: </label>
-                                <input type="file" name="oneImage"> <br>
-##                                <label>批量上传:</label>
-##                                <input type="file" name="batchImage" multiple="">
-                                <button type="submit" class="btn btn-primary" style="float: right" id="uploadImage">上传</button>
+                                <textarea class="form-control" rows="3" placeholder="请输入网页url...利用selenium+chrome实现将给定网址截成png图片返回" name="url"></textarea>
+                                <button type="submit" class="btn btn-primary" style="float: right" id="downloadVideo">提交</button>
                             </div>
                         </form>
                     </div>
                 </div>
                 <!-- /.box -->
-                #if($detectedImagePath)
-                    <img src="$detectedImagePath.toString()" alt="$detectedImagePath.toString()">
+
+                #if($screenShot)
+                    <img src="$screenShot.toString()" alt="$screenShot.toString()">
                 #end
             </div>
-
 
 
             <div class="col-md-9">
@@ -475,7 +469,6 @@
                     </div>
                 </div>
                 <!-- /.box -->
-
                 #if($videoPaths)
                     #foreach($item in ${videoPaths})
                         <video width="500" height="300" controls>
@@ -491,51 +484,78 @@
             </div>
 
 
-
-
-
             <div class="col-md-9">
+                <img src="/static/image/predictions.jpg" alt="predictions.jpg">
                 <!-- general form elements -->
                 <div class="box box-primary">
                     <div class="box-header with-border">
-                        <h3 class="box-title">新增图文动态                    </h3>
+                        <h3 class="box-title">图片目标检测#if($resultInfo)<label style="font-size: xx-small">$resultInfo.toString()</label>#end
+                        </h3>
                     </div>
                     <div class="box-body">
-                        <form role="form" method="post" id="uploadForm" enctype="multipart/form-data" action="/behavior/uploadImage">
+                        <form role="form" method="post" id="uploadImageForm" enctype="multipart/form-data" action="/behavior/detectImage">
                             <div class="form-group">
-                                <textarea class="form-control" rows="3" placeholder="请输入文字..." name="description"></textarea>
+                                <textarea class="form-control" rows="3" placeholder="使采用yolo-v3模型，可以识别VOC数据集中20类物体..." name="description"></textarea>
                             </div>
                             <div class="form-group">
                                 <label>单个上传: </label>
                                 <input type="file" name="oneImage"> <br>
-                                <label>批量上传:</label>
-                                <input type="file" name="batchImage" multiple="">
-                                <button type="submit" class="btn btn-primary" style="float: right" id="uploadVideo">上传视频</button>
+                            ##                                <label>批量上传:</label>
+                            ##                                <input type="file" name="batchImage" multiple="">
+                                <button type="submit" class="btn btn-primary" style="float: right" id="uploadImage">上传</button>
                             </div>
                         </form>
                     </div>
-
-                    <!-- /.box-body  onclick="return uploadSubmit()" -->
-                    <div class="box-footer">
-                        <nav aria-label="..." style="text-align:right;float:left;font-size: xx-small">
-                            <ul class="pagination justify-content-center">
-                                <li class="page-item">
-                                    <a class="page-link" href="/user/manageCenter?pageNum=1&amp;pageSize=20"><span aria-hidden="true">«</span></a>
-                                </li>
-                                <li class="page-item disabled">
-                                    <a class="page-link" href="/user/manageCenter?pageNum=1&amp;pageSize=20" aria-label="Previous">上页</a></li>
-                                <li class="page-item active"><a class="page-link">1</a></li>
-                                <li class="page-item disabled">
-                                    <a class="page-link" href="/user/manageCenter?pageNum=2&amp;pageSize=20" aria-label="Next">下页</a></li>
-                                <li class="page-item"><a class="page-link" href="/user/manageCenter?pageNum=1&amp;pageSize=20"><span aria-hidden="true">»</span></a></li>
-                            </ul>
-                            <label>第<span>1/1</span>页,共3 张相片（每页20张）</label>
-                        </nav>
-                        <a class="btn btn-primary btn-xs" id="timelinePicControlBtn" style="float: right;color: #ffffff;background-color: #2331ff">隐藏</a>
-                    </div>
                 </div>
                 <!-- /.box -->
+                #if($detectedImagePath)
+                    <img src="$detectedImagePath.toString()" alt="$detectedImagePath.toString()">
+                #end
             </div>
+
+
+##            <div class="col-md-9">
+##                <!-- general form elements -->
+##                <div class="box box-primary">
+##                    <div class="box-header with-border">
+##                        <h3 class="box-title">新增图文动态                    </h3>
+##                    </div>
+##                    <div class="box-body">
+##                        <form role="form" method="post" id="uploadForm" enctype="multipart/form-data" action="/behavior/uploadImage">
+##                            <div class="form-group">
+##                                <textarea class="form-control" rows="3" placeholder="请输入文字..." name="description"></textarea>
+##                            </div>
+##                            <div class="form-group">
+##                                <label>单个上传: </label>
+##                                <input type="file" name="oneImage"> <br>
+##                                <label>批量上传:</label>
+##                                <input type="file" name="batchImage" multiple="">
+##                                <button type="submit" class="btn btn-primary" style="float: right" id="uploadVideo">上传视频</button>
+##                            </div>
+##                        </form>
+##                    </div>
+##
+##                    <!-- /.box-body  onclick="return uploadSubmit()" -->
+##                    <div class="box-footer">
+##                        <nav aria-label="..." style="text-align:right;float:left;font-size: xx-small">
+##                            <ul class="pagination justify-content-center">
+##                                <li class="page-item">
+##                                    <a class="page-link" href="/user/manageCenter?pageNum=1&amp;pageSize=20"><span aria-hidden="true">«</span></a>
+##                                </li>
+##                                <li class="page-item disabled">
+##                                    <a class="page-link" href="/user/manageCenter?pageNum=1&amp;pageSize=20" aria-label="Previous">上页</a></li>
+##                                <li class="page-item active"><a class="page-link">1</a></li>
+##                                <li class="page-item disabled">
+##                                    <a class="page-link" href="/user/manageCenter?pageNum=2&amp;pageSize=20" aria-label="Next">下页</a></li>
+##                                <li class="page-item"><a class="page-link" href="/user/manageCenter?pageNum=1&amp;pageSize=20"><span aria-hidden="true">»</span></a></li>
+##                            </ul>
+##                            <label>第<span>1/1</span>页,共3 张相片（每页20张）</label>
+##                        </nav>
+##                        <a class="btn btn-primary btn-xs" id="timelinePicControlBtn" style="float: right;color: #ffffff;background-color: #2331ff">隐藏</a>
+##                    </div>
+##                </div>
+##                <!-- /.box -->
+##            </div>
 
 
 

@@ -123,32 +123,14 @@ public class BehaviorController {
      * (原理：调用phantomjs访问指定url的网站，并截图)
      * 截图尺寸默认全屏：width: 1920, height: 1080，在phantomjs文件夹下rasterize.js中设定
      */
+    @RequiresPermissions("behavior:uploadImage")
     @RequestMapping("/screenShot")
-    public String getScreenShot(@RequestParam(value="url") String url, HttpServletResponse response)throws Exception{
+    public String getScreenShot(@RequestParam(value="url") String url, HttpServletRequest request)throws Exception{
         String imgagePath = behaviorService.getScreenShot(url);
-        //不按原图比例，对图片进行处理，处理后尺寸固定为640*480
-        Thumbnails.of(new File(imgagePath))
-                .size(640, 480)
-                .keepAspectRatio(false)
-                .outputQuality(1.0)
-                .toFile(imgagePath+"thumbnail.jpg");
-//        //按照原图的比例对图片进行缩放，保证缩放后尺寸不超过640*480
-//        Thumbnails.of(new File(imgagePath))
-//                .size(640, 480)
-//                .outputQuality(1.0)
-//                .toFile(imgagePath+"thumbnail.jpg");
         if(imgagePath!=null&&imgagePath.length()>0){
-            File imageLocal = new File(imgagePath);
-            byte[] imgdata = FileUtils.readFileToByteArray(imageLocal);
-            response.setContentType("image/png");
-            OutputStream os = response.getOutputStream();
-            os.write(imgdata);
-            os.flush();
-            os.close();
-            return "success:截图成功";
-        }else{
-            return "fail:图片失败";
+            request.setAttribute("screenShot",imgagePath);
         }
+        return "forward:/behavior/onlineUtils";
     }
 
     @PostMapping("/collectUrl")
@@ -248,6 +230,7 @@ public class BehaviorController {
         model.addAttribute("resultInfo",request.getAttribute("resultInfo"));
         model.addAttribute("detectedImagePath",request.getAttribute("detectedImagePath"));
         model.addAttribute("videoPaths",request.getAttribute("videoPaths"));
+        model.addAttribute("screenShot",request.getAttribute("screenShot"));
         return behaviorService.onlineUtils(request);
     }
 
@@ -267,11 +250,10 @@ public class BehaviorController {
             System.out.println("not-Multipart");
         }
         MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
-
-
         List<String> resultInfo = behaviorService.detectImage(multipartRequest,description);
         if(resultInfo.size()==2){
             request.setAttribute("resultInfo",resultInfo.get(1));
+            // resultInfo.get(0)是检测后的图片相对路径
             request.setAttribute("detectedImagePath",resultInfo.get(0));
         }else if(resultInfo.size()==1){
             request.setAttribute("resultInfo",resultInfo.get(0));
