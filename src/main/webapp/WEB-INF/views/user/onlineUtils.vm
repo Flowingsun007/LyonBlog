@@ -439,7 +439,7 @@
                     <div class="box-body">
                         <form role="form" method="post" id="uploadImageForm" enctype="multipart/form-data" action="/behavior/detectImage">
                             <div class="form-group">
-                                <textarea class="form-control" rows="3" placeholder="调用远程的ｄａｒｋｎｅｔ服务，使用yolo-v3模型，可以识别Ｉｍａｇｅｎｅｔ数据集中８0类物体..." name="description"></textarea>
+                                <textarea class="form-control" rows="3" placeholder="调用远程darknet服务，使用yolo-v3模型，可以识别Imagenet数据集中８0类物体..." name="description"></textarea>
                             </div>
                             <div class="form-group">
                                 <label>单个上传: </label>
